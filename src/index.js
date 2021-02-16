@@ -1,11 +1,19 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './App'
-import './index.css'
+import './styles/reset.css'
+import './styles/index.css'
+import { Provider } from 'react-redux'
+import { store } from './store/index.js'
+import { HashRouter as Router } from 'react-router-dom'
 
 ReactDOM.render(
     <React.StrictMode>
-        <App />
+        <Provider store={store}>
+            <Router>
+                <App />
+            </Router>
+        </Provider>
     </React.StrictMode>,
     document.getElementById('root')
 )
