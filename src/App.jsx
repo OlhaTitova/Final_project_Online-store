@@ -3,6 +3,7 @@ import { BannerSlider } from './components/BannerSlider/BannerSlider'
 import Button from './components/common/Buttons/Button'
 import { NewProductsSlider } from './components/NewProductsSlider/NewProductsSlider'
 import { ProductCard } from './components/ProductCard/ProductCard'
+import {Cart} from './components/Cart/Cart'
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
       <hr />
       <BannerSlider />
       <NewProductsSlider />
+      <Cart />
     </div>
   )
 }
