@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
   WrapperCartItem,
-} from '../StyledCartItem';
+} from './StyledCartItem';
 
 export const CartItem = ({
   img, description, price, quantity, subtotal
