@@ -1,4 +1,4 @@
-import styled, {css} from 'styled-components';
+import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 
 const Button = styled.button`
@@ -35,25 +35,15 @@ ${(props) => props.type === 'borderBlue' && css`
     color: #232C65;
   `};
 
-  ${(props) => props.size === 'sm' && css`
-    width: 120px;
-    height: 37px;
+  ${(props) => css`
+    width:${props.width}px;
+    height:${props.height}px;
   `};
-
-  ${(props) => props.size === 'md' && css`
-    width: 200px;
-    height: 37px;
-  `};
-
-  ${(props) => props.size === 'lg' && css`
-    width: 385px;
-    height: 50px;
-  `};
-`;
-
+`
 export default Button;
 
 Button.propTypes = {
-  type: PropTypes.string.isRequired,
-  size: PropTypes.string.isRequired
+  type: PropTypes.string,
+  width: PropTypes.number,
+  height: PropTypes.number,
 }

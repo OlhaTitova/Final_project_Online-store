@@ -2,27 +2,27 @@
 import React, { useRef, useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { Carousel } from 'antd'
-import { Container } from '../../styles/styled-components/Container'
 import 'antd/dist/antd.css'
-import { SliderArrowLeft } from '../../styles/styled-components/SliderArrowLeft'
-import { SliderArrowRight } from '../../styles/styled-components/SliderArrowRight'
+import { SliderArrowLeft } from '../common/SliderArrowLeft'
+import { SliderArrowRight } from '../common/SliderArrowRight'
 import { forMobile, forTablet } from '../../styles/mediaBreakPoints'
 import { ProductCard } from '../ProductCard/ProductCard'
 import { getNewProducts } from '../../store/getNewProducts/middleware'
-import { Wrapper } from '../../styles/styled-components/Wrapper'
+import { Wrapper } from '../common/Wrapper'
+import { Container } from '../common/Container'
 
-const mapStateToProps = (state) => ({newProducts: state.newProductsModule.newProducts})
+const mapStateToProps = (state) => ({ newProducts: state.newProductsModule.newProducts })
 
 export const NewProductsSlider = connect(mapStateToProps, { getNewProducts })(({
   getNewProducts,
   newProducts
 }) => {
   const ref = useRef()
-  const [handlers, setHandlers] = useState({next: () => null, prev: () => null})
+  const [handlers, setHandlers] = useState({ next: () => null, prev: () => null })
 
   useEffect(() => {
     if (ref.current) {
-      setHandlers(() => ({next: ref.current.next, prev: ref.current.prev}))
+      setHandlers(() => ({ next: ref.current.next, prev: ref.current.prev }))
     }
     getNewProducts()
     // при первом рендере ref.current === undefined потому используется useEffect & useState

@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { forDesktop } from '../mediaBreakPoints'
+import { forDesktop } from '../../styles/mediaBreakPoints'
 
 export const Container = styled.div`
     width: 90%;
