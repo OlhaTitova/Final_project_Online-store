@@ -1,0 +1,2 @@
+export const GET_NEW_PRODUCTS = 'GET_NEW_PRODUCTS'
+export default GET_NEW_PRODUCTS

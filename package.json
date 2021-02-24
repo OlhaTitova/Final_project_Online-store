@@ -43,6 +43,7 @@
             "airbnb/hooks"
         ],
         "rules": {
+            "no-shadow": "off",
             "no-trailing-spaces": [
                 "error",
                 {

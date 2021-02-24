@@ -1,11 +1,11 @@
 import React from 'react'
 import StyledInStockeWrapper, { StyledInStockeIcon, StyledInStockeText } from './StyledInStocke'
 
-export const InStocke = () => (
+export const InStock = () => (
   <StyledInStockeWrapper>
     <StyledInStockeIcon />
     <StyledInStockeText>in stock</StyledInStockeText>
   </StyledInStockeWrapper>
 )
 
-export default InStocke
+export default InStock

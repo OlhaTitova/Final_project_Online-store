@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { CheckCircleFilled } from '@ant-design/icons';
-import { forDesktop } from '../../../styles/mediaBrakepoints';
+import { forDesktop } from '../../../styles/mediaBreakPoints';
 
 const StyledInStockeWrapper = styled.div`
   display: flex;
