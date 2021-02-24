@@ -1,4 +1,5 @@
 import styled, {css} from 'styled-components';
+import PropTypes from 'prop-types';
 
 const Button = styled.button`
 font-weight: 600;
@@ -51,3 +52,8 @@ ${(props) => props.type === 'borderBlue' && css`
 `;
 
 export default Button;
+
+Button.propTypes = {
+  type: PropTypes.string.isRequired,
+  size: PropTypes.string.isRequired
+}

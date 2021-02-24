@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { forDesktop } from '../../styles/mediaBrakepoints'
+import { forDesktop } from '../../styles/mediaBreakPoints'
 
 const StyledCardItem = styled.li`
   list-style: none;

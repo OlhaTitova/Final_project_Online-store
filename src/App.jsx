@@ -1,7 +1,8 @@
 import React from 'react'
-import { ProductCard } from './components/ProductCard/ProductCard'
 import { BannerSlider } from './components/BannerSlider/BannerSlider'
 import Button from './components/Buttons/Button'
+import { NewProductsSlider } from './components/NewProductsSlider/NewProductsSlider'
+import { ProductCard } from './components/ProductCard/ProductCard'
 
 function App() {
   return (
@@ -15,23 +16,24 @@ function App() {
         rating={2}
         isGoodsInStock={false}
       />
-      <br />
+      <hr />
       <Button>Submit</Button>
-      <br />
+      <hr />
       <Button onClick={() => console.log('text')} type="borderBlue">Submit</Button>
-      <br />
+      <hr />
       <Button type="borderGrey">Submit</Button>
-      <br />
+      <hr />
       <Button type="black">Submit</Button>
-      <br />
+      <hr />
       <Button type="yellow">Submit</Button>
-      <br />
+      <hr />
       <Button size="sm" type="borderBlue">Submit</Button>
-      <br />
+      <hr />
       <Button size="md" type="black">Submit</Button>
-      <br />
+      <hr />
       <Button size="lg">Submit</Button>
       <BannerSlider />
+      <NewProductsSlider />
     </div>
   )
 }

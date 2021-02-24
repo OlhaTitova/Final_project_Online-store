@@ -1,10 +1,10 @@
 import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
 import { render } from '@testing-library/react';
-import InStocke from './InStocke';
+import { InStock } from './InStock';
 
 test('ProductCard render test', () => {
   render(
-    <InStocke />
+    <InStock />
   )
 })

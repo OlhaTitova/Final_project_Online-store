@@ -8,7 +8,7 @@ import StyledCardItem, {
   StyledCardReviews,
   StyledCardTitle
 } from './StyledProductCard';
-import { InStocke } from './InStocke/InStocke';
+import { InStock } from './InStock/InStock';
 import { CheckAvailability } from './CheckAvailability/CheckAvailability';
 
 export const ProductCard = ({
@@ -16,8 +16,8 @@ export const ProductCard = ({
   img,
   reviews,
   rating,
-  lastPrice,
-  nowPrice,
+  previousPrice,
+  currentPrice,
   isGoodsInStock
 }) => {
   let verifiedTitle = title;
@@ -29,7 +29,7 @@ export const ProductCard = ({
 
   return (
     <StyledCardItem>
-      {isGoodsInStock ? <InStocke /> : <CheckAvailability />}
+      {isGoodsInStock ? <InStock /> : <CheckAvailability />}
       <StyledCardImg url={img} />
       <div>
         <StarRating rating={rating} />
@@ -43,8 +43,14 @@ export const ProductCard = ({
       <StyledCardTitle>{verifiedTitle}</StyledCardTitle>
 
       <div>
-        <StyledCardLastPrice>{lastPrice}</StyledCardLastPrice>
-        <StyledCardNowPrice>{nowPrice}</StyledCardNowPrice>
+        <StyledCardLastPrice>
+          {previousPrice}
+          ₴
+        </StyledCardLastPrice>
+        <StyledCardNowPrice>
+          {currentPrice}
+          ₴
+        </StyledCardNowPrice>
       </div>
     </StyledCardItem>
   )
@@ -53,10 +59,10 @@ export const ProductCard = ({
 ProductCard.propTypes = {
   title: PropTypes.string.isRequired,
   img: PropTypes.string.isRequired,
-  reviews: PropTypes.string.isRequired,
+  reviews: PropTypes.number.isRequired,
   rating: PropTypes.number.isRequired,
-  lastPrice: PropTypes.string.isRequired,
-  nowPrice: PropTypes.string.isRequired,
+  previousPrice: PropTypes.number.isRequired,
+  currentPrice: PropTypes.number.isRequired,
   isGoodsInStock: PropTypes.bool.isRequired,
 }
 
