@@ -1,6 +1,7 @@
 import React from 'react'
 import { ProductCard } from './components/ProductCard/ProductCard'
 import { BannerSlider } from './components/BannerSlider/BannerSlider'
+import Button from './components/Buttons/Button'
 
 function App() {
   return (
@@ -14,6 +15,22 @@ function App() {
         rating={2}
         isGoodsInStock={false}
       />
+      <br />
+      <Button>Submit</Button>
+      <br />
+      <Button onClick={() => console.log('text')} type="borderBlue">Submit</Button>
+      <br />
+      <Button type="borderGrey">Submit</Button>
+      <br />
+      <Button type="black">Submit</Button>
+      <br />
+      <Button type="yellow">Submit</Button>
+      <br />
+      <Button size="sm" type="borderBlue">Submit</Button>
+      <br />
+      <Button size="md" type="black">Submit</Button>
+      <br />
+      <Button size="lg">Submit</Button>
       <BannerSlider />
     </div>
   )
