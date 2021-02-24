@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { forDesktop } from '../mediaBreakPoints'
+import { forDesktop } from '../../styles/mediaBreakPoints'
 
 export const SliderArrowTeamplate = styled.button`
   position: absolute;

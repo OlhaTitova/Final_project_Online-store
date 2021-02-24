@@ -1,23 +1,23 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Carousel } from 'antd'
 import 'antd/dist/antd.css'
-import { Container } from '../../styles/styled-components/Container'
 import firstImg from '../../images/banner-slider/first.png'
 import secondImg from '../../images/banner-slider/second.png'
 import thirdImg from '../../images/banner-slider/third.png'
 import fourthImg from '../../images/banner-slider/fourth.png'
-import { SliderArrowLeft } from '../../styles/styled-components/SliderArrowLeft'
-import { SliderArrowRight } from '../../styles/styled-components/SliderArrowRight'
-import { Wrapper } from '../../styles/styled-components/Wrapper'
+import { SliderArrowRight } from '../common/SliderArrowRight'
+import { Wrapper } from '../common/Wrapper'
 import { ImageBox, Img } from './StylesBannerSlider'
+import { Container } from '../common/Container'
+import { SliderArrowLeft } from '../common/SliderArrowLeft'
 
 export const BannerSlider = () => {
   const ref = useRef()
-  const [handlers, setHandlers] = useState({next: () => null, prev: () => null})
+  const [handlers, setHandlers] = useState({ next: () => null, prev: () => null })
 
   useEffect(() => {
     if (ref.current) {
-      setHandlers(() => ({next: ref.current.next, prev: ref.current.prev}))
+      setHandlers(() => ({ next: ref.current.next, prev: ref.current.prev }))
     }
     // при первом рендере ref.current === undefined потому используется useEffect & useState
   }, [])

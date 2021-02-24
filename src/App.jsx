@@ -1,6 +1,6 @@
 import React from 'react'
 import { BannerSlider } from './components/BannerSlider/BannerSlider'
-import Button from './components/Buttons/Button'
+import Button from './components/common/Buttons/Button'
 import { NewProductsSlider } from './components/NewProductsSlider/NewProductsSlider'
 import { ProductCard } from './components/ProductCard/ProductCard'
 
@@ -27,11 +27,10 @@ function App() {
       <hr />
       <Button type="yellow">Submit</Button>
       <hr />
-      <Button size="sm" type="borderBlue">Submit</Button>
+      <Button width={120} height={37} type="borderBlue">Submit</Button>
       <hr />
-      <Button size="md" type="black">Submit</Button>
+      <Button width={385} height={50} type="black">Submit</Button>
       <hr />
-      <Button size="lg">Submit</Button>
       <BannerSlider />
       <NewProductsSlider />
     </div>
