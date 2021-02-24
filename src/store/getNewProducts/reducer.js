@@ -1,5 +1,7 @@
 import { GET_NEW_PRODUCTS } from './actionType'
 
+export const MODULE_NAME = 'newProductsModule'
+
 const initialState = {
   newProducts: []
 }
