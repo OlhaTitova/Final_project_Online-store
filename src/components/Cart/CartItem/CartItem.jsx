@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  WrapperCartItem,
-} from './StyledCartItem';
+import { CloseOutlined, EditOutlined } from '@ant-design/icons';
+import { StyledButton, StyledCartItem} from './StyledCartItem';
+// import { Button } from 'antd';
 
 export const CartItem = ({
   img, description, price, quantity, subtotal
 }) => (
   <div>
-    <WrapperCartItem>
+    <StyledCartItem>
       <img src={img} alt="" />
       <p>{description}</p>
       <span>{price}</span>
@@ -17,10 +17,13 @@ export const CartItem = ({
       </select>
       <span>{subtotal}</span>
       <div>
-        <div className="removeButton" />
-        <div className="editButton" />
+        <StyledButton shape="circle" icon={<CloseOutlined />} />
+        <StyledButton shape="circle" icon={<EditOutlined />} />
+
+        {/* <div className="removeButton" />
+        <div className="editButton" /> */}
       </div>
-    </WrapperCartItem>
+    </StyledCartItem>
 
   </div>
 )

@@ -39,6 +39,7 @@ ${(props) => props.type === 'borderBlue' && css`
     width:${props.width}px;
     height:${props.height}px;
   `};
+
 `
 export default Button;
 

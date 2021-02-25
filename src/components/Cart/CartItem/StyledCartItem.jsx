@@ -1,10 +1,13 @@
 import styled from 'styled-components';
+import { Button } from 'antd'
+import 'antd/dist/antd.css'
 
-export const WrapperCartItem = styled.div`
+export const StyledCartItem = styled.div`
     display: flex;
     justify-content: space-between;
     border-bottom: 1px solid #cccccc;
     padding: 25px 0;
+    
     img {
         width: 120px;
         height: 120px;
@@ -30,17 +33,20 @@ export const WrapperCartItem = styled.div`
         border-radius: 6px;
         width: 70px;
         height:50px;
-        option {        
 
+        option {        
+            text-align: center;
         }
     }
-    div.removeButton {
-        background-image: url("./image/cart/Remove.png");
-    }
 
-    div.editButton {
-        background-image: url("./image/cart/Edit.png");
+    div {
+        display:flex;
+        flex-direction: column;
     }
 `;
 
-export default WrapperCartItem;
+export const StyledButton = styled(Button)`
+margin: 3px;
+`;
+
+export default StyledCartItem;
