@@ -1,6 +1,7 @@
-
+* {
+    box-sizing: border-box;
+}
 body {
     /* font-family: -apple-system, BlinkMacSystemFont, 'Poppins', 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; */
-    box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
     }
