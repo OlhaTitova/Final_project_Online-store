@@ -1,10 +1,8 @@
 import React from 'react';
-// import {Button } from 'antd';
 import TheadCart from '../TheadCart/TheadCart';
 import { CartItem } from '../CartItem/CartItem';
 import {Row, RowBetween} from '../Cart/Row';
-import ButtonStyled from '../../common/Buttons/Button';
-import ButtonGrey from './ButtonGrey';
+import StyledButton from '../../common/Buttons/Button';
 
 const CartList = () => (
   <div>
@@ -27,17 +25,12 @@ const CartList = () => (
     />
     <RowBetween>
       <Row>
-        <ButtonGrey shape="round">
-          Continue Shopping
-        </ButtonGrey>
-        <ButtonStyled shape="round" color="borderGrey">Continue Shopping</ButtonStyled>
-        <ButtonStyled shape="round" color="black">Clear Shopping Cart</ButtonStyled>
-        {/* <Button shape="round">Clear Shopping Cart</Button> */}
+        <StyledButton size="xl" smallHeight shape="round" color="borderGrey">Continue Shopping</StyledButton>
+        <StyledButton size="xl" smallHeight shape="round" color="black">Clear Shopping Cart</StyledButton>
       </Row>
-      {/* <Button shape="round">Update Shopping Cart</Button> */}
-      <ButtonStyled shape="round" color="black">Update Shopping Cart</ButtonStyled>
-
+      <StyledButton size="xl" smallHeight shape="round" color="black">Update Shopping Cart</StyledButton>
     </RowBetween>
+    <div>1111111</div>
   </div>
 );
 

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {Button } from 'antd';
 import {forDesktop, forTablet } from '../../../styles/mediaBreakPoints';
 
-const ButtonStyled = styled(Button)`
+const StyledButton = styled(Button)`
 font-weight: 600;
 font-size: 14px;
 line-height: 21px;
@@ -119,7 +119,7 @@ ${(props) => props.color === 'borderBlue' && css`
   `}; */
 
 `
-export default ButtonStyled;
+export default StyledButton;
 
 Button.propTypes = {
   type: PropTypes.string,
