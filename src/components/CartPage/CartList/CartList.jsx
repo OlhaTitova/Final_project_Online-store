@@ -2,7 +2,7 @@ import React from 'react';
 import TheadCart from '../TheadCart/TheadCart';
 import { CartItem } from '../CartItem/CartItem';
 import {Row, RowBetween} from '../Cart/Row';
-import StyledButton from '../../common/Buttons/Button';
+import StyledButton from '../../common/Buttons/StyledButton';
 
 const CartList = () => (
   <div>
