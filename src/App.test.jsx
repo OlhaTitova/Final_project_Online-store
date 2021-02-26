@@ -7,8 +7,8 @@ import { store } from './store/index'
 import App from './App'
 
 test('App render test', () => {
+  // Поскольку JSDOM не поддерживает, window.matchMedia
   // В документации Jest теперь есть "официальный" обходной путь
-  // поскольку JSDOM не поддерживает, window.matchMedia
   Object.defineProperty(window, 'matchMedia', {
     writable: true,
     value: jest.fn().mockImplementation((query) => ({
@@ -24,10 +24,10 @@ test('App render test', () => {
   });
 
   render(
-    <Router>
-      <Provider store={store}>
+    <Provider store={store}>
+      <Router>
         <App />
-      </Provider>
-    </Router>
+      </Router>
+    </Provider>
   )
 })
