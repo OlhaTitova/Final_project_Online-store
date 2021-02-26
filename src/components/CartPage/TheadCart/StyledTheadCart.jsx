@@ -9,27 +9,31 @@ const StyledThead = styled.div`
     font-size: 14px;
     line-height: 21px;
     color: #000000;
+    width: 100%;
+    margin-bottom: 25px;
+
 
     p.item {
-        width: 120px;
+        width: 13.2%;
     }
     p.description {
-        width: 270px;
-        padding: 0 25px;
+        width: 29.7%;
+        margin: 0 2.75%;
     }
     p.price {
-        width: 90px;
-        padding: 0 60px;
+        width: 9.9%;
+        
     }
     p.qty {
-        width: 70px;
+        width: 7.7%;
+        margin: 0 6.6%;
     }
     p.subtotal {
-        width: 90px;
+        width: 9.9%;
     }
     p.edit {
-        width: 27px;
-        padding: 0 7px;
+        width: 2.97%;
+        margin: 0 0.77%;
     }
 `;
 
