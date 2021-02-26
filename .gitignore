@@ -23,7 +23,11 @@ yarn-debug.log*
 yarn-error.log*
 
 .eslintcache
+.vscode
 
 package-lock.json
+<<<<<<< HEAD
 
 .vscode
+=======
+>>>>>>> 149b99e5e7123099168c79837deb3d8e4e7ab0b7

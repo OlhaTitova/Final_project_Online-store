@@ -40,9 +40,6 @@ export const CartItem = ({
         <div className="column">
           <StyledButton shape="circle" icon={<CloseOutlined />} />
           <StyledButton shape="circle" icon={<EditOutlined />} />
-
-          {/* <div className="removeButton" />
-        <div className="editButton" /> */}
         </div>
       </StyledCartItem>
 

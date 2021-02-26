@@ -4,16 +4,17 @@ import {Button } from 'antd';
 import {forDesktop, forTablet } from '../../../styles/mediaBreakPoints';
 
 const StyledButton = styled(Button)`
-font-weight: 600;
-font-size: 14px;
-line-height: 21px;
-align-items: center;
-background-color: #0156FF;
-color: #fff;
-width: 100%;
-padding: 8px 10px;
-border: 2px solid #0156FF;
-height:auto !important;
+
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 21px;
+  align-items: center;
+  background-color: #0156FF;
+  color: #fff;
+  width: 100%;
+  padding: 8px 10px;
+  border: 2px solid #0156FF;
+  height:auto !important;
 
 ${(props) => props.color === 'borderBlue' && css`
   background-color: #fff;
@@ -73,7 +74,7 @@ ${(props) => props.size === 'xs' && css`
       width: 120px;
     `};
   }
-  
+
   @media(min-width: ${forDesktop.minWidth}px){
 
     padding: 14.5px 10px;
