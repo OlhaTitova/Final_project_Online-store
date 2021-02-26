@@ -1,5 +1,5 @@
 import React from 'react'
-import { Route, NavLink } from 'react-router-dom'
+import { Route, NavLink, Switch } from 'react-router-dom'
 import { BannerSlider } from './components/BannerSlider/BannerSlider'
 import {Cart} from './components/CartPage/Cart/Cart'
 import StyledButton from './components/common/Buttons/StyledButton'
@@ -9,6 +9,13 @@ import { NewProductsSlider } from './components/NewProductsSlider/NewProductsSli
 function App() {
   return (
     <div>
+      <NavLink to="/cart">Cart</NavLink>
+      <Switch>
+        <Route exact path="/cart">
+          <Cart />
+        </Route>
+      </Switch>
+
       <StyledButton shape="round">Submit</StyledButton>
       <StyledButton size="sm" shape="round">Submit</StyledButton>
       <StyledButton size="xl" shape="round" color="black">Submit</StyledButton>
@@ -24,7 +31,7 @@ function App() {
       </Route>
       <Route exact path="/" />
       <NewProductsSlider />
-      <Cart />
+      
     </div>
   )
 }
