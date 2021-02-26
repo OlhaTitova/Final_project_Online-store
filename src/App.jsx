@@ -1,5 +1,6 @@
 import React from 'react'
-import { Route, NavLink } from 'react-router-dom'
+import { NavLink, Route, Switch } from 'react-router-dom'
+import CreateCustomerPage from './components/CreateCustomerPage/CreateCustomerPage'
 import { BannerSlider } from './components/BannerSlider/BannerSlider'
 import {Cart} from './components/CartPage/Cart/Cart'
 import StyledButton from './components/common/Buttons/StyledButton'
@@ -9,6 +10,21 @@ import { NewProductsSlider } from './components/NewProductsSlider/NewProductsSli
 function App() {
   return (
     <div>
+      <NavLink to="/">Homepage</NavLink>
+      <NavLink to="/signup">Sign Up</NavLink>
+      <NavLink to="/aboutus">About Us</NavLink>
+      <Switch>
+        <Route exact path="/">
+          <BannerSlider />
+          <NewProductsSlider />
+        </Route>
+        <Route exact path="/signup">
+          <CreateCustomerPage />
+        </Route>
+        <Route exact path="/aboutus">
+          <AboutUsPage />
+        </Route>
+      </Switch>
       <StyledButton shape="round">Submit</StyledButton>
       <StyledButton size="sm" shape="round">Submit</StyledButton>
       <StyledButton size="xl" shape="round" color="black">Submit</StyledButton>
@@ -16,14 +32,6 @@ function App() {
       <StyledButton size="md" shape="round" color="borderGrey">Submit</StyledButton>
       <StyledButton size="xs" shape="round" color="borderBlue">Submit</StyledButton>
       <StyledButton size="sm" shape="round" color="yellow">Submit</StyledButton>
-      <BannerSlider />
-      <NavLink to="/">Home</NavLink>
-      <NavLink to="/aboutus">About Us</NavLink>
-      <Route exact path="/aboutus">
-        <AboutUsPage />
-      </Route>
-      <Route exact path="/" />
-      <NewProductsSlider />
       <Cart />
     </div>
   )

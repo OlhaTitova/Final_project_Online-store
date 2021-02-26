@@ -34,7 +34,7 @@ ${(props) => props.color === 'yellow' && css`
   border: 2px solid #FFB800;
   color: #232C65;
 `};
-${(props) => props.color === 'wite' && css`
+${(props) => props.color === 'white' && css`
   background-color: transparent;;
   border: 2px solid #ffffff;
   color: #ffffff;
