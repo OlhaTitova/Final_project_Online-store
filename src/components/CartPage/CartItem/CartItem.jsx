@@ -1,51 +1,53 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { CloseOutlined, EditOutlined } from '@ant-design/icons';
-import { Select } from 'antd';
-import { StyledButton, StyledCartItem, StyledSelect} from './StyledCartItem';
+import {
+  CloseOutlined, EditOutlined, MinusOutlined, PlusOutlined,
+} from '@ant-design/icons';
+import { Button} from 'antd';
+import { ButtonRemoveEdit, StyledCartItem, StyledInput} from './StyledCartItem';
+import { Row } from '../Flex';
 
 export const CartItem = ({
   img, description, price, subtotal
-}) => {
-  const { Option } = Select;
-  return (
-    <div>
-      <StyledCartItem>
-        <img src={img} alt="" />
-        <p>{description}</p>
-        <span className="price">
-          {price}
+}) => (
+  <div>
+    <StyledCartItem>
+      <div className="margin">
+        <Row>
+          <img src={img} alt="" />
+          <p>{description}</p>
+        </Row>
+      </div>
+      <div className="margin">
+        <Row>
           <span className="price">
-            ₴
+            {price}
+            <span className="price">
+              ₴
+            </span>
           </span>
-        </span>
-        <div>
-          <StyledSelect defaultValue="1">
-            <Option value="1">1</Option>
-            <Option value="2">2</Option>
-            <Option value="2">3</Option>
-            <Option value="2">4</Option>
-            <Option value="2">5</Option>
-          </StyledSelect>
-        </div>
-        {/* <select name="select">
-        {[...Array(10)].map((x) => <option key={x} value={x}>{quantity}</option>)}
-      </select> */}
-        <span className="price">
-          {subtotal}
-          <span className="price">
-            ₴
-          </span>
-        </span>
-        <div className="column">
-          <StyledButton shape="circle" icon={<CloseOutlined />} />
-          <StyledButton shape="circle" icon={<EditOutlined />} />
-        </div>
-      </StyledCartItem>
 
-    </div>
-  )
-}
+          <Button shape="circle" icon={<MinusOutlined />} />
+          <StyledInput defaultValue="1" />
+          <Button shape="circle" icon={<PlusOutlined />} />
+          
+          <span className="subtotal">
+            {subtotal}
+            <span className="price">
+              ₴
+            </span>
+          </span>
+
+          <div className="column">
+            <ButtonRemoveEdit shape="circle" icon={<CloseOutlined />} />
+            <ButtonRemoveEdit shape="circle" icon={<EditOutlined />} />
+          </div>
+        </Row>
+      </div>
+    </StyledCartItem>
+
+  </div>
+)
   
 export default CartItem;
 

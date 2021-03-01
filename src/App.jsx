@@ -14,6 +14,7 @@ function App() {
       <NavLink to="/signup">Sign Up</NavLink>
       <NavLink to="/aboutus">About Us</NavLink>
       <NavLink to="/cart">Cart</NavLink>
+      <NavLink to="/buttons">Buttons</NavLink>
       
       <Switch>
         <Route exact path="/">
@@ -29,15 +30,17 @@ function App() {
         <Route exact path="/cart">
           <Cart />
         </Route>
+        <Route exact path="/buttons">
+          <StyledButton shape="round">Submit</StyledButton>
+          <StyledButton size="sm" shape="round">Submit</StyledButton>
+          <StyledButton size="xl" shape="round" color="black">Submit</StyledButton>
+          <StyledButton size="lg" shape="round">Submit</StyledButton>
+          <StyledButton size="md" shape="round" color="borderGrey">Submit</StyledButton>
+          <StyledButton size="xs" shape="round" color="borderBlue">Submit</StyledButton>
+          <StyledButton size="sm" shape="round" color="yellow">Submit</StyledButton>
+        </Route>
       </Switch>
-
-      <StyledButton shape="round">Submit</StyledButton>
-      <StyledButton size="sm" shape="round">Submit</StyledButton>
-      <StyledButton size="xl" shape="round" color="black">Submit</StyledButton>
-      <StyledButton size="lg" shape="round">Submit</StyledButton>
-      <StyledButton size="md" shape="round" color="borderGrey">Submit</StyledButton>
-      <StyledButton size="xs" shape="round" color="borderBlue">Submit</StyledButton>
-      <StyledButton size="sm" shape="round" color="yellow">Submit</StyledButton>
+      
     </div>
   )
 }

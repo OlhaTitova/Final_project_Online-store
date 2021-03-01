@@ -1,8 +1,14 @@
 import styled from 'styled-components';
+import { forDesktop, forTablet } from '../../../styles/mediaBreakPoints';
 
 const StyledThead = styled.div`
+    display: none;
+    
+    @media(min-width: ${forTablet.minWidth}px) and (max-width: ${forTablet.maxWidth}px) {
+    display: none;
+    }
+    @media(min-width: ${forDesktop.minWidth}px){
     display: flex;
-    justify-content: space-between;
     border-bottom: 1px solid #cccccc;
     padding: 10px 0;
     font-weight: 600;
@@ -12,21 +18,19 @@ const StyledThead = styled.div`
     width: 100%;
     margin-bottom: 25px;
 
-
     p.item {
-        width: 13.2%;
+        width: 15%;
     }
     p.description {
-        width: 29.7%;
-        margin: 0 2.75%;
+        width: 34%;
+        margin: 0 3%;
     }
     p.price {
-        width: 9.9%;
-        
+        width: 10.9%;
     }
     p.qty {
-        width: 7.7%;
-        margin: 0 6.6%;
+        width: 4.7%;
+        margin: 0 7%;
     }
     p.subtotal {
         width: 9.9%;
@@ -34,6 +38,8 @@ const StyledThead = styled.div`
     p.edit {
         width: 2.97%;
         margin: 0 0.77%;
+        margin-left: 6.6%;
+    }
     }
 `;
 
