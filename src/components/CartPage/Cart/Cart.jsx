@@ -1,21 +1,21 @@
 import React from 'react';
 import Heading from '../../common/Heading/Heading';
-import {Container} from '../../common/Container';
+import {ContainerCart} from '../../common/Container';
 import CartList from '../CartList/CartList';
 import Summary from '../Summary/Summary';
-import {Row} from './Row';
+import { RowRevers } from '../Flex';
 
 export const Cart = () => (
   <div>
-    <Container>
+    <ContainerCart>
       <Heading>
         Shopping Cart
       </Heading>
-      <Row>
+      <RowRevers>
+        <Summary sumtotal="24,345.00" />
         <CartList />
-        <Summary />
-      </Row>
-    </Container>
+      </RowRevers>
+    </ContainerCart>
   </div>
 );
 

@@ -12,7 +12,7 @@ const StyledButton = styled(Button)`
   background-color: #0156FF;
   color: #fff;
   width: 100%;
-  padding: 8px 10px;
+  padding: 8px 15px;
   border: 2px solid #0156FF;
   height:auto !important;
 
@@ -41,7 +41,7 @@ ${(props) => props.color === 'white' && css`
 `};
    
 ${(props) => props.size === 'xl' && css`
-  width: 300px;
+  width: 100%;
 `};
 ${(props) => props.size === 'lg' && css`
   width: 200px;
@@ -59,7 +59,7 @@ ${(props) => props.size === 'xs' && css`
   @media(min-width: ${forTablet.minWidth}px) and (max-width: ${forTablet.maxWidth}px) {
    
     ${(props) => props.size === 'xl' && css`
-      width: 300px;
+      width: 100%;
     `};
     ${(props) => props.size === 'lg' && css`
       width: 200px;
@@ -77,15 +77,15 @@ ${(props) => props.size === 'xs' && css`
 
   @media(min-width: ${forDesktop.minWidth}px){
 
-    padding: 14.5px 10px;
+    padding: 14.5px 15px;
 
     ${(props) => props.size === 'xl' && css`
-      width: 200px;
-      padding: 8px 10px;
+      width: 195px;
+      padding: 8px 15px;
      `};
     ${(props) => props.size === 'lg' && css`
       width: 200px;
-      padding: 8px 10px;
+      padding: 8px 15px;
      `};
     ${(props) => props.size === 'md' && css`
       width: 180px;
@@ -95,7 +95,7 @@ ${(props) => props.size === 'xs' && css`
      `};
     ${(props) => props.size === 'xs' && css`
       width: 120px;
-      padding: 8px 10px;
+      padding: 8px 15px;
   `};
   }
 `
