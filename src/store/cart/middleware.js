@@ -46,6 +46,12 @@ import {
 //         }
 //     }
 
+export const authLogInCart = (credentials) => () => {
+  axios.post('/customers/login', credentials)
+    .then((data) => localStorage.setItem('token', data.data.token))
+    .catch((error) => console.log(error.response))
+}
+
 export const addProductToCart = (productId) => () => {
   const res = axios.put(`/cart/${productId}`, null, {headers})
     .then((updatedCart) => console.log(updatedCart))
@@ -54,6 +60,12 @@ export const addProductToCart = (productId) => () => {
   //     dispatch(addToCart())
   //   }
   return res
+}
+
+export const getCart = () => (dispatch) => {
+  axios.get('/cart')
+    .then((cart) => dispatch(getCartCreator(cart)))
+    .catch((err) => err);
 }
 
 export default addProductToCart;
@@ -77,12 +89,6 @@ export default addProductToCart;
 //       /*Do something with error, e.g. show error to user*/
 //     });
 // }
-
-export const getCart = () => (dispatch) => {
-  axios.get('/cart')
-    .then((cart) => dispatch(getCartCreator(cart)))
-    .catch((err) => err);
-}
 
 // const clearCart = () => (dispatch) => {
 //     const res = axios.delete("/cart")

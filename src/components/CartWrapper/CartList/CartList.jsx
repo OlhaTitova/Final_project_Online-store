@@ -5,16 +5,16 @@ import { CartItem } from '../CartItem/CartItem';
 import { ColumnRowBetween, RowColumn} from '../Flex';
 import StyledButton from '../../common/Buttons/StyledButton';
 import StyledCartList from './StyledCartList';
-import { addProductToCart } from '../../../store/cart/middleware';
-import {authLogIn} from '../../../store/auth/middleware';
+import { addProductToCart, authLogInCart } from '../../../store/cart/middleware';
+import {} from '../../../store/auth/middleware';
 
 const MapStateToProps = (state) => ({cart: state.cart})
 
-const CartList = connect(MapStateToProps, {addProductToCart, authLogIn})(({
+const CartList = connect(MapStateToProps, {addProductToCart, authLogInCart})(({
   addProductToCart,
-  authLogIn
+  authLogInCart
 }) => {
-  authLogIn({loginOrEmail: 'admin', password: 'adminPassword'});
+  authLogInCart({loginOrEmail: 'admin', password: 'adminPassword'});
   const productID = '603ced9ae8326900152cfcee';
   addProductToCart(productID);
 
