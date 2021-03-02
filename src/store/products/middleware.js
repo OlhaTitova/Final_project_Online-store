@@ -9,31 +9,36 @@ const headers = {
 }
 
 export const getProducts = () => (dispatch) => {
-  const res = axios.get('/products')
-    .then((data) => data)
+  axios.get('/products')
+    .then((data) => {
+      if (data.status === 200) {
+        dispatch(setProducts(data.data))
+      }
+    })
     .catch((error) => error.response)
-  if (res.status === 200) {
-    dispatch(setProducts(res.data))
-  }
 }
 
 export const addOneProduct = (newProduct) => (dispatch) => {
   const res = axios.post(BASE_ENDPOINT, newProduct, {headers})
-    .then((data) => console.log(data))
-    .catch((error) => console.log(error.response))
-  if (res.status === 200) {
-    dispatch(addProduct(newProduct))
-  }
+    .then((data) => {
+      if (data.status === 200) {
+        dispatch(addProduct(newProduct))
+      }
+      return data
+    })
+    .catch((error) => error.response)
   return res
 }
 
 export const updatedOneProduct = (id, newProduct) => (dispatch) => {
   const res = axios.put(`${BASE_ENDPOINT}/${id}`, newProduct, {headers})
-    .then((data) => data)
+    .then((data) => {
+      if (data.status === 200) {
+        dispatch(updateProduct(data.data))
+      }
+      return data
+    })
     .catch((error) => error)
-  if (res.status === 200) {
-    dispatch(updateProduct(res.data))
-  }
   return res
 }
 

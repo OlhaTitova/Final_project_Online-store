@@ -3,12 +3,13 @@ import { logIn, logOut } from './actionCreator'
 
 export const authLogIn = (credentials) => (dispatch) => {
   const res = axios.post('/customers/login', credentials)
-    .then((data) => data)
+    .then((data) => {
+      if (data.status === 200) {
+        dispatch(logIn())
+      }
+      return data
+    })
     .catch((error) => error.response)
-  
-  if (res.status === 200) {
-    dispatch(logIn())
-  }
   return res
 }
 

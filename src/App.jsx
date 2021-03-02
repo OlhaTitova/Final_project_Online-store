@@ -4,6 +4,7 @@ import CreateCustomerPage from './components/CreateCustomerPage/CreateCustomerPa
 import { BannerSlider } from './components/BannerSlider/BannerSlider'
 import { AboutUsPage } from './pages/About-us/AboutUs'
 import { NewProductsSlider } from './components/NewProductsSlider/NewProductsSlider'
+import LogIn from './components/LogIn/LogIn'
 import StyledButton from './components/common/Buttons/StyledButton'
 import { Cart } from './components/CartPage/Cart/Cart'
 import ProductPage from './components/ProductPage/ProductPage'
@@ -13,6 +14,7 @@ function App() {
     <div>
       <NavLink to="/">Homepage</NavLink>
       <NavLink to="/signup">Sign Up</NavLink>
+      <NavLink to="/signin">Sign In</NavLink>
       <NavLink to="/aboutus">About Us</NavLink>
       <NavLink to="/cart">Cart</NavLink>
       <NavLink to="/products/720373" style={{ margin: '0 15px', color: 'tomato' }}>Products</NavLink>
@@ -22,6 +24,9 @@ function App() {
         <Route exact path="/">
           <BannerSlider />
           <NewProductsSlider />
+        </Route>
+        <Route exact path="/signin">
+          <LogIn />
         </Route>
         <Route exact path="/signup">
           <CreateCustomerPage />
