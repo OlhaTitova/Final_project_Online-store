@@ -1,12 +1,8 @@
 import axios from 'axios';
+import headers from '../../Constants';
 import { setProducts, addProduct, updateProduct } from './actionCreator';
 
 const BASE_ENDPOINT = '/products'
-
-const headers = {
-  Authorization: localStorage.getItem('token'),
-  'Content-Type': 'application/json'
-}
 
 export const getProducts = () => (dispatch) => {
   const res = axios.get('/products')

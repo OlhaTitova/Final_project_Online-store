@@ -2,10 +2,10 @@ import React from 'react'
 import { NavLink, Route, Switch } from 'react-router-dom'
 import CreateCustomerPage from './components/CreateCustomerPage/CreateCustomerPage'
 import { BannerSlider } from './components/BannerSlider/BannerSlider'
-import {Cart} from './components/CartPage/Cart/Cart'
 import StyledButton from './components/common/Buttons/StyledButton'
 import {AboutUsPage} from './pages/About-us/AboutUs'
 import { NewProductsSlider } from './components/NewProductsSlider/NewProductsSlider'
+import {Cart} from './components/CartWrapper/Cart/Cart'
 
 function App() {
   return (

@@ -1,15 +1,10 @@
 import axios from 'axios'
-import { logIn, logOut } from './actionCreator'
+import { logOut } from './actionCreator'
 
-export const authLogIn = (credentials) => (dispatch) => {
-  const res = axios.post('/customers/login', credentials)
-    .then((data) => data)
-    .catch((error) => error.response)
-  
-  if (res.status === 200) {
-    dispatch(logIn())
-  }
-  return res
+export const authLogIn = (credentials) => () => {
+  axios.post('/customers/login', credentials)
+    .then((data) => localStorage.setItem('token', data.data.token))
+    .catch((error) => console.log(error.response))
 }
 
 export const authLogOut = () => (dispatch) => {
