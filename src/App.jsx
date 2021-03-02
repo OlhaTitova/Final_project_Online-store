@@ -6,20 +6,27 @@ import StyledButton from './components/common/Buttons/StyledButton'
 import {AboutUsPage} from './pages/About-us/AboutUs'
 import { NewProductsSlider } from './components/NewProductsSlider/NewProductsSlider'
 import {Cart} from './components/CartWrapper/Cart/Cart'
+import LogIn from './components/LogIn/LogIn'
+import ProductPage from './components/ProductPage/ProductPage'
 
 function App() {
   return (
     <div>
       <NavLink to="/">Homepage</NavLink>
       <NavLink to="/signup">Sign Up</NavLink>
+      <NavLink to="/signin">Sign In</NavLink>
       <NavLink to="/aboutus">About Us</NavLink>
       <NavLink to="/cart">Cart</NavLink>
+      <NavLink to="/products/720373" style={{ margin: '0 15px', color: 'tomato' }}>Products</NavLink>
       <NavLink to="/buttons">Buttons</NavLink>
       
       <Switch>
         <Route exact path="/">
           <BannerSlider />
           <NewProductsSlider />
+        </Route>
+        <Route exact path="/signin">
+          <LogIn />
         </Route>
         <Route exact path="/signup">
           <CreateCustomerPage />
@@ -29,6 +36,9 @@ function App() {
         </Route>
         <Route exact path="/cart">
           <Cart />
+        </Route>
+        <Route exact path="/products/:productID">
+          <ProductPage />
         </Route>
         <Route exact path="/buttons">
           <StyledButton shape="round">Submit</StyledButton>

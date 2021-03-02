@@ -8,7 +8,7 @@ const SignUpBox = () => (
     <StyledFormTitle>Create an account</StyledFormTitle>
     <StyledFormText>
       You can сreate an account with email
-      adress or phone number.
+      adress.
     </StyledFormText>
     <SignUpForm />
     <LoginPageLink />

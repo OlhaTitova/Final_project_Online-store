@@ -1,7 +1,13 @@
-import { SET_PRODUCTS, ADD_PRODUCT, UPDATE_PRODUCT } from './actionType';
+import {
+  SET_PRODUCTS, ADD_PRODUCT, UPDATE_PRODUCT, GET_NEW_PRODUCTS
+} from './actionType';
+
+export const MODULE_NAME = 'products'
 
 const initialState = {
-  products: []
+  products: [],
+  newProducts: [],
+  pageProduct: {}
 }
 
 export const reducer = (state = initialState, {type, payload}) => {
@@ -23,7 +29,12 @@ export const reducer = (state = initialState, {type, payload}) => {
         ...state,
         products: state.products.map((el) => (+el.itemNo !== +payload.itemNo ? el : payload))
       }
-  
+      
+    case GET_NEW_PRODUCTS:
+      return {
+        ...state,
+        newProducts: payload
+      }
     default:
       return state
   }
