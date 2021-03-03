@@ -31,7 +31,5 @@ export const clearCart = () => ({
 })
 export const setCart = (cart) => ({
   type: SET_CART,
-  payload: {
-    cart
-  },
+  payload: cart,
 })

@@ -1,8 +1,9 @@
 import axios from 'axios'
 import headers from '../../Constants'
 import {
-  getCartCreator,
-//   addToCart, changeQuantity, removeFromCart, clearCart, setCart
+  setCart,
+  // getCartCreator,
+//   addToCart, changeQuantity, removeFromCart, clearCart,
 } from './actionCreator'
 
 // const newCart = {
@@ -52,9 +53,9 @@ export const authLogInCart = (credentials) => () => {
     .catch((error) => console.log(error.response))
 }
 
-export const addProductToCart = (productId) => () => {
+export const addProductToCart = (productId) => (dispatch) => {
   const res = axios.put(`/cart/${productId}`, null, {headers})
-    .then((updatedCart) => console.log(updatedCart))
+    .then((updatedCart) => dispatch(setCart(updatedCart.data)))
     .catch((error) => error.response)
   //   if (res.status === 200) {
   //     dispatch(addToCart())
@@ -64,8 +65,13 @@ export const addProductToCart = (productId) => () => {
 
 export const getCart = () => (dispatch) => {
   axios.get('/cart')
-    .then((cart) => dispatch(getCartCreator(cart)))
-    .catch((err) => err);
+    .then((carts) => {
+      console.log(4444444444444);
+      if (carts.status === 200) {
+        dispatch(setCart(carts.data))
+      }
+    })
+    .catch((err) => console.log(err.response));
 }
 
 export default addProductToCart;
@@ -91,11 +97,11 @@ export default addProductToCart;
 // }
 
 // const clearCart = () => (dispatch) => {
-//     const res = axios.delete("/cart")
-//     .then(result => {
-//       /*Do something with result*/
+//   const res = axios.delete('/cart')
+//     .then((result) => {
+//       /* Do something with result */
 //     })
-//     .catch(err => {
-//       /*Do something with error, e.g. show error to user*/
+//     .catch((err) => {
+//       /* Do something with error, e.g. show error to user */
 //     });
 // }

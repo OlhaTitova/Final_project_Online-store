@@ -8,20 +8,20 @@ import { ButtonRemoveEdit, StyledCartItem, StyledInput} from './StyledCartItem';
 import { Row } from '../Flex';
 
 export const CartItem = ({
-  img, description, price, subtotal
+  imageUrls, name, currentPrice, subtotal
 }) => (
   <div>
     <StyledCartItem>
       <div className="margin">
         <Row>
-          <img src={img} alt="" />
-          <p>{description}</p>
+          <img src={imageUrls} alt="" />
+          <p>{name}</p>
         </Row>
       </div>
       <div className="margin">
         <Row>
           <span className="price">
-            {price}
+            {currentPrice}
             <span className="price">
               ₴
             </span>
@@ -52,9 +52,9 @@ export const CartItem = ({
 export default CartItem;
 
 CartItem.propTypes = {
-  img: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
-  // quantity: PropTypes.number.isRequired,
+  imageUrls: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  currentPrice: PropTypes.number.isRequired,
+  // cartQuantity: PropTypes.number.isRequired,
   subtotal: PropTypes.number.isRequired,
 }

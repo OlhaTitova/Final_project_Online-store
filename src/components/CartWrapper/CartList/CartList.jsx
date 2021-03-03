@@ -5,59 +5,56 @@ import { CartItem } from '../CartItem/CartItem';
 import { ColumnRowBetween, RowColumn} from '../Flex';
 import StyledButton from '../../common/Buttons/StyledButton';
 import StyledCartList from './StyledCartList';
-import { addProductToCart, authLogInCart } from '../../../store/cart/middleware';
-import {} from '../../../store/auth/middleware';
+import { addProductToCart, authLogInCart, getCart } from '../../../store/cart/middleware';
 
-const MapStateToProps = (state) => ({cart: state.cart})
+const MapStateToProps = (state) => ({cart: state.cart.cart})
 
-const CartList = connect(MapStateToProps, {addProductToCart, authLogInCart})(({
+const CartList = connect(MapStateToProps, {addProductToCart, authLogInCart, getCart})(({
   addProductToCart,
-  authLogInCart
+  // authLogInCart,
+  // getCart,
+  cart
 }) => {
-  authLogInCart({loginOrEmail: 'admin', password: 'adminPassword'});
+  // authLogInCart({loginOrEmail: 'admin', password: 'adminPassword'});
   const productID = '603ced9ae8326900152cfcee';
-  addProductToCart(productID);
+
+  // useEffect(() => {
+  //   getCart()
+  // }, [getCart]);
+
+  console.log(cart);
+  console.log(cart.products);
 
   return (
     <StyledCartList>
+      <StyledButton size="xl" shape="round" onClick={() => addProductToCart(productID)}>Add to cart</StyledButton>
       <TheadCart />
-      <CartItem
-        img="https://i.citrus.ua/imgcache/size_800/uploads/shop/0/8/08d983e24e5cced849bd3ab8ac562b35.jpg"
-        description="MSI MEG Trident X 10SD-1012AU Intel i7 10700K, 2070 SUPER, 32GB RAM, 1TB SSD, Windows 10 Home, Gaming Keyboard and Mouse 3 Years Warranty"
-        price="12,345.00"
-    //   quantity="2"
-        subtotal="24,345.00"
-        key="1"
-      />
-      <CartItem
-        img="https://i.citrus.ua/imgcache/size_800/uploads/shop/0/8/08d983e24e5cced849bd3ab8ac562b35.jpg"
-        description="MSI MEG Trident X 10SD-1012AU Intel i7 10700K, 2070 SUPER, 32GB RAM, 1TB SSD, Windows 10 Home, Gaming Keyboard and Mouse 3 Years Warranty"
-        price="12,345.00"
-    //   quantity="2"
-        subtotal="24,345.00"
-        key="2"
-      />
-      <CartItem
-        img="https://i.citrus.ua/imgcache/size_800/uploads/shop/0/8/08d983e24e5cced849bd3ab8ac562b35.jpg"
-        description="MSI MEG Trident X 10SD-1012AU Intel i7 10700K, 2070 SUPER, 32GB RAM, 1TB SSD, Windows 10 Home, Gaming Keyboard and Mouse 3 Years Warranty"
-        price="12,345.00"
-    //   quantity="2"
-        subtotal="24,345.00"
-        key="3"
-      />
+      <CartItem />
+
+      {cart.products.map((product) => (
+        <CartItem
+          imageUrls={product.imageUrls[0]}
+          name={`${product.name} ${product.params}`}
+          currentPrice={product.currentPrice}
+          // cartQuantity={product.cartQuantity}
+          subtotal={product.currentPrice * product.cartQuantity}
+          key="1"
+        />
+      
+      ))}
       <ColumnRowBetween>
         <RowColumn>
           <div className="margin">
-            <StyledButton size="xl" smallHeight shape="round" color="borderGrey">Continue Shopping</StyledButton>
+            <StyledButton size="xl" shape="round" color="borderGrey">Continue Shopping</StyledButton>
           </div>
           <div className="margin">
-            <StyledButton size="xl" smallHeight shape="round" color="black">Clear Shopping Cart</StyledButton>
+            <StyledButton size="xl" shape="round" color="black">Clear Shopping Cart</StyledButton>
           </div>
 
         </RowColumn>
         <div className="margin">
 
-          <StyledButton size="xl" smallHeight shape="round" color="black">
+          <StyledButton size="xl" shape="round" color="black">
             Update Shopping Cart
           </StyledButton>
         </div>
