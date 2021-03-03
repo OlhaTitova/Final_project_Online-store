@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
@@ -6,33 +7,35 @@ import {
 import { Button} from 'antd';
 import { ButtonRemoveEdit, StyledCartItem, StyledInput} from './StyledCartItem';
 import { Row } from '../Flex';
+import { decreaseProductQuantity, addProductToCart } from '../../../store/cart/middleware';
 
 export const CartItem = ({
-  imageUrls, name, currentPrice, subtotal
+  product,
+  cartQuantity
 }) => (
   <div>
     <StyledCartItem>
       <div className="margin">
         <Row>
-          <img src={imageUrls} alt="" />
-          <p>{name}</p>
+          <img src={product.imageUrls[0]} alt="" />
+          <p>{product.name}</p>
         </Row>
       </div>
       <div className="margin">
         <Row>
           <span className="price">
-            {currentPrice}
+            {product.currentPrice}
             <span className="price">
               ₴
             </span>
           </span>
 
-          <Button shape="circle" icon={<MinusOutlined />} />
-          <StyledInput defaultValue="1" />
-          <Button shape="circle" icon={<PlusOutlined />} />
+          <Button onClick={decreaseProductQuantity(product._id)} shape="circle" icon={<MinusOutlined />} />
+          <StyledInput value={cartQuantity} />
+          <Button onClick={addProductToCart(product._id)} shape="circle" icon={<PlusOutlined />} />
           
           <span className="subtotal">
-            {subtotal}
+            {product.currentPrice * cartQuantity}
             <span className="price">
               ₴
             </span>
@@ -52,9 +55,6 @@ export const CartItem = ({
 export default CartItem;
 
 CartItem.propTypes = {
-  imageUrls: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  currentPrice: PropTypes.number.isRequired,
-  // cartQuantity: PropTypes.number.isRequired,
-  subtotal: PropTypes.number.isRequired,
+  product: PropTypes.isRequired,
+  cartQuantity: PropTypes.number.isRequired
 }

@@ -5,18 +5,22 @@ import { CartItem } from '../CartItem/CartItem';
 import { ColumnRowBetween, RowColumn} from '../Flex';
 import StyledButton from '../../common/Buttons/StyledButton';
 import StyledCartList from './StyledCartList';
-import { addProductToCart, authLogInCart, getCart } from '../../../store/cart/middleware';
+import { addProductToCart, authLogInCart, decreaseProductQuantity } from '../../../store/cart/middleware';
+import CartEmpty from '../CartEmpty/CartEmpty';
 
 const MapStateToProps = (state) => ({cart: state.cart.cart})
 
-const CartList = connect(MapStateToProps, {addProductToCart, authLogInCart, getCart})(({
+const CartList = connect(
+  MapStateToProps, {addProductToCart, authLogInCart, decreaseProductQuantity}
+)(({
   addProductToCart,
+  // decreaseProductQuantity,
   // authLogInCart,
   // getCart,
   cart
 }) => {
   // authLogInCart({loginOrEmail: 'admin', password: 'adminPassword'});
-  const productID = '603ced9ae8326900152cfcee';
+  const productID = '603ced9ce8326900152cfd00';
 
   // useEffect(() => {
   //   getCart()
@@ -29,19 +33,18 @@ const CartList = connect(MapStateToProps, {addProductToCart, authLogInCart, getC
     <StyledCartList>
       <StyledButton size="xl" shape="round" onClick={() => addProductToCart(productID)}>Add to cart</StyledButton>
       <TheadCart />
-      <CartItem />
+     
+      {Object.keys(cart).length > 0
 
-      {cart.products.map((product) => (
-        <CartItem
-          imageUrls={product.imageUrls[0]}
-          name={`${product.name} ${product.params}`}
-          currentPrice={product.currentPrice}
-          // cartQuantity={product.cartQuantity}
-          subtotal={product.currentPrice * product.cartQuantity}
-          key="1"
-        />
-      
-      ))}
+        ? cart.products.map(((item) => (
+
+          <CartItem
+            product={item.product}
+            cartQuantity={item.cartQuantity}
+          />
+        )
+        ))
+        : <CartEmpty>Your Shopping Cart is Empty</CartEmpty>}
       <ColumnRowBetween>
         <RowColumn>
           <div className="margin">
@@ -62,6 +65,6 @@ const CartList = connect(MapStateToProps, {addProductToCart, authLogInCart, getC
       </ColumnRowBetween>
     </StyledCartList>
   )
-});
+})
 
 export default CartList;

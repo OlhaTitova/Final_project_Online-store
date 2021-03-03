@@ -1,9 +1,9 @@
 import axios from 'axios'
 import headers from '../../Constants'
 import {
-  setCart,
+  setCart, changeQuantity,
   // getCartCreator,
-//   addToCart, changeQuantity, removeFromCart, clearCart,
+//   addToCart, , removeFromCart, clearCart,
 } from './actionCreator'
 
 // const newCart = {
@@ -57,34 +57,33 @@ export const addProductToCart = (productId) => (dispatch) => {
   const res = axios.put(`/cart/${productId}`, null, {headers})
     .then((updatedCart) => dispatch(setCart(updatedCart.data)))
     .catch((error) => error.response)
+  return res
+}
+
+export const getCart = (productId) => (dispatch) => {
+  const res = axios.put(`/cart/${productId}`, null, {headers})
+    .then((updatedCart) => dispatch(setCart(updatedCart.data)))
+    .catch((error) => error.response)
   //   if (res.status === 200) {
   //     dispatch(addToCart())
   //   }
   return res
-}
 
-export const getCart = () => (dispatch) => {
-  axios.get('/cart')
-    .then((carts) => {
-      console.log(4444444444444);
-      if (carts.status === 200) {
-        dispatch(setCart(carts.data))
-      }
-    })
-    .catch((err) => console.log(err.response));
-}
-
-export default addProductToCart;
-    
-// const decreaseProductQuantity = () => (dispatch) => {
-//     const res = axios.delete("/cart/product/603ced9ae8326900152cfcee")
-//     .then(updatedCart => {
-//       /*Do something with updatedCart*/
+//   axios.get('/cart')
+//     .then((carts) => {
+//       console.log(4444444444444);
+//       if (carts.status === 200) {
+//         dispatch(setCart(carts.data))
+//       }
 //     })
-//     .catch(err => {
-//       /*Do something with error, e.g. show error to user*/
-//     });
-// }
+//     .catch((err) => err.response);
+}
+    
+export const decreaseProductQuantity = (productID) => (dispatch) => {
+  axios.delete(`/cart/product/${productID}`, null, {headers})
+    .then((updatedCart) => dispatch(changeQuantity(updatedCart)))
+    .catch((err) => err.response);
+}
 
 // const removeFromCart = () => (dispatch) => {
 //     const res = axios.delete("/cart/603ced9ae8326900152cfcee")
@@ -105,3 +104,5 @@ export default addProductToCart;
 //       /* Do something with error, e.g. show error to user */
 //     });
 // }
+
+export default addProductToCart;

@@ -18,8 +18,8 @@ export const StyledCartItem = styled.div`
     p {
         width: 75%;
         margin: 0 0 0 5.7%;
-        font-size: 10px;
-        line-height: 15px;
+        font-size: 14px;
+        line-height: 18px;
     }
     .price, .subtotal  {
         font-weight: 600;
