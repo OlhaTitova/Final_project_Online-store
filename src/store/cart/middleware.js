@@ -6,47 +6,6 @@ import {
 //   addToCart, , removeFromCart, clearCart,
 } from './actionCreator'
 
-// const newCart = {
-//   products: [
-//     {
-//       product: '603ced9ae8326900152cfced',
-//       cartQuantity: 1
-//     }
-//   ]
-// };
-
-// const createCart = (newCart) => (dispatch) => {
-//   const res = axios.post('/cart', newCart)
-//     .then((newCart) => dispatch(addToCart(newCart)))
-//     .catch((err) => err.response)
-//   if (res.status === 200) {
-    
-//   }
-// }
-
-// const updatedCart = {
-//     products: [
-//       {
-//         product: "603ced9ae8326900152cfced",
-//         cartQuantity: 2
-//       },
-//       {
-//         product: "603ced9ae8326900152cfcee",
-//         cartQuantity: 3
-//       }
-//     ]
-//   };
-  
-//   const updateCart = (updatedCart) => (dispatch) => {
-
-//     const res = axios.put("/cart", updatedCart)
-//         .then(updatedCart => updatedCart)
-//         .catch((err) => err.response)
-//         if (res.status === 200) {
-//           dispatch()
-//         }
-//     }
-
 export const authLogInCart = (credentials) => () => {
   axios.post('/customers/login', credentials)
     .then((data) => localStorage.setItem('token', data.data.token))
