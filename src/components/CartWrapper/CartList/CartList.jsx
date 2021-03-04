@@ -8,7 +8,7 @@ import { ColumnRowBetween, RowColumn} from '../Flex';
 import StyledButton from '../../common/Buttons/StyledButton';
 import StyledCartList from './StyledCartList';
 import {
-  getCart, addToCart, decreaseQuantity, clearCart
+  getCart, addToCart, clearCart
 } from '../../../store/cart/middleware';
 import CartEmpty from '../CartEmpty/CartEmpty';
 
@@ -16,10 +16,9 @@ const MapStateToProps = (state) => ({cart: state.cart.cart})
 
 const CartList = connect(
   MapStateToProps, {
-    addToCart, decreaseQuantity, getCart, clearCart
+    addToCart, getCart, clearCart
   }
 )(({
-  // authLogInCart,
   cart,
   getCart,
   addToCart,

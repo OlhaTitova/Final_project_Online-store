@@ -5,13 +5,18 @@ import {
   CloseOutlined, EditOutlined, MinusOutlined, PlusOutlined,
 } from '@ant-design/icons';
 import { Button} from 'antd';
+import { connect } from 'react-redux';
 import { ButtonRemoveEdit, StyledCartItem, StyledInput} from './StyledCartItem';
 import { Row } from '../Flex';
 import { decreaseQuantity, addToCart, removeFromCart } from '../../../store/cart/middleware';
 
-export const CartItem = ({
+const mapStateToProps = (state) => ({cart: state.cart.cart})
+
+export const CartItem = connect(mapStateToProps, {addToCart, decreaseQuantity})(({
   product,
-  cartQuantity
+  cartQuantity,
+  addToCart,
+  decreaseQuantity
 }) => (
   <div>
     <StyledCartItem>
@@ -50,7 +55,7 @@ export const CartItem = ({
     </StyledCartItem>
 
   </div>
-)
+))
 
 export default CartItem;
 
