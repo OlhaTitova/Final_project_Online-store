@@ -24,9 +24,9 @@ export const getCart = () => (dispatch) => {
     headers
   })
     .then((carts) => {
-      if (carts.status === 200) {
-        dispatch(setCart(carts.data))
-      }
+      // if (carts.status === 200) {
+      dispatch(setCart(carts.data))
+      // }
     })
     .catch((err) => (err.response));
 }
@@ -35,7 +35,7 @@ export const decreaseQuantity = (productID) => (dispatch) => {
   const res = axios.delete(`/cart/product/${productID}`, {
     headers
   })
-    .then((updatedCart) => dispatch(decreaseQuantityCreator(updatedCart)))
+    .then((updatedCart) => dispatch(decreaseQuantityCreator(updatedCart.data)))
     .catch((err) => err.response);
   return res;
 }
@@ -44,7 +44,7 @@ export const removeFromCart = (productID) => (dispatch) => {
   axios.delete(`/cart/${productID}`, {
     headers
   })
-    .then((result) => dispatch(removeFromCartCreator(result)))
+    .then((result) => dispatch(removeFromCartCreator(result.data)))
     .catch((err) => err.response);
 }
 
@@ -52,7 +52,7 @@ export const clearCart = () => (dispatch) => {
   axios.delete('/cart', {
     headers
   })
-    .then((result) => dispatch(clearCartCreator(result)))
+    .then(() => dispatch(clearCartCreator()))
     .catch((err) => err.response);
 }
 

@@ -24,22 +24,19 @@ const CartList = connect(
   addToCart,
   clearCart
 }) => {
-  const productID = '603ced9ce8326900152cfd00';
+  const productID = '603ced9ae8326900152cfcf0';
 
   useEffect(() => {
     getCart()
   }, [getCart]);
 
   console.log(cart);
-  // console.log(cart.products);
-  // addToCart(productID)
 
   return (
     <StyledCartList>
       <StyledButton size="xl" shape="round" onClick={() => addToCart(productID)}>Add to cart</StyledButton>
       <TheadCart />
-     
-      {Object.keys(cart).length > 0
+      {cart && cart.products.length > 0
 
         ? cart.products.map(((item) => (
 
@@ -51,6 +48,7 @@ const CartList = connect(
         )
         ))
         : <CartEmpty>Your Shopping Cart is Empty</CartEmpty>}
+
       <ColumnRowBetween>
         <RowColumn>
           <div className="margin">
@@ -61,16 +59,14 @@ const CartList = connect(
           <div className="margin">
             <StyledButton onClick={() => clearCart()} size="xl" shape="round" color="black">Clear Shopping Cart</StyledButton>
           </div>
-
         </RowColumn>
         <div className="margin">
-
           <StyledButton onClick={() => getCart()} size="xl" shape="round" color="black">
             Update Shopping Cart
           </StyledButton>
         </div>
-
       </ColumnRowBetween>
+
     </StyledCartList>
   )
 })

@@ -14,9 +14,9 @@ export const decreaseQuantityCreator = (cart) => ({
   type: DECREASE_QUANTITY,
   payload: cart,
 })
-export const removeFromCartCreator = (id) => ({
+export const removeFromCartCreator = (cart) => ({
   type: REMOVE_FROM_CART,
-  payload: id,
+  payload: cart,
 })
 export const clearCartCreator = () => ({
   type: CLEAR_CART,

@@ -12,11 +12,12 @@ import { decreaseQuantity, addToCart, removeFromCart } from '../../../store/cart
 
 const mapStateToProps = (state) => ({cart: state.cart.cart})
 
-export const CartItem = connect(mapStateToProps, {addToCart, decreaseQuantity})(({
+export const CartItem = connect(mapStateToProps, {addToCart, decreaseQuantity, removeFromCart})(({
   product,
   cartQuantity,
   addToCart,
-  decreaseQuantity
+  decreaseQuantity,
+  removeFromCart
 }) => (
   <div>
     <StyledCartItem>
@@ -47,7 +48,7 @@ export const CartItem = connect(mapStateToProps, {addToCart, decreaseQuantity})(
           </span>
 
           <div className="column">
-            <ButtonRemoveEdit onClick={removeFromCart(product._id)} shape="circle" icon={<CloseOutlined />} />
+            <ButtonRemoveEdit onClick={() => removeFromCart(product._id)} shape="circle" icon={<CloseOutlined />} />
             <ButtonRemoveEdit shape="circle" icon={<EditOutlined />} />
           </div>
         </Row>
