@@ -34,7 +34,7 @@ const CartList = connect(
 
   return (
     <StyledCartList>
-      <StyledButton size="xl" shape="round" onClick={() => addToCart(productID)}>Add to cart</StyledButton>
+      <StyledButton size="xl" shape="round" onClick={() => addToCart(productID, 10)}>Add to cart</StyledButton>
       <TheadCart />
       {cart && cart.products && cart.products.length > 0
 

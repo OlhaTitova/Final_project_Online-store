@@ -8,14 +8,16 @@ import { Button} from 'antd';
 import { connect } from 'react-redux';
 import { ButtonRemoveEdit, StyledCartItem, StyledInput} from './StyledCartItem';
 import { Row } from '../Flex';
-import { decreaseQuantity, addToCart, removeFromCart } from '../../../store/cart/middleware';
+import { decreaseQuantity, increaseQuantity, removeFromCart } from '../../../store/cart/middleware';
 
 const mapStateToProps = (state) => ({cart: state.cart.cart})
 
-export const CartItem = connect(mapStateToProps, {addToCart, decreaseQuantity, removeFromCart})(({
+export const CartItem = connect(mapStateToProps, {
+  increaseQuantity, decreaseQuantity, removeFromCart
+})(({
   product,
   cartQuantity,
-  addToCart,
+  increaseQuantity,
   decreaseQuantity,
   removeFromCart
 }) => (
@@ -38,7 +40,7 @@ export const CartItem = connect(mapStateToProps, {addToCart, decreaseQuantity, r
 
           <Button onClick={() => decreaseQuantity(product._id)} shape="circle" icon={<MinusOutlined />} />
           <StyledInput value={cartQuantity} />
-          <Button onClick={() => addToCart(product._id)} shape="circle" icon={<PlusOutlined />} />
+          <Button onClick={() => increaseQuantity(product._id)} shape="circle" icon={<PlusOutlined />} />
           
           <span className="subtotal">
             {product.currentPrice * cartQuantity}

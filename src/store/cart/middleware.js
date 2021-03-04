@@ -1,22 +1,31 @@
 import axios from 'axios'
-import headers from '../../Constants'
+import headers from '../headers'
 import {
   setCart,
   decreaseQuantityCreator,
   addToCartCreator,
   removeFromCartCreator,
-  clearCartCreator
+  clearCartCreator,
+  increaseQuantityCreator
 } from './actionCreator'
 
-export const addToCart = (productId) => (dispatch) => {
-  axios.put(`/cart/${productId}`, null, {
-    headers
-  })
+export const addToCart = (productId, quantity) => (dispatch) => {
+  axios.post('/cart',
+    {
+      products: [
+        {
+          product: productId,
+          cartQuantity: quantity,
+        }
+      ]
+    },
+    {
+      headers
+    })
     .then((updatedCart) => {
       dispatch(addToCartCreator(updatedCart.data));
     })
     .catch((error) => error.response)
-  // return res
 }
 
 export const getCart = () => (dispatch) => {
@@ -24,11 +33,19 @@ export const getCart = () => (dispatch) => {
     headers
   })
     .then((carts) => {
-      // if (carts.status === 200) {
       dispatch(setCart(carts.data))
-      // }
     })
     .catch((err) => (err.response));
+}
+
+export const increaseQuantity = (productId) => (dispatch) => {
+  axios.put(`/cart/${productId}`, null, {
+    headers
+  })
+    .then((updatedCart) => {
+      dispatch(increaseQuantityCreator(updatedCart.data));
+    })
+    .catch((error) => error.response)
 }
 
 export const decreaseQuantity = (productID) => (dispatch) => {
