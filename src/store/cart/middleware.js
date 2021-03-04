@@ -1,18 +1,28 @@
 import axios from 'axios'
 import headers from '../../Constants'
 import {
-  setCart, decreaseQuantityCreator, addToCartCreator, removeFromCartCreator, clearCartCreator
+  setCart,
+  decreaseQuantityCreator,
+  addToCartCreator,
+  removeFromCartCreator,
+  clearCartCreator
 } from './actionCreator'
 
 export const addToCart = (productId) => (dispatch) => {
-  axios.put(`/cart/${productId}`, null, {headers})
-    .then((updatedCart) => dispatch(addToCartCreator(updatedCart.data)))
+  axios.put(`/cart/${productId}`, null, {
+    headers
+  })
+    .then((updatedCart) => {
+      dispatch(addToCartCreator(updatedCart.data));
+    })
     .catch((error) => error.response)
-//   return res
+  // return res
 }
 
 export const getCart = () => (dispatch) => {
-  axios.get('/cart', {headers})
+  axios.get('/cart', {
+    headers
+  })
     .then((carts) => {
       if (carts.status === 200) {
         dispatch(setCart(carts.data))
@@ -20,22 +30,28 @@ export const getCart = () => (dispatch) => {
     })
     .catch((err) => (err.response));
 }
-    
+
 export const decreaseQuantity = (productID) => (dispatch) => {
-  const res = axios.delete(`/cart/product/${productID}`, {headers})
+  const res = axios.delete(`/cart/product/${productID}`, {
+    headers
+  })
     .then((updatedCart) => dispatch(decreaseQuantityCreator(updatedCart)))
     .catch((err) => err.response);
   return res;
 }
 
 export const removeFromCart = (productID) => (dispatch) => {
-  axios.delete(`/cart/${productID}`, {headers})
+  axios.delete(`/cart/${productID}`, {
+    headers
+  })
     .then((result) => dispatch(removeFromCartCreator(result)))
     .catch((err) => err.response);
 }
 
 export const clearCart = () => (dispatch) => {
-  axios.delete('/cart', {headers})
+  axios.delete('/cart', {
+    headers
+  })
     .then((result) => dispatch(clearCartCreator(result)))
     .catch((err) => err.response);
 }

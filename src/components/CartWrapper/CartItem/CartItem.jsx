@@ -30,9 +30,9 @@ export const CartItem = ({
             </span>
           </span>
 
-          <Button onClick={decreaseQuantity(product._id)} shape="circle" icon={<MinusOutlined />} />
+          <Button onClick={() => decreaseQuantity(product._id)} shape="circle" icon={<MinusOutlined />} />
           <StyledInput value={cartQuantity} />
-          <Button onClick={addToCart(product._id)} shape="circle" icon={<PlusOutlined />} />
+          <Button onClick={() => addToCart(product._id)} shape="circle" icon={<PlusOutlined />} />
           
           <span className="subtotal">
             {product.currentPrice * cartQuantity}

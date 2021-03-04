@@ -32,7 +32,8 @@ const CartList = connect(
   }, [getCart]);
 
   console.log(cart);
-  console.log(cart.products);
+  // console.log(cart.products);
+  // addToCart(productID)
 
   return (
     <StyledCartList>
