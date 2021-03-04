@@ -44,8 +44,12 @@ class NumericInput extends React.Component {
 
 export default NumericInput;
 
+NumericInput.defaultProps = {
+  onBlur: () => null,
+}
+
 NumericInput.propTypes = {
   value: PropTypes.number.isRequired,
-  onBlur: PropTypes.func.isRequired,
+  onBlur: PropTypes.func,
   onChange: PropTypes.func.isRequired,
 }
