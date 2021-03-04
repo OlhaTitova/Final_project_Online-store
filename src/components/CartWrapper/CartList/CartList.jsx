@@ -1,37 +1,39 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { connect } from 'react-redux';
 import TheadCart from '../TheadCart/TheadCart';
 import { CartItem } from '../CartItem/CartItem';
 import { ColumnRowBetween, RowColumn} from '../Flex';
 import StyledButton from '../../common/Buttons/StyledButton';
 import StyledCartList from './StyledCartList';
-import { addProductToCart, authLogInCart, decreaseProductQuantity } from '../../../store/cart/middleware';
+import {
+  getCart, addToCart, decreaseQuantity
+} from '../../../store/cart/middleware';
 import CartEmpty from '../CartEmpty/CartEmpty';
 
 const MapStateToProps = (state) => ({cart: state.cart.cart})
 
 const CartList = connect(
-  MapStateToProps, {addProductToCart, authLogInCart, decreaseProductQuantity}
+  MapStateToProps, {
+    addToCart, decreaseQuantity, getCart
+  }
 )(({
-  addProductToCart,
-  // decreaseProductQuantity,
+  addToCart,
   // authLogInCart,
-  // getCart,
+  getCart,
   cart
 }) => {
-  // authLogInCart({loginOrEmail: 'admin', password: 'adminPassword'});
   const productID = '603ced9ce8326900152cfd00';
 
-  // useEffect(() => {
-  //   getCart()
-  // }, [getCart]);
+  useEffect(() => {
+    getCart()
+  }, [getCart]);
 
   console.log(cart);
   console.log(cart.products);
 
   return (
     <StyledCartList>
-      <StyledButton size="xl" shape="round" onClick={() => addProductToCart(productID)}>Add to cart</StyledButton>
+      <StyledButton size="xl" shape="round" onClick={() => addToCart(productID)}>Add to cart</StyledButton>
       <TheadCart />
      
       {Object.keys(cart).length > 0
@@ -41,6 +43,7 @@ const CartList = connect(
           <CartItem
             product={item.product}
             cartQuantity={item.cartQuantity}
+            key={item.product.itemNo}
           />
         )
         ))

@@ -1,67 +1,50 @@
 import axios from 'axios'
 import headers from '../../Constants'
 import {
-  setCart, changeQuantity,
-  // getCartCreator,
-//   addToCart, , removeFromCart, clearCart,
+  setCart, decreaseQuantityCreator, addToCartCreator, removeFromCartCreator, clearCartCreator
 } from './actionCreator'
 
-export const authLogInCart = (credentials) => () => {
-  axios.post('/customers/login', credentials)
-    .then((data) => localStorage.setItem('token', data.data.token))
-    .catch((error) => console.log(error.response))
-}
+// export const authLogInCart = (credentials) => {
+//   axios.post('/customers/login', credentials)
+//     .then((data) => localStorage.setItem('token', data.data.token))
+//     .catch((error) => console.log(error.response))
+// }
+// authLogInCart({loginOrEmail: 'admin', password: 'adminPassword'});
 
-export const addProductToCart = (productId) => (dispatch) => {
+export const addToCart = (productId) => (dispatch) => {
   const res = axios.put(`/cart/${productId}`, null, {headers})
-    .then((updatedCart) => dispatch(setCart(updatedCart.data)))
+    .then((updatedCart) => dispatch(addToCartCreator(updatedCart.data)))
     .catch((error) => error.response)
   return res
 }
 
-export const getCart = (productId) => (dispatch) => {
-  const res = axios.put(`/cart/${productId}`, null, {headers})
-    .then((updatedCart) => dispatch(setCart(updatedCart.data)))
-    .catch((error) => error.response)
-  //   if (res.status === 200) {
-  //     dispatch(addToCart())
-  //   }
-  return res
-
-//   axios.get('/cart')
-//     .then((carts) => {
-//       console.log(4444444444444);
-//       if (carts.status === 200) {
-//         dispatch(setCart(carts.data))
-//       }
-//     })
-//     .catch((err) => err.response);
+export const getCart = () => (dispatch) => {
+  axios.get('/cart', {headers})
+    .then((carts) => {
+    //   console.log(4444444444444);
+      if (carts.status === 200) {
+        dispatch(setCart(carts.data))
+      }
+    })
+    .catch((err) => (err.response));
 }
     
-export const decreaseProductQuantity = (productID) => (dispatch) => {
-  axios.delete(`/cart/product/${productID}`, null, {headers})
-    .then((updatedCart) => dispatch(changeQuantity(updatedCart)))
+export const decreaseQuantity = (productID) => (dispatch) => {
+  axios.delete(`/cart/product/${productID}`, {headers})
+    .then((updatedCart) => dispatch(decreaseQuantityCreator(updatedCart)))
     .catch((err) => err.response);
 }
 
-// const removeFromCart = () => (dispatch) => {
-//     const res = axios.delete("/cart/603ced9ae8326900152cfcee")
-//     .then(result => {
-//       /*Do something with result*/
-//     })
-//     .catch(err => {
-//       /*Do something with error, e.g. show error to user*/
-//     });
-// }
+export const removeFromCart = (productID) => (dispatch) => {
+  axios.delete(`/cart/${productID}`)
+    .then((result) => dispatch(removeFromCartCreator(result)))
+    .catch((err) => err.response);
+}
 
-// const clearCart = () => (dispatch) => {
-//   const res = axios.delete('/cart')
-//     .then((result) => {
-//       /* Do something with result */
-//     })
-//     .catch((err) => {
-//       /* Do something with error, e.g. show error to user */
-//     });
-// }
+export const clearCart = () => (dispatch) => {
+  axios.delete('/cart')
+    .then((result) => dispatch(clearCartCreator(result)))
+    .catch((err) => err.response);
+}
 
-export default addProductToCart;
+export default addToCart;

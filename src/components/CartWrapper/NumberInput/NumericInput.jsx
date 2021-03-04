@@ -26,7 +26,8 @@ class NumericInput extends React.Component {
   };
 
   render() {
-    const { value } = this.props;
+    let {value} = this.props;
+    value = value === 0 ? '' : value;
     
     return (
       
@@ -47,5 +48,4 @@ NumericInput.propTypes = {
   value: PropTypes.number.isRequired,
   onBlur: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired,
-
 }

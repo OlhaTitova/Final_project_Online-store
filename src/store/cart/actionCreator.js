@@ -1,27 +1,27 @@
 import {
-  ADD_TO_CART, CHANGE_QUANTITY, REMOVE_FROM_CART, CLEAR_CART, SET_CART, SET_CART_SUMMARY
+  ADD_TO_CART, DECREASE_QUANTITY, REMOVE_FROM_CART, CLEAR_CART, SET_CART, SET_CART_SUMMARY
 } from './actionType';
 
 export const setCart = (cart) => ({
   type: SET_CART,
   payload: cart,
 })
-export const addToCart = (cart) => ({
+export const addToCartCreator = (cart) => ({
   type: ADD_TO_CART,
   payload: cart,
 })
-export const changeQuantity = (cart) => ({
-  type: CHANGE_QUANTITY,
+export const decreaseQuantityCreator = (cart) => ({
+  type: DECREASE_QUANTITY,
   payload: cart,
 })
-export const removeFromCart = (id) => ({
+export const removeFromCartCreator = (id) => ({
   type: REMOVE_FROM_CART,
   payload: id,
 })
-export const clearCart = () => ({
+export const clearCartCreator = () => ({
   type: CLEAR_CART,
 })
-export const setCartSummary = (sum) => ({
+export const setCartSummaryCreator = (sum) => ({
   type: SET_CART_SUMMARY,
   payload: sum
 })

@@ -7,7 +7,7 @@ import {
 import { Button} from 'antd';
 import { ButtonRemoveEdit, StyledCartItem, StyledInput} from './StyledCartItem';
 import { Row } from '../Flex';
-import { decreaseProductQuantity, addProductToCart } from '../../../store/cart/middleware';
+import { decreaseQuantity, addToCart } from '../../../store/cart/middleware';
 
 export const CartItem = ({
   product,
@@ -30,9 +30,9 @@ export const CartItem = ({
             </span>
           </span>
 
-          <Button onClick={decreaseProductQuantity(product._id)} shape="circle" icon={<MinusOutlined />} />
+          <Button onClick={decreaseQuantity(product.itemNo)} shape="circle" icon={<MinusOutlined />} />
           <StyledInput value={cartQuantity} />
-          <Button onClick={addProductToCart(product._id)} shape="circle" icon={<PlusOutlined />} />
+          <Button onClick={addToCart(product.itemNo)} shape="circle" icon={<PlusOutlined />} />
           
           <span className="subtotal">
             {product.currentPrice * cartQuantity}
@@ -51,10 +51,15 @@ export const CartItem = ({
 
   </div>
 )
-  
+
 export default CartItem;
 
 CartItem.propTypes = {
-  product: PropTypes.isRequired,
-  cartQuantity: PropTypes.number.isRequired
+  cartQuantity: PropTypes.number.isRequired,
+  product: PropTypes.shape({
+    imageUrls: PropTypes.arrayOf(PropTypes.string),
+    name: PropTypes.string,
+    currentPrice: PropTypes.number,
+    itemNo: PropTypes.string,
+  }).isRequired,
 }

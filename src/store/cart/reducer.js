@@ -1,5 +1,5 @@
 import {
-  ADD_TO_CART, CHANGE_QUANTITY, REMOVE_FROM_CART, CLEAR_CART, SET_CART, SET_CART_SUMMARY
+  ADD_TO_CART, DECREASE_QUANTITY, REMOVE_FROM_CART, CLEAR_CART, SET_CART, SET_CART_SUMMARY
 } from './actionType';
 
 const initialState = {
@@ -14,13 +14,11 @@ export const cartReducer = (state = initialState, {type, payload}) => {
         ...state,
         cart: payload,
       }
-
-    case CHANGE_QUANTITY:
+    case DECREASE_QUANTITY:
       return {
         ...state,
         cart: payload,
       }
-
     case REMOVE_FROM_CART:
       return {
         ...state,
