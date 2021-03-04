@@ -8,7 +8,7 @@ import { ColumnRowBetween, RowColumn} from '../Flex';
 import StyledButton from '../../common/Buttons/StyledButton';
 import StyledCartList from './StyledCartList';
 import {
-  getCart, addToCart, clearCart
+  getCart, clearCart
 } from '../../../store/cart/middleware';
 import CartEmpty from '../CartEmpty/CartEmpty';
 
@@ -16,25 +16,19 @@ const MapStateToProps = (state) => ({cart: state.cart.cart})
 
 const CartList = connect(
   MapStateToProps, {
-    addToCart, getCart, clearCart
+    getCart, clearCart
   }
 )(({
   cart,
   getCart,
-  addToCart,
   clearCart
 }) => {
-  const productID = '603ced9ae8326900152cfcf0';
-
   useEffect(() => {
     getCart()
   }, [getCart]);
 
-  console.log(cart);
-
   return (
     <StyledCartList>
-      <StyledButton size="xl" shape="round" onClick={() => addToCart(productID, 10)}>Add to cart</StyledButton>
       <TheadCart />
       {cart && cart.products && cart.products.length > 0
 
