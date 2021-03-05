@@ -9,9 +9,12 @@ import {Cart} from './components/CartWrapper/Cart/Cart'
 import LogIn from './components/LogIn/LogIn'
 import ProductPage from './components/ProductPage/ProductPage'
 
+import Header from './components/Header/Header'
+
 function App() {
   return (
     <div>
+      <Header />
       <NavLink to="/">Homepage</NavLink>
       <NavLink to="/signup">Sign Up</NavLink>
       <NavLink to="/signin">Sign In</NavLink>
