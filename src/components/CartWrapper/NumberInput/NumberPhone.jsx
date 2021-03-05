@@ -4,7 +4,7 @@ import NumericInput from './NumericInput';
 class NumberPhone extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { value: '' };
+    this.state = { value: 0 };
   }
   
     onChange = (value) => {

@@ -2,8 +2,8 @@ import {
   RightOutlined,
   CloseOutlined
 } from '@ant-design/icons';
+import { motion } from 'framer-motion';
 import styled, { css } from 'styled-components';
-import {motion} from 'framer-motion';
 import {forDesktop} from '../../../styles/mediaBreakPoints';
 
 export const PopUpContainer = styled(motion.div)`

@@ -1,11 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import {RowBetween } from '../Flex';
-import {WrapperSummary} from './StyledSummary';
+import WrapperSummary from './StyledSummary';
 import StyledButton from '../../common/Buttons/StyledButton';
 import StyledNumberPhone from '../NumberInput/StyledNumberPhone';
+import { selectCartSummary } from '../../../store/cart/reducer';
 
-const Summary = ({sumtotal}) => (
+const mapStateToProps = (state) => ({
+  summary: selectCartSummary(state),
+})
+
+const Summary = connect(mapStateToProps)(({summary}) => (
   <WrapperSummary>
     <h4>Summary</h4>
     <RowBetween>
@@ -16,7 +22,7 @@ const Summary = ({sumtotal}) => (
       </div>
       <div>
         <span className="sumtotal">
-          {sumtotal}
+          {summary}
         </span>
         <span className="sumtotal">
           ₴
@@ -51,10 +57,14 @@ const Summary = ({sumtotal}) => (
       </StyledButton>
     </div>
   </WrapperSummary>
-);
+));
 
 export default Summary;
 
+Summary.defaultProps = {
+  summary: 0,
+}
+
 Summary.propTypes = {
-  sumtotal: PropTypes.number.isRequired,
+  cartSummary: PropTypes.number,
 }
