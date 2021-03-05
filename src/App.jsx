@@ -8,21 +8,22 @@ import { NewProductsSlider } from './components/NewProductsSlider/NewProductsSli
 import {Cart} from './components/CartWrapper/Cart/Cart'
 import LogIn from './components/LogIn/LogIn'
 import ProductPage from './components/ProductPage/ProductPage'
-
 import Header from './components/Header/Header'
+import {Container} from './components/common/Container'
 
 function App() {
   return (
     <div>
       <Header />
-      <NavLink to="/">Homepage</NavLink>
-      <NavLink to="/signup">Sign Up</NavLink>
-      <NavLink to="/signin">Sign In</NavLink>
-      <NavLink to="/aboutus">About Us</NavLink>
-      <NavLink to="/cart">Cart</NavLink>
-      <NavLink to="/products/720373" style={{ margin: '0 15px', color: 'tomato' }}>Products</NavLink>
-      <NavLink to="/buttons">Buttons</NavLink>
-      
+      <Container>
+        <NavLink to="/">Homepage</NavLink>
+        <NavLink to="/signup">Sign Up</NavLink>
+        <NavLink to="/signin">Sign In</NavLink>
+        <NavLink to="/aboutus">About Us</NavLink>
+        <NavLink to="/cart">Cart</NavLink>
+        <NavLink to="/products/720373" style={{ margin: '0 15px', color: 'tomato' }}>Products</NavLink>
+        <NavLink to="/buttons">Buttons</NavLink>
+      </Container>
       <Switch>
         <Route exact path="/">
           <BannerSlider />

@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import 'antd/dist/antd.css';
-import {useCycle} from 'framer-motion';
+import { useCycle } from 'framer-motion';
 import {
   DownOutlined
 } from '@ant-design/icons';
@@ -127,8 +127,9 @@ const Header = () => {
         {/* mediaSearch */}
         <SearchOutlinedStyledMedia onClick={toggleShow} />
         {/* mediaSearch */}
-
-        <ShoppingCartOutlinedStyled />
+        <Link to="/cart">
+          <ShoppingCartOutlinedStyled />
+        </Link>
         <RelativePosUserPopUp>
           <UserOutlinedStyled id="userBtn" />
           <UserPopUp
