@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import axios from 'axios'
 import headers from '../headers'
 import {
@@ -9,10 +10,16 @@ import {
   increaseQuantityCreator
 } from './actionCreator'
 
-export const addToCart = (productId, quantity) => (dispatch) => {
-  axios.post('/cart',
+export const addToCart = (products, productId, quantity) => (dispatch) => {
+  const data = products ? products.map((el) => ({
+    product: el.product._id,
+    cartQuantity: el.cartQuantity,
+  })) : []
+
+  axios.put('/cart',
     {
       products: [
+        ...data,
         {
           product: productId,
           cartQuantity: quantity,
@@ -23,7 +30,9 @@ export const addToCart = (productId, quantity) => (dispatch) => {
       headers
     })
     .then((updatedCart) => {
-      dispatch(addToCartCreator(updatedCart.data));
+      if (updatedCart.status === 200) {
+        dispatch(addToCartCreator(updatedCart.data));
+      }
     })
     .catch((error) => error.response)
 }
@@ -33,7 +42,9 @@ export const getCart = () => (dispatch) => {
     headers
   })
     .then((carts) => {
-      dispatch(setCart(carts.data))
+      if (carts.status === 200) {
+        dispatch(setCart(carts.data))
+      }
     })
     .catch((err) => (err.response));
 }
@@ -43,7 +54,9 @@ export const increaseQuantity = (productId) => (dispatch) => {
     headers
   })
     .then((updatedCart) => {
-      dispatch(increaseQuantityCreator(updatedCart.data));
+      if (updatedCart.status === 200) {
+        dispatch(increaseQuantityCreator(updatedCart.data));
+      }
     })
     .catch((error) => error.response)
 }
@@ -52,7 +65,11 @@ export const decreaseQuantity = (productID) => (dispatch) => {
   const res = axios.delete(`/cart/product/${productID}`, {
     headers
   })
-    .then((updatedCart) => dispatch(decreaseQuantityCreator(updatedCart.data)))
+    .then((updatedCart) => {
+      if (updatedCart.status === 200) {
+        dispatch(decreaseQuantityCreator(updatedCart.data))
+      }
+    })
     .catch((err) => err.response);
   return res;
 }
@@ -61,7 +78,11 @@ export const removeFromCart = (productID) => (dispatch) => {
   axios.delete(`/cart/${productID}`, {
     headers
   })
-    .then((result) => dispatch(removeFromCartCreator(result.data)))
+    .then((result) => {
+      if (result.status === 200) {
+        dispatch(removeFromCartCreator(result.data))
+      }
+    })
     .catch((err) => err.response);
 }
 

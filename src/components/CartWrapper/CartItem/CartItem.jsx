@@ -10,9 +10,7 @@ import { ButtonRemoveEdit, StyledCartItem, StyledInput} from './StyledCartItem';
 import { Row } from '../Flex';
 import { decreaseQuantity, increaseQuantity, removeFromCart } from '../../../store/cart/middleware';
 
-const mapStateToProps = (state) => ({cart: state.cart.cart})
-
-export const CartItem = connect(mapStateToProps, {
+export const CartItem = connect(null, {
   increaseQuantity, decreaseQuantity, removeFromCart
 })(({
   product,
@@ -25,7 +23,7 @@ export const CartItem = connect(mapStateToProps, {
     <StyledCartItem>
       <div className="margin">
         <Row>
-          <img src={product.imageUrls[0]} alt="" />
+          <img src={product.imageUrls[0]} alt={product.name} />
           <p>{product.name}</p>
         </Row>
       </div>

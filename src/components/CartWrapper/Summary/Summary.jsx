@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {RowBetween } from '../Flex';
-import {WrapperSummary} from './StyledSummary';
+import WrapperSummary from './StyledSummary';
 import StyledButton from '../../common/Buttons/StyledButton';
 import StyledNumberPhone from '../NumberInput/StyledNumberPhone';
 

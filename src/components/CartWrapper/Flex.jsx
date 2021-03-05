@@ -37,7 +37,6 @@ export const RowColumn = styled(Row)`
     flex-direction: column;
 
     @media(min-width: ${forDesktop.minWidth}px){
-        
         flex-direction: row;
     }
 `;
@@ -49,8 +48,8 @@ export const RowBetween = styled(Row)`
 export const ColumnRowBetween = styled(Row)`
     flex-direction: column;
 
-@media(min-width: ${forDesktop.minWidth}px){
-    flex-direction:row;
-    justify-content: space-between;
-}
+    @media(min-width: ${forDesktop.minWidth}px){
+        flex-direction:row;
+        justify-content: space-between;
+    }
 `;

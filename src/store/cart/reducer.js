@@ -9,41 +9,31 @@ import {
 } from './actionType';
 
 const initialState = {
-  cart: {},
-  cartSummary: 0
+  cartSummary: 0,
+  products: [],
+  customer: {}
 }
 
 export const cartReducer = (state = initialState, {type, payload}) => {
   switch (type) {
     case ADD_TO_CART:
-      return {
-        ...state,
-        cart: payload,
-      }
     case DECREASE_QUANTITY:
-      return {
-        ...state,
-        cart: payload,
-      }
     case INCREASE_QUANTITY:
-      return {
-        ...state,
-        cart: payload,
-      }
     case REMOVE_FROM_CART:
       return {
         ...state,
-        cart: payload,
+        products: payload.products,
       }
     case CLEAR_CART:
       return {
         ...state,
-        cart: {},
+        products: {},
       }
     case SET_CART:
       return {
         ...state,
-        cart: payload,
+        products: payload.products,
+        customer: payload.customerId,
       }
     case SET_CART_SUMMARY:
       return {

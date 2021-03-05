@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { forTablet, forDesktop } from '../../../styles/mediaBreakPoints';
+import { forTablet, forDesktop } from '../../styles/mediaBreakPoints';
 
 const CartEmpty = styled.p`
 
@@ -14,12 +14,11 @@ const CartEmpty = styled.p`
     text-align:center;
     line-height:1.6;
 
-
-@media(min-width: ${forTablet.minWidth}px) and (max-width: ${forTablet.maxWidth}px) {
-    font-size: 24px;
-}
-@media(min-width: ${forDesktop.minWidth}px){
-    font-size: 30px;
-}
+    @media(min-width: ${forTablet.minWidth}px) and (max-width: ${forTablet.maxWidth}px) {
+        font-size: 24px;
+    }
+    @media(min-width: ${forDesktop.minWidth}px){
+        font-size: 30px;
+    }
 `
 export default CartEmpty;
