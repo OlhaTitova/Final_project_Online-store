@@ -12,7 +12,7 @@ export const Cart = () => (
         Shopping Cart
       </Heading>
       <RowRevers>
-        <Summary sumtotal={2400000} />
+        <Summary />
         <CartList />
       </RowRevers>
     </ContainerCart>
