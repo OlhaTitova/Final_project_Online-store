@@ -9,9 +9,12 @@ import StyledButton from './components/common/Buttons/StyledButton'
 import { Cart } from './components/CartPage/Cart/Cart'
 import ProductPage from './components/ProductPage/ProductPage'
 
+import Header from './components/Header/Header'
+
 function App() {
   return (
     <div>
+      <Header />
       <NavLink to="/">Homepage</NavLink>
       <NavLink to="/signup">Sign Up</NavLink>
       <NavLink to="/signin">Sign In</NavLink>

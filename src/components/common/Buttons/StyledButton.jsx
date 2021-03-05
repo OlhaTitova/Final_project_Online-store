@@ -39,7 +39,6 @@ ${(props) => props.color === 'white' && css`
   border: 2px solid #ffffff;
   color: #ffffff;
 `};
-   
 ${(props) => props.size === 'xl' && css`
   width: 100%;
 `};
