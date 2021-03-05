@@ -11,8 +11,9 @@ import {
   getCart, clearCart, addToCart
 } from '../../../store/cart/middleware';
 import CartEmpty from '../CartEmpty';
+import { selectProducts } from '../../../store/cart/reducer';
 
-const mapStateToProps = (state) => ({products: state.cart.products})
+const mapStateToProps = (state) => ({products: selectProducts(state)})
 
 const CartList = connect(
   mapStateToProps, {

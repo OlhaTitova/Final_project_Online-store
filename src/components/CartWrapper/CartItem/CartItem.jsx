@@ -24,7 +24,10 @@ export const CartItem = connect(null, {
       <div className="margin">
         <Row>
           <img src={product.imageUrls[0]} alt={product.name} />
-          <p>{product.name}</p>
+          <div>
+            <p>{product.name}</p>
+            <p>{product.description}</p>
+          </div>
         </Row>
       </div>
       <div className="margin">

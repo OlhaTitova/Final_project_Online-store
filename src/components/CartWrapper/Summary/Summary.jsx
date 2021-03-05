@@ -5,10 +5,13 @@ import {RowBetween } from '../Flex';
 import WrapperSummary from './StyledSummary';
 import StyledButton from '../../common/Buttons/StyledButton';
 import StyledNumberPhone from '../NumberInput/StyledNumberPhone';
+import { selectCartSummary } from '../../../store/cart/reducer';
 
-const mapStateToProps = (state) => ({ cartSummary: state.cart.cartSummary })
+const mapStateToProps = (state) => ({
+  summary: selectCartSummary(state),
+})
 
-const Summary = connect(mapStateToProps, {})(({cartSummary}) => (
+const Summary = connect(mapStateToProps)(({summary}) => (
   <WrapperSummary>
     <h4>Summary</h4>
     <RowBetween>
@@ -19,7 +22,7 @@ const Summary = connect(mapStateToProps, {})(({cartSummary}) => (
       </div>
       <div>
         <span className="sumtotal">
-          {cartSummary}
+          {summary}
         </span>
         <span className="sumtotal">
           ₴
@@ -59,7 +62,7 @@ const Summary = connect(mapStateToProps, {})(({cartSummary}) => (
 export default Summary;
 
 Summary.defaultProps = {
-  cartSummary: 0,
+  summary: 0,
 }
 
 Summary.propTypes = {
