@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom/cjs/react-router-dom.min';
 import TheadCart from '../TheadCart/TheadCart';
 import { CartItem } from '../CartItem/CartItem';
-import { ColumnRowBetween, RowColumn} from '../Flex';
+import { ColumnRowBetween} from '../Flex';
 import StyledButton from '../../common/Buttons/StyledButton';
 import StyledCartList from './StyledCartList';
 import {
@@ -53,20 +53,21 @@ const CartList = connect(
         : <CartEmpty>Your Shopping Cart is Empty</CartEmpty>}
 
       <ColumnRowBetween>
-        <RowColumn>
-          <div className="margin">
-            <NavLink to="/">
-              <StyledButton size="xl" shape="round" color="borderGrey">Continue Shopping</StyledButton>
-            </NavLink>
-          </div>
-          <div className="margin">
-            <StyledButton onClick={() => clearCart()} size="xl" shape="round" color="black">Clear Shopping Cart</StyledButton>
-          </div>
-        </RowColumn>
+        {/* <RowColumn> */}
         <div className="margin">
-          <StyledButton onClick={() => getCart()} size="xl" shape="round" color="black">
+          <NavLink to="/">
+            <StyledButton size="xl" shape="round" color="borderGrey">Continue Shopping</StyledButton>
+          </NavLink>
+        </div>
+        {/* <div className="margin">
+          </div>
+        </RowColumn> */}
+        <div className="margin">
+          <StyledButton onClick={() => clearCart()} size="xl" shape="round" color="black">Clear Shopping Cart</StyledButton>
+          
+          {/* <StyledButton onClick={() => getCart()} size="xl" shape="round" color="black">
             Update Shopping Cart
-          </StyledButton>
+          </StyledButton> */}
         </div>
       </ColumnRowBetween>
 

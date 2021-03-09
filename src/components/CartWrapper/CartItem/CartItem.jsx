@@ -2,12 +2,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  CloseOutlined, EditOutlined, MinusOutlined, PlusOutlined,
+  CloseOutlined, MinusOutlined, PlusOutlined,
 } from '@ant-design/icons';
-import { Button} from 'antd';
+import { Button, Row, Col} from 'antd';
 import { connect } from 'react-redux';
 import { ButtonRemoveEdit, StyledCartItem, StyledInput} from './StyledCartItem';
-import { Row } from '../Flex';
+import { DisplayRow } from '../Flex';
 import { decreaseQuantity, increaseQuantity, removeFromCart } from '../../../store/cart/middleware';
 
 export const CartItem = connect(null, {
@@ -21,41 +21,37 @@ export const CartItem = connect(null, {
 }) => (
   <div>
     <StyledCartItem>
-      <div className="margin">
-        <Row>
+      <Row align="middle">
+        <Col xs={8} md={8} lg={5}>
           <img src={product.imageUrls[0]} alt={product.name} />
-          <div>
-            <p>{product.name}</p>
-            <p>{product.description}</p>
-          </div>
-        </Row>
-      </div>
-      <div className="margin">
-        <Row>
+        </Col>
+        <Col xs={16} md={16} lg={7}>
+          <p>{product.name}</p>
+          <p>{product.description}</p>
+        </Col>
+        <Col xs={7} md={7} lg={3}>
           <span className="price">
             {product.currentPrice}
-            <span className="price">
-              ₴
-            </span>
+            ₴
           </span>
-
-          <Button onClick={() => decreaseQuantity(product._id)} shape="circle" icon={<MinusOutlined />} />
-          <StyledInput value={cartQuantity} />
-          <Button onClick={() => increaseQuantity(product._id)} shape="circle" icon={<PlusOutlined />} />
-          
-          <span className="subtotal">
+        </Col>
+        <Col xs={7} md={7} lg={5}>
+          <DisplayRow>
+            <Button onClick={() => decreaseQuantity(product._id)} shape="circle" icon={<MinusOutlined />} />
+            <StyledInput value={cartQuantity} />
+            <Button onClick={() => increaseQuantity(product._id)} shape="circle" icon={<PlusOutlined />} />
+          </DisplayRow>
+        </Col>
+        <Col xs={7} md={7} lg={3} className="subtotal">
+          <span>
             {product.currentPrice * cartQuantity}
-            <span className="price">
-              ₴
-            </span>
+            ₴
           </span>
-
-          <div className="column">
-            <ButtonRemoveEdit onClick={() => removeFromCart(product._id)} shape="circle" icon={<CloseOutlined />} />
-            <ButtonRemoveEdit shape="circle" icon={<EditOutlined />} />
-          </div>
-        </Row>
-      </div>
+        </Col>
+        <Col xs={2} md={3} lg={1}>
+          <ButtonRemoveEdit onClick={() => removeFromCart(product._id)} shape="circle" icon={<CloseOutlined />} />
+        </Col>
+      </Row>
     </StyledCartItem>
 
   </div>

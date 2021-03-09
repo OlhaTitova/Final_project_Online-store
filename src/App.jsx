@@ -6,10 +6,11 @@ import StyledButton from './components/common/Buttons/StyledButton'
 import {AboutUsPage} from './pages/About-us/AboutUs'
 import { NewProductsSlider } from './components/NewProductsSlider/NewProductsSlider'
 import {Cart} from './components/CartWrapper/Cart/Cart'
-import LogIn from './components/LogIn/LogIn'
 import ProductPage from './components/ProductPage/ProductPage'
 import Header from './components/Header/Header'
 import {Container} from './components/common/Container'
+import LogIn from './components/LogIn/LogIn'
+import Checkout from './components/Checkout/Chechout'
 
 function App() {
   return (
@@ -20,7 +21,6 @@ function App() {
         <NavLink to="/signup">Sign Up</NavLink>
         <NavLink to="/signin">Sign In</NavLink>
         <NavLink to="/aboutus">About Us</NavLink>
-        <NavLink to="/cart">Cart</NavLink>
         <NavLink to="/products/720373" style={{ margin: '0 15px', color: 'tomato' }}>Products</NavLink>
         <NavLink to="/buttons">Buttons</NavLink>
       </Container>
@@ -40,6 +40,9 @@ function App() {
         </Route>
         <Route exact path="/cart">
           <Cart />
+        </Route>
+        <Route exact path="/checkout">
+          <Checkout />
         </Route>
         <Route exact path="/products/:productID">
           <ProductPage />
