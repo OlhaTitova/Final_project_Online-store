@@ -7,9 +7,7 @@ import { CartItem } from '../CartItem/CartItem';
 import { ColumnRowBetween, RowColumn} from '../Flex';
 import StyledButton from '../../common/Buttons/StyledButton';
 import StyledCartList from './StyledCartList';
-import {
-  getCart, clearCart, addToCart
-} from '../../../store/cart/middleware';
+import { getCart, clearCart } from '../../../store/cart/middleware';
 import CartEmpty from '../CartEmpty';
 import { selectProducts } from '../../../store/cart/reducer';
 
@@ -17,27 +15,19 @@ const mapStateToProps = (state) => ({products: selectProducts(state)})
 
 const CartList = connect(
   mapStateToProps, {
-    getCart, clearCart, addToCart
+    getCart, clearCart
   }
 )(({
   products,
   getCart,
   clearCart,
-  addToCart
 }) => {
   useEffect(() => {
     getCart()
   }, [getCart]);
 
-  const productID_1 = '603ced9ce8326900152cfd00';
-  const productID_2 = '603ced9ae8326900152cfcf4';
-
-  console.log(products);
-
   return (
     <StyledCartList>
-      <StyledButton size="xl" shape="round" onClick={() => addToCart(products, productID_1, 5)}>Add to cart_1</StyledButton>
-      <StyledButton size="xl" shape="round" onClick={() => addToCart(products, productID_2, 20)}>Add to cart_2</StyledButton>
       <TheadCart />
       {products && products.length > 0
 

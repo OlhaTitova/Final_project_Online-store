@@ -21,7 +21,7 @@ function App() {
         <NavLink to="/signin">Sign In</NavLink>
         <NavLink to="/aboutus">About Us</NavLink>
         <NavLink to="/cart">Cart</NavLink>
-        <NavLink to="/products/720373" style={{ margin: '0 15px', color: 'tomato' }}>Products</NavLink>
+        <NavLink to="/products/739628" style={{ margin: '0 15px', color: 'tomato' }}>Product</NavLink>
         <NavLink to="/buttons">Buttons</NavLink>
       </Container>
       <Switch>
