@@ -5,7 +5,7 @@ export const Container = styled.div`
     width: 90%;
     margin: 0 auto;
     padding: 0 10px;
-    min-width: 360px;
+    min-width: 320px;
     
     @media(min-width: ${forDesktop.minWidth}px){
         max-width: 1200px;

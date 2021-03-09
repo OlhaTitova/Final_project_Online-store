@@ -23,10 +23,8 @@ const Summary = connect(mapStateToProps)(({summary}) => (
       </div>
       <div>
         <span className="sumtotal">
+          $
           {summary}
-        </span>
-        <span className="sumtotal">
-          ₴
         </span>
       </div>
     </RowBetween>
@@ -54,11 +52,6 @@ const Summary = connect(mapStateToProps)(({summary}) => (
         </svg>
       </span>
     </StyledButton>
-    <div>
-      <StyledButton shape="round" color="borderGrey">
-        Check Out with Multiple Addresses
-      </StyledButton>
-    </div>
   </WrapperSummary>
 ));
 

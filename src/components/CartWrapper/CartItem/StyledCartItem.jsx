@@ -19,6 +19,7 @@ export const StyledCartItem = styled.div`
         font-size: 14px;
         line-height: 18px;
         padding-bottom: 15px;
+        color: #000000;
     }
     .price, .subtotal  {
         font-weight: 600;
@@ -30,11 +31,9 @@ export const StyledCartItem = styled.div`
     .subtotal {
         text-align: end;
     }
-
     @media(min-width: ${forDesktop.minWidth}px){
         padding-bottom: 25px;
         margin-bottom: 25px;
-
         img {
             padding-bottom: 0;
         }
@@ -42,7 +41,6 @@ export const StyledCartItem = styled.div`
             font-size: 14px;
             line-height: 21px;
             padding-bottom: 0;
-
         }
         .price, .subtotal {
             font-size: 16px;

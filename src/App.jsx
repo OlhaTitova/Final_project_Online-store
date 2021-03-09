@@ -10,7 +10,7 @@ import ProductPage from './components/ProductPage/ProductPage'
 import Header from './components/Header/Header'
 import {Container} from './components/common/Container'
 import LogIn from './components/LogIn/LogIn'
-import Checkout from './components/Checkout/Chechout'
+import Checkout from './components/Checkout/Checkout'
 
 function App() {
   return (
