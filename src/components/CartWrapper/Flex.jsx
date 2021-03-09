@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 import {forDesktop, forTablet} from '../../styles/mediaBreakPoints';
 
-export const Row = styled.div`
+export const DisplayRow = styled.div`
     display:flex;
 `;
 
-export const AlignItemsCenter = styled(Row)`
+export const AlignItemsCenter = styled(DisplayRow)`
     align-items:center;
 
     @media(min-width: ${forDesktop.minWidth}px){
@@ -13,7 +13,7 @@ export const AlignItemsCenter = styled(Row)`
     }
 `;
 
-export const RowRevers = styled(Row)`
+export const RowRevers = styled(DisplayRow)`
     display: block;
 
     @media(min-width: ${forTablet.minWidth}px) and (max-width: ${forTablet.maxWidth}px) {
@@ -33,7 +33,7 @@ export const RowRevers = styled(Row)`
     }
 `;
 
-export const RowColumn = styled(Row)`
+export const RowColumn = styled(DisplayRow)`
     flex-direction: column;
 
     @media(min-width: ${forDesktop.minWidth}px){
@@ -41,11 +41,11 @@ export const RowColumn = styled(Row)`
     }
 `;
 
-export const RowBetween = styled(Row)`
+export const RowBetween = styled(DisplayRow)`
     justify-content: space-between;
 `;
 
-export const ColumnRowBetween = styled(Row)`
+export const ColumnRowBetween = styled(DisplayRow)`
     flex-direction: column;
 
     @media(min-width: ${forDesktop.minWidth}px){
@@ -53,3 +53,13 @@ export const ColumnRowBetween = styled(Row)`
         justify-content: space-between;
     }
 `;
+
+export const WrapperSignIn = styled.div`
+margin: 0;
+display: block;
+
+@media(min-width: ${forDesktop.minWidth}px){
+    margin: 20px 25px;
+
+}
+`

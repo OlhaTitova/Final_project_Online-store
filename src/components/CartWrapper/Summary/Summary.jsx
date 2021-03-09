@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { NavLink } from 'react-router-dom/cjs/react-router-dom.min';
 import {RowBetween } from '../Flex';
 import WrapperSummary from './StyledSummary';
 import StyledButton from '../../common/Buttons/StyledButton';
@@ -22,18 +23,18 @@ const Summary = connect(mapStateToProps)(({summary}) => (
       </div>
       <div>
         <span className="sumtotal">
+          $
           {summary}
-        </span>
-        <span className="sumtotal">
-          ₴
         </span>
       </div>
     </RowBetween>
     <StyledNumberPhone />
     <div>
-      <StyledButton shape="round">
-        Proceed to Checkout
-      </StyledButton>
+      <NavLink to="/checkout">
+        <StyledButton shape="round">
+          Proceed to Checkout
+        </StyledButton>
+      </NavLink>
     </div>
     <StyledButton shape="round" color="yellow">
       Check out with
@@ -51,11 +52,6 @@ const Summary = connect(mapStateToProps)(({summary}) => (
         </svg>
       </span>
     </StyledButton>
-    <div>
-      <StyledButton shape="round" color="borderGrey">
-        Check Out with Multiple Addresses
-      </StyledButton>
-    </div>
   </WrapperSummary>
 ));
 

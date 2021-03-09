@@ -1,114 +1,53 @@
 import styled from 'styled-components';
 import { Button, Input} from 'antd'
 import 'antd/dist/antd.css';
-import {forDesktop, forTablet } from '../../../styles/mediaBreakPoints';
+import {forDesktop} from '../../../styles/mediaBreakPoints';
 
 export const StyledCartItem = styled.div`
-    display: flex;
-    flex-direction: column;
     border-bottom: 1px solid #cccccc;
     padding-bottom: 17px;
     margin-bottom: 17px;
     
     img {
-        width: 20%;
-        height: 20%;
+        width: 90%;
+        height: 90%;
         display: block;
+        padding-bottom: 15px;
     }
     p {
-        width: 75%;
-        margin: 0 0 0 5.7%;
+        width: 90%;
         font-size: 14px;
         line-height: 18px;
+        padding-bottom: 15px;
+        color: #000000;
     }
     .price, .subtotal  {
         font-weight: 600;
-        font-size: 12px;
+        font-size: 14px;
         line-height: 18px;
-        text-align: center;
         color: #000000;
-        width: 18.25%;
     }
-    .price {
-        margin-right: 6%;
-    }
-    .subtotal {
-        margin-left: 6%;
-    }
-
-    div.column {
-        display:flex;
-        flex-direction: column;
-        margin-left: 6%;
-    }
-    div.margin {
-        margin-bottom:25px;
-    }
-
-    @media(min-width: ${forTablet.minWidth}px) and (max-width: ${forTablet.maxWidth}px) {
     
-        img {
-            width: 17%;
-            height: 17%;
-            display: block;
-        }
-
-        div.margin {
-            margin-bottom: 17px;
-        }
-   
-        @media(min-width: 481px) and (max-width: 767px) {
-        
-            img {
-                width: 15%;
-                height: 15%;
-                display: block;
-            }
-
-            div.margin {
-            margin-bottom: 25px;
-            }
-        }
+    .subtotal {
+        text-align: end;
     }
-
     @media(min-width: ${forDesktop.minWidth}px){
-        display: flex;
-        flex-direction: row;
-        border-bottom: 1px solid #cccccc;
         padding-bottom: 25px;
         margin-bottom: 25px;
-
         img {
-            width: 30%;
-            height: 30%;
-            display: block;
+            padding-bottom: 0;
         }
         p {
-            width:60%;
             font-size: 14px;
             line-height: 21px;
-            margin: 0 5%;
+            padding-bottom: 0;
         }
         .price, .subtotal {
             font-size: 16px;
             line-height: 24px;
-            text-align: center;
-            color: #000000;
-            width: 40%;
-        }
-        .price {
-            margin-right: 5%;
         }
         .subtotal {
-            margin-left: 5%;
-        }
-    
-        div.column {
-            display:flex;
-            flex-direction: column;
-        }
-        div.margin {
-            margin-bottom:0;
+            text-align: end;
         }
     }
 `;

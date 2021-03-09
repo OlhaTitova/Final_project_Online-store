@@ -39,7 +39,7 @@ const WrapperSummary = styled.div`
 
         .sumtotal {
             font-weight: 600;
-            font-size: 11px;
+            font-size: 14px;
         line-height: 210%;
         }
 

@@ -199,6 +199,7 @@ export const ShoppingCartOutlinedStyled = styled(ShoppingCartOutlined)`
   filter: brightness(0) invert(1);
   font-size: 25px;
   flex: 1;
+  padding: 0 20px;
   @media(min-width: ${forDesktop.minWidth}px) {
     filter: invert(0%) sepia(7%) saturate(0%) hue-rotate(39deg) brightness(102%) contrast(106%);
     flex: 3;
@@ -219,10 +220,12 @@ export const UserOutlinedStyled = styled(UserOutlined)`
 export const CircleMobile = styled.div`
   position: relative;
   margin-top: 15px;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
+  width: 65px;
+  height: 48px;
+  border-top-left-radius: 50%;
+  border-top-right-radius: 50%;
   background-color: #0156FF;
+
   @media(min-width: ${forTablet.minWidth}px) {
     flex: 1;
   }
@@ -238,15 +241,15 @@ export const Logo = styled.img`
   width: 30px;
   height: 35px;
   transform: Translate(-50%, -55%);
+  filter: brightness(0) invert(1);
+
+@media(min-width: ${forTablet.minWidth}px) {
+    filter: brightness(0) invert(1);
+  }
   @media(min-width: ${forDesktop.minWidth}px) {
     filter: invert(78%) sepia(90%) saturate(6818%) hue-rotate(246deg) brightness(112%) contrast(145%);
   }
-  @media(max-width: ${forMobile.maxWidth}px) {
-    filter: brightness(0) invert(1);
-  }
-  @media(min-width: ${forTablet.minWidth}px) {
-    filter: brightness(0) invert(1);
-  }
+  
 `;
 export const MenuOutlinedStyled = styled(MenuOutlined)`
   color: white; 

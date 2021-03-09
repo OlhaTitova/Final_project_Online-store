@@ -1,14 +1,17 @@
+import { Col, Row } from 'antd';
 import React from 'react';
 import StyledThead from './StyledTheadCart';
 
 const TheadCart = () => (
   <StyledThead>
-    <p className="item">Item</p>
-    <p className="description" />
-    <p className="price">Price</p>
-    <p className="qty">Qty</p>
-    <p className="subtotal">Subtotal</p>
-    <p className="edit" />
+    <Row>
+      <Col span={5}>Item</Col>
+      <Col span={7}>Product</Col>
+      <Col span={3} className="price">Price</Col>
+      <Col span={5} className="qty">Quantity</Col>
+      <Col span={3} className="subtotal">Subtotal</Col>
+      <Col span={1} />
+    </Row>
   </StyledThead>
 );
 
