@@ -8,7 +8,9 @@ import {
   addToCartCreator,
   removeFromCartCreator,
   clearCartCreator,
-  increaseQuantityCreator
+  increaseQuantityCreator,
+  getBranches,
+  getShippingCostCreator,
 } from './actionCreator'
 
 export const addToCart = (productId, quantity) => (dispatch, getStore) => {
@@ -98,6 +100,56 @@ export const clearCart = () => (dispatch) => {
   axios.delete('/cart', { headers })
     .then(() => dispatch(clearCartCreator()))
     .catch((err) => err.response);
+}
+
+export const getCity = (props) => (dispatch) => {
+  axios.post('https://api.novaposhta.ua/v2.0/json/', {
+    modelName: 'AddressGeneral',
+    calledMethod: 'getWarehouses',
+    methodProperties: {
+      Language: 'ru',
+      CityRef: props,
+    },
+    apiKey: '469ae707669208ac6f2d113fc7edbe13'
+  })
+    .then((data) => {
+      const dataBranches = data.data.data.map((item) => ({
+        branchName: item.DescriptionRu,
+        branchRef: item.Ref
+      }));
+      dispatch(getBranches(dataBranches))
+      console.log(dataBranches);
+    })
+    .catch((error) => error.response)
+}
+
+export const getShippingCost = (senderCityRef, recipientCityRef) => (dispatch) => {
+  axios.post('https://api.novaposhta.ua/v2.0/json/', {
+    modelName: 'InternetDocument',
+    calledMethod: 'getDocumentPrice',
+    methodProperties: {
+      CitySender: senderCityRef.current.props.value,
+      CityRecipient: recipientCityRef.current.props.value,
+      Weight: '10',
+      ServiceType: 'DoorsDoors',
+      Cost: '100',
+      CargoType: 'Cargo',
+      SeatsAmount: '10',
+      PackCalculate: {
+        PackCount: '1',
+        PackRef: '1499fa4a-d26e-11e1-95e4-0026b97ed48a'
+      },
+      RedeliveryCalculate: {
+        CargoType: 'Money',
+        Amount: '100'
+      }
+    },
+    apiKey: '469ae707669208ac6f2d113fc7edbe13'
+  })
+    .then((data) => {
+      dispatch(getShippingCostCreator(data.data.data[0].Cost))
+    })
+    .catch((error) => error.response)
 }
 
 export default addToCart;
