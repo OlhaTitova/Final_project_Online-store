@@ -12,8 +12,8 @@ SpinAnimation.propTypes = {
   height: PropTypes.string
 }
 SpinAnimation.defaultProps = {
-  width: '100vw',
-  height: '100vh'
+  width: '90vw',
+  height: '90vh'
 }
 
 export default SpinAnimation

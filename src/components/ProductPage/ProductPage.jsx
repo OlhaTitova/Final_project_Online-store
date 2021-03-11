@@ -1,10 +1,8 @@
 /* eslint-disable no-underscore-dangle */
-import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useParams, useHistory } from 'react-router-dom'
 import { message } from 'antd'
 import { Container } from '../common/Container'
-import { StarRating } from '../StarRating/StarRating'
 import CartGroup from './CartGroup/CartGroup'
 import {
   PageContainer,
@@ -13,8 +11,6 @@ import {
   StyledImg,
   Description,
   ProductHeading,
-  ReviewsBox,
-  ReviewsCount,
   AboutProduct,
   PriceBox,
   ImageBox,
@@ -23,25 +19,29 @@ import Carousel from '../Carousel/Carousel'
 import rateCalculator from '../../utils/rateCalculator'
 import upperCaseFirstLetter from '../../utils/upperCaseFirstLetter'
 import SpinAnimation from '../SpinAnimation/SpinAnimation'
+import ProductRate from './ProductRate/ProductRate'
+import { getOneProduct } from '../../store/products/middleware'
 
 const ProductPage = () => {
   const [product, setProduct] = useState(null)
-
-  const { productID } = useParams()
+  const { itemNo } = useParams()
   const history = useHistory()
 
   useEffect(() => {
-    axios.get(`/products/${productID}`)
-      .then((res) => (res.status === 200 ? setProduct(() => res.data) : null))
-      .catch((err) => {
+    const getProduct = async () => {
+      const response = await getOneProduct(itemNo)
+      if (response.status === 200) setProduct(() => response.data)
+      else {
         message.error('Something went wrong')
         history.push('/')
-        return err.response
-      })
-  }, [history, productID])
+      }
+    }
+    getProduct()
+  }, [history, itemNo])
 
   if (!product) return <SpinAnimation width="100vw" height="80vh" />
   const { reviews, rating } = rateCalculator(product.reviews)
+
   return (
     <Container>
       <PageContainer>
@@ -62,14 +62,12 @@ const ProductPage = () => {
             {' '}
             {product.itemNo}
           </div>
-          <ReviewsBox>
-            <ReviewsCount>
-              Reviews (
-              {reviews}
-              )
-            </ReviewsCount>
-            <StarRating rating={rating} />
-          </ReviewsBox>
+          <ProductRate
+            rating={rating}
+            reviews={reviews}
+            productID={product._id}
+            itemNo={product.itemNo}
+          />
           <AboutProduct>
             <li>
               Brand:
@@ -108,7 +106,6 @@ const ProductPage = () => {
             </b>
           </PriceBox>
         </InformationBox>
-        <div style={{ height: '50vh'}} />
       </PageContainer>
     </Container>
   )

@@ -26,15 +26,15 @@ export const addOneProduct = (newProduct) => (dispatch) => {
   return res
 }
 
-export const updatedOneProduct = (id, newProduct) => (dispatch) => {
-  const res = axios.put(`${BASE_ENDPOINT}/${id}`, newProduct, {headers})
+export const updateOneProduct = (id, newProduct) => (dispatch) => {
+  const res = axios.put(`${BASE_ENDPOINT}/${id}`, newProduct, { headers })
     .then((data) => {
       if (data.status === 200) {
         dispatch(updateProduct(data.data))
       }
       return data
     })
-    .catch((error) => error)
+    .catch((error) => error.response)
   return res
 }
 

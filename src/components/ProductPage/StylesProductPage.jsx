@@ -57,16 +57,6 @@ export const ProductHeading = styled.h3`
     line-height: 33px;
     font-weight: 500;
 `
-export const ReviewsBox = styled.div`
-    display: flex;
-    flex-direction: column;
-    margin: 7px 0 9px 0;
-`
-export const ReviewsCount = styled.span`
-    font-size: 12px;
-    line-height: 21px;
-    color: #8C8C8C;
-`
 export const AboutProduct = styled.ul`
     display: flex;
     flex-direction: column;

@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
-import {Button } from 'antd';
+import { Button } from 'antd';
 import {forDesktop, forTablet } from '../../../styles/mediaBreakPoints';
 
 const StyledButton = styled(Button)`
