@@ -6,6 +6,8 @@ import StyledButton from './components/common/Buttons/StyledButton'
 import { AboutUsPage } from './pages/About-us/AboutUs'
 import NewProductsSlider from './components/NewProductsSlider/NewProductsSlider'
 import { Cart } from './components/CartWrapper/Cart/Cart'
+import Footer from './components/Footer/Footer'
+import ContactUsPage from './pages/Contact-us/ContactUs'
 import ProductPage from './components/ProductPage/ProductPage'
 import Header from './components/Header/Header'
 import LogIn from './components/LogIn/LogIn'
@@ -29,6 +31,9 @@ function App() {
         <Route exact path="/aboutus">
           <AboutUsPage />
         </Route>
+        <Route exact path="/contactus">
+          <ContactUsPage />
+        </Route>
         <Route exact path="/cart">
           <Cart />
         </Route>
@@ -48,7 +53,7 @@ function App() {
           <StyledButton size="sm" shape="round" color="yellow">Submit</StyledButton>
         </Route>
       </Switch>
-      
+      <Footer />
     </div>
   )
 }
