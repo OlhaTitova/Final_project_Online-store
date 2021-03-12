@@ -2,7 +2,7 @@ import {
   RightOutlined,
   CloseOutlined
 } from '@ant-design/icons';
-import { motion } from 'framer-motion';
+import {motion} from 'framer-motion';
 import styled, { css } from 'styled-components';
 import {forDesktop} from '../../../styles/mediaBreakPoints';
 
@@ -55,6 +55,12 @@ export const PopUpContainer = styled(motion.div)`
     `}
   }
 `;
+export const StyledExceptionLi = styled.li`
+  margin-bottom: 20px;
+  @media(min-width: ${forDesktop.minWidth}px) {
+    margin-bottom: 0px;
+  }
+`;
 export const HeaderOfPopUp = styled.div`
   position: relative;
   height: 80px;
@@ -65,7 +71,7 @@ export const HeaderOfPopUp = styled.div`
   padding: 10px;
 
   @media(min-width: ${forDesktop.minWidth}px) {
-        display: none;
+    display: none;
   }
 `;
 export const Line = styled.span`
@@ -95,4 +101,9 @@ export const CloseOutlinedStyled = styled(CloseOutlined)`
     color: black;
     font-size: 20px;
     padding-right: 25px;
+`;
+export const Listnavigation = styled.ul`
+  a{
+    outline: none;
+  }
 `;

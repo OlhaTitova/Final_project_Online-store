@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import 'antd/dist/antd.css';
-import { useCycle } from 'framer-motion';
+import {useCycle} from 'framer-motion';
 import {
   DownOutlined
 } from '@ant-design/icons';
@@ -41,13 +41,20 @@ const Header = () => {
     hidden: {
       clipPath: 'circle(0.1px at 0.1px 0.1px)',
       transition: {
-        delay: 0.35,
+        delay: 0.15,
         type: 'spring',
         stiffness: 400,
         damping: 40
       }
     }
   };
+
+  const checkForLinkOpen = (e) => {
+    if (e.target.localName === 'h5') {
+      setIsOpen((prev) => !prev)
+    }
+  }
+
   const openCloseMenu = () => {
     setIsOpen((prev) => (!prev))
   }
@@ -74,7 +81,9 @@ const Header = () => {
               Mon - Thu:
               <span> 9.30 AM - 5.30 PM</span>
             </p>
-            <div id="arrowDownShedule"><DownOutlined style={{color: 'white', cursor: 'pointer'}} /></div>
+            <div data-testid="arrowDownShedule" id="arrowDownShedule">
+              <DownOutlined style={{color: 'white', cursor: 'pointer'}} />
+            </div>
           </ShaduleArrowContainer>
           <ContactUsCall>
             <p>
@@ -101,7 +110,7 @@ const Header = () => {
       </ShaduleContainer>
 
       <SearchAndItemsBlock>
-        <MenuOutlinedStyled onClick={openCloseMenu} />
+        <MenuOutlinedStyled onClick={openCloseMenu} data-testid="burger" />
         <Link to="/" style={{outline: 'none'}}>
           <CircleDesktop>
             <LogoDesktop
@@ -111,6 +120,7 @@ const Header = () => {
           </CircleDesktop>
         </Link>
         <PopUpList
+          checkForLinkOpen={checkForLinkOpen}
           hideList={hideList}
           setIsOpen={setIsOpen}
           openSlide={openSlide}
@@ -131,7 +141,7 @@ const Header = () => {
           <ShoppingCartOutlinedStyled />
         </Link>
         <RelativePosUserPopUp>
-          <UserOutlinedStyled id="userBtn" />
+          <UserOutlinedStyled id="userBtn" data-testid="userBtn" />
           <UserPopUp
             isOpenUser={isOpenUser}
             setIsOpenUser={setIsOpenUser}

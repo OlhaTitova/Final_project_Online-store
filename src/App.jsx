@@ -1,5 +1,5 @@
 import React from 'react'
-import { NavLink, Route, Switch } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 import CreateCustomerPage from './components/CreateCustomerPage/CreateCustomerPage'
 import { BannerSlider } from './components/BannerSlider/BannerSlider'
 import StyledButton from './components/common/Buttons/StyledButton'
@@ -8,7 +8,6 @@ import NewProductsSlider from './components/NewProductsSlider/NewProductsSlider'
 import { Cart } from './components/CartWrapper/Cart/Cart'
 import ProductPage from './components/ProductPage/ProductPage'
 import Header from './components/Header/Header'
-import { Container } from './components/common/Container'
 import LogIn from './components/LogIn/LogIn'
 import Checkout from './components/Checkout/Checkout'
 
@@ -16,14 +15,6 @@ function App() {
   return (
     <div>
       <Header />
-      <Container>
-        <NavLink to="/">Homepage</NavLink>
-        <NavLink to="/signup">Sign Up</NavLink>
-        <NavLink to="/signin">Sign In</NavLink>
-        <NavLink to="/aboutus">About Us</NavLink>
-        <NavLink to="/products/739628" style={{ margin: '0 15px', color: 'tomato' }}>Products</NavLink>
-        <NavLink to="/buttons">Buttons</NavLink>
-      </Container>
       <Switch>
         <Route exact path="/">
           <BannerSlider />
