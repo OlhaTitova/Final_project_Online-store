@@ -24,11 +24,6 @@ yarn-debug.log*
 yarn-error.log*
 
 .eslintcache
-<<<<<<< HEAD
-
-package-lock.json
-=======
 .vscode
 
 package-lock.json
->>>>>>> 3bc288988ca276d8d36307ff648f4aa672669eb0
