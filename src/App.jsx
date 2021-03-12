@@ -1,20 +1,59 @@
 import React from 'react'
-import { ProductCard } from './components/ProductCard/ProductCard'
+import { Route, Switch } from 'react-router-dom'
+import CreateCustomerPage from './components/CreateCustomerPage/CreateCustomerPage'
 import { BannerSlider } from './components/BannerSlider/BannerSlider'
+import StyledButton from './components/common/Buttons/StyledButton'
+import { AboutUsPage } from './pages/About-us/AboutUs'
+import NewProductsSlider from './components/NewProductsSlider/NewProductsSlider'
+import { Cart } from './components/CartWrapper/Cart/Cart'
+import Footer from './components/Footer/Footer'
+import ContactUsPage from './pages/Contact-us/ContactUs'
+import ProductPage from './components/ProductPage/ProductPage'
+import Header from './components/Header/Header'
+import LogIn from './components/LogIn/LogIn'
+import Checkout from './components/Checkout/Checkout'
 
 function App() {
   return (
     <div>
-      <ProductCard
-        title="Apple MacBook Air 13 256Gb Space Gray (MWTJ2) 2020"
-        img="https://i.citrus.ua/imgcache/size_800/uploads/shop/0/8/08d983e24e5cced849bd3ab8ac562b35.jpg"
-        lastPrice="544"
-        nowPrice="644"
-        reviews="999"
-        rating={2}
-        isGoodsInStock={false}
-      />
-      <BannerSlider />
+      <Header />
+      <Switch>
+        <Route exact path="/">
+          <BannerSlider />
+          <NewProductsSlider />
+        </Route>
+        <Route exact path="/signin">
+          <LogIn />
+        </Route>
+        <Route exact path="/signup">
+          <CreateCustomerPage />
+        </Route>
+        <Route exact path="/aboutus">
+          <AboutUsPage />
+        </Route>
+        <Route exact path="/contactus">
+          <ContactUsPage />
+        </Route>
+        <Route exact path="/cart">
+          <Cart />
+        </Route>
+        <Route exact path="/checkout">
+          <Checkout />
+        </Route>
+        <Route exact path="/products/:itemNo">
+          <ProductPage />
+        </Route>
+        <Route exact path="/buttons">
+          <StyledButton shape="round">Submit</StyledButton>
+          <StyledButton size="sm" shape="round">Submit</StyledButton>
+          <StyledButton size="xl" shape="round" color="black">Submit</StyledButton>
+          <StyledButton size="lg" shape="round">Submit</StyledButton>
+          <StyledButton size="md" shape="round" color="borderGrey">Submit</StyledButton>
+          <StyledButton size="xs" shape="round" color="borderBlue">Submit</StyledButton>
+          <StyledButton size="sm" shape="round" color="yellow">Submit</StyledButton>
+        </Route>
+      </Switch>
+      <Footer />
     </div>
   )
 }

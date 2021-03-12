@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { forDesktop } from '../../styles/mediaBrakepoints'
+import { forDesktop } from '../../styles/mediaBreakPoints'
 
 const StyledCardItem = styled.li`
   list-style: none;
@@ -69,7 +69,7 @@ export const StyledCardLastPrice = styled.p`
 export const StyledCardNowPrice = styled.p`
   font-size: 14px;
   font-weight: 600;
-
+  color: black;
   margin-top: 3px;
 
   @media(min-width: ${forDesktop.minWidth}px){

@@ -1,6 +1,6 @@
 import { PhoneFilled } from '@ant-design/icons';
 import styled from 'styled-components';
-import { forDesktop } from '../../../styles/mediaBrakepoints';
+import { forDesktop } from '../../../styles/mediaBreakPoints';
 
 const StyledCheckAvailabilityWrapper = styled.div`
   display: flex;
