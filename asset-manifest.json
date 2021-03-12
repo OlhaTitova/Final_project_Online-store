@@ -1,0 +1,33 @@
+{
+  "files": {
+    "main.css": "/Final_project_Online-store/static/css/main.6459d9d5.chunk.css",
+    "main.js": "/Final_project_Online-store/static/js/main.3e8b6b07.chunk.js",
+    "main.js.map": "/Final_project_Online-store/static/js/main.3e8b6b07.chunk.js.map",
+    "runtime-main.js": "/Final_project_Online-store/static/js/runtime-main.adfe1d77.js",
+    "runtime-main.js.map": "/Final_project_Online-store/static/js/runtime-main.adfe1d77.js.map",
+    "static/css/2.1e58ee36.chunk.css": "/Final_project_Online-store/static/css/2.1e58ee36.chunk.css",
+    "static/js/2.0c0b2ef6.chunk.js": "/Final_project_Online-store/static/js/2.0c0b2ef6.chunk.js",
+    "static/js/2.0c0b2ef6.chunk.js.map": "/Final_project_Online-store/static/js/2.0c0b2ef6.chunk.js.map",
+    "index.html": "/Final_project_Online-store/index.html",
+    "static/css/2.1e58ee36.chunk.css.map": "/Final_project_Online-store/static/css/2.1e58ee36.chunk.css.map",
+    "static/css/main.6459d9d5.chunk.css.map": "/Final_project_Online-store/static/css/main.6459d9d5.chunk.css.map",
+    "static/js/2.0c0b2ef6.chunk.js.LICENSE.txt": "/Final_project_Online-store/static/js/2.0c0b2ef6.chunk.js.LICENSE.txt",
+    "static/media/Close.a7458a5f.svg": "/Final_project_Online-store/static/media/Close.a7458a5f.svg",
+    "static/media/computer-blue.878a8539.jpg": "/Final_project_Online-store/static/media/computer-blue.878a8539.jpg",
+    "static/media/computer-colored.8e5de980.png": "/Final_project_Online-store/static/media/computer-colored.8e5de980.png",
+    "static/media/computer-shop.dbadc0f8.png": "/Final_project_Online-store/static/media/computer-shop.dbadc0f8.png",
+    "static/media/computer-yellow.b7a73bac.jpg": "/Final_project_Online-store/static/media/computer-yellow.b7a73bac.jpg",
+    "static/media/first.3bec8328.png": "/Final_project_Online-store/static/media/first.3bec8328.png",
+    "static/media/fourth.a80185e8.png": "/Final_project_Online-store/static/media/fourth.a80185e8.png",
+    "static/media/keyboard.8c438ffa.png": "/Final_project_Online-store/static/media/keyboard.8c438ffa.png",
+    "static/media/second.aeef73e4.png": "/Final_project_Online-store/static/media/second.aeef73e4.png",
+    "static/media/third.9ba4810c.png": "/Final_project_Online-store/static/media/third.9ba4810c.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.adfe1d77.js",
+    "static/css/2.1e58ee36.chunk.css",
+    "static/js/2.0c0b2ef6.chunk.js",
+    "static/css/main.6459d9d5.chunk.css",
+    "static/js/main.3e8b6b07.chunk.js"
+  ]
+}
