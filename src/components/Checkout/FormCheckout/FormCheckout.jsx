@@ -14,10 +14,10 @@ import {
   selectProducts,
   selectShippingCost
 } from '../../../store/cart/reducer';
-import { getCity, getShippingCost } from '../../../store/cart/middleware';
 import {StyledRatio, StyledShippingTitle} from '../StyledCheckout';
 import StyledButton from '../../common/Buttons/StyledButton';
 import { headers } from '../../../store/headers';
+import { getCity, getShippingCost } from '../../../store/cart/middleware';
 
 const mapStateToProps = (state) => ({
   cities: selectCities(state),
