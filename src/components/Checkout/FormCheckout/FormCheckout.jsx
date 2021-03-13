@@ -1,27 +1,85 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable react/jsx-props-no-spreading */
-import React, {useRef} from 'react';
-import { Form, Input, Select} from 'antd';
-import { connect } from 'react-redux';
+import React, {useRef, useState} from 'react';
 import {
-  selectBranches, selectCities, selectCustomer,
+  Form, Input, message, Radio, Select
+} from 'antd';
+import { connect } from 'react-redux';
+import axios from 'axios';
+import {
+  selectBranches,
+  selectCartSummary,
+  selectCities,
+  selectCustomer,
+  selectProducts,
+  selectShippingCost
 } from '../../../store/cart/reducer';
 import { getCity, getShippingCost } from '../../../store/cart/middleware';
+import {StyledRatio, StyledShippingTitle} from '../StyledCheckout';
+import StyledButton from '../../common/Buttons/StyledButton';
+import { headers } from '../../../store/headers';
 
 const mapStateToProps = (state) => ({
   cities: selectCities(state),
   branches: selectBranches(state),
   customer: selectCustomer(state),
+  shippingCost: selectShippingCost(state),
+  products: selectProducts(state),
+  summary: selectCartSummary(state),
 })
 
 const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost})(({
-  cities, branches, customer, getCity, getShippingCost
+  cities, branches, customer, getCity, getShippingCost, shippingCost, products
 }) => {
-  const senderCityRef = useRef();
   const recipientCityRef = useRef();
+  const countryRef = useRef();
+  const branchRef = useRef();
 
-  const getShippingCostHandler = () => {
-    getShippingCost(senderCityRef, recipientCityRef)
+  const [valuePaymentInfo, setValuePaymentInfo] = useState('Cash');
+
+  const onChange = (e) => {
+    setValuePaymentInfo(e.target.value);
+  };
+
+  const PlaceOrder = (values) => {
+    axios
+      .post('/orders', {
+        canceled: false,
+        products: JSON.stringify(products),
+        customerId: {
+          _id: customer._id
+        },
+        deliveryAddress: JSON.stringify({
+          country: values.country,
+          city: values.recipientCity,
+          address: values.recipientBranch,
+        }),
+        shipping: JSON.stringify(shippingCost),
+        paymentInfo: JSON.stringify(valuePaymentInfo),
+        status: 'not shipped',
+        email: customer.email,
+        mobile: customer.telephone,
+        letterSubject: 'Thank you for order! You are welcome!',
+        letterHtml: '<h1>Your order is placed. OrderNo and details about order in your dashboard.</h1>'
+      }, {headers})
+      .then((newOrder) => {
+        message.success(`Thank you for order! Your Order № is ${newOrder.data.order.orderNo}`)
+        console.log(newOrder)
+      })
+      .catch((err) => {
+        message.error(`Your order is not placed. ${err.response}`)
+        console.log(err.response)
+      });
   }
+
+  const onFinish = (values) => {
+    PlaceOrder(values, valuePaymentInfo)
+    // console.log('Success:', values);
+  };
+
+  const onFinishFailed = (errorInfo) => {
+    console.log('Failed:', errorInfo);
+  };
 
   const formLayout = {
     labelCol: {
@@ -29,7 +87,7 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost})(({
         span: 24,
       },
       sm: {
-        span: 8,
+        span: 6,
       },
       md: {
         span: 8,
@@ -86,6 +144,8 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost})(({
       initialValues={{
         remember: true,
       }}
+      onFinish={onFinish}
+      onFinishFailed={onFinishFailed}
     >
       <Form.Item
         label="Email"
@@ -150,43 +210,15 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost})(({
         name="country"
         rules={[{ required: true, message: 'Country is required' }]}
       >
-        <Input disabled />
-      </Form.Item>
-      
-      <Form.Item
-        label="Sender city"
-        name="senderCity"
-        rules={[{ required: true, message: 'Sender city is required' }]}
-      >
-        <Select placeholder="Select sender city" onChange={getCity} ref={senderCityRef}>
-          {cities.map((item) => (
-            <Option value={item.Ref} key={item.Ref}>
-              {item.CityName}
-            </Option>
-          ))}
-        </Select>
+        <Input disabled ref={countryRef} />
       </Form.Item>
 
       <Form.Item
-        label="№ sender branch"
-        name="SenderBranch"
-        rules={[{ required: true, message: 'Branch is required' }]}
-      >
-        <Select placeholder="Select Sender branch">
-          {branches.map((item) => (
-            <Option value={item.branchRef} key={item.branchRef}>
-              {item.branchName}
-            </Option>
-          ))}
-        </Select>
-      </Form.Item>
-
-      <Form.Item
-        label="Recipient city"
+        label="City"
         name="recipientCity"
         rules={[{ required: true, message: 'Recipient city is required' }]}
       >
-        <Select placeholder="Select recipient city" onChange={getCity} ref={recipientCityRef}>
+        <Select placeholder="Select the city of recipient" onChange={getCity} ref={recipientCityRef}>
           {cities.map((item) => (
             <Option value={item.Ref} key={item.Ref}>
               {item.CityName}
@@ -196,11 +228,15 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost})(({
       </Form.Item>
 
       <Form.Item
-        label="№ recipient branch"
+        label="№ branch"
         name="recipientBranch"
         rules={[{ required: true, message: 'Branch is required' }]}
       >
-        <Select placeholder="Select recipient branch" onChange={getShippingCostHandler}>
+        <Select
+          placeholder="Select the branch of Nova Poshta of the recipient"
+          onChange={() => getShippingCost(recipientCityRef)}
+          ref={branchRef}
+        >
           {branches.map((item) => (
             <Option value={item.branchRef} key={item.branchRef}>
               {item.branchName}
@@ -208,7 +244,24 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost})(({
           ))}
         </Select>
       </Form.Item>
+      <StyledShippingTitle>
+        Select a payment method:
+      </StyledShippingTitle>
+
+      <Radio.Group name="paymentInfo" onChange={onChange} value={valuePaymentInfo}>
+        <StyledRatio value="Cash">
+          Cash
+        </StyledRatio>
+        <StyledRatio value="Card">
+          Card
+        </StyledRatio>
+      </Radio.Group>
+
+      <StyledButton shape="round" htmlType="submit">
+        Place Order
+      </StyledButton>
     </Form>
   )
 })
+
 export default FormCheckout;

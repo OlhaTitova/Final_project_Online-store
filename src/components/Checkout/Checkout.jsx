@@ -17,13 +17,13 @@ const Checkout = () => (
           <StyledButton size="xl" shape="round" color="borderBlue">Sign In</StyledButton>
         </WrapperSignIn>
       </NavLink>
-      <NavLink to="/cart">
-        <WrapperSignIn>
+      <WrapperSignIn>
+        <NavLink to="/cart">
           <StyledButton size="xl" shape="round" color="borderGrey">
             Return to cart
           </StyledButton>
-        </WrapperSignIn>
-      </NavLink>
+        </NavLink>
+      </WrapperSignIn>
     </RowColumn>
     <RowRevers>
       <OrderSummary />
@@ -32,9 +32,6 @@ const Checkout = () => (
           Shipping Details:
         </StyledShippingTitle>
         <FormCheckout />
-        <StyledShippingTitle>
-          Payment Details:
-        </StyledShippingTitle>
       </WrapperFormCheckout>
     </RowRevers>
   </ContainerCart>

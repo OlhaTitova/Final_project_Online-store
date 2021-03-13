@@ -58,7 +58,7 @@ export const WrapperSignIn = styled.div`
     margin: 0 0 20px 0;
     display: block;
 
-@media(min-width: ${forDesktop.minWidth}px){
-    margin: 20px 0 20px 25px;
-}
+    @media(min-width: ${forDesktop.minWidth}px){
+        margin: 35px 0 0 25px;
+    }
 `

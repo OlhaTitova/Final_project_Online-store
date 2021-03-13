@@ -54,7 +54,6 @@ const OrderSummary = connect(mapStateToProps)(({summary, shippingCost}) => (
         </div>
       </RowBetween>
     </div>
-
   </StyledOrderSummary>
 ));
 

@@ -118,17 +118,16 @@ export const getCity = (props) => (dispatch) => {
         branchRef: item.Ref
       }));
       dispatch(getBranches(dataBranches))
-      console.log(dataBranches);
     })
     .catch((error) => error.response)
 }
 
-export const getShippingCost = (senderCityRef, recipientCityRef) => (dispatch) => {
+export const getShippingCost = (recipientCityRef) => (dispatch) => {
   axios.post('https://api.novaposhta.ua/v2.0/json/', {
     modelName: 'InternetDocument',
     calledMethod: 'getDocumentPrice',
     methodProperties: {
-      CitySender: senderCityRef.current.props.value,
+      CitySender: '8d5a980d-391c-11dd-90d9-001a92567626',
       CityRecipient: recipientCityRef.current.props.value,
       Weight: '10',
       ServiceType: 'DoorsDoors',
