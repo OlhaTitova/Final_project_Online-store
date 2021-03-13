@@ -7,6 +7,12 @@ import {forTablet, forDesktop, forMobile} from '../../styles/mediaBreakPoints';
 
 export const HeaderContainer = styled.header`
   width: 100%;
+  @media(min-width: ${forTablet.minWidth}px) {
+    padding-bottom: 20px;
+  }
+  @media(min-width: ${forDesktop.minWidth}px) {
+    padding-bottom: 2px;
+  }
 `;
 export const ShaduleArrowContainer = styled.div`
   position: relative;
@@ -113,11 +119,10 @@ export const SearchAndItemsBlock = styled.div`
   @media(min-width: ${forDesktop.minWidth}px) {
     border-bottom: 1px solid #CCCCCC;
     background-color: white;
-
     max-width: 1200px;
-        width: 90%;
-        margin: 0 auto;
-        padding: 0 10px;
+    width: 90%;
+    margin: 0 auto;
+    padding: 0 10px;
   }
 `;
 export const FormContainer = styled.form`
@@ -187,12 +192,12 @@ export const CircleDesktop = styled.div`
 export const LogoDesktop = styled.img`
   display: block; 
   @media(min-width: ${forDesktop.minWidth}px) {
-    color: blue;
+    /* color: blue; */
     width: 30px;
     height: 34px;
     margin-left: auto; 
     margin-right: auto; 
-    filter: invert(778%) sepia(360%) saturate(6818%) hue-rotate(-131.5deg) brightness(112%) contrast(145%);
+    filter: invert(71%) sepia(14%) saturate(7210%) hue-rotate(553deg) brightness(102%) contrast(98%);
   }
 `;
 export const ShoppingCartOutlinedStyled = styled(ShoppingCartOutlined)`
@@ -201,7 +206,7 @@ export const ShoppingCartOutlinedStyled = styled(ShoppingCartOutlined)`
   flex: 1;
   padding: 0 20px;
   @media(min-width: ${forDesktop.minWidth}px) {
-    filter: invert(0%) sepia(7%) saturate(0%) hue-rotate(39deg) brightness(102%) contrast(106%);
+    filter: invert(37%) sepia(0%) saturate(0%) hue-rotate(559deg) brightness(52%) contrast(106%);
     flex: 3;
     padding: 0px 10px 0px 10px;
   }

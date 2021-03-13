@@ -7,6 +7,7 @@ export const SliderArrowTeamplate = styled.button`
   transform: translateY(-50%);
   width: 28px;
   height: 37px;
+  
   background-color: rgba(37, 41, 49, 0.5);
   border: none;
   transition: 0.2s;

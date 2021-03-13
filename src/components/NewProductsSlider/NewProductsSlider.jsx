@@ -13,7 +13,7 @@ import rateCalculator from '../../utils/rateCalculator'
 
 const mapStateToProps = (state) => ({ newProducts: state.products.newProducts })
 
-export const NewProductsSlider = connect(
+const NewProductsSlider = connect(
   mapStateToProps,
   { getNewProductsCreator, getFilteredProducts }
 )(({

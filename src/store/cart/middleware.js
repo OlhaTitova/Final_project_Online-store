@@ -116,7 +116,7 @@ export const getCity = (props) => (dispatch) => {
       const dataBranches = data.data.data.map((item) => ({
         branchName: item.DescriptionRu,
         branchRef: item.Ref
-      }));
+      }))
       dispatch(getBranches(dataBranches))
     })
     .catch((error) => error.response)

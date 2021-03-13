@@ -14,7 +14,9 @@ const Checkout = () => (
       <Heading>Checkout</Heading>
       <NavLink to="/signin">
         <WrapperSignIn>
-          <StyledButton size="xl" shape="round" color="borderBlue">Sign In</StyledButton>
+          <StyledButton size="xl" shape="round" color="borderBlue">
+            Sign In
+          </StyledButton>
         </WrapperSignIn>
       </NavLink>
       <WrapperSignIn>

@@ -1,12 +1,18 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { authLogOut } from '../../../store/auth/middleware';
 import close from '../../../images/header/Close.svg';
+import { NavUserContainer, Close } from './UserPopUpStyled';
 
-import {NavUserContainer, Close}
-  from './UserPopUpStyled';
+const mapStateToProps = (state) => ({
+  isLogin: state.auth.isLogin
+})
 
-const UserPopUp = ({isOpenUser, setIsOpenUser}) => {
+const UserPopUp = connect(mapStateToProps, { authLogOut })(({
+  isOpenUser, setIsOpenUser, isLogin, authLogOut
+}) => {
   const openSlideUser = {
     hidden: {
       x: 50,
@@ -56,19 +62,28 @@ const UserPopUp = ({isOpenUser, setIsOpenUser}) => {
         <li>My Account</li>
         <li>My Wish List (0)</li>
         <li>Compare (0)</li>
-        <Link to="/signup">
-          <li>Create an Account</li>
-        </Link>
-        <Link to="/signin">
-          <li>Sign In</li>
-        </Link>
-        <Close onClick={() => setIsOpenUser(false)}>
+        {isLogin ? null : (
+          <NavLink to="/signup">
+            <li>Create an Account</li>
+          </NavLink>
+        )}
+        {isLogin
+          ? (
+            <NavLink to="/" onClick={authLogOut}>
+              <li>LogOut</li>
+            </NavLink>
+          ) : (
+            <NavLink to="/signin">
+              <li>Sign In</li>
+            </NavLink>
+          )}
+        <Close data-testid="closeImg" onClick={() => setIsOpenUser(false)}>
           <img src={close} alt="close" />
         </Close>
       </ul>
     </NavUserContainer>
   );
-}
+})
 UserPopUp.propTypes = {
   isOpenUser: PropTypes.bool.isRequired,
   setIsOpenUser: PropTypes.func.isRequired
