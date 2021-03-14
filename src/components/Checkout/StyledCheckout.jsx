@@ -8,7 +8,7 @@ export const StyledShippingTitle = styled.p`
     font-size: 18px;
     line-height: 27px;
     border-bottom: 1px solid #cccccc;
-    padding: 20px 0 15px;
+    padding: 0 0 15px;
     margin-bottom: 25px;
 `
 export const WrapperFormCheckout = styled.div`

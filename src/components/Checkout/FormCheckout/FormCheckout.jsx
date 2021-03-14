@@ -1,14 +1,14 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable react/jsx-props-no-spreading */
 import React, {useRef, useState} from 'react';
+import PropTypes from 'prop-types';
 import {
-  Form, Input, message, Radio, Select
+  Form, Input, Radio, Select
 } from 'antd';
 import { connect } from 'react-redux';
-import axios from 'axios';
+import { useHistory } from 'react-router-dom/';
 import {
   selectBranches,
-  selectCartSummary,
   selectCities,
   selectCustomer,
   selectProducts,
@@ -16,8 +16,7 @@ import {
 } from '../../../store/cart/reducer';
 import {StyledRatio, StyledShippingTitle} from '../StyledCheckout';
 import StyledButton from '../../common/Buttons/StyledButton';
-import { headers } from '../../../store/headers';
-import { getCity, getShippingCost } from '../../../store/cart/middleware';
+import { getCity, getShippingCost, PlaceOrder } from '../../../store/cart/middleware';
 
 const mapStateToProps = (state) => ({
   cities: selectCities(state),
@@ -25,11 +24,10 @@ const mapStateToProps = (state) => ({
   customer: selectCustomer(state),
   shippingCost: selectShippingCost(state),
   products: selectProducts(state),
-  summary: selectCartSummary(state),
 })
 
-const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost})(({
-  cities, branches, customer, getCity, getShippingCost, shippingCost, products
+const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOrder})(({
+  cities, branches, customer, getCity, getShippingCost, shippingCost, products, PlaceOrder
 }) => {
   const recipientCityRef = useRef();
   const countryRef = useRef();
@@ -41,45 +39,16 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost})(({
     setValuePaymentInfo(e.target.value);
   };
 
-  const PlaceOrder = (values) => {
-    axios
-      .post('/orders', {
-        canceled: false,
-        products: JSON.stringify(products),
-        customerId: {
-          _id: customer._id
-        },
-        deliveryAddress: JSON.stringify({
-          country: values.country,
-          city: values.recipientCity,
-          address: values.recipientBranch,
-        }),
-        shipping: JSON.stringify(shippingCost),
-        paymentInfo: JSON.stringify(valuePaymentInfo),
-        status: 'not shipped',
-        email: customer.email,
-        mobile: customer.telephone,
-        letterSubject: 'Thank you for order! You are welcome!',
-        letterHtml: '<h1>Your order is placed. OrderNo and details about order in your dashboard.</h1>'
-      }, {headers})
-      .then((newOrder) => {
-        message.success(`Thank you for order! Your Order № is ${newOrder.data.order.orderNo}`)
-        console.log(newOrder)
-      })
-      .catch((err) => {
-        message.error(`Your order is not placed. ${err.response}`)
-        console.log(err.response)
-      });
-  }
+  const history = useHistory()
 
   const onFinish = (values) => {
-    PlaceOrder(values, valuePaymentInfo)
-    // console.log('Success:', values);
+    PlaceOrder(values, products, customer, shippingCost, valuePaymentInfo)
+    setTimeout(() => {
+      history.push('/payment')
+    }, 1500)
   };
 
-  const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
-  };
+  const onFinishFailed = (errorInfo) => { errorInfo() };
 
   const formLayout = {
     labelCol: {
@@ -205,6 +174,10 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost})(({
         <Input placeholder="Mobile Number (+380 XX XXX XXXX)" value={customer.telephone} />
       </Form.Item>
 
+      <StyledShippingTitle>
+        Shipping Details:
+      </StyledShippingTitle>
+
       <Form.Item
         label="Country"
         name="country"
@@ -245,10 +218,10 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost})(({
         </Select>
       </Form.Item>
       <StyledShippingTitle>
-        Select a payment method:
+        Payment Details:
       </StyledShippingTitle>
 
-      <Radio.Group name="paymentInfo" onChange={onChange} value={valuePaymentInfo}>
+      <Radio.Group name="paymentInfo" onChange={onChange} value={valuePaymentInfo} style={{marginBottom: '20px'}}>
         <StyledRatio value="Cash">
           Cash
         </StyledRatio>
@@ -256,7 +229,6 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost})(({
           Card
         </StyledRatio>
       </Radio.Group>
-
       <StyledButton shape="round" htmlType="submit">
         Place Order
       </StyledButton>
@@ -265,3 +237,19 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost})(({
 })
 
 export default FormCheckout;
+
+FormCheckout.propTypes = {
+  products: PropTypes.string,
+  cities: PropTypes.string,
+  branches: PropTypes.string,
+  shippingCost: PropTypes.number,
+  getCity: PropTypes.func,
+  getShippingCost: PropTypes.func,
+  PlaceOrder: PropTypes.func,
+  customer: PropTypes.shape({
+    telephone: PropTypes.string,
+    lastName: PropTypes.string,
+    firstName: PropTypes.string,
+    email: PropTypes.string,
+  }),
+}

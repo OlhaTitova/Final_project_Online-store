@@ -48,8 +48,8 @@ const OrderSummary = connect(mapStateToProps)(({summary, shippingCost}) => (
         </div>
         <div>
           <span className="ordertotal">
-            ₴
             {summary + shippingCost}
+            ₴
           </span>
         </div>
       </RowBetween>

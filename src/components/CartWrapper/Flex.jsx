@@ -15,6 +15,7 @@ export const AlignItemsCenter = styled(DisplayRow)`
 
 export const RowRevers = styled(DisplayRow)`
     display: block;
+    margin-bottom:30px;
 
     @media(min-width: ${forTablet.minWidth}px) and (max-width: ${forTablet.maxWidth}px) {
         display:flex;
@@ -54,8 +55,8 @@ export const ColumnRowBetween = styled(DisplayRow)`
     }
 `;
 
-export const WrapperSignIn = styled.div`
-    margin: 0 0 20px 0;
+export const WrapperButton = styled.div`
+    margin: 0 0 20px 20px;
     display: block;
 
     @media(min-width: ${forDesktop.minWidth}px){

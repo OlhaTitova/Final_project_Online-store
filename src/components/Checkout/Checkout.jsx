@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom/';
-import { RowColumn, RowRevers, WrapperSignIn } from '../CartWrapper/Flex';
+import { RowColumn, RowRevers, WrapperButton } from '../CartWrapper/Flex';
 import StyledButton from '../common/Buttons/StyledButton';
 import { ContainerCart } from '../common/Container';
 import Heading from '../common/Heading/Heading';
@@ -13,25 +13,25 @@ const Checkout = () => (
     <RowColumn>
       <Heading>Checkout</Heading>
       <NavLink to="/signin">
-        <WrapperSignIn>
+        <WrapperButton>
           <StyledButton size="xl" shape="round" color="borderBlue">
             Sign In
           </StyledButton>
-        </WrapperSignIn>
+        </WrapperButton>
       </NavLink>
-      <WrapperSignIn>
+      <WrapperButton>
         <NavLink to="/cart">
           <StyledButton size="xl" shape="round" color="borderGrey">
-            Return to cart
+            Back to cart
           </StyledButton>
         </NavLink>
-      </WrapperSignIn>
+      </WrapperButton>
     </RowColumn>
     <RowRevers>
       <OrderSummary />
       <WrapperFormCheckout>
         <StyledShippingTitle>
-          Shipping Details:
+          Order Details:
         </StyledShippingTitle>
         <FormCheckout />
       </WrapperFormCheckout>

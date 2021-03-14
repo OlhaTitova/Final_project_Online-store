@@ -8,7 +8,8 @@ import {
   SET_CART_SUMMARY,
   GET_BRANCHES,
   GET_SHIPPING_COST,
-  GET_CUSTOMER
+  GET_CUSTOMER,
+  GET_ORDER
 } from './actionType';
 
 export const MODULE_NAME = 'cart';
@@ -18,6 +19,7 @@ export const selectCustomer = (state) => state[MODULE_NAME].customer;
 export const selectCities = (state) => state[MODULE_NAME].cities;
 export const selectBranches = (state) => state[MODULE_NAME].branches;
 export const selectShippingCost = (state) => state[MODULE_NAME].shippingCost;
+export const selectOrder = (state) => state[MODULE_NAME].order;
 
 const initialState = {
   summary: 0,
@@ -25,6 +27,7 @@ const initialState = {
   customer: {},
   branches: [],
   shippingCost: 0,
+  order: {},
   cities: [
     {
       CityName: 'Kiyv',
@@ -108,6 +111,11 @@ export const cartReducer = (state = initialState, {type, payload}) => {
       return {
         ...state,
         customer: payload.customerId,
+      }
+    case GET_ORDER:
+      return {
+        ...state,
+        order: payload,
       }
     default:
       return state

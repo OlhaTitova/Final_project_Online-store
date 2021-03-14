@@ -27,9 +27,11 @@ export const StyledCartItem = styled.div`
         line-height: 18px;
         color: #000000;
     }
-    
     .subtotal {
         text-align: end;
+    }
+    .bold {
+        font-weight: 600;
     }
     @media(min-width: ${forDesktop.minWidth}px){
         padding-bottom: 25px;
@@ -52,12 +54,10 @@ export const StyledCartItem = styled.div`
     }
 `;
 
-// StyledButton
 export const ButtonRemoveEdit = styled(Button)`
     margin: 3px 6px;
 `;
 
-// StyledInput
 export const StyledInput = styled(Input)`
     display: block;
     background-color: #EBEBEB;

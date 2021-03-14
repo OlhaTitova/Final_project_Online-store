@@ -22,8 +22,8 @@ const Summary = connect(mapStateToProps)(({summary}) => (
       </div>
       <div>
         <span className="sumtotal">
-          ₴
           {summary}
+          ₴
         </span>
       </div>
     </RowBetween>

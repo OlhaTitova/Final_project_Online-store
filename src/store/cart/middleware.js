@@ -11,6 +11,7 @@ import {
   increaseQuantityCreator,
   getBranches,
   getShippingCostCreator,
+  getOrderCreator
 } from './actionCreator'
 
 export const addToCart = (productId, quantity) => (dispatch, getStore) => {
@@ -149,6 +150,36 @@ export const getShippingCost = (recipientCityRef) => (dispatch) => {
       dispatch(getShippingCostCreator(data.data.data[0].Cost))
     })
     .catch((error) => error.response)
+}
+
+export const PlaceOrder = (
+  values, products, customer, shippingCost, valuePaymentInfo
+) => (dispatch) => {
+  const headers = getHeaders()
+  axios
+    .post('/orders', {
+      canceled: false,
+      products: JSON.stringify(products),
+      customerId: {
+        _id: customer._id
+      },
+      deliveryAddress: JSON.stringify({
+        country: values.country,
+        city: values.recipientCity,
+        branch: values.recipientBranch,
+      }),
+      shipping: JSON.stringify(shippingCost),
+      paymentInfo: JSON.stringify(valuePaymentInfo),
+      status: 'not shipped',
+      email: customer.email,
+      mobile: customer.telephone,
+      letterSubject: 'Thank you for order! You are welcome!',
+      letterHtml: '<h1>Your order is placed. OrderNo and details about order in your dashboard.</h1>'
+    }, {headers})
+    .then((newOrder) => {
+      dispatch(getOrderCreator(newOrder.data.order))
+    })
+    .catch((err) => err.response);
 }
 
 export default addToCart;
