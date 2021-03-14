@@ -38,7 +38,6 @@ const OrderSuccess = connect(mapStateToProps)(({order}) => {
           {date}
         </span>
       </p>
-      
       {/* <p>To complete the payment, click the button below</p> */}
     </StyledOrderSuccess>
   )

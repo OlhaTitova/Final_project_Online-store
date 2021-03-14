@@ -23,7 +23,9 @@ const CartList = connect(
   clearCart,
 }) => {
   useEffect(() => {
-    getCart()
+    setTimeout(() => {
+      getCart()
+    }, 1000)
   }, [getCart]);
 
   return (

@@ -11,23 +11,23 @@ import {
   selectBranches,
   selectCities,
   selectCustomer,
-  selectProducts,
   selectShippingCost
 } from '../../../store/cart/reducer';
 import {StyledRatio, StyledShippingTitle} from '../StyledCheckout';
 import StyledButton from '../../common/Buttons/StyledButton';
-import { getCity, getShippingCost, PlaceOrder } from '../../../store/cart/middleware';
+import {
+  getCity, getShippingCost, PlaceOrder
+} from '../../../store/cart/middleware';
 
 const mapStateToProps = (state) => ({
   cities: selectCities(state),
   branches: selectBranches(state),
   customer: selectCustomer(state),
   shippingCost: selectShippingCost(state),
-  products: selectProducts(state),
 })
 
 const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOrder})(({
-  cities, branches, customer, getCity, getShippingCost, shippingCost, products, PlaceOrder
+  cities, branches, customer, getCity, getShippingCost, shippingCost, PlaceOrder
 }) => {
   const recipientCityRef = useRef();
   const countryRef = useRef();
@@ -42,7 +42,7 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
   const history = useHistory()
 
   const onFinish = (values) => {
-    PlaceOrder(values, products, customer, shippingCost, valuePaymentInfo)
+    PlaceOrder(values, customer, shippingCost, valuePaymentInfo)
     setTimeout(() => {
       history.push('/payment')
     }, 1500)
@@ -239,7 +239,6 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
 export default FormCheckout;
 
 FormCheckout.propTypes = {
-  products: PropTypes.string,
   cities: PropTypes.string,
   branches: PropTypes.string,
   shippingCost: PropTypes.number,

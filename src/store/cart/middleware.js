@@ -153,13 +153,12 @@ export const getShippingCost = (recipientCityRef) => (dispatch) => {
 }
 
 export const PlaceOrder = (
-  values, products, customer, shippingCost, valuePaymentInfo
+  values, customer, shippingCost, valuePaymentInfo
 ) => (dispatch) => {
   const headers = getHeaders()
   axios
     .post('/orders', {
       canceled: false,
-      products: JSON.stringify(products),
       customerId: {
         _id: customer._id
       },
@@ -178,6 +177,7 @@ export const PlaceOrder = (
     }, {headers})
     .then((newOrder) => {
       dispatch(getOrderCreator(newOrder.data.order))
+      clearCart()(dispatch)
     })
     .catch((err) => err.response);
 }
