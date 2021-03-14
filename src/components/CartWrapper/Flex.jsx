@@ -25,7 +25,6 @@ export const RowRevers = styled(DisplayRow)`
         @media(min-width: 481px) and (max-width: 767px) {
             display: block;
         }
-
     }
     @media(min-width: ${forDesktop.minWidth}px){
         display:flex;

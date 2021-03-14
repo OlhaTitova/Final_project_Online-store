@@ -8,38 +8,41 @@ const mapStateToProps = (state) => ({
   order: selectOrder(state)
 })
 
-const OrderSuccess = connect(mapStateToProps)(({order}) => (
-  <StyledOrderSuccess>
-    <h2>Thank you for order! You are welcome!</h2>
-    <p>
-      Your orderNo is:
-      <span>
-        {order.orderNo}
-      </span>
-    </p>
-    <p>
-      Order total:
-      <span>
-        {order.totalSum}
-        ₴
-      </span>
-    </p>
-    <p>
-      Payment method:
-      <span>
-        {order.paymentInfo}
-      </span>
-    </p>
-    <p>
-      Date:
-      <span>
-        {order.date}
-      </span>
-    </p>
+const OrderSuccess = connect(mapStateToProps)(({order}) => {
+  const date = order && order.date ? new Date(order.date).toLocaleDateString() : null
+  return (
+    <StyledOrderSuccess>
+      <h2>Thank you for order! You are welcome!</h2>
+      <p>
+        Your orderNo is:
+        <span>
+          {order.orderNo}
+        </span>
+      </p>
+      <p>
+        Order total:
+        <span>
+          {order.totalSum}
+          ₴
+        </span>
+      </p>
+      <p>
+        Payment method:
+        <span>
+          {order.paymentInfo}
+        </span>
+      </p>
+      <p>
+        Date:
+        <span>
+          {date}
+        </span>
+      </p>
       
-    {/* <p>To complete the payment, click the button below</p> */}
-  </StyledOrderSuccess>
-))
+      {/* <p>To complete the payment, click the button below</p> */}
+    </StyledOrderSuccess>
+  )
+})
 export default OrderSuccess
 
 OrderSuccess.propTypes = {
@@ -48,5 +51,5 @@ OrderSuccess.propTypes = {
     totalSum: PropTypes.number,
     paymentInfo: PropTypes.string,
     date: PropTypes.string,
-  }).isRequired,
+  }),
 }
