@@ -5,7 +5,7 @@ import { CartGroupBox, FlexBox } from './StylesCartGroup'
 import InputGroup from './InputGroup/InputGroup'
 import StyledButton from '../../common/Buttons/StyledButton'
 import checkValue from '../../../utils/checkValue'
-import { addToCart } from '../../../store/cart/middleware'
+import {addToCart} from '../../../store/cart/middleware'
 
 const CartGroup = connect(null, { addToCart })(({ productID, avilableQuantity, addToCart }) => {
   const [quantity, setQuanity] = useState(avilableQuantity > 0 ? 1 : 0)

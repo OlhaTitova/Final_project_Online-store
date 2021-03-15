@@ -23,7 +23,7 @@ const StyledSummary = styled.div`
     }
 
     @media(min-width: ${forTablet.minWidth}px) and (max-width: ${forTablet.maxWidth}px) {
-        margin: 20px 0 30px 25px;
+        margin: 20px 0 0 25px;
         padding: 20px 25px;
         min-width: 343px;
     
@@ -41,7 +41,7 @@ const StyledSummary = styled.div`
     }
 
     @media(min-width: ${forDesktop.minWidth}px){
-        margin: 0 0 30px 35px;
+        margin: 0 0 0 35px;
         padding: 20px 25px;
         min-width: 343px;
 

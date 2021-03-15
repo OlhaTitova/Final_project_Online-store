@@ -1,27 +1,50 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable react/jsx-props-no-spreading */
-import React, {useRef} from 'react';
-import { Form, Input, Select} from 'antd';
-import { connect } from 'react-redux';
+import React, {useRef, useState} from 'react';
+import PropTypes from 'prop-types';
 import {
-  selectBranches, selectCities, selectCustomer,
+  Form, Input, Radio, Select
+} from 'antd';
+import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom/';
+import {
+  selectBranches,
+  selectCities,
+  selectCustomer,
+  selectShippingCost
 } from '../../../store/cart/reducer';
-import { getCity, getShippingCost } from '../../../store/cart/middleware';
+import {StyledRadio, StyledShippingTitle} from '../StyledCheckout';
+import StyledButton from '../../common/Buttons/StyledButton';
+import {
+  getCity, getShippingCost, PlaceOrder
+} from '../../../store/cart/middleware';
 
 const mapStateToProps = (state) => ({
   cities: selectCities(state),
   branches: selectBranches(state),
   customer: selectCustomer(state),
+  shippingCost: selectShippingCost(state),
 })
 
-const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost})(({
-  cities, branches, customer, getCity, getShippingCost
+const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOrder})(({
+  cities, branches, customer, getCity, getShippingCost, shippingCost, PlaceOrder
 }) => {
-  const senderCityRef = useRef();
   const recipientCityRef = useRef();
+  const countryRef = useRef();
+  const branchRef = useRef();
 
-  const getShippingCostHandler = () => {
-    getShippingCost(senderCityRef, recipientCityRef)
-  }
+  const [valuePaymentInfo, setValuePaymentInfo] = useState('Cash');
+
+  const onChange = (e) => {
+    setValuePaymentInfo(e.target.value);
+  };
+
+  const history = useHistory()
+
+  const onFinish = (values) => {
+    PlaceOrder(values, customer, shippingCost, valuePaymentInfo)
+    history.push('/order')
+  };
 
   const formLayout = {
     labelCol: {
@@ -29,7 +52,7 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost})(({
         span: 24,
       },
       sm: {
-        span: 8,
+        span: 6,
       },
       md: {
         span: 8,
@@ -86,6 +109,7 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost})(({
       initialValues={{
         remember: true,
       }}
+      onFinish={onFinish}
     >
       <Form.Item
         label="Email"
@@ -145,48 +169,24 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost})(({
         <Input placeholder="Mobile Number (+380 XX XXX XXXX)" value={customer.telephone} />
       </Form.Item>
 
+      <StyledShippingTitle>
+        Shipping Details:
+      </StyledShippingTitle>
+
       <Form.Item
         label="Country"
         name="country"
         rules={[{ required: true, message: 'Country is required' }]}
       >
-        <Input disabled />
-      </Form.Item>
-      
-      <Form.Item
-        label="Sender city"
-        name="senderCity"
-        rules={[{ required: true, message: 'Sender city is required' }]}
-      >
-        <Select placeholder="Select sender city" onChange={getCity} ref={senderCityRef}>
-          {cities.map((item) => (
-            <Option value={item.Ref} key={item.Ref}>
-              {item.CityName}
-            </Option>
-          ))}
-        </Select>
+        <Input disabled ref={countryRef} />
       </Form.Item>
 
       <Form.Item
-        label="№ sender branch"
-        name="SenderBranch"
-        rules={[{ required: true, message: 'Branch is required' }]}
-      >
-        <Select placeholder="Select Sender branch">
-          {branches.map((item) => (
-            <Option value={item.branchRef} key={item.branchRef}>
-              {item.branchName}
-            </Option>
-          ))}
-        </Select>
-      </Form.Item>
-
-      <Form.Item
-        label="Recipient city"
+        label="City"
         name="recipientCity"
         rules={[{ required: true, message: 'Recipient city is required' }]}
       >
-        <Select placeholder="Select recipient city" onChange={getCity} ref={recipientCityRef}>
+        <Select placeholder="Select the city of recipient" onChange={getCity} ref={recipientCityRef}>
           {cities.map((item) => (
             <Option value={item.Ref} key={item.Ref}>
               {item.CityName}
@@ -196,11 +196,15 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost})(({
       </Form.Item>
 
       <Form.Item
-        label="№ recipient branch"
+        label="№ branch"
         name="recipientBranch"
         rules={[{ required: true, message: 'Branch is required' }]}
       >
-        <Select placeholder="Select recipient branch" onChange={getShippingCostHandler}>
+        <Select
+          placeholder="Select the branch of Nova Poshta of the recipient"
+          onChange={() => getShippingCost(recipientCityRef)}
+          ref={branchRef}
+        >
           {branches.map((item) => (
             <Option value={item.branchRef} key={item.branchRef}>
               {item.branchName}
@@ -208,7 +212,38 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost})(({
           ))}
         </Select>
       </Form.Item>
+      <StyledShippingTitle>
+        Payment Details:
+      </StyledShippingTitle>
+
+      <Radio.Group name="paymentInfo" onChange={onChange} value={valuePaymentInfo} style={{marginBottom: '20px'}}>
+        <StyledRadio value="Cash">
+          Cash
+        </StyledRadio>
+        <StyledRadio value="Card">
+          Card
+        </StyledRadio>
+      </Radio.Group>
+      <StyledButton shape="round" htmlType="submit">
+        Place Order
+      </StyledButton>
     </Form>
   )
 })
+
 export default FormCheckout;
+
+FormCheckout.propTypes = {
+  cities: PropTypes.string,
+  branches: PropTypes.string,
+  shippingCost: PropTypes.number,
+  getCity: PropTypes.func,
+  getShippingCost: PropTypes.func,
+  PlaceOrder: PropTypes.func,
+  customer: PropTypes.shape({
+    telephone: PropTypes.string,
+    lastName: PropTypes.string,
+    firstName: PropTypes.string,
+    email: PropTypes.string,
+  }),
+}

@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { selectCartSummary, selectShippingCost } from '../../../store/cart/reducer';
-import { RowBetween } from '../../CartWrapper/Flex';
 import StyledOrderSummary from './StyledOrderSummary';
+import { RowBetween } from '../../CartPage/Flex';
 
 const mapStateToProps = (state) => ({
   summary: selectCartSummary(state),
@@ -48,13 +48,12 @@ const OrderSummary = connect(mapStateToProps)(({summary, shippingCost}) => (
         </div>
         <div>
           <span className="ordertotal">
-            ₴
             {summary + shippingCost}
+            ₴
           </span>
         </div>
       </RowBetween>
     </div>
-
   </StyledOrderSummary>
 ));
 

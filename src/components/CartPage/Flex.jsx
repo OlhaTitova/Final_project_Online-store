@@ -15,6 +15,7 @@ export const AlignItemsCenter = styled(DisplayRow)`
 
 export const RowRevers = styled(DisplayRow)`
     display: block;
+    margin-bottom:30px;
 
     @media(min-width: ${forTablet.minWidth}px) and (max-width: ${forTablet.maxWidth}px) {
         display:flex;
@@ -24,7 +25,6 @@ export const RowRevers = styled(DisplayRow)`
         @media(min-width: 481px) and (max-width: 767px) {
             display: block;
         }
-
     }
     @media(min-width: ${forDesktop.minWidth}px){
         display:flex;
@@ -54,11 +54,11 @@ export const ColumnRowBetween = styled(DisplayRow)`
     }
 `;
 
-export const WrapperSignIn = styled.div`
-    margin: 0 0 20px 0;
+export const WrapperButton = styled.div`
+    margin: 0 0 20px 20px;
     display: block;
 
-@media(min-width: ${forDesktop.minWidth}px){
-    margin: 20px 0 20px 25px;
-}
+    @media(min-width: ${forDesktop.minWidth}px){
+        margin: 35px 0 0 25px;
+    }
 `

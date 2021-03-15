@@ -11,6 +11,8 @@ import {
   increaseQuantityCreator,
   getBranches,
   getShippingCostCreator,
+  getOrderCreator,
+  clearOrderCreator
 } from './actionCreator'
 
 export const addToCart = (productId, quantity) => (dispatch, getStore) => {
@@ -116,19 +118,18 @@ export const getCity = (props) => (dispatch) => {
       const dataBranches = data.data.data.map((item) => ({
         branchName: item.DescriptionRu,
         branchRef: item.Ref
-      }));
+      }))
       dispatch(getBranches(dataBranches))
-      console.log(dataBranches);
     })
     .catch((error) => error.response)
 }
 
-export const getShippingCost = (senderCityRef, recipientCityRef) => (dispatch) => {
+export const getShippingCost = (recipientCityRef) => (dispatch) => {
   axios.post('https://api.novaposhta.ua/v2.0/json/', {
     modelName: 'InternetDocument',
     calledMethod: 'getDocumentPrice',
     methodProperties: {
-      CitySender: senderCityRef.current.props.value,
+      CitySender: '8d5a980d-391c-11dd-90d9-001a92567626',
       CityRecipient: recipientCityRef.current.props.value,
       Weight: '10',
       ServiceType: 'DoorsDoors',
@@ -150,6 +151,37 @@ export const getShippingCost = (senderCityRef, recipientCityRef) => (dispatch) =
       dispatch(getShippingCostCreator(data.data.data[0].Cost))
     })
     .catch((error) => error.response)
+}
+
+export const PlaceOrder = (
+  values, customer, shippingCost, valuePaymentInfo
+) => (dispatch) => {
+  const headers = getHeaders()
+  dispatch(clearOrderCreator())
+  axios
+    .post('/orders', {
+      canceled: false,
+      customerId: {
+        _id: customer._id
+      },
+      deliveryAddress: JSON.stringify({
+        country: values.country,
+        city: values.recipientCity,
+        branch: values.recipientBranch,
+      }),
+      shipping: JSON.stringify(shippingCost),
+      paymentInfo: JSON.stringify(valuePaymentInfo),
+      status: 'not shipped',
+      email: customer.email,
+      mobile: customer.telephone,
+      letterSubject: 'Thank you for order! You are welcome!',
+      letterHtml: '<h1>Your order is placed. OrderNo and details about order in your dashboard.</h1>'
+    }, {headers})
+    .then((newOrder) => {
+      dispatch(getOrderCreator(newOrder.data.order))
+      clearCart()(dispatch)
+    })
+    .catch((err) => err.response);
 }
 
 export default addToCart;
