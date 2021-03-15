@@ -43,12 +43,8 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
 
   const onFinish = (values) => {
     PlaceOrder(values, customer, shippingCost, valuePaymentInfo)
-    setTimeout(() => {
-      history.push('/payment')
-    }, 1500)
+    history.push('/payment')
   };
-
-  const onFinishFailed = (errorInfo) => { errorInfo() };
 
   const formLayout = {
     labelCol: {
@@ -114,7 +110,6 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
         remember: true,
       }}
       onFinish={onFinish}
-      onFinishFailed={onFinishFailed}
     >
       <Form.Item
         label="Email"
