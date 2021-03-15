@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+import { message } from 'antd';
 import StyledButton from '../../common/Buttons/StyledButton';
 import { selectCartSummary } from '../../../store/cart/reducer';
 import StyledSummary from './StyledSummary';
@@ -11,34 +12,43 @@ const mapStateToProps = (state) => ({
   summary: selectCartSummary(state),
 })
 
-const Summary = connect(mapStateToProps)(({summary}) => (
-  <StyledSummary>
-    <h4>Summary</h4>
-    <RowBetween>
+const Summary = connect(mapStateToProps)(({summary}) => {
+  const history = useHistory()
+
+  const onClick = (summary) => {
+    if (summary === 0) {
+      message.error('Your shopping cart is empty. Please add items to your shopping cart');
+    } else { history.push('/checkout') }
+  }
+
+  return (
+    <StyledSummary>
+      <h4>Summary</h4>
+      <RowBetween>
+        <div>
+          <p className="sumtotal">
+            Items total:
+          </p>
+        </div>
+        <div>
+          <span className="sumtotal">
+            {summary}
+            ₴
+          </span>
+        </div>
+      </RowBetween>
       <div>
-        <p className="sumtotal">
-          Items total:
-        </p>
-      </div>
-      <div>
-        <span className="sumtotal">
-          {summary}
-          ₴
-        </span>
-      </div>
-    </RowBetween>
-    <div>
-      <NavLink to="/checkout">
         <StyledButton
           shape="round"
           color="yellow"
+          onClick={() => onClick(summary)}
         >
           Proceed to Checkout
         </StyledButton>
-      </NavLink>
-    </div>
-  </StyledSummary>
-));
+      </div>
+    </StyledSummary>
+  )
+});
 
 export default Summary;
 
