@@ -43,7 +43,7 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
 
   const onFinish = (values) => {
     PlaceOrder(values, customer, shippingCost, valuePaymentInfo)
-    history.push('/payment')
+    history.push('/order')
   };
 
   const formLayout = {

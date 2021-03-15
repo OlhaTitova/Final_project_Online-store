@@ -6,7 +6,7 @@ import {
 } from '@ant-design/icons';
 import { Button, Row, Col} from 'antd';
 import { connect } from 'react-redux';
-import { NavLink } from 'react-router-dom/cjs/react-router-dom.min';
+import { NavLink } from 'react-router-dom';
 import { ButtonRemoveEdit, StyledCartItem, StyledInput} from './StyledCartItem';
 import { DisplayRow } from '../Flex';
 import { decreaseQuantity, increaseQuantity, removeFromCart } from '../../../store/cart/middleware';

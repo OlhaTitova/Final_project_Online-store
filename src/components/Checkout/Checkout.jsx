@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom/';
-import { RowColumn, RowRevers, WrapperButton } from '../CartWrapper/Flex';
+import { RowColumn, RowRevers, WrapperButton } from '../CartPage/Flex';
 import StyledButton from '../common/Buttons/StyledButton';
 import { ContainerCart } from '../common/Container';
 import Heading from '../common/Heading/Heading';

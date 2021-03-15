@@ -9,7 +9,8 @@ import {
   GET_BRANCHES,
   GET_SHIPPING_COST,
   GET_CUSTOMER,
-  GET_ORDER
+  GET_ORDER,
+  CLEAR_ORDER
 } from './actionType';
 
 export const MODULE_NAME = 'cart';
@@ -79,6 +80,7 @@ export const cartReducer = (state = initialState, {type, payload}) => {
         ...state,
         products: [],
         summary: 0,
+        shippingCost: 0,
       }
     case SET_CART:
       return {
@@ -95,7 +97,6 @@ export const cartReducer = (state = initialState, {type, payload}) => {
         ...state,
         summary: payload,
       }
-
     case GET_BRANCHES:
       return {
         ...state,
@@ -116,6 +117,11 @@ export const cartReducer = (state = initialState, {type, payload}) => {
       return {
         ...state,
         order: payload,
+      }
+    case CLEAR_ORDER:
+      return {
+        ...state,
+        order: {},
       }
     default:
       return state

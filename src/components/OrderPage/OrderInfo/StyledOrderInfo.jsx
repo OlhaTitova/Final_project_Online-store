@@ -1,7 +1,7 @@
 import styled from 'styled-components'
-import { forTablet, forDesktop } from '../../../styles/mediaBreakPoints';
+import { forDesktop, forTablet } from '../../../styles/mediaBreakPoints'
 
-const StyledOrderSuccess = styled.div`
+const StyledOrderInfo = styled.div`
     padding: 50px 30px 100px;
 
     h2 {
@@ -35,4 +35,4 @@ const StyledOrderSuccess = styled.div`
         }
     }
 `
-export default StyledOrderSuccess
+export default StyledOrderInfo

@@ -2,18 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Alert, Spin } from 'antd';
+import StyledOrderInfo from './StyledOrderInfo';
 import { selectOrder } from '../../../store/cart/reducer';
-import StyledOrderSuccess from './StyledOrderSuccess';
 
 const mapStateToProps = (state) => ({
   order: selectOrder(state)
 })
 
-const OrderSuccess = connect(mapStateToProps)(({order}) => {
+const OrderInfo = connect(mapStateToProps)(({order}) => {
   const date = order && order.date ? new Date(order.date).toLocaleDateString() : null
-
   return (
-    <StyledOrderSuccess>
+    <StyledOrderInfo>
       {order && Object.keys(order).length > 0
         ? (
           <div>
@@ -54,13 +53,12 @@ const OrderSuccess = connect(mapStateToProps)(({order}) => {
             />
           </Spin>
         )}
-      {/* <p>To complete the payment, click the button below</p> */}
-    </StyledOrderSuccess>
+    </StyledOrderInfo>
   )
 })
-export default OrderSuccess
+export default OrderInfo
 
-OrderSuccess.propTypes = {
+OrderInfo.propTypes = {
   order: PropTypes.shape({
     orderNo: PropTypes.number,
     totalSum: PropTypes.number,

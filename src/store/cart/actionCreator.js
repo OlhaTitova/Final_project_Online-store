@@ -8,7 +8,8 @@ import {
   SET_CART_SUMMARY,
   GET_BRANCHES,
   GET_SHIPPING_COST,
-  GET_ORDER
+  GET_ORDER,
+  CLEAR_ORDER
 } from './actionType';
 
 export const setCart = (cart) => ({
@@ -49,4 +50,7 @@ export const getShippingCostCreator = (shippingCost) => ({
 export const getOrderCreator = (order) => ({
   type: GET_ORDER,
   payload: order,
+})
+export const clearOrderCreator = () => ({
+  type: CLEAR_ORDER,
 })

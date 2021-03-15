@@ -11,7 +11,8 @@ import {
   increaseQuantityCreator,
   getBranches,
   getShippingCostCreator,
-  getOrderCreator
+  getOrderCreator,
+  clearOrderCreator
 } from './actionCreator'
 
 export const addToCart = (productId, quantity) => (dispatch, getStore) => {
@@ -156,6 +157,7 @@ export const PlaceOrder = (
   values, customer, shippingCost, valuePaymentInfo
 ) => (dispatch) => {
   const headers = getHeaders()
+  dispatch(clearOrderCreator())
   axios
     .post('/orders', {
       canceled: false,

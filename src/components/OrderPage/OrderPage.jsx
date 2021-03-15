@@ -1,15 +1,15 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom/';
-import { RowColumn, WrapperButton } from '../../CartWrapper/Flex';
-import StyledButton from '../../common/Buttons/StyledButton';
-import { ContainerCart } from '../../common/Container';
-import Heading from '../../common/Heading/Heading';
-import OrderSuccess from './OrderSuccess';
+import { RowColumn, WrapperButton } from '../CartPage/Flex';
+import StyledButton from '../common/Buttons/StyledButton';
+import { ContainerCart } from '../common/Container';
+import Heading from '../common/Heading/Heading';
+import OrderInfo from './OrderInfo/OrderInfo';
 
-const Payment = () => (
+const OrderPage = () => (
   <ContainerCart>
     <RowColumn>
-      <Heading>Checkout</Heading>
+      <Heading>Order</Heading>
       <NavLink to="/">
         <WrapperButton>
           <StyledButton size="lg" shape="round" color="borderBlue">
@@ -25,8 +25,8 @@ const Payment = () => (
         </NavLink>
       </WrapperButton>
     </RowColumn>
-    <OrderSuccess />
+    <OrderInfo />
   </ContainerCart>
 )
 
-export default Payment
+export default OrderPage

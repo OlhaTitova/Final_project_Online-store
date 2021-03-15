@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import {RowBetween } from '../Flex';
 import StyledButton from '../../common/Buttons/StyledButton';
 import { selectCartSummary } from '../../../store/cart/reducer';
 import StyledSummary from './StyledSummary';
+import { RowBetween } from '../Flex';
 
 const mapStateToProps = (state) => ({
   summary: selectCartSummary(state),
@@ -29,12 +29,14 @@ const Summary = connect(mapStateToProps)(({summary}) => (
     </RowBetween>
     <div>
       <NavLink to="/checkout">
-        <StyledButton shape="round" color="yellow">
+        <StyledButton
+          shape="round"
+          color="yellow"
+        >
           Proceed to Checkout
         </StyledButton>
       </NavLink>
     </div>
-    
   </StyledSummary>
 ));
 
