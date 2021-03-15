@@ -10,40 +10,43 @@ const mapStateToProps = (state) => ({
 })
 
 const OrderInfo = connect(mapStateToProps)(({order}) => {
-  const date = order && order.date ? new Date(order.date).toLocaleDateString() : null
+  const date = order.date ? new Date(order.date).toLocaleDateString() : null
+
+  const showOrderInfo = (newOrder) => (
+    <div>
+      <h2>Thank you for order! You are welcome!</h2>
+      <p>
+        Your orderNo is:
+        <span>
+          {newOrder.orderNo}
+        </span>
+      </p>
+      <p>
+        Order total:
+        <span>
+          {newOrder.totalSum}
+          ₴
+        </span>
+      </p>
+      <p>
+        Payment method:
+        <span>
+          {newOrder.paymentInfo}
+        </span>
+      </p>
+      <p>
+        Date:
+        <span>
+          {date}
+        </span>
+      </p>
+    </div>
+  )
+
   return (
     <StyledOrderInfo>
-      {order && Object.keys(order).length > 0
-        ? (
-          <div>
-            <h2>Thank you for order! You are welcome!</h2>
-            <p>
-              Your orderNo is:
-              <span>
-                {order.orderNo}
-              </span>
-            </p>
-            <p>
-              Order total:
-              <span>
-                {order.totalSum}
-                ₴
-              </span>
-            </p>
-            <p>
-              Payment method:
-              <span>
-                {order.paymentInfo}
-              </span>
-            </p>
-            <p>
-              Date:
-              <span>
-                {date}
-              </span>
-            </p>
-          </div>
-        )
+      {Object.keys(order).length > 0
+        ? showOrderInfo(order)
         : (
           <Spin tip="Loading..." size="large">
             <Alert

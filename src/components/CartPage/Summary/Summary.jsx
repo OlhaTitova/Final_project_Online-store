@@ -17,7 +17,7 @@ const Summary = connect(mapStateToProps)(({summary}) => {
 
   const onClick = (summary) => {
     if (summary === 0) {
-      message.error('Your shopping cart is empty. Please add items to your shopping cart');
+      message.warning('Your shopping cart is empty. Please add items to your shopping cart');
     } else { history.push('/checkout') }
   }
 

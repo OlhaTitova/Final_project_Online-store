@@ -6,7 +6,7 @@ import {
 } from '@ant-design/icons';
 import { Button, Row, Col} from 'antd';
 import { connect } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { ButtonRemoveEdit, StyledCartItem, StyledInput} from './StyledCartItem';
 import { DisplayRow } from '../Flex';
 import { decreaseQuantity, increaseQuantity, removeFromCart } from '../../../store/cart/middleware';
@@ -24,15 +24,15 @@ export const CartItem = connect(null, {
   <StyledCartItem>
     <Row align="middle">
       <Col xs={8} md={8} lg={5}>
-        <NavLink to={`products/${product.itemNo}`}>
+        <Link to={`products/${product.itemNo}`}>
           <img src={product.imageUrls[0]} alt={product.name} />
-        </NavLink>
+        </Link>
       </Col>
       <Col xs={16} md={16} lg={7}>
-        <NavLink to={`/product/${product.itemNo}`}>
+        <Link to={`/product/${product.itemNo}`}>
           <p className="bold">{upperCaseFirstLetter(product.name)}</p>
           <p>{upperCaseFirstLetter(product.description)}</p>
-        </NavLink>
+        </Link>
 
       </Col>
       <Col xs={7} md={7} lg={3}>

@@ -22,7 +22,7 @@ export const WrapperFormCheckout = styled.div`
         }
     }
 `
-export const StyledRatio = styled(Radio)`
+export const StyledRadio = styled(Radio)`
     display: block;
     height: 40px;
     line-height: 40px;

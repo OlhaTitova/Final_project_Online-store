@@ -13,7 +13,7 @@ import {
   selectCustomer,
   selectShippingCost
 } from '../../../store/cart/reducer';
-import {StyledRatio, StyledShippingTitle} from '../StyledCheckout';
+import {StyledRadio, StyledShippingTitle} from '../StyledCheckout';
 import StyledButton from '../../common/Buttons/StyledButton';
 import {
   getCity, getShippingCost, PlaceOrder
@@ -217,12 +217,12 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
       </StyledShippingTitle>
 
       <Radio.Group name="paymentInfo" onChange={onChange} value={valuePaymentInfo} style={{marginBottom: '20px'}}>
-        <StyledRatio value="Cash">
+        <StyledRadio value="Cash">
           Cash
-        </StyledRatio>
-        <StyledRatio value="Card">
+        </StyledRadio>
+        <StyledRadio value="Card">
           Card
-        </StyledRatio>
+        </StyledRadio>
       </Radio.Group>
       <StyledButton shape="round" htmlType="submit">
         Place Order

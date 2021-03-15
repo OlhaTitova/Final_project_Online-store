@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom/';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import { RowColumn, RowRevers, WrapperButton } from '../CartPage/Flex';
 import StyledButton from '../common/Buttons/StyledButton';
 import { ContainerCart } from '../common/Container';
@@ -8,35 +8,54 @@ import FormCheckout from './FormCheckout/FormCheckout';
 import OrderSummary from './OrderSummary/OrderSummary';
 import { StyledShippingTitle, WrapperFormCheckout } from './StyledCheckout';
 
-const Checkout = () => (
-  <ContainerCart>
-    <RowColumn>
-      <Heading>Checkout</Heading>
-      <NavLink to="/signin">
+const Checkout = () => {
+  const history = useHistory()
+
+  const onClickSignIn = () => {
+    history.push('/signin')
+  }
+  const onClickCart = () => {
+    history.push('/cart')
+  }
+
+  return (
+    <ContainerCart>
+      <RowColumn>
+        <Heading>
+          Checkout
+        </Heading>
         <WrapperButton>
-          <StyledButton size="xl" shape="round" color="borderBlue">
+          <StyledButton
+            onClick={onClickSignIn}
+            size="xl"
+            shape="round"
+            color="borderBlue"
+          >
             Sign In
           </StyledButton>
         </WrapperButton>
-      </NavLink>
-      <WrapperButton>
-        <NavLink to="/cart">
-          <StyledButton size="xl" shape="round" color="borderGrey">
+        <WrapperButton>
+          <StyledButton
+            onClick={onClickCart}
+            size="xl"
+            shape="round"
+            color="borderGrey"
+          >
             Back to cart
           </StyledButton>
-        </NavLink>
-      </WrapperButton>
-    </RowColumn>
-    <RowRevers>
-      <OrderSummary />
-      <WrapperFormCheckout>
-        <StyledShippingTitle>
-          Order Details:
-        </StyledShippingTitle>
-        <FormCheckout />
-      </WrapperFormCheckout>
-    </RowRevers>
-  </ContainerCart>
-)
+        </WrapperButton>
+      </RowColumn>
+      <RowRevers>
+        <OrderSummary />
+        <WrapperFormCheckout>
+          <StyledShippingTitle>
+            Order Details:
+          </StyledShippingTitle>
+          <FormCheckout />
+        </WrapperFormCheckout>
+      </RowRevers>
+    </ContainerCart>
+  )
+}
 
 export default Checkout
