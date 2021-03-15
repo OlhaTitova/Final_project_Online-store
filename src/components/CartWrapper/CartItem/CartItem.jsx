@@ -70,7 +70,7 @@ CartItem.propTypes = {
     name: PropTypes.string,
     currentPrice: PropTypes.number,
     _id: PropTypes.string,
-  }).isRequired,
+  }),
   increaseQuantity: PropTypes.func,
   decreaseQuantity: PropTypes.func,
   removeFromCart: PropTypes.func,

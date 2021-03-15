@@ -65,7 +65,7 @@ CartList.propTypes = {
     name: PropTypes.string,
     currentPrice: PropTypes.number,
     _id: PropTypes.string,
-  }).isRequired,
+  }),
   getCart: PropTypes.func,
   clearCart: PropTypes.func,
 }
