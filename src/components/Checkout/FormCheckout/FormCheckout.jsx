@@ -11,6 +11,7 @@ import {
   selectBranches,
   selectCities,
   selectCustomer,
+  selectProducts,
   selectShippingCost
 } from '../../../store/cart/reducer';
 import {StyledRadio, StyledShippingTitle} from '../StyledCheckout';
@@ -24,14 +25,16 @@ const mapStateToProps = (state) => ({
   branches: selectBranches(state),
   customer: selectCustomer(state),
   shippingCost: selectShippingCost(state),
+  products: selectProducts(state),
+  isLogin: state.auth.isLogin
 })
 
 const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOrder})(({
-  cities, branches, customer, getCity, getShippingCost, shippingCost, PlaceOrder
+  cities, branches, customer, getCity, getShippingCost, shippingCost, PlaceOrder, isLogin, products
 }) => {
   const recipientCityRef = useRef();
   const countryRef = useRef();
-  const branchRef = useRef();
+  const branchName = useRef();
 
   const [valuePaymentInfo, setValuePaymentInfo] = useState('Cash');
 
@@ -42,7 +45,7 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
   const history = useHistory()
 
   const onFinish = (values) => {
-    PlaceOrder(values, customer, shippingCost, valuePaymentInfo)
+    PlaceOrder(products, isLogin, values, customer, shippingCost, valuePaymentInfo)
     history.push('/order')
   };
 
@@ -81,19 +84,19 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
 
   const fields = [{
     name: 'email',
-    value: customer.email
+    value: customer.email || null
   },
   {
     name: 'firstName',
-    value: customer.firstName
+    value: customer.firstName || null
   },
   {
     name: 'lastName',
-    value: customer.lastName
+    value: customer.lastName || null
   },
   {
     name: 'phoneNumber',
-    value: customer.telephone
+    value: customer.telephone || null
   },
   {
     name: 'country',
@@ -117,7 +120,7 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
         rules={[
           {
             required: true,
-            message: 'Please input your email.',
+            message: 'Please input your active email.',
           },
           {
             type: 'email',
@@ -125,14 +128,12 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
           },
         ]}
       >
-        <Input />
+        <Input placeholder="test@testmail.com" />
       </Form.Item>
       
       <Form.Item
         label="First name"
         name="firstName"
-        id={customer.firstName}
-        options={customer.firstName}
         rules={[
           {
             required: true,
@@ -140,7 +141,7 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
           },
         ]}
       >
-        <Input placeholder="First name" value={customer.firstName} />
+        <Input placeholder="First name" />
       </Form.Item>
 
       <Form.Item
@@ -153,7 +154,7 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
           },
         ]}
       >
-        <Input placeholder="Last name" value={customer.lastName} />
+        <Input placeholder="Last name" />
       </Form.Item>
 
       <Form.Item
@@ -162,11 +163,11 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
         rules={[
           {
             required: true,
-            message: 'Please input your phone number',
+            message: 'Please input your phone number (380 XX XXX XXXX)',
           },
         ]}
       >
-        <Input placeholder="Mobile Number (+380 XX XXX XXXX)" value={customer.telephone} />
+        <Input placeholder="Mobile Number (380 XX XXX XXXX)" />
       </Form.Item>
 
       <StyledShippingTitle>
@@ -186,7 +187,11 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
         name="recipientCity"
         rules={[{ required: true, message: 'Recipient city is required' }]}
       >
-        <Select placeholder="Select the city of recipient" onChange={getCity} ref={recipientCityRef}>
+        <Select
+          placeholder="Select the city of recipient"
+          onChange={getCity}
+          ref={recipientCityRef}
+        >
           {cities.map((item) => (
             <Option value={item.Ref} key={item.Ref}>
               {item.CityName}
@@ -203,10 +208,10 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
         <Select
           placeholder="Select the branch of Nova Poshta of the recipient"
           onChange={() => getShippingCost(recipientCityRef)}
-          ref={branchRef}
+          ref={branchName}
         >
           {branches.map((item) => (
-            <Option value={item.branchRef} key={item.branchRef}>
+            <Option value={item.branchName} key={item.branchRef}>
               {item.branchName}
             </Option>
           ))}

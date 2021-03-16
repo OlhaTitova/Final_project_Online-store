@@ -86,7 +86,7 @@ export const cartReducer = (state = initialState, {type, payload}) => {
       return {
         ...state,
         products: payload.products,
-        customer: payload.customerId,
+        customer: payload.customerId || {},
         summary: payload.products.reduce(
           (sum, curr) => sum + curr.cartQuantity * curr.product.currentPrice,
           0

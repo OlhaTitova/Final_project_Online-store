@@ -7,7 +7,7 @@ import StyledButton from '../../common/Buttons/StyledButton'
 import checkValue from '../../../utils/checkValue'
 import {addToCart} from '../../../store/cart/middleware'
 
-const CartGroup = connect(null, { addToCart })(({ productID, avilableQuantity, addToCart }) => {
+const CartGroup = connect(null, { addToCart })(({ product, avilableQuantity, addToCart }) => {
   const [quantity, setQuanity] = useState(avilableQuantity > 0 ? 1 : 0)
   const inputHandler = (e) => {
     const value = +e.target.value.trim()
@@ -37,14 +37,14 @@ const CartGroup = connect(null, { addToCart })(({ productID, avilableQuantity, a
           inputHandler={inputHandler}
           quantity={quantity}
         />
-        <StyledButton size="lg" shape="round" disabled={!isAvilable} onClick={() => addToCart(productID, quantity)}>Add to cart</StyledButton>
+        <StyledButton size="lg" shape="round" disabled={!isAvilable} onClick={() => addToCart(product, quantity)}>Add to cart</StyledButton>
       </FlexBox>
     </CartGroupBox>
   )
 })
 
 CartGroup.propTypes = {
-  productID: PropTypes.string.isRequired,
+  product: PropTypes.instanceOf(Object).isRequired,
   avilableQuantity: PropTypes.number.isRequired,
   addToCart: PropTypes.func
 }

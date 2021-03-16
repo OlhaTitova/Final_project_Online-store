@@ -6,8 +6,9 @@ const StyledOrderInfo = styled.div`
 
     h2 {
         font-size: 16px;
-        padding-bottom: 20px;
+        padding: 15px 0;
         font-weight: 600;
+        line-height:2;
     }
     p {
         font-size: 14px;

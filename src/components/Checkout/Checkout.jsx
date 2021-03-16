@@ -49,7 +49,7 @@ const Checkout = () => {
         <OrderSummary />
         <WrapperFormCheckout>
           <StyledShippingTitle>
-            Order Details:
+            Customer Details:
           </StyledShippingTitle>
           <FormCheckout />
         </WrapperFormCheckout>
