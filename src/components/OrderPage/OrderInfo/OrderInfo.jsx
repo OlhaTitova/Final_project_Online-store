@@ -3,19 +3,27 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Alert, Spin } from 'antd';
 import StyledOrderInfo from './StyledOrderInfo';
-import { selectOrder } from '../../../store/cart/reducer';
+import { selectCities, selectOrder } from '../../../store/cart/reducer';
 
 const mapStateToProps = (state) => ({
-  order: selectOrder(state)
+  order: selectOrder(state),
+  cities: selectCities(state)
 })
 
-const OrderInfo = connect(mapStateToProps)(({order}) => {
+const OrderInfo = connect(mapStateToProps, null)(({order, cities}) => {
   const date = order.date ? new Date(order.date).toLocaleDateString() : null
+
+  const cityName = (cityRefForShipping) => {
+    const cityCustomer = cities.find((item) => item.Ref === cityRefForShipping)
+    return cityCustomer.CityName
+  }
 
   const showOrderInfo = (newOrder) => (
     <div>
       <h2>
-        {newOrder.firstName}
+        <span className="italic">
+          {newOrder.firstName}
+        </span>
         , your order has been completed.
       </h2>
       <h2>Thank you for your purchase.</h2>
@@ -32,14 +40,14 @@ const OrderInfo = connect(mapStateToProps)(({order}) => {
           ₴
         </span>
       </p>
-      {/* <p>
-        Shipping city:
-        <span>
-          {newOrder.cityName}
-        </span>
-      </p> */}
       <p>
-        Shipping branch:
+        Delivery city:
+        <span>
+          {cityName(newOrder.deliveryAddress.city)}
+        </span>
+      </p>
+      <p>
+        Delivery branch:
         <span>
           {newOrder.deliveryAddress.branch}
         </span>

@@ -190,7 +190,7 @@ export const PlaceOrder = (
     email: values.email,
     mobile: values.phoneNumber,
     firstName: values.firstName,
-    letterSubject: 'Thank you for order! You are welcome!',
+    letterSubject: `${values.firstName}, thank you for order!`,
     letterHtml: '<h1>Your order is placed. OrderNo and details about order in your dashboard.</h1>'
   }
   if (isLogin) {

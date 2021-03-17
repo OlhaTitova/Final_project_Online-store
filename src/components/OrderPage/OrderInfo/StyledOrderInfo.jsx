@@ -18,6 +18,10 @@ const StyledOrderInfo = styled.div`
         font-weight: 600;
         padding-left: 10px;
     }
+    .italic {
+        font-style: italic;
+        padding-left: 0;
+    }
 
     @media(min-width: ${forTablet.minWidth}px) and (max-width: ${forTablet.maxWidth}px) {
         h2 {

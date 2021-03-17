@@ -1,9 +1,9 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable react/jsx-props-no-spreading */
-import React, {useRef, useState} from 'react';
+import React, {useMemo, useRef, useState} from 'react';
 import PropTypes from 'prop-types';
 import {
-  Form, Input, Radio, Select
+  Form, Input, Radio, Row, Select
 } from 'antd';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom/';
@@ -82,7 +82,7 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
         
   const { Option } = Select;
 
-  const fields = [{
+  const fields = useMemo(() => ([{
     name: 'email',
     value: customer.email || null
   },
@@ -102,7 +102,7 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
     name: 'country',
     value: 'Ukraine'
   },
-  ]
+  ]), [customer])
 
   return (
     <Form
@@ -114,6 +114,10 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
       }}
       onFinish={onFinish}
     >
+      <StyledShippingTitle>
+        Customer Details:
+      </StyledShippingTitle>
+
       <Form.Item
         label="Email"
         name="email"
@@ -139,6 +143,11 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
             required: true,
             message: 'Please input your name.',
           },
+          {
+            type: 'string',
+            min: 2,
+            max: 25,
+          },
         ]}
       >
         <Input placeholder="First name" />
@@ -152,6 +161,11 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
             required: true,
             message: 'Please input your Last name.',
           },
+          {
+            type: 'string',
+            min: 2,
+            max: 25,
+          },
         ]}
       >
         <Input placeholder="Last name" />
@@ -163,13 +177,35 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
         rules={[
           {
             required: true,
-            message: 'Please input your phone number (380 XX XXX XXXX)',
+            message: 'Please input your phone number 380 XX XXX XXXX',
+            min: 12,
+            max: 12,
           },
         ]}
       >
-        <Input placeholder="Mobile Number (380 XX XXX XXXX)" />
+        <Input placeholder="Mobile Number 380 XX XXX XXXX" />
       </Form.Item>
 
+      <StyledShippingTitle>
+        Payment Details:
+      </StyledShippingTitle>
+
+      <Radio.Group
+        name="paymentInfo"
+        onChange={onChange}
+        value={valuePaymentInfo}
+        style={{marginBottom: '20px'}}
+      >
+        <Row>
+          <StyledRadio value="Cash">
+            Cash
+          </StyledRadio>
+          <StyledRadio value="Card">
+            Card
+          </StyledRadio>
+        </Row>
+      </Radio.Group>
+      
       <StyledShippingTitle>
         Shipping Details:
       </StyledShippingTitle>
@@ -217,21 +253,11 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
           ))}
         </Select>
       </Form.Item>
-      <StyledShippingTitle>
-        Payment Details:
-      </StyledShippingTitle>
-
-      <Radio.Group name="paymentInfo" onChange={onChange} value={valuePaymentInfo} style={{marginBottom: '20px'}}>
-        <StyledRadio value="Cash">
-          Cash
-        </StyledRadio>
-        <StyledRadio value="Card">
-          Card
-        </StyledRadio>
-      </Radio.Group>
+      
       <StyledButton shape="round" htmlType="submit">
         Place Order
       </StyledButton>
+
     </Form>
   )
 })

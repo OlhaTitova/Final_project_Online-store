@@ -10,7 +10,7 @@ const mapStateToProps = (state) => ({
   shippingCost: selectShippingCost(state),
 })
 
-const OrderSummary = connect(mapStateToProps)(({summary, shippingCost}) => (
+const OrderSummary = connect(mapStateToProps, null)(({summary, shippingCost}) => (
   
   <StyledOrderSummary>
     <h4>Order summary</h4>
