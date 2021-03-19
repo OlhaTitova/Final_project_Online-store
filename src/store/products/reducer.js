@@ -1,11 +1,21 @@
 import {
-  SET_PRODUCTS, ADD_PRODUCT, UPDATE_PRODUCT, GET_NEW_PRODUCTS
+  SET_PRODUCTS,
+  ADD_PRODUCT,
+  UPDATE_PRODUCT,
+  GET_NEW_PRODUCTS,
+  SET_TO_CATALOG,
+  SET_CATALOG_PRODUCTS_QUANTITY,
+  CLEAN_CATALOG_PRODUCTS
 } from './actionType';
 
 export const MODULE_NAME = 'products'
 
 const initialState = {
   products: [],
+  catalog: {
+    catalogProducts: [],
+    productsQuantity: 1
+  },
   newProducts: [],
   pageProduct: {}
 }
@@ -34,6 +44,30 @@ export const reducer = (state = initialState, {type, payload}) => {
       return {
         ...state,
         newProducts: payload
+      }
+    case SET_TO_CATALOG:
+      return {
+        ...state,
+        catalog: {
+          ...state.catalog,
+          catalogProducts: payload
+        }
+      }
+    case SET_CATALOG_PRODUCTS_QUANTITY:
+      return {
+        ...state,
+        catalog: {
+          ...state.catalog,
+          productsQuantity: payload
+        }
+      }
+    case CLEAN_CATALOG_PRODUCTS:
+      return {
+        ...state,
+        catalog: {
+          ...state.catalog,
+          catalogProducts: []
+        }
       }
     default:
       return state

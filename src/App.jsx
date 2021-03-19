@@ -7,6 +7,7 @@ import NewProductsSlider from './components/NewProductsSlider/NewProductsSlider'
 import Footer from './components/Footer/Footer'
 import ContactUsPage from './pages/Contact-us/ContactUs'
 import ProductPage from './components/ProductPage/ProductPage'
+import CatalogPage from './components/CatalogPage/CatalogPage'
 import Header from './components/Header/Header'
 import LogIn from './components/LogIn/LogIn'
 import Checkout from './components/Checkout/Checkout'
@@ -47,6 +48,9 @@ function App() {
         </Route>
         <Route exact path="/products/:itemNo">
           <ProductPage />
+        </Route>
+        <Route path="/catalog">
+          <CatalogPage />
         </Route>
       </Switch>
       <Footer />

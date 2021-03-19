@@ -40,11 +40,7 @@ export const updateCustomer = (credentials) => () => {
 
 export const getCustomer = () => () => {
   const res = axios.get(`${BASE_ENDPOINT}/customer`, {headers})
-    .then((data) => {
-      console.log(data)
-    })
-    .catch((error) => {
-      console.log(error.response)
-    })
+    .then((data) => data)
+    .catch((error) => error)
   return res
 }
