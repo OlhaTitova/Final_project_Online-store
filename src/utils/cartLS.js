@@ -28,4 +28,21 @@ export const addCartToLS = (product, quantity) => {
 
 export const getCartLS = () => JSON.parse(localStorage.getItem('cart')) || []
 
+export const increaseQuantityLS = (productId) => {
+  const cartLS = JSON.parse(localStorage.getItem('cart')) || []
+  const containsInCartLS = cartLS.find((item) => item.product._id === productId)
+  console.log(containsInCartLS)
+  const updatedCartLS = cartLS.map((item) => {
+    let cartQuantityLS = 0
+    if (item.product._id === containsInCartLS.product._id) {
+      cartQuantityLS = item.cartQuantity + 1
+    }
+    console.log(cartQuantityLS)
+    return cartQuantityLS
+  })
+  console.log(updatedCartLS)
+  localStorage.setItem('cart', JSON.stringify(updatedCartLS))
+  return updatedCartLS
+}
+
 export default addCartToLS
