@@ -31,18 +31,36 @@ export const getCartLS = () => JSON.parse(localStorage.getItem('cart')) || []
 export const increaseQuantityLS = (productId) => {
   const cartLS = JSON.parse(localStorage.getItem('cart')) || []
   const containsInCartLS = cartLS.find((item) => item.product._id === productId)
-  console.log(containsInCartLS)
   const updatedCartLS = cartLS.map((item) => {
-    let cartQuantityLS = 0
     if (item.product._id === containsInCartLS.product._id) {
-      cartQuantityLS = item.cartQuantity + 1
+      // eslint-disable-next-line no-param-reassign
+      item.cartQuantity += 1
     }
-    console.log(cartQuantityLS)
-    return cartQuantityLS
+    return item
   })
-  console.log(updatedCartLS)
   localStorage.setItem('cart', JSON.stringify(updatedCartLS))
   return updatedCartLS
 }
 
+export const decreaseQuantityLS = (productId) => {
+  const cartLS = JSON.parse(localStorage.getItem('cart')) || []
+  const containsInCartLS = cartLS.find((item) => item.product._id === productId)
+  const updatedCartLS = cartLS.map((item) => {
+    if (item.product._id === containsInCartLS.product._id) {
+      // eslint-disable-next-line no-param-reassign
+      item.cartQuantity -= 1
+    }
+    return item
+  })
+  localStorage.setItem('cart', JSON.stringify(updatedCartLS))
+  return updatedCartLS
+}
+
+export const removeFromCartLS = (productId) => {
+  if (!productId) return;
+  const cartLS = JSON.parse(localStorage.getItem('cart')) || []
+  const deleteItem = cartLS.filter((item) => item.product._id !== productId)
+  console.log(deleteItem)
+  localStorage.setItem('cart', JSON.stringify(deleteItem));
+}
 export default addCartToLS

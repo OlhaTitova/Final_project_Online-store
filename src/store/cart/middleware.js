@@ -1,7 +1,9 @@
 /* eslint-disable no-underscore-dangle */
 import { message } from 'antd'
 import axios from 'axios'
-import { addCartToLS, getCartLS, increaseQuantityLS } from '../../utils/cartLS'
+import {
+  addCartToLS, decreaseQuantityLS, getCartLS, increaseQuantityLS, removeFromCartLS
+} from '../../utils/cartLS'
 import {getHeaders} from '../headers'
 import {
   setCart,
@@ -55,6 +57,7 @@ export const addToCart = (product, quantity) => (dispatch, getStore) => {
     .catch((error) => {
       if (error.response.status === 401) {
         addCartToLS(product, quantity)
+        message.success('Product added to cart!')
       }
     })
 }
@@ -85,22 +88,24 @@ export const increaseQuantity = (productId) => (dispatch) => {
     })
     .catch((error) => {
       if (error.response.status === 401) {
-        increaseQuantityLS(productId)
-        // dispatch(increaseQuantityCreator(updatedCart.data))
+        dispatch(increaseQuantityCreator({products: increaseQuantityLS(productId)}))
       }
     })
 }
 
 export const decreaseQuantity = (productID) => (dispatch) => {
   const headers = getHeaders()
-  const res = axios.delete(`/cart/product/${productID}`, { headers })
+  axios.delete(`/cart/product/${productID}`, { headers })
     .then((updatedCart) => {
       if (updatedCart.status === 200) {
         dispatch(decreaseQuantityCreator(updatedCart.data))
       }
     })
-    .catch((err) => err.response);
-  return res;
+    .catch((error) => {
+      if (error.response.status === 401) {
+        dispatch(decreaseQuantityCreator({products: decreaseQuantityLS(productID)}))
+      }
+    })
 }
 
 export const removeFromCart = (productID) => (dispatch) => {
@@ -111,7 +116,11 @@ export const removeFromCart = (productID) => (dispatch) => {
         dispatch(removeFromCartCreator(result.data))
       }
     })
-    .catch((err) => err.response);
+    .catch((error) => {
+      if (error.response.status === 401) {
+        dispatch(removeFromCartCreator({products: removeFromCartLS(productID)}))
+      }
+    })
 }
 
 export const clearCart = () => (dispatch) => {
