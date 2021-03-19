@@ -1,15 +1,12 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React, { useEffect, } from 'react'
 import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
 import Carousel from '../Carousel/Carousel'
 import { forTablet } from '../../styles/mediaBreakPoints'
 import { ProductCard } from '../ProductCard/ProductCard'
 import { Container } from '../common/Container'
 import { getNewProductsCreator } from '../../store/products/actionCreator'
 import { getFilteredProducts } from '../../store/products/middleware'
-import upperCaseFirstLetter from '../../utils/upperCaseFirstLetter'
-import rateCalculator from '../../utils/rateCalculator'
 
 const mapStateToProps = (state) => ({ newProducts: state.products.newProducts })
 
@@ -65,17 +62,10 @@ const NewProductsSlider = connect(
     <Container>
       <Carousel carouselSettings={carouselSettings}>
         {newProducts.map((el) => (
-          <Link to={`products/${el.itemNo}`} key={el.itemNo}>
-            <ProductCard
-              key={el.itemNo}
-              title={upperCaseFirstLetter(el.name)}
-              img={el.imageUrls[0]}
-              previousPrice={el.previousPrice}
-              currentPrice={el.currentPrice}
-              isGoodsInStock={el.quantity > 0}
-              {...rateCalculator(el.reviews)}
-            />
-          </Link>
+          <ProductCard
+            key={el.itemNo}
+            productInfo={el}
+          />
         ))}
       </Carousel>
     </Container>

@@ -7,14 +7,15 @@ import { getOneProduct, updateOneProduct } from '../../../store/products/middlew
 import rateCalculator from '../../../utils/rateCalculator'
 
 const ProductRate = connect(null, { updateOneProduct })(({
-  rating,
   reviews,
   productID,
   itemNo,
   updateOneProduct
 }) => {
+  const { rating, reviewsQuantity } = rateCalculator(reviews)
+
   const [rate, setRate] = useState(rating)
-  const [reviewsCount, setReviewsCount] = useState(reviews)
+  const [reviewsCount, setReviewsCount] = useState(reviewsQuantity)
   
   const handleChange = async (value) => {
     if (value === 0) return
@@ -33,8 +34,8 @@ const ProductRate = connect(null, { updateOneProduct })(({
     if (result.status !== 200) return
     
     const newReviewsArr = result.data.reviews
-    const { reviews } = rateCalculator(newReviewsArr)
-    setReviewsCount(reviews)
+    const { reviewsQuantity } = rateCalculator(newReviewsArr)
+    setReviewsCount(reviewsQuantity)
   }
   const desc = ['terrible', 'bad', 'normal', 'good', 'wonderful']
 
@@ -54,8 +55,7 @@ const ProductRate = connect(null, { updateOneProduct })(({
 })
 
 ProductRate.propTypes = {
-  rating: PropTypes.number.isRequired,
-  reviews: PropTypes.number.isRequired,
+  reviews: PropTypes.instanceOf(Array).isRequired,
   productID: PropTypes.string.isRequired,
   itemNo: PropTypes.string.isRequired,
   updateOneProduct: PropTypes.func

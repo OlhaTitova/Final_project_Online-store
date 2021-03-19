@@ -21,6 +21,7 @@ function App() {
         <Route exact path="/">
           <BannerSlider />
           <NewProductsSlider />
+          {/* <MainCatalog /> */}
         </Route>
         <Route exact path="/signin">
           <LogIn />

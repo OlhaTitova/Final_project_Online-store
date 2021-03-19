@@ -1,12 +1,12 @@
 import { StarFilled } from '@ant-design/icons';
 import styled from 'styled-components';
-import { forDesktop } from '../../styles/mediaBreakPoints'
+import { forTablet } from '../../styles/mediaBreakPoints'
 
 export const StyledStarFilledIcon = styled(StarFilled)`
   color: ${(props) => props.color};
   font-size: 9px;
 
-  @media(min-width: ${forDesktop.minWidth}px){
+  @media(min-width: ${forTablet.minWidth}px){
     font-size: 13px;
   }
 `
