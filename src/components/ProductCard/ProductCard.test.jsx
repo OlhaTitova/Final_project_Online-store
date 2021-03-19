@@ -1,18 +1,37 @@
 import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
 import { render } from '@testing-library/react';
+import { HashRouter as Router } from 'react-router-dom';
 import { ProductCard } from './ProductCard';
+import rateCalculator from '../../utils/rateCalculator';
 
-test('ProductCard render test', () => {
-  render(
-    <ProductCard
-      title="Apple MacBook Air 13 256Gb Space Gray (MWTJ2) 2020"
-      img="https://i.citrus.ua/imgcache/size_800/uploads/shop/0/8/08d983e24e5cced849bd3ab8ac562b35.jpg"
-      previousPrice={644}
-      currentPrice={544}
-      reviews={444}
-      rating={2}
-      isGoodsInStock={false}
-    />
-  )
+describe('All tests for product card', () => {
+  test('ProductCard render test', () => {
+    render(
+      <Router>
+        <ProductCard
+          productInfo={{
+            name: 'Apple MacBook Air 13 256Gb Space Gray (MWTJ2) 2020',
+            imageUrls: [
+              'https://i.citrus.ua/imgcache/size_800/uploads/shop/0/8/08d983e24e5cced849bd3ab8ac562b35.jpg',
+            ],
+            previousPrice: 644,
+            currentPrice: 544,
+            reviews: [5, 5, 5, 5, 5],
+            quantity: 21,
+            itemNo: '3232432'
+          }}
+        />
+      </Router>
+    )
+  })
+
+  test('chek is rateCalculator returns object with correct keys', () => {
+    const expected = {
+      reviewsQuantity: 5,
+      rating: 5,
+    }
+    expect(rateCalculator([5, 5, 5, 5, 5])).toBeInstanceOf(Object)
+    expect(rateCalculator([5, 5, 5, 5, 5])).toMatchObject(expected)
+  })
 })

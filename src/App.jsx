@@ -12,6 +12,7 @@ import LogIn from './components/LogIn/LogIn'
 import Checkout from './components/Checkout/Checkout'
 import {CartPage} from './components/CartPage/CartPage'
 import OrderPage from './components/OrderPage/OrderPage'
+// import { MainCatalog } from './components/MainCatalog/MainCatalog'
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route exact path="/">
           <BannerSlider />
           <NewProductsSlider />
+          {/* <MainCatalog /> */}
         </Route>
         <Route exact path="/signin">
           <LogIn />

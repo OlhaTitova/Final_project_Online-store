@@ -16,7 +16,6 @@ import {
   ImageBox,
 } from './StylesProductPage'
 import Carousel from '../Carousel/Carousel'
-import rateCalculator from '../../utils/rateCalculator'
 import upperCaseFirstLetter from '../../utils/upperCaseFirstLetter'
 import SpinAnimation from '../SpinAnimation/SpinAnimation'
 import ProductRate from './ProductRate/ProductRate'
@@ -40,7 +39,6 @@ const ProductPage = () => {
   }, [history, itemNo])
 
   if (!product) return <SpinAnimation width="100vw" height="80vh" />
-  const { reviews, rating } = rateCalculator(product.reviews)
 
   return (
     <Container>
@@ -63,8 +61,7 @@ const ProductPage = () => {
             {product.itemNo}
           </div>
           <ProductRate
-            rating={rating}
-            reviews={reviews}
+            reviews={product.reviews}
             productID={product._id}
             itemNo={product.itemNo}
           />

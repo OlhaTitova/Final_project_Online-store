@@ -80,7 +80,7 @@ describe('All tests for Product page', () => {
 
   test('chek is rateCalculator returns object with correct keys', () => {
     const expected = {
-      reviews: 5,
+      reviewsQuantity: 5,
       rating: 5,
     }
     expect(rateCalculator([5, 5, 5, 5, 5])).toBeInstanceOf(Object)
