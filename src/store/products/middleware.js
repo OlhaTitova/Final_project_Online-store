@@ -1,6 +1,13 @@
 import axios from 'axios';
+import {
+  setProducts,
+  addProduct,
+  updateProduct,
+  setProductsToCatalog,
+  setCatalogProductsQuantity,
+  cleanCatalogProducts
+} from './actionCreator';
 import { headers } from '../headers';
-import { setProducts, addProduct, updateProduct } from './actionCreator';
 
 const BASE_ENDPOINT = '/products'
 
@@ -57,8 +64,34 @@ export const getFilteredProducts = (param, actionCreator) => (dispatch) => {
   const res = axios.get(`${BASE_ENDPOINT}/filter?${paramStr}`)
     .then((res) => {
       if (res.status === 200) dispatch(actionCreator(res.data.products))
+      return res
     })
-    .catch((error) => console.log(error.response))
+    .catch((error) => error)
+  return res
+}
 
+export const getProductsToCatalog = (param) => (dispatch) => {
+  dispatch(cleanCatalogProducts())
+  console.log(param)
+  let paramStr = ''
+  Object.keys(param).forEach((key, index) => {
+    if (index === 0) {
+      return paramStr += `${key}=${param[key].toString()}`
+    }
+    return paramStr += `&${key}=${param[key].toString()}`
+  })
+  console.log(paramStr)
+  const res = axios.get(`${BASE_ENDPOINT}/filter?${paramStr}`)
+    .then((res) => {
+      if (res.status === 200) {
+        dispatch(setProductsToCatalog(res.data.products))
+        dispatch(setCatalogProductsQuantity(res.data.productsQuantity))
+      }
+      return res
+    })
+    .catch((error) => {
+      dispatch(setCatalogProductsQuantity(0))
+      return error
+    })
   return res
 }
