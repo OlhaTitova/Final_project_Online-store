@@ -31,7 +31,7 @@ const initialState = {
   order: {},
   cities: [
     {
-      CityName: 'Kiyv',
+      CityName: 'Kyiv',
       Ref: '8d5a980d-391c-11dd-90d9-001a92567626'
     },
     {
