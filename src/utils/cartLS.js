@@ -57,10 +57,13 @@ export const decreaseQuantityLS = (productId) => {
 }
 
 export const removeFromCartLS = (productId) => {
-  if (!productId) return;
   const cartLS = JSON.parse(localStorage.getItem('cart')) || []
-  const deleteItem = cartLS.filter((item) => item.product._id !== productId)
-  console.log(deleteItem)
-  localStorage.setItem('cart', JSON.stringify(deleteItem));
+  if (!productId) return cartLS;
+  const updatedCartLS = cartLS.filter((item) => item.product._id !== productId)
+  localStorage.setItem('cart', JSON.stringify(updatedCartLS));
+  if (updatedCartLS.length === 0) {
+    localStorage.removeItem('cart')
+  }
+  return updatedCartLS
 }
 export default addCartToLS

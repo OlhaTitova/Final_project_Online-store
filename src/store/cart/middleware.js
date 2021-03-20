@@ -2,7 +2,7 @@
 import { message } from 'antd'
 import axios from 'axios'
 import {
-  addCartToLS, decreaseQuantityLS, getCartLS, increaseQuantityLS, removeFromCartLS
+  addCartToLS, decreaseQuantityLS, increaseQuantityLS, removeFromCartLS
 } from '../../utils/cartLS'
 import {getHeaders} from '../headers'
 import {
@@ -66,14 +66,21 @@ export const getCart = () => (dispatch) => {
   const headers = getHeaders()
   axios.get('/cart', { headers })
     .then((carts) => {
-      if (carts.status === 200) {
-        dispatch(setCart(carts.data))
-      }
+      // if (carts.status === 200) {
+      //   console.log(carts)
+      //   if (carts.data === null) {
+      //     // eslint-disable-next-line no-param-reassign
+      //     carts.data === {}
+      //   }
+      //   console.log(carts.data)
+      //   dispatch(setCart(carts.data))
+      // }
     })
     .catch((err) => {
-      if (err.response.status === 401) {
-        dispatch(setCart({products: getCartLS()}))
-      }
+      console.log(err)
+      // if (err.response.status === 401) {
+      //   dispatch(setCart({products: getCartLS()}))
+      // }
     });
 }
 
@@ -99,6 +106,7 @@ export const decreaseQuantity = (productID) => (dispatch) => {
     .then((updatedCart) => {
       if (updatedCart.status === 200) {
         dispatch(decreaseQuantityCreator(updatedCart.data))
+        console.log(updatedCart.data)
       }
     })
     .catch((error) => {
