@@ -1,8 +1,9 @@
 /* eslint-disable no-underscore-dangle */
 import { message } from 'antd'
 import axios from 'axios'
+// import summaryTotalItems from './reducer'
 import {
-  addCartToLS, decreaseQuantityLS, increaseQuantityLS, removeFromCartLS
+  addCartToLS, decreaseQuantityLS, getCartLS, increaseQuantityLS, removeFromCartLS
 } from '../../utils/cartLS'
 import {getHeaders} from '../headers'
 import {
@@ -66,21 +67,14 @@ export const getCart = () => (dispatch) => {
   const headers = getHeaders()
   axios.get('/cart', { headers })
     .then((carts) => {
-      // if (carts.status === 200) {
-      //   console.log(carts)
-      //   if (carts.data === null) {
-      //     // eslint-disable-next-line no-param-reassign
-      //     carts.data === {}
-      //   }
-      //   console.log(carts.data)
-      //   dispatch(setCart(carts.data))
-      // }
+      if (carts.data !== null) {
+        dispatch(setCart(carts.data))
+      }
     })
     .catch((err) => {
-      console.log(err)
-      // if (err.response.status === 401) {
-      //   dispatch(setCart({products: getCartLS()}))
-      // }
+      if (err.response.status === 401) {
+        dispatch(setCart({products: getCartLS()}))
+      }
     });
 }
 
@@ -131,11 +125,11 @@ export const removeFromCart = (productID) => (dispatch) => {
     })
 }
 
-export const clearCart = () => (dispatch) => {
+export const clearCart = (isLogin) => (dispatch) => {
   const headers = getHeaders()
   axios.delete('/cart', { headers })
     .then(() => {
-      dispatch(clearCartCreator())
+      if (isLogin) dispatch(clearCartCreator())
     })
     .catch((err) => {
       if (err.response.status === 401) {
