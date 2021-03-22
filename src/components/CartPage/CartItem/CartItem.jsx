@@ -29,7 +29,7 @@ export const CartItem = connect(null, {
         </Link>
       </Col>
       <Col xs={16} md={16} lg={7}>
-        <Link to={`/product/${product.itemNo}`}>
+        <Link to={`/products/${product.itemNo}`}>
           <p className="bold">{upperCaseFirstLetter(product.name)}</p>
           <p>{upperCaseFirstLetter(product.description)}</p>
         </Link>
