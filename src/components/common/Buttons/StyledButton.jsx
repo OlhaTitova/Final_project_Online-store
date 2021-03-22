@@ -15,6 +15,10 @@ const StyledButton = styled(Button)`
   padding: 8px 15px;
   border: 2px solid #0156FF;
   height:auto !important;
+  
+  &:disabled {
+    cursor: default;
+  }
 
 ${(props) => props.color === 'borderBlue' && css`
   background-color: #fff;
@@ -93,8 +97,9 @@ ${(props) => props.size === 'xs' && css`
       width: 150px;
      `};
     ${(props) => props.size === 'xs' && css`
-      width: 120px;
-      padding: 8px 15px;
+      width: 100px;
+      padding: 4px 10px;
+      font-size: 11px;
   `};
   }
 `

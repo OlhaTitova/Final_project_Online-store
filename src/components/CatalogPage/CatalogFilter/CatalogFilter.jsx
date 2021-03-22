@@ -1,18 +1,18 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React, {useState} from 'react'
+import React from 'react'
 import PropTypes from 'prop-types';
 import {
   Checkbox, InputNumber,
   Menu, Form
 } from 'antd';
 import close from '../../../images/filter/close.svg';
+import WishlistBox from './WishlistBox/WishlistBox'
 // styles
 import {
   StyledForm, Wrapper, FilterTitle,
   CloseBtn, AlignBtn, AllBrandsTitle,
   StyledCheckbox,
-  GridFilterPart, ContainerBrandsImg, WishList, NoWishItem,
-  WishItem, ContainerImage
+  GridFilterPart, ContainerBrandsImg, ContainerImage
 } from './StylesCatalogfilter';
 import {checkFormValues} from '../../../utils/checkFormValues';
 // img
@@ -36,9 +36,6 @@ const layout = {
 const CatalogFilter = ({
   showFilter, setShowFilter, setFilter
 }) => {
-  // eslint-disable-next-line no-unused-vars
-  const [wish, setWish] = useState(true); // temporaly for wish list
-
   const [form] = Form.useForm();
 
   const onFinish = (values) => {
@@ -143,18 +140,7 @@ const CatalogFilter = ({
             <img src={imageBrands6} alt="imageBrands6" />
           </ContainerBrandsImg>
         </GridFilterPart>
-        <WishList>
-          <h5>My Wish List</h5>
-          {wish ? (
-            <NoWishItem>
-              <p>You have no items in your wish lists</p>
-            </NoWishItem>
-          ) : (
-            <WishItem>
-              <p>You have some items in your wish lists</p>
-            </WishItem>
-          )}
-        </WishList>
+        <WishlistBox />
         <ContainerImage>
           <img src={styl} alt="styl" />
         </ContainerImage>

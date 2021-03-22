@@ -5,6 +5,7 @@ import { Carousel as AntdCarousel } from 'antd'
 import { Wrapper } from '../common/Wrapper'
 import { SliderArrowLeft } from '../common/SliderArrowLeft'
 import { SliderArrowRight } from '../common/SliderArrowRight'
+import SpinAnimation from '../SpinAnimation/SpinAnimation'
 import 'antd/dist/antd.css'
 
 const Carousel = ({ carouselSettings, children }) => {
@@ -17,8 +18,10 @@ const Carousel = ({ carouselSettings, children }) => {
     }
     // при первом рендере ref.current === undefined потому используется useEffect & useState
   }, [])
+  
   return (
     <Wrapper>
+      {!children.length && <SpinAnimation width="100%" height="30vh" />}
       <AntdCarousel ref={ref} {...carouselSettings}>
         {children}
       </AntdCarousel>

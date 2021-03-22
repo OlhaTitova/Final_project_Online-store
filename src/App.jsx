@@ -1,5 +1,6 @@
 import React from 'react'
 import { Route, Switch } from 'react-router-dom'
+import { connect } from 'react-redux'
 import CreateCustomerPage from './components/CreateCustomerPage/CreateCustomerPage'
 import { BannerSlider } from './components/BannerSlider/BannerSlider'
 import { AboutUsPage } from './pages/About-us/AboutUs'
@@ -11,10 +12,15 @@ import CatalogPage from './components/CatalogPage/CatalogPage'
 import Header from './components/Header/Header'
 import LogIn from './components/LogIn/LogIn'
 import Checkout from './components/Checkout/Checkout'
+import WishlistPage from './components/WishlistPage/WishlistPage'
+import { setWishlist } from './store/wishlist/middleware'
 import {CartPage} from './components/CartPage/CartPage'
 import OrderPage from './components/OrderPage/OrderPage'
 
-function App() {
+const App = connect(null, { setWishlist })(({ setWishlist }) => {
+  window.addEventListener('DOMContentLoaded', () => {
+    setWishlist()
+  })
   return (
     <div>
       <Header />
@@ -48,6 +54,9 @@ function App() {
         <Route exact path="/products/:itemNo">
           <ProductPage />
         </Route>
+        <Route exact path="/wishlist">
+          <WishlistPage />
+        </Route>
         <Route path="/catalog">
           <CatalogPage />
         </Route>
@@ -55,6 +64,6 @@ function App() {
       <Footer />
     </div>
   )
-}
+})
 
 export default App

@@ -1,11 +1,9 @@
 /* eslint-disable no-underscore-dangle */
 import { message } from 'antd'
 import axios from 'axios'
-// import summaryTotalItems from './reducer'
 import {
   addCartToLS, decreaseQuantityLS, getCartLS, increaseQuantityLS, removeFromCartLS
 } from '../../utils/cartLS'
-import {getHeaders} from '../headers'
 import {
   setCart,
   decreaseQuantityCreator,
@@ -18,6 +16,9 @@ import {
   getOrderCreator,
   clearOrderCreator
 } from './actionCreator'
+import { DOMAIN, getHeaders } from '../general'
+
+const BASE_ENDPOINT = `${DOMAIN}/cart`
 
 export const addToCart = (product, quantity) => (dispatch, getStore) => {
   const { cart: { products } } = getStore()
@@ -48,7 +49,7 @@ export const addToCart = (product, quantity) => (dispatch, getStore) => {
   }
 
   const headers = getHeaders()
-  axios.put('/cart', {products: updatedCart}, { headers })
+  axios.put(BASE_ENDPOINT, {products: updatedCart}, { headers })
     .then((updatedCart) => {
       if (updatedCart.status === 200) {
         dispatch(addToCartCreator(updatedCart.data));
@@ -59,13 +60,14 @@ export const addToCart = (product, quantity) => (dispatch, getStore) => {
       if (error.response.status === 401) {
         addCartToLS(product, quantity)
         message.success('Product added to cart!')
+        // message.success('The product has been added to cart!')
       }
     })
 }
 
 export const getCart = () => (dispatch) => {
   const headers = getHeaders()
-  axios.get('/cart', { headers })
+  axios.get(BASE_ENDPOINT, { headers })
     .then((carts) => {
       if (carts.data !== null) {
         dispatch(setCart(carts.data))
@@ -80,10 +82,9 @@ export const getCart = () => (dispatch) => {
 
 export const increaseQuantity = (productId) => (dispatch) => {
   const headers = getHeaders()
-  axios.put(`/cart/${productId}`, null, { headers })
+  axios.put(`${BASE_ENDPOINT}/${productId}`, null, { headers })
     .then((updatedCart) => {
       if (updatedCart.status === 200) {
-        // console.log(updatedCart.data);
         dispatch(increaseQuantityCreator(updatedCart.data));
       }
     })
@@ -96,11 +97,10 @@ export const increaseQuantity = (productId) => (dispatch) => {
 
 export const decreaseQuantity = (productID) => (dispatch) => {
   const headers = getHeaders()
-  axios.delete(`/cart/product/${productID}`, { headers })
+  axios.delete(`${BASE_ENDPOINT}/product/${productID}`, { headers })
     .then((updatedCart) => {
       if (updatedCart.status === 200) {
         dispatch(decreaseQuantityCreator(updatedCart.data))
-        console.log(updatedCart.data)
       }
     })
     .catch((error) => {
@@ -112,7 +112,7 @@ export const decreaseQuantity = (productID) => (dispatch) => {
 
 export const removeFromCart = (productID) => (dispatch) => {
   const headers = getHeaders()
-  axios.delete(`/cart/${productID}`, { headers })
+  axios.delete(`${BASE_ENDPOINT}/${productID}`, { headers })
     .then((result) => {
       if (result.status === 200) {
         dispatch(removeFromCartCreator(result.data))
@@ -127,7 +127,7 @@ export const removeFromCart = (productID) => (dispatch) => {
 
 export const clearCart = (isLogin) => (dispatch) => {
   const headers = getHeaders()
-  axios.delete('/cart', { headers })
+  axios.delete(BASE_ENDPOINT, { headers })
     .then(() => {
       if (isLogin) dispatch(clearCartCreator())
     })
@@ -218,11 +218,10 @@ export const PlaceOrder = (
   axios
     .post('/orders', body)
     .then((newOrder) => {
-      console.log(newOrder)
       dispatch(getOrderCreator(newOrder.data.order))
       clearCart(isLogin)(dispatch)
     })
-    .catch((err) => console.log(err.response))
+    .catch((err) => err.response)
 }
 
 export default addToCart;

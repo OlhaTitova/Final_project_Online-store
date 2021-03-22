@@ -79,8 +79,8 @@ const AuthForm = connect(null, {authLogIn})(({authLogIn}) => {
             message: 'Please input your password!',
           },
           {
-            min: 7,
-            message: 'Password lenght minimum 7!',
+            min: 8,
+            message: 'Password length must be at least 8 symbols.',
           },
         ]}
       >

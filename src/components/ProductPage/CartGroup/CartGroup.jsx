@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { CartGroupBox, FlexBox } from './StylesCartGroup'
+import { CartGroupBox, FlexBox, AvilableQuantityBox } from './StylesCartGroup'
 import InputGroup from './InputGroup/InputGroup'
 import StyledButton from '../../common/Buttons/StyledButton'
 import checkValue from '../../../utils/checkValue'
@@ -27,9 +27,9 @@ const CartGroup = connect(null, { addToCart })(({ product, avilableQuantity, add
   const isAvilable = avilableQuantity > 0
   return (
     <CartGroupBox>
-      <div>
-        {isAvilable ? `Осталось на складе: ${avilableQuantity} шт.` : 'Товар закончился.'}
-      </div>
+      <AvilableQuantityBox>
+        {isAvilable ? `Avilable quantity: ${avilableQuantity} pc.` : ' The item is out of stock.'}
+      </AvilableQuantityBox>
       <FlexBox>
         <InputGroup
           decreaseHandler={decreaseHandler}

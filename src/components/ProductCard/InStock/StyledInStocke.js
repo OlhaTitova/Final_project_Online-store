@@ -5,12 +5,6 @@ import { forDesktop } from '../../../styles/mediaBreakPoints';
 const StyledInStockeWrapper = styled.div`
   display: flex;
   align-items: center;
-
-  margin-bottom: 5px;
-
-  @media(min-width: ${forDesktop.minWidth}px){
-    margin-bottom: 10px;
-  }
 `
 
 export const StyledInStockeIcon = styled(CheckCircleFilled)`
@@ -23,11 +17,10 @@ export const StyledInStockeIcon = styled(CheckCircleFilled)`
 `
 
 export const StyledInStockeText = styled.span`
-  color: #78A962;
   font-size: 10px;
-  text-transform: lowercase;
-
   margin-left: 5px;
+  text-transform: lowercase;
+  color: #78A962;
 
   @media(min-width: ${forDesktop.minWidth}px){
     font-size: 12px;
