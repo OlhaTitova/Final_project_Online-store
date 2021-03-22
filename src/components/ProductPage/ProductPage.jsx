@@ -9,17 +9,19 @@ import {
   ProductImagesCarouselBox,
   InformationBox,
   StyledImg,
-  Description,
   ProductHeading,
   AboutProduct,
   PriceBox,
   ImageBox,
+  FavoriteBox,
+  FavoriteText,
 } from './StylesProductPage'
 import Carousel from '../Carousel/Carousel'
 import upperCaseFirstLetter from '../../utils/upperCaseFirstLetter'
 import SpinAnimation from '../SpinAnimation/SpinAnimation'
 import ProductRate from './ProductRate/ProductRate'
 import { getOneProduct } from '../../store/products/middleware'
+import FavoriteIcon from '../FavotiteIcon/FavoriteIcon'
 
 const ProductPage = () => {
   const [product, setProduct] = useState(null)
@@ -38,7 +40,7 @@ const ProductPage = () => {
     getProduct()
   }, [history, itemNo])
 
-  if (!product) return <SpinAnimation width="100vw" height="80vh" />
+  if (!product) return <SpinAnimation width="100%" height="80vh" />
 
   return (
     <Container>
@@ -53,10 +55,15 @@ const ProductPage = () => {
           </Carousel>
         </ProductImagesCarouselBox>
         <InformationBox>
-          <Description>About product</Description>
           <ProductHeading>{upperCaseFirstLetter(product.name)}</ProductHeading>
-          <div>
-            Код товара:
+          <PriceBox>
+            <b>
+              {product.currentPrice}
+            </b>
+            ₴.
+          </PriceBox>
+          <div style={{ marginBottom: '6px' }}>
+            Product number:
             {' '}
             {product.itemNo}
           </div>
@@ -65,6 +72,10 @@ const ProductPage = () => {
             productID={product._id}
             itemNo={product.itemNo}
           />
+          <FavoriteBox>
+            <FavoriteIcon product={product} showTooltip />
+            <FavoriteText>Add to favorite!</FavoriteText>
+          </FavoriteBox>
           <AboutProduct>
             <li>
               Brand:
@@ -87,21 +98,15 @@ const ProductPage = () => {
               </li>
             ))}
             <li>
-              Особенности:
+              Description:
               {' '}
-              <b>{product.description}</b>
+              <b>
+                {product.description}
+                .
+              </b>
             </li>
           </AboutProduct>
           <CartGroup productID={product._id} avilableQuantity={product.quantity} />
-          <PriceBox>
-            On Sale from
-            <b>
-              {' '}
-              ₴
-              {' '}
-              {product.currentPrice}
-            </b>
-          </PriceBox>
         </InformationBox>
       </PageContainer>
     </Container>

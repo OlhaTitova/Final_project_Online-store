@@ -5,22 +5,14 @@ import { forDesktop } from '../../../styles/mediaBreakPoints';
 const StyledCheckAvailabilityWrapper = styled.div`
   display: flex;
   align-items: center;
-
-  margin-bottom: 5px;
-
-  @media(min-width: ${forDesktop.minWidth}px){
-    margin-bottom: 10px;
-  }
 `
 
 export const StyledCheckAvailabilityIcon = styled(PhoneFilled)`
-  color: #fff;
-  font-size: 4px;
-
-  background-color: #C94D3F;
-  border-radius: 100%;
-
   padding: 3px;
+  font-size: 4px;
+  border-radius: 100%;
+  color: #fff;
+  background-color: #C94D3F;
 
   @media(min-width: ${forDesktop.minWidth}px){
     font-size: 6px;
@@ -28,11 +20,10 @@ export const StyledCheckAvailabilityIcon = styled(PhoneFilled)`
 `
 
 export const StyledCheckAvailabilityText = styled.span`
-  color: #C94D3F;
+  margin-left: 5px;
   font-size: 10px;
   text-transform: lowercase;
-
-  margin-left: 5px;
+  color: #C94D3F;
 
   @media(min-width: ${forDesktop.minWidth}px){
     font-size: 12px;

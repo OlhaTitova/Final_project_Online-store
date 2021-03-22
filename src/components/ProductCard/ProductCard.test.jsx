@@ -2,27 +2,33 @@ import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
 import { render } from '@testing-library/react';
 import { HashRouter as Router } from 'react-router-dom';
+import { Provider } from 'react-redux'
 import { ProductCard } from './ProductCard';
 import rateCalculator from '../../utils/rateCalculator';
+import { store } from '../../store/index'
 
 describe('All tests for product card', () => {
   test('ProductCard render test', () => {
+    const productInfo = {
+      name: 'Apple MacBook Air 13 256Gb Space Gray (MWTJ2) 2020',
+      imageUrls: [
+        'https://i.citrus.ua/imgcache/size_800/uploads/shop/0/8/08d983e24e5cced849bd3ab8ac562b35.jpg',
+      ],
+      previousPrice: 644,
+      currentPrice: 544,
+      reviews: [5, 5, 5, 5, 5],
+      quantity: 21,
+      itemNo: '3232432'
+    }
+
     render(
-      <Router>
-        <ProductCard
-          productInfo={{
-            name: 'Apple MacBook Air 13 256Gb Space Gray (MWTJ2) 2020',
-            imageUrls: [
-              'https://i.citrus.ua/imgcache/size_800/uploads/shop/0/8/08d983e24e5cced849bd3ab8ac562b35.jpg',
-            ],
-            previousPrice: 644,
-            currentPrice: 544,
-            reviews: [5, 5, 5, 5, 5],
-            quantity: 21,
-            itemNo: '3232432'
-          }}
-        />
-      </Router>
+      <Provider store={store}>
+        <Router>
+          <ProductCard
+            productInfo={productInfo}
+          />
+        </Router>
+      </Provider>
     )
   })
 

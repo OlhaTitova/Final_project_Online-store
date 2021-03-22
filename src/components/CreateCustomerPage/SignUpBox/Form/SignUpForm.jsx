@@ -93,6 +93,15 @@ const SignUpForm = () => {
             required: true,
             message: 'Please set your login.',
           },
+          {
+            min: 3,
+            message: 'Login must be between 3 and 10 characters.',
+            // Backend requirement
+          },
+          {
+            max: 10,
+            message: 'Login must be between 3 and 10 characters.'
+          }
         ]}
       >
         <Input />
@@ -124,7 +133,7 @@ const SignUpForm = () => {
             message: 'Please input your password.',
           },
           {
-            message: 'Password length must be at least 8 symbols',
+            message: 'Password length must be at least 8 symbols.',
             min: 8
           },
         ]}
@@ -139,10 +148,6 @@ const SignUpForm = () => {
           {
             required: true,
             message: 'Please input your password.',
-          },
-          {
-            message: 'Password length must be at least 8 symbols',
-            min: 8
           },
           passwordMatchValidator,
         ]}

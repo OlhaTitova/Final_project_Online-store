@@ -1,8 +1,9 @@
 import axios from 'axios'
 import { logIn, logOut } from './actionCreator'
+import { DOMAIN } from '../general'
 
 export const authLogIn = (credentials) => (dispatch) => {
-  const res = axios.post('/customers/login', credentials)
+  const res = axios.post(`${DOMAIN}/customers/login`, credentials)
     .then((data) => {
       if (data.status === 200) {
         dispatch(logIn())

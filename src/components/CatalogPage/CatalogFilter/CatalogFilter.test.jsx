@@ -1,26 +1,47 @@
 import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
 import { render } from '@testing-library/react';
+import { Provider } from 'react-redux'
+import { HashRouter as Router } from 'react-router-dom'
 import CatalogFilter from './CatalogFilter';
+import { store } from '../../../store/index'
 
 describe('All test for catalog filter', () => {
   test('Catalog filter render test', () => {
-    render(<CatalogFilter showFilter setShowFilter={() => {}} setFilter={() => {}} />)
+    render(
+      <Provider store={store}>
+        <Router>
+          <CatalogFilter showFilter setShowFilter={() => {}} setFilter={() => {}} />
+        </Router>
+      </Provider>
+    )
   })
   test('check button render', () => {
-    const {getByText} = render(<CatalogFilter
-      showFilter
-      setShowFilter={() => {}}
-      setFilter={() => {}}
-    />)
+    const {getByText} = render(
+      <Provider store={store}>
+        <Router>
+          <CatalogFilter
+            showFilter
+            setShowFilter={() => {}}
+            setFilter={() => {}}
+          />
+        </Router>
+      </Provider>
+    )
     expect(getByText('Apply Filtres')).toBeDefined()
   })
   test('check checkbox render', () => {
-    const {queryByTestId} = render(<CatalogFilter
-      showFilter
-      setShowFilter={() => {}}
-      setFilter={() => {}}
-    />)
+    const {queryByTestId} = render(
+      <Provider store={store}>
+        <Router>
+          <CatalogFilter
+            showFilter
+            setShowFilter={() => {}}
+            setFilter={() => {}}
+          />
+        </Router>
+      </Provider>
+    )
     expect(queryByTestId('msi-check')).toBeDefined()
     expect(queryByTestId('lg-check')).toBeDefined()
     expect(queryByTestId('liyama-check')).toBeDefined()

@@ -7,9 +7,9 @@ import {
   setCatalogProductsQuantity,
   cleanCatalogProducts
 } from './actionCreator';
-import { headers } from '../headers';
+import { DOMAIN, getHeaders } from '../general'
 
-const BASE_ENDPOINT = '/products'
+const BASE_ENDPOINT = `${DOMAIN}/products`
 
 export const getProducts = () => (dispatch) => {
   axios.get('/products')
@@ -22,7 +22,8 @@ export const getProducts = () => (dispatch) => {
 }
 
 export const addOneProduct = (newProduct) => (dispatch) => {
-  const res = axios.post(BASE_ENDPOINT, newProduct, {headers})
+  const headers = getHeaders()
+  const res = axios.post(BASE_ENDPOINT, newProduct, { headers })
     .then((data) => {
       if (data.status === 200) {
         dispatch(addProduct(newProduct))
@@ -34,6 +35,7 @@ export const addOneProduct = (newProduct) => (dispatch) => {
 }
 
 export const updateOneProduct = (id, newProduct) => (dispatch) => {
+  const headers = getHeaders()
   const res = axios.put(`${BASE_ENDPOINT}/${id}`, newProduct, { headers })
     .then((data) => {
       if (data.status === 200) {
@@ -42,6 +44,7 @@ export const updateOneProduct = (id, newProduct) => (dispatch) => {
       return data
     })
     .catch((error) => error.response)
+
   return res
 }
 

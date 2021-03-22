@@ -4,7 +4,7 @@ import { Form } from 'antd'
 import { useDispatch } from 'react-redux'
 import StyledButton from '../../common/Buttons/StyledButton'
 import { StyledInput, StyledForm } from './footer-style-components/Styled'
-import { letterSubject, letterHtml} from './footer-config/letterConfig'
+import { letterSubject, letterHtml } from '../../../store/general'
 import createNewSubscribe from '../../../store/createSubscribe/middleware'
 
 const FormSubscribe = () => {

@@ -3,31 +3,41 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 // Compomemts
+import { connect } from 'react-redux';
+import { addToCart } from '../../store/cart/middleware'
 import { InStock } from './InStock/InStock';
 import { CheckAvailability } from './CheckAvailability/CheckAvailability';
 import { StarRating } from '../StarRating/StarRating'
+import StyledButton from '../common/Buttons/StyledButton'
+import FavoriteIcon from '../FavotiteIcon/FavoriteIcon'
 
 // Styles
 import {
-  StyledCardItem,
-  StyledCardReviews,
-  StyledCardTitle
-} from './StyledProductCard/Common';
-import { StyledCardIconAddToCart, StyledCardIconAddToCartWrapper } from './StyledProductCard/Icons';
-import { StyledCardImg, StyledCardImgWrapper } from './StyledProductCard/Img';
-import {
-  StyledCardPriceWrapper,
-  StyledCardAreRunningOut,
-  StyledCardLastPrice,
-  StyledCardNowPrice
-} from './StyledProductCard/Prices';
+  CardItem,
+  CardReviews,
+  CardTitle,
+  CardImage,
+  ReviewsBox,
+  ImageWrapper,
+  PurchaseGroup,
+  PriceBox,
+  CardLastPrice,
+  CardCurrentPrice,
+  RatingBox,
+} from './StyledProductCard'
 
 // Functions
 import cutString from '../../utils/cutString';
 import rateCalculator from '../../utils/rateCalculator';
 import upperCaseFirstLetter from '../../utils/upperCaseFirstLetter';
 
-export const ProductCard = ({ productInfo }) => {
+export const ProductCard = connect(null, { addToCart })((
+  {
+    productInfo,
+    addToCart,
+    hideBorder
+  }
+) => {
   const {
     name,
     imageUrls,
@@ -35,58 +45,73 @@ export const ProductCard = ({ productInfo }) => {
     previousPrice,
     currentPrice,
     quantity,
-    itemNo
+    itemNo,
+    _id
   } = productInfo
-  
+  const isAvilable = quantity > 0
+
   // string length limitation and translation of the first letter into capital
-  const verifiedTitle = upperCaseFirstLetter(cutString(name, 45))
+  const verifiedTitle = upperCaseFirstLetter(cutString(name, 38))
 
   // getting an average rating and the number of reviews left
   const { reviewsQuantity, rating } = rateCalculator(reviews)
-
   return (
-    <StyledCardItem>
-      {quantity > 0 ? <InStock /> : <CheckAvailability />}
-
-      <StyledCardIconAddToCartWrapper>
-        <StyledCardIconAddToCart />
-      </StyledCardIconAddToCartWrapper>
+    <CardItem hideBorder={hideBorder}>
 
       <Link to={`products/${itemNo}`}>
-        <StyledCardImgWrapper>
-          <StyledCardImg src={imageUrls[0]} />
-        </StyledCardImgWrapper>
+        <ImageWrapper>
+          <CardImage src={imageUrls[0]} />
+        </ImageWrapper>
       </Link>
-      
-      <div>
-        <StarRating rating={rating} />
-        <StyledCardReviews>
-          Reviews (
-          {reviewsQuantity}
-          )
-        </StyledCardReviews>
-      </div>
+
+      <ReviewsBox>
+        <RatingBox>
+          <StarRating rating={rating} />
+          <CardReviews>
+            Reviews (
+            {reviewsQuantity}
+            )
+          </CardReviews>
+        </RatingBox>
+        <FavoriteIcon
+          product={productInfo}
+          small
+          showTooltip
+        />
+      </ReviewsBox>
+      {isAvilable ? <InStock /> : <CheckAvailability /> }
 
       <Link to={`products/${itemNo}`}>
-        <StyledCardTitle>{verifiedTitle}</StyledCardTitle>
+        <CardTitle>
+          {verifiedTitle}
+        </CardTitle>
       </Link>
 
-      <StyledCardPriceWrapper>
-        <StyledCardLastPrice>{previousPrice}</StyledCardLastPrice>
-        <StyledCardNowPrice>
-          {`${currentPrice} ₴`}
-        </StyledCardNowPrice>
-        {
-          quantity < 10
-            ? <StyledCardAreRunningOut>Product is running out!</StyledCardAreRunningOut>
-            : null
-        }
-      </StyledCardPriceWrapper>
-    </StyledCardItem>
+      <PurchaseGroup>
+        <PriceBox>
+          <CardLastPrice>
+            {`${previousPrice} ₴`}
+          </CardLastPrice>
+          <CardCurrentPrice>
+            {`${currentPrice} ₴`}
+          </CardCurrentPrice>
+        </PriceBox>
+        <StyledButton
+          type="borderBlue"
+          size="xs"
+          shape="round"
+          disabled={!isAvilable}
+          onClick={() => addToCart(_id, 1)}
+        >
+          Add to cart
+        </StyledButton>
+      </PurchaseGroup>
+    </CardItem>
   )
-}
+})
 
 ProductCard.propTypes = {
+  addToCart: PropTypes.func,
   productInfo: PropTypes.shape({
     name: PropTypes.string.isRequired,
     imageUrls: PropTypes.arrayOf(PropTypes.string).isRequired,
@@ -94,8 +119,9 @@ ProductCard.propTypes = {
     previousPrice: PropTypes.number,
     currentPrice: PropTypes.number.isRequired,
     quantity: PropTypes.number.isRequired,
-    itemNo: PropTypes.string.isRequired
-  }).isRequired
+    itemNo: PropTypes.string.isRequired,
+    _id: PropTypes.string.isRequired
+  }).isRequired,
 }
 
 export default ProductCard;

@@ -12,6 +12,6 @@ export const ImageBox = styled.div`
     height: 173px;
   }
   @media(min-width: ${forDesktop.minWidth}px){
-    height: 328px;
+    height: 250px;
   }
 `

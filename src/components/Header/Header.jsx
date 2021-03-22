@@ -93,13 +93,19 @@ const Header = () => {
           </ContactUsCall>
           <CallBackAsk>
             <h5>
-              Call Us: (00) 1234 5678
+              <a href="tel: +(00) 1234 5678" style={{ color: 'white' }}>
+                Call Us: (00) 1234 5678
+              </a>
             </h5>
             <div>
-              <img src={FaceBook} alt="FaceBook" />
+              <a href="https://www.facebook.com/" target="blank">
+                <img src={FaceBook} alt="FaceBook" />
+              </a>
             </div>
             <div>
-              <img src={Inst} alt="Inst" />
+              <a href="https://www.instagram.com/" target="blank">
+                <img src={Inst} alt="Inst" />
+              </a>
             </div>
           </CallBackAsk>
           <PopUpShedulteContainer

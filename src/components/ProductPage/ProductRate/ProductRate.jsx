@@ -21,7 +21,7 @@ const ProductRate = connect(null, { updateOneProduct })(({
     if (value === 0) return
     setRate(value)
     const response = await getOneProduct(itemNo)
-    if (response.status !== 200) return
+    if (!response || response.status !== 200) return
     
     const product = response.data
     const reviewsArr = product.reviews
@@ -31,7 +31,7 @@ const ProductRate = connect(null, { updateOneProduct })(({
       reviews: [...reviewsArr, value]
     }
     const result = await updateOneProduct(productID, updatedProduct)
-    if (result.status !== 200) return
+    if (!result || result.status !== 200) return
     
     const newReviewsArr = result.data.reviews
     const { reviewsQuantity } = rateCalculator(newReviewsArr)
@@ -48,7 +48,6 @@ const ProductRate = connect(null, { updateOneProduct })(({
       </ReviewsCount>
       <span>
         <Rate tooltips={desc} onChange={handleChange} value={rate} />
-        {rate ? <span className="ant-rate-text">{desc[rate - 1]}</span> : ''}
       </span>
     </RateBox>
   )
