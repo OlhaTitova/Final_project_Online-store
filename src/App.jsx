@@ -17,10 +17,11 @@ import { setWishlist } from './store/wishlist/middleware'
 import {CartPage} from './components/CartPage/CartPage'
 import OrderPage from './components/OrderPage/OrderPage'
 
-const App = connect(null, { setWishlist })(({ setWishlist }) => {
+const App = connect(null, { setWishlist})(({ setWishlist}) => {
   window.addEventListener('DOMContentLoaded', () => {
     setWishlist()
   })
+
   return (
     <div>
       <Header />

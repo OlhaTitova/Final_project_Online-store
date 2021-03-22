@@ -60,7 +60,6 @@ export const addToCart = (product, quantity) => (dispatch, getStore) => {
       if (error.response.status === 401) {
         addCartToLS(product, quantity)
         message.success('Product added to cart!')
-        // message.success('The product has been added to cart!')
       }
     })
 }
@@ -68,9 +67,9 @@ export const addToCart = (product, quantity) => (dispatch, getStore) => {
 export const getCart = () => (dispatch) => {
   const headers = getHeaders()
   axios.get(BASE_ENDPOINT, { headers })
-    .then((carts) => {
-      if (carts.data !== null) {
-        dispatch(setCart(carts.data))
+    .then((cart) => {
+      if (cart.data !== null) {
+        dispatch(setCart(cart.data))
       }
     })
     .catch((err) => {
@@ -80,9 +79,9 @@ export const getCart = () => (dispatch) => {
     });
 }
 
-export const increaseQuantity = (productId) => (dispatch) => {
+export const increaseQuantity = (product) => (dispatch) => {
   const headers = getHeaders()
-  axios.put(`${BASE_ENDPOINT}/${productId}`, null, { headers })
+  axios.put(`${BASE_ENDPOINT}/${product._id}`, null, { headers })
     .then((updatedCart) => {
       if (updatedCart.status === 200) {
         dispatch(increaseQuantityCreator(updatedCart.data));
@@ -90,7 +89,7 @@ export const increaseQuantity = (productId) => (dispatch) => {
     })
     .catch((error) => {
       if (error.response.status === 401) {
-        dispatch(increaseQuantityCreator({products: increaseQuantityLS(productId)}))
+        dispatch(increaseQuantityCreator({products: increaseQuantityLS(product._id)}))
       }
     })
 }
@@ -222,6 +221,25 @@ export const PlaceOrder = (
       clearCart(isLogin)(dispatch)
     })
     .catch((err) => err.response)
+}
+
+export const addLSToServer = () => (dispatch) => {
+  const cartLS = JSON.parse(localStorage.getItem('cart')) || []
+  
+  const updatedCartForServer = cartLS.map((item) => ({
+    product: item.product._id,
+    cartQuantity: item.cartQuantity
+  }))
+
+  const headers = getHeaders()
+  axios.put(BASE_ENDPOINT, {products: updatedCartForServer}, { headers })
+    .then((updatedCart) => {
+      if (updatedCart.status === 200) {
+        dispatch(addToCartCreator(updatedCart.data));
+        localStorage.removeItem('cart')
+      }
+    })
+    .catch((error) => error.response)
 }
 
 export default addToCart;

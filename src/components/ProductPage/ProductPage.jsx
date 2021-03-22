@@ -106,20 +106,7 @@ const ProductPage = () => {
               </b>
             </li>
           </AboutProduct>
-<<<<<<< HEAD
           <CartGroup product={product} avilableQuantity={product.quantity} />
-          <PriceBox>
-            On Sale from
-            <b>
-              {' '}
-              ₴
-              {' '}
-              {product.currentPrice}
-            </b>
-          </PriceBox>
-=======
-          <CartGroup productID={product._id} avilableQuantity={product.quantity} />
->>>>>>> 09b17e80df8a0c1163e616ce5f7d53d0ad5ced3e
         </InformationBox>
       </PageContainer>
     </Container>

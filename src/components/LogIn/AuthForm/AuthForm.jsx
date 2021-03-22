@@ -9,8 +9,9 @@ import { useHistory } from 'react-router-dom';
 import 'antd/dist/antd.css';
 import { connect } from 'react-redux';
 import {authLogIn} from '../../../store/auth/middleware';
+import { addLSToServer } from '../../../store/cart/middleware';
 
-const AuthForm = connect(null, {authLogIn})(({authLogIn}) => {
+const AuthForm = connect(null, {authLogIn, addLSToServer})(({authLogIn, addLSToServer}) => {
   const formLayout = 'vertical'
 
   const [error, setError] = useState({})
@@ -21,6 +22,7 @@ const AuthForm = connect(null, {authLogIn})(({authLogIn}) => {
 
     if (status === 200) {
       localStorage.setItem('token', data.token)
+      addLSToServer()
       history.push('/')
     }
 

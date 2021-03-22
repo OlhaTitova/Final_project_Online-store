@@ -46,7 +46,6 @@ export const ProductCard = connect(null, { addToCart })((
     currentPrice,
     quantity,
     itemNo,
-    _id
   } = productInfo
   const isAvilable = quantity > 0
 
@@ -101,7 +100,7 @@ export const ProductCard = connect(null, { addToCart })((
           size="xs"
           shape="round"
           disabled={!isAvilable}
-          onClick={() => addToCart(_id, 1)}
+          onClick={() => addToCart(productInfo, 1)}
         >
           Add to cart
         </StyledButton>

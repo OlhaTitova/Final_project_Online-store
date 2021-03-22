@@ -3,12 +3,14 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom';
 import { Input } from 'antd';
+import { connect } from 'react-redux';
 import StyledFrom from './StylesSignUpForm'
 import 'antd/dist/antd.css'
 import { createCustomer } from '../../../../store/customer/middleware'
 import StyledButton from '../../../common/Buttons/StyledButton'
+import { addLSToServer } from '../../../../store/cart/middleware';
 
-const SignUpForm = () => {
+const SignUpForm = connect(null, {addLSToServer})(({addLSToServer}) => {
   const history = useHistory()
   const onSubmit = (values) => {
     const credentials = Object.entries(values).reduce((acc, [key, value]) => {
@@ -21,6 +23,7 @@ const SignUpForm = () => {
     credentials.isAdmin = true
 
     createCustomer(credentials, history)
+    addLSToServer()
   };
   
   const formLayout = {
@@ -174,6 +177,6 @@ const SignUpForm = () => {
 
     </StyledFrom>
   )
-}
+})
 
 export default SignUpForm
