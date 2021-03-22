@@ -52,6 +52,7 @@ export const addToCart = (product, quantity) => (dispatch, getStore) => {
   axios.put(BASE_ENDPOINT, {products: updatedCart}, { headers })
     .then((updatedCart) => {
       if (updatedCart.status === 200) {
+        console.log(updatedCart.data)
         dispatch(addToCartCreator(updatedCart.data));
         message.success('Product added to cart!')
       }
@@ -221,25 +222,6 @@ export const PlaceOrder = (
       clearCart(isLogin)(dispatch)
     })
     .catch((err) => err.response)
-}
-
-export const addLSToServer = () => (dispatch) => {
-  const cartLS = JSON.parse(localStorage.getItem('cart')) || []
-  
-  const updatedCartForServer = cartLS.map((item) => ({
-    product: item.product._id,
-    cartQuantity: item.cartQuantity
-  }))
-
-  const headers = getHeaders()
-  axios.put(BASE_ENDPOINT, {products: updatedCartForServer}, { headers })
-    .then((updatedCart) => {
-      if (updatedCart.status === 200) {
-        dispatch(addToCartCreator(updatedCart.data));
-        localStorage.removeItem('cart')
-      }
-    })
-    .catch((error) => error.response)
 }
 
 export default addToCart;
