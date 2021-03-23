@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-underscore-dangle */
 import axios from 'axios'
 import { DOMAIN, getHeaders } from '../general'
@@ -25,18 +26,20 @@ const removeProductFromLS = (product) => {
   return updatedItems
 }
 
+const getItemsFromDB = () => {
+  const headers = getHeaders()
+  return axios.get(BASE_ENDPOINT, { headers })
+    .then((response) => response)
+    .catch((err) => console.log(err.response))
+}
+
 export const setWishlist = () => async (dispatch, getState) => {
   const {auth: { isLogin }} = getState()
   const itemsToSet = []
   
   if (isLogin) {
-    const headers = getHeaders()
-    await axios.get(BASE_ENDPOINT, { headers })
-      .then((response) => {
-        const { data, status } = response
-        if (data && status === 200) itemsToSet.push(...data.products)
-      })
-      .catch((err) => console.log(err.response))
+    const { data, status } = await getItemsFromDB()
+    if (data && status === 200) itemsToSet.push(...data.products)
   } else {
     itemsToSet.push(...getParsedListFromLS())
   }
@@ -59,7 +62,7 @@ export const addProductToWishlist = (product) => async (dispatch, getState) => {
     const headers = getHeaders()
     await axios.put(`${BASE_ENDPOINT}/${productID}`, null, { headers })
       .then((response) => {
-        const {data, status} = response
+        const { data, status } = response
         if (data && status === 200) updatedList.push(...data.products)
       })
       .catch((err) => console.log(err.response))
@@ -99,4 +102,31 @@ export const removeProductFromWishlist = (product) => async (dispatch, getState)
     wishitstLength: updatedList.length
   }
   dispatch(updateWishlistCreator(dataToAdd))
+}
+
+export const compareLSItemsAndDBItems = () => async (dispatch) => {
+  const { data, status } = await getItemsFromDB()
+  const itemsLS = getParsedListFromLS()
+  const itemsDB = []
+  if (data && status === 200) itemsDB.push(...data.products)
+  const allItems = [...itemsLS, ...itemsDB]
+  
+  const uniqueList = []
+  allItems.forEach((el) => {
+    const check = Boolean(uniqueList.find((item) => item.itemNo === el.itemNo))
+    if (!check) uniqueList.push(el)
+  })
+  const dataToAdd = {
+    wishitstItems: uniqueList,
+    wishitstLength: uniqueList.length
+  }
+  dispatch(updateWishlistCreator(dataToAdd))
+
+  const updatedItems = {
+    products: uniqueList
+  }
+  const headers = getHeaders()
+  axios.put(BASE_ENDPOINT, updatedItems, { headers })
+    .then((res) => res)
+    .catch((err) => console.log(err.response))
 }

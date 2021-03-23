@@ -6,7 +6,7 @@ export const WishlistBox = styled.div`
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: auto;
     justify-items: center;
-    grid-gap: 10px 15px;
+    grid-gap: 15px;
 
     @media(min-width: 505px) and (max-width: ${forTablet.maxWidth}px) {
         grid-template-columns: repeat(auto-fit, minmax(200px ,1fr));

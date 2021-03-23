@@ -4,7 +4,7 @@ export const MODULE_NAME = 'wishlist'
 export const selectWishlistItems = (state) => state[MODULE_NAME].wishitstItems
 export const selectWishlistLength = (state) => state[MODULE_NAME].wishitstLength
 
-const initialState = {
+export const initialState = {
   wishitstItems: [],
   wishitstLength: 0
 }
