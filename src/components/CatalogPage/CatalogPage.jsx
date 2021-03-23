@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react'
+import React, { useMemo, useState} from 'react'
 import {Container} from '../common/Container'
 import Heading from '../common/Heading/Heading'
 import CatalogFilter from './CatalogFilter/CatalogFilter'

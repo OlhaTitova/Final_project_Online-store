@@ -12,7 +12,7 @@ import {
   StyledForm, Wrapper, FilterTitle,
   CloseBtn, AlignBtn, AllBrandsTitle,
   StyledCheckbox,
-  GridFilterPart, ContainerBrandsImg, ContainerImage
+  GridFilterPart, ContainerBrandsImg, ContainerImage, GlobalStyle
 } from './StylesCatalogfilter';
 import {checkFormValues} from '../../../utils/checkFormValues';
 // img
@@ -44,7 +44,7 @@ const CatalogFilter = ({
     setFilter({
       ...refValue,
     })
-    setShowFilter((prev) => !prev)
+    setShowFilter(false)
   };
 
   const clearForm = () => {
@@ -54,25 +54,29 @@ const CatalogFilter = ({
 
   return (
     <StyledForm form={form} {...layout} onFinish={onFinish}>
+      <GlobalStyle showFilter={showFilter} />
       <Wrapper showFilter={showFilter}>
         <FilterTitle>
           <h3>Filter By</h3>
-          <CloseBtn onClick={() => setShowFilter((prev) => !prev)}>
+          <CloseBtn onClick={() => setShowFilter(false)}>
             <img src={close} alt="close" />
           </CloseBtn>
         </FilterTitle>
-        <AlignBtn>
-          <StyledButton
-            size="xs"
-            shape="round"
-            color="borderGrey"
-            onClick={clearForm}
-          >
-            Clear
-
-          </StyledButton>
-        </AlignBtn>
-        <Menu defaultOpenKeys={['brands']} inlineIndent={10} mode="inline">
+        <Menu defaultOpenKeys={['сategories']} inlineIndent={10} mode="inline">
+          <SubMenu key="сategories" title="Сategories">
+            <Form.Item name="categories" noStyle>
+              <Checkbox.Group>
+                {categories.map(({value, title}) => (
+                  <StyledCheckbox
+                    key={value}
+                    value={value}
+                  >
+                    {title}
+                  </StyledCheckbox>
+                ))}
+              </Checkbox.Group>
+            </Form.Item>
+          </SubMenu>
           <SubMenu key="brands" title="Brand">
             <Form.Item name="brand" noStyle>
               <Checkbox.Group>
@@ -97,23 +101,24 @@ const CatalogFilter = ({
               </Form.Item>
             </div>
           </SubMenu>
-          <SubMenu key="сategories" title="Сategories">
-            <Form.Item name="categories" noStyle>
-              <Checkbox.Group>
-                {categories.map(({value, title}) => (
-                  <StyledCheckbox
-                    key={value}
-                    value={value}
-                  >
-                    {title}
-                  </StyledCheckbox>
-                ))}
-              </Checkbox.Group>
-            </Form.Item>
-          </SubMenu>
         </Menu>
         <AlignBtn>
-          <StyledButton size="xs" shape="round" htmlType="submit">
+          <StyledButton
+            size="sm"
+            shape="round"
+            color="borderGrey"
+            onClick={clearForm}
+            style={{margin: 10, padding: 7}}
+          >
+            Clear
+
+          </StyledButton>
+          <StyledButton
+            size="sm"
+            shape="round"
+            htmlType="submit"
+            style={{margin: 10, padding: 7}}
+          >
             Apply Filtres
           </StyledButton>
         </AlignBtn>

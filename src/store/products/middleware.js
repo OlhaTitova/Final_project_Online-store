@@ -5,14 +5,15 @@ import {
   updateProduct,
   setProductsToCatalog,
   setCatalogProductsQuantity,
-  cleanCatalogProducts
+  cleanCatalogProducts,
+  setSearchProducts
 } from './actionCreator';
 import { DOMAIN, getHeaders } from '../general'
 
 const BASE_ENDPOINT = `${DOMAIN}/products`
 
 export const getProducts = () => (dispatch) => {
-  axios.get('/products')
+  axios.get(BASE_ENDPOINT)
     .then((data) => {
       if (data.status === 200) {
         dispatch(setProducts(data.data))
@@ -75,6 +76,7 @@ export const getFilteredProducts = (param, actionCreator) => (dispatch) => {
 
 export const getProductsToCatalog = (param) => (dispatch) => {
   dispatch(cleanCatalogProducts())
+  
   let paramStr = ''
   Object.keys(param).forEach((key, index) => {
     if (index === 0) {
@@ -95,4 +97,13 @@ export const getProductsToCatalog = (param) => (dispatch) => {
       return error
     })
   return res
+}
+
+export const getSearchProducts = (searchPhrases) => (dispatch) => {
+  axios
+    .post(`${BASE_ENDPOINT}/search`, searchPhrases)
+    .then(({data}) => {
+      dispatch(setSearchProducts(data))
+    })
+    .catch((err) => err);
 }

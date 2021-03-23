@@ -126,6 +126,7 @@ export const SearchAndItemsBlock = styled.div`
   }
 `;
 export const FormContainer = styled.form`
+  position: relative;
   flex: 8;
   @media(min-width: ${forTablet.minWidth}px) {
     flex: 12;

@@ -23,6 +23,7 @@ border: 2px solid rgba(204,204,204,1);
 padding: 0 10px;
 border-radius: 2px;
 font-weight: 600;
+width: 170px;
 
 & .title-select {
   color: rgba(204,204,204,1);
@@ -35,10 +36,9 @@ font-weight: 600;
 }
 
 @media (min-width: ${forDesktop.minWidth}px){
-  & {
-    font-size: 13px;
-    margin-left: 11px;
-  }
+  width: 200px;
+  font-size: 13px;
+  margin-left: 11px;
 }
 
 `
@@ -49,15 +49,16 @@ export const FilterBtn = styled.button`
     font-family: inherit;
     font-weight: 600;
     padding: 8px 30px;
+    height: 100%;
     border: 2px solid #CCCCCC;
     border-radius: 2px;
     background-color:#FFFFFF;
     color: black;
-    min-width: 160px;
+    width: 130px;
   @media (min-width: ${forTablet.minWidth}px){
     font-size: 14px;
-    min-width: 200px;
-    padding: 5px 30px;
+    min-width: 150px;
+    padding: 6px 30px;
   }
   @media(min-width: 591px) {
     display: none;
@@ -66,14 +67,10 @@ export const FilterBtn = styled.button`
 
 export const StyledSelect = styled(Select)`
 @media (max-width: ${forMobile.maxWidth}px) { 
-  &{
     width: 100px;
     font-size: inherit;
-  }
 }
 @media (min-width: ${forTablet.minWidth}px){
-  &{
     min-width: 140px;
-  }
 }
 `
