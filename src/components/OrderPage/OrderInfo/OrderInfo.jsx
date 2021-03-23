@@ -3,18 +3,30 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Alert, Spin } from 'antd';
 import StyledOrderInfo from './StyledOrderInfo';
-import { selectOrder } from '../../../store/cart/reducer';
+import { selectCities, selectOrder } from '../../../store/cart/reducer';
 
 const mapStateToProps = (state) => ({
-  order: selectOrder(state)
+  order: selectOrder(state),
+  cities: selectCities(state)
 })
 
-const OrderInfo = connect(mapStateToProps)(({order}) => {
+const OrderInfo = connect(mapStateToProps, null)(({order, cities}) => {
   const date = order.date ? new Date(order.date).toLocaleDateString() : null
+
+  const cityName = (cityRefForShipping) => {
+    const cityCustomer = cities.find((item) => item.Ref === cityRefForShipping)
+    return cityCustomer.CityName
+  }
 
   const showOrderInfo = (newOrder) => (
     <div>
-      <h2>Thank you for order! You are welcome!</h2>
+      <h2>
+        <span className="italic">
+          {newOrder.firstName}
+        </span>
+        , your order has been completed.
+      </h2>
+      <h2>Thank you for your purchase.</h2>
       <p>
         Your orderNo is:
         <span>
@@ -29,6 +41,18 @@ const OrderInfo = connect(mapStateToProps)(({order}) => {
         </span>
       </p>
       <p>
+        Delivery city:
+        <span>
+          {cityName(newOrder.deliveryAddress.city)}
+        </span>
+      </p>
+      <p>
+        Delivery branch:
+        <span>
+          {newOrder.deliveryAddress.branch}
+        </span>
+      </p>
+      <p>
         Payment method:
         <span>
           {newOrder.paymentInfo}
@@ -40,6 +64,10 @@ const OrderInfo = connect(mapStateToProps)(({order}) => {
           {date}
         </span>
       </p>
+      <h2>
+        An email has been sent to your email with a link
+        to the page where you can see detailed information about the order
+      </h2>
     </div>
   )
 

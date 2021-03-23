@@ -12,7 +12,7 @@ const mapStateToProps = (state) => ({
   summary: selectCartSummary(state),
 })
 
-const Summary = connect(mapStateToProps)(({summary}) => {
+const Summary = connect(mapStateToProps, null)(({summary}) => {
   const history = useHistory()
 
   const onClick = (summary) => {

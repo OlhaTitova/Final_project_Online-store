@@ -13,7 +13,6 @@ export const createCustomer = (credentials, history) => {
       }
     })
     .catch((error) => {
-      console.log(error.response)
       if (error.response) {
         const requestMessage = error.response.data.message
         message.error(`Error: ${requestMessage}`)

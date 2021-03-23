@@ -75,7 +75,6 @@ export const getFilteredProducts = (param, actionCreator) => (dispatch) => {
 
 export const getProductsToCatalog = (param) => (dispatch) => {
   dispatch(cleanCatalogProducts())
-  console.log(param)
   let paramStr = ''
   Object.keys(param).forEach((key, index) => {
     if (index === 0) {
@@ -83,7 +82,6 @@ export const getProductsToCatalog = (param) => (dispatch) => {
     }
     return paramStr += `&${key}=${param[key].toString()}`
   })
-  console.log(paramStr)
   const res = axios.get(`${BASE_ENDPOINT}/filter?${paramStr}`)
     .then((res) => {
       if (res.status === 200) {

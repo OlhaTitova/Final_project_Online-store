@@ -6,8 +6,9 @@ const StyledOrderInfo = styled.div`
 
     h2 {
         font-size: 16px;
-        padding-bottom: 20px;
+        padding: 15px 0;
         font-weight: 600;
+        line-height:2;
     }
     p {
         font-size: 14px;
@@ -16,6 +17,10 @@ const StyledOrderInfo = styled.div`
     span {
         font-weight: 600;
         padding-left: 10px;
+    }
+    .italic {
+        font-style: italic;
+        padding-left: 0;
     }
 
     @media(min-width: ${forTablet.minWidth}px) and (max-width: ${forTablet.maxWidth}px) {

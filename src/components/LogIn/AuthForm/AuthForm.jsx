@@ -10,7 +10,9 @@ import 'antd/dist/antd.css';
 import { connect } from 'react-redux';
 import {authLogIn} from '../../../store/auth/middleware';
 
-const AuthForm = connect(null, {authLogIn})(({authLogIn}) => {
+const AuthForm = connect(null, {authLogIn})(({
+  authLogIn
+}) => {
   const formLayout = 'vertical'
 
   const [error, setError] = useState({})

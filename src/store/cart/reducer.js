@@ -31,7 +31,7 @@ const initialState = {
   order: {},
   cities: [
     {
-      CityName: 'Kiyv',
+      CityName: 'Kyiv',
       Ref: '8d5a980d-391c-11dd-90d9-001a92567626'
     },
     {
@@ -54,26 +54,20 @@ const initialState = {
 }
 
 export const cartReducer = (state = initialState, {type, payload}) => {
+  const summaryTotalItems = (payload) => payload.products.reduce(
+    (sum, curr) => sum + curr.cartQuantity * curr.product.currentPrice,
+    0
+  )
+
   switch (type) {
     case ADD_TO_CART:
     case DECREASE_QUANTITY:
     case INCREASE_QUANTITY:
-      return {
-        ...state,
-        products: payload.products,
-        summary: payload.products.reduce(
-          (sum, curr) => sum + curr.cartQuantity * curr.product.currentPrice,
-          0
-        )
-      }
     case REMOVE_FROM_CART:
       return {
         ...state,
         products: payload.products,
-        summary: payload.products.reduce(
-          (sum, curr) => sum + curr.cartQuantity * curr.product.currentPrice,
-          0
-        )
+        summary: summaryTotalItems(payload)
       }
     case CLEAR_CART:
       return {
@@ -86,11 +80,8 @@ export const cartReducer = (state = initialState, {type, payload}) => {
       return {
         ...state,
         products: payload.products,
-        customer: payload.customerId,
-        summary: payload.products.reduce(
-          (sum, curr) => sum + curr.cartQuantity * curr.product.currentPrice,
-          0
-        )
+        customer: payload.customerId || {},
+        summary: summaryTotalItems(payload)
       }
     case SET_CART_SUMMARY:
       return {

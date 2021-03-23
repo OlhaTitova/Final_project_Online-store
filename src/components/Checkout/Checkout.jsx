@@ -6,7 +6,7 @@ import { ContainerCart } from '../common/Container';
 import Heading from '../common/Heading/Heading';
 import FormCheckout from './FormCheckout/FormCheckout';
 import OrderSummary from './OrderSummary/OrderSummary';
-import { StyledShippingTitle, WrapperFormCheckout } from './StyledCheckout';
+import { WrapperFormCheckout } from './StyledCheckout';
 
 const Checkout = () => {
   const history = useHistory()
@@ -48,9 +48,6 @@ const Checkout = () => {
       <RowRevers>
         <OrderSummary />
         <WrapperFormCheckout>
-          <StyledShippingTitle>
-            Order Details:
-          </StyledShippingTitle>
           <FormCheckout />
         </WrapperFormCheckout>
       </RowRevers>

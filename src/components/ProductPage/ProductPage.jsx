@@ -106,7 +106,7 @@ const ProductPage = () => {
               </b>
             </li>
           </AboutProduct>
-          <CartGroup productID={product._id} avilableQuantity={product.quantity} />
+          <CartGroup product={product} avilableQuantity={product.quantity} />
         </InformationBox>
       </PageContainer>
     </Container>

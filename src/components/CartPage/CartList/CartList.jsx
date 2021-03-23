@@ -35,16 +35,13 @@ const CartList = connect(
     history.push('/')
   }
 
-  const showCartItem = (productsAll) => {
-    console.log(productsAll);
-    return productsAll.map((item) => (
-      <CartItem
-        product={item.product}
-        cartQuantity={item.cartQuantity}
-        key={item.product._id}
-      />
-    ))
-  }
+  const showCartItem = (productsAll) => productsAll.map((item) => (
+    <CartItem
+      product={item.product}
+      cartQuantity={item.cartQuantity}
+      key={item.product._id}
+    />
+  ))
 
   return (
     <StyledCartList>

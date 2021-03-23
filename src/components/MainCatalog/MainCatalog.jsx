@@ -1,9 +1,7 @@
 import React, { useEffect } from 'react'
 import { Tabs } from 'antd'
-
 import { connect } from 'react-redux'
 import { getMainCatalogProducts } from '../../store/mainCatalog/middleware'
-
 import { MainCatalogCardWrapper } from './MainCatalogCardWrapper/MainCatalogCardWrapper'
 import { MainCatalogBillboardMobile } from './MainCatalogBillboard/MainCatalogBillboardMobile'
 import { MainCatalogBillboardDesktop } from './MainCatalogBillboard/MainCatalogBillboardDesktop'

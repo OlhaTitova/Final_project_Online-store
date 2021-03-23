@@ -16,12 +16,12 @@ import WishlistPage from './components/WishlistPage/WishlistPage'
 import { setWishlist } from './store/wishlist/middleware'
 import {CartPage} from './components/CartPage/CartPage'
 import OrderPage from './components/OrderPage/OrderPage'
-// import { MainCatalog } from './components/MainCatalog/MainCatalog'
 
-const App = connect(null, { setWishlist })(({ setWishlist }) => {
+const App = connect(null, { setWishlist})(({ setWishlist}) => {
   window.addEventListener('DOMContentLoaded', () => {
     setWishlist()
   })
+
   return (
     <div>
       <Header />
