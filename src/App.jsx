@@ -8,6 +8,8 @@ import NewProductsSlider from './components/NewProductsSlider/NewProductsSlider'
 import Footer from './components/Footer/Footer'
 import ContactUsPage from './pages/Contact-us/ContactUs'
 import ProductPage from './components/ProductPage/ProductPage'
+import { HomepageBrands } from './components/BrandsAndFollow/HomePageBrands'
+import { HomepageFollowUs } from './components/BrandsAndFollow/FollowUsInstagram'
 import CatalogPage from './components/CatalogPage/CatalogPage'
 import Header from './components/Header/Header'
 import LogIn from './components/LogIn/LogIn'
@@ -29,6 +31,8 @@ const App = connect(null, { setWishlist})(({ setWishlist}) => {
         <Route exact path="/">
           <BannerSlider />
           <NewProductsSlider />
+          <HomepageBrands />
+          <HomepageFollowUs />
           {/* <MainCatalog /> */}
         </Route>
         <Route exact path="/signin">

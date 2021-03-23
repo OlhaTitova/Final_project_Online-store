@@ -1,169 +1,226 @@
 import styled from 'styled-components';
 import { forTablet, forDesktop } from '../../styles/mediaBreakPoints'
 
-const TitleBox = styled.div`
-  display: flex;
-  justify-content: start;
-  height: 27px;
-  margin-top: 10px;
-  margin-bottom: 15px;
-  font-size: 18px;
-  font-weight: bold;
-  margin-left: 15px;
-  // Tablet
-  @media(min-width: ${forTablet.minWidth}px) and (max-width: ${forTablet.maxWidth}px) {
-  margin-top: 13px;
-  margin-bottom: 13px;
-  margin-left: 26px;
+const ComponentContainer = styled.div`
+  width: 100%;
+  margin: 0 auto;
+  min-width: 320px;
+`
+const TitleBox = styled.div`  
+  width: 90%;
+  margin: 10px auto 15px auto;
+
+  @media(min-width: ${forTablet.minWidth}) and (max-width: ${forTablet.maxWidth}px) {
+    width: 92%;
+    margin: 0 auto 16px auto;
   }
-  // Desktop
+
   @media(min-width: ${forDesktop.minWidth}px){
-  height: 48px;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  font-size: 48px;
+    width: 90%;
+    margin: 20px auto;
+    padding: 0 1%;
+  }
+`
+const TitleText = styled.div`
+  font-size: 22px;
   font-weight: bold;
-  margin-left: 30px;
-}
+
+  @media(min-width: ${forDesktop.minWidth}px){
+    font-size: 42px;
+    font-weight: bold;
+    justify-content: start;
+    padding: 0 1,5%;
+  }
 `
 const Flex = styled.div`
   display: flex;
   flex-direction: column;
-  flex-wrap: nowrap;
+  flex-grow: 1;
   width: 100%;
 `
 const Section = styled.div`
+  align-items: flex-start;
+  display: flex;
+  width: 100%;
+  background-color: ${(props) => (props.colored ? 'black' : 'white')};
+
+  @media(min-width: ${forTablet.minWidth}) and (max-width: ${forTablet.maxWidth}px) {
+    justify-content: center;
+    align-items: center;
+  }
+
+  @media(min-width: ${forDesktop.minWidth}px){
+    justify-content: center;
+    align-items: center;
+  }
+`
+const ContentBlock = styled.div`
+  width: 100%;
   display: flex;
   flex-direction: ${(props) => (props.colored ? 'column-reverse' : 'column')};
-  // justify-content: center;
-  // align-items: center;   
-  height: 494px;
-  background-color: ${(props) => (props.colored ? 'black' : 'white')};
   color: ${(props) => (props.colored ? 'white' : 'black')};
-// Tablet
-@media(min-width: ${forTablet.minWidth}px) and (max-width: ${forTablet.maxWidth}px) {
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  height: 405px;
-  padding: ${(props) => (props.colored ? '0 20px' : '0')};
-}
-// Desktop
-  @media(min-width: ${forDesktop.minWidth}px){
-    max-width:1200px;
+
+  @media(min-width: ${forTablet.minWidth}px) and (max-width: ${forTablet.maxWidth}px) {
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    height: 680px;
-    padding: ${(props) => (props.colored ? '0 50px' : '0')};
+    padding: 39px 5% 48px 5%;
+    
+    @media(min-width: 481px) and (max-width: 700px) {
+      width: 100%;
+      flex-direction: ${(props) => (props.colored ? 'column-reverse' : 'column')};
+      color: ${(props) => (props.colored ? 'white' : 'black')};
+      justify-content: center;
+      align-items: center;
+      padding: 0 0 10px 0;
+    }
+  }
+
+  @media(min-width: ${forDesktop.minWidth}px){
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 50px 6% 50px 5%;;
   }
 `
 const ContentContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: 326px;
-  margin-top: 17px;
-  margin-left: 34px;
-  margin-right: 17px;
-  margin-bottom: 30px;
-// Tablet
-@media(min-width: ${forTablet.minWidth}px) and (max-width: ${forTablet.maxWidth}px) {
-  width: 326px;
-  margin-right: ${(props) => (props.colored ? '34px' : '0')};
-  margin-left: ${(props) => (props.colored ? '0' : '34px')};
-}
-// Desktop
-@media(min-width: ${forDesktop.minWidth}px){
-  width: 465px;
-  margin-right: ${(props) => (props.colored ? '90px' : '0')};
-  margin-left: ${(props) => (props.colored ? '0' : '90px')};
+  width: 80%;
+  margin: 17px 2% 25px 15%;
+  justify-content: center;
+
+  @media(min-width: ${forTablet.minWidth}px) and (max-width: ${forTablet.maxWidth}px) {
+    width: 45%;
+    margin-right: ${(props) => (props.colored ? '3%' : '5%')};
+    margin-left: ${(props) => (props.colored ? '5%' : '3%')};
+  
+    @media(min-width: 481px) and (max-width: 700px) {
+      width: 80%;
+      margin: 17px 3% 25px 7%; 
+    }
+  }
+
+  @media(min-width: ${forDesktop.minWidth}px){
+    width: 48%;
+    margin-right: ${(props) => (props.colored ? '1%' : '0')};
+    margin-left: ${(props) => (props.colored ? '0' : '10%')};
+    padding-left: 5%;
   }
 `
 const SectionTitle = styled.div`
   display: flex;
   flex-direction: column;
-  width: 300px;
-  font-size: 32px;
-  margin-bottom: 13px;
-  margin-top: 5px;
-  // Desktop
-@media(min-width: ${forDesktop.minWidth}px){
-  // margin-left: ${(props) => (props.colored ? '20' : '0')};
-  // }
-  width: 465px;
-  font-size: 40px;
-  margin-bottom: 32px;
-}
+  width: 90%;
+  font-size: 30px;
+  margin: 5px 0 13px 0;
+
+  @media(min-width: ${forTablet.minWidth}px) and (max-width: ${forTablet.maxWidth}px) {
+
+    @media(min-width: 481px) and (max-width: 700px) {
+      width: 95%;
+      font-size: 30px;
+    }
+  }
+
+  @media(min-width: ${forDesktop.minWidth}px){
+    width: 90%;
+    font-size: 32px;
+    margin-bottom: 32px;
+  }
 `
 const SectionContent = styled.div`
   display: flex;
   flex-direction: column;
-  width: 325px;
+  width: 95%;
   font-size: 14px;
-  // line-height: 20px;
+  line-height: 20px;
   letter-spacing: 1px;
-  // Desktop
-@media(min-width: ${forDesktop.minWidth}px){
-  width: 436px;
-  font-size: 18px;
-  line-height: 26px;
-}
+
+  @media(min-width: ${forTablet.minWidth}px) and (max-width: ${forTablet.maxWidth}px) {
+  width: 100%;
+
+    @media(min-width: 481px) and (max-width: 700px) {
+      width: 100%;
+      font-size: 14px;
+    }
+  }
+
+  @media(min-width: ${forDesktop.minWidth}px){
+    width: 85%;
+    font-size: 16px;
+    line-height: 22px;
+  }
 `
 const SectionImg = styled.div`
   display: flex;
-  flex-direction: row;
   justify-content: center;
-  // align-items: center;
   width: 100%;
-  height: 205px;
-  owerflow: hidden;
+  height: 30%;
   object-fit: cover;
+
   // Tablet
   @media(min-width: ${forTablet.minWidth}px) and (max-width: ${forTablet.maxWidth}px) {
-    width: 260px;
-    height: 180px;
-  }  
-  // Desktop
-@media(min-width: ${forDesktop.minWidth}px){
-  width: 470px;
-  height: 490px;
-}
+    height: 60%;
+    width: 48%;
+    margin-right: ${(props) => (props.nocolored ? '0' : '7%')};
+    margin-left: ${(props) => (props.nocolored ? '2%' : '0')};
+    padding-left: ${(props) => (props.nocolored ? '2%' : '2%')};
+
+    @media(min-width: 481px) and (max-width: 700px) {
+      height: 50%;
+      width: 100%;
+      padding-left: 0;
+      margin-right: 0;
+    }
+  } 
+
+  @media(min-width: ${forDesktop.minWidth}px){
+    width: 48%;
+    height: 60%;
+    padding-left: ${(props) => (props.nocolored ? '2%' : '1%')};
+  }
 `
 const Image = styled.img`
+  object-fit: cover;
   margin-top: ${(props) => (props.first ? '0' : '25px')};
   display: flex;
   flex-direction: row;
-  width: ${(props) => (props.first ? '100%' : '250px')};
-  height: ${(props) => (props.first ? '100%' : '180px')};
-  // Tablet
+  width: ${(props) => (props.first ? '100%' : '50%')};
+  height: ${(props) => (props.first ? '100%' : '50%')};
+  
   @media(min-width: ${forTablet.minWidth}px) and (max-width: ${forTablet.maxWidth}px) {
     width: 100%;
-    height: 100%;
-  }  
-  // Desktop
-@media(min-width: ${forDesktop.minWidth}px){
-  width: 100%;
-  height: 100%;
-}
+    height: auto;
+    
+    @media(min-width: 481px) and (max-width: 700px) {
+      margin-top: ${(props) => (props.first ? '0' : '15px')};
+      width: ${(props) => (props.first ? '100%' : '50%')};
+      height: ${(props) => (props.first ? '100%' : '50%')};
+      object-fit: cover;
+    }
+  } 
+
+ @media(min-width: ${forDesktop.minWidth}px){
+    width: ${(props) => (props.first ? '80%' : '100%')};
+    height: auto;
+    object-fit: ${(props) => (props.first ? 'none' : 'cover')};
+  }
 `
 const Img = styled.img` 
   height: 30px;
   width: ${(props) => (props.biggerSize ? '52px' : '30px')};
-  // margin-bottom: 5px;
-  // Desktop
-  @media(min-width: ${forDesktop.minWidth}px){
-  width: ${(props) => (props.biggerSize ? '87px' : '50px')};
-  height: 50px;
-  margin-bottom: 10px;
-}
-`
-const Break = styled.div`
-  display: block;
-  height: 20px;
-}
-`
 
+  @media(min-width: ${forDesktop.minWidth}px){
+    width: ${(props) => (props.biggerSize ? '87px' : '50px')};
+    height: 50px;
+    margin-bottom: 10px;
+  }
+`
+const Text = styled.p`
+  margin-bottom: 20px;
+`
 export {
   Img, Image, SectionImg, ContentContainer, SectionContent, SectionTitle, Section, Flex, TitleBox,
-  Break
+  TitleText, Text, ContentBlock, ComponentContainer
 };

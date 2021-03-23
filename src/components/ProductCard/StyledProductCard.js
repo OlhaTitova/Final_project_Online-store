@@ -9,8 +9,16 @@ export const CardItem = styled.div`
   align-items: flex-start;
   max-width: 235px;
   padding: 5px 8px;
-  border: 1px solid lightskyblue;
 
+  &:hover {
+    box-shadow: 0 1px 16px rgba(0,0,0,0.12), 
+              0 2px 2px rgba(0,0,0,0.12), 
+              0 4px 4px rgba(0,0,0,0.12), 
+              0 8px 8px rgba(0,0,0,0.12),
+              0 16px 16px rgba(0,0,0,0.12);
+
+  }
+  
   ${(props) => props.hideBorder && css`
     border: none;
   `}

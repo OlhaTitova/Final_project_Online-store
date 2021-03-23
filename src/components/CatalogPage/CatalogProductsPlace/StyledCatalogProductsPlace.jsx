@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { forDesktop, forTablet } from '../../../styles/mediaBreakPoints'
+import { forTablet } from '../../../styles/mediaBreakPoints'
 
 export const Wrapper = styled.div`
   width: 100%;
@@ -10,15 +10,10 @@ export const Wrapper = styled.div`
 export const ProductsWrapper = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+  grid-gap: 15px;
   justify-items: center;
   
-  @media (min-width: ${forTablet.minWidth}px) and (max-width: ${forTablet.maxWidth}px){
-      grid-gap: 15px;
-      grid-template-columns: repeat(3, 1fr);
-  }
-
-  @media (min-width: ${forDesktop.minWidth}px){
-      grid-gap: 15px;
-      grid-template-columns: repeat(4, 1fr);
+  @media (min-width: ${forTablet.minWidth}px){
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
   }
 `

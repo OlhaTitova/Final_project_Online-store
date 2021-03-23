@@ -1,29 +1,36 @@
-import styled, {css} from 'styled-components';
+import styled, {css, createGlobalStyle} from 'styled-components';
 import {
   Form,
   Checkbox
 } from 'antd';
 import { forDesktop} from '../../../styles/mediaBreakPoints';
 
+export const GlobalStyle = createGlobalStyle`
+  body {
+    ${({showFilter}) => showFilter && css`overflow: hidden`}
+  }
+`
+
 export const StyledForm = styled(Form)`
   background: #F5F7FF;
   @media(min-width: 592px) {
-    min-width: 220px;
+    min-width: 250px;
     width: 27%;
   } 
   @media(min-width: ${forDesktop.minWidth}px) {
-    min-width: 220px;
+    min-width: 250px;
     width: 20%;
   } 
 `;
 
 export const Wrapper = styled.aside`
     @media(max-width: 592px) {
-      position: absolute;
+      position: fixed;
       top: 0%;
       left: -100%;
       width: 100%;
-      min-height: 100vh;
+      height: calc(100% - 80px);
+      overflow: auto;
       background: #ECECEC;
       transition: all 0.5s ease-out;
       opacity: 0;
@@ -82,16 +89,21 @@ export const CloseBtn = styled.div`
 `;
 
 export const AlignBtn = styled.div`
-  margin: 20px 0;
+  padding: 10px;
   @media(max-width: 592px) {
+    background: #cbccd4;
     width: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
+    position: fixed;
+    left: 0;
+    bottom: 0;
   }
   @media(min-width: 592px) {
     width: 100%;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: space-around;
     align-items: center;
   }
 `;

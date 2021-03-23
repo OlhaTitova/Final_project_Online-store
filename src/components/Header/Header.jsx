@@ -15,12 +15,13 @@ import UserPopUp from './UserPopUp/UserPopUp';
 // styled
 import {
   HeaderContainer, ContainerAlign, ContactUsCall, CallBackAsk,
-  SearchAndItemsBlock, FormContainer, SearchInputBlock, Input,
+  SearchAndItemsBlock,
   RelativePosUserPopUp, CircleDesktop, ShaduleContainer,
   ShaduleArrowContainer, LogoDesktop, ShoppingCartOutlinedStyled,
   UserOutlinedStyled, SearchOutlinedStyledMedia,
-  CircleMobile, Logo, MenuOutlinedStyled, SearchOutlinedStyled
+  CircleMobile, Logo, MenuOutlinedStyled
 } from './HeaderStyled';
+import SearchProducts from './SearchProducts/SearchProducts';
 
 const Header = () => {
   const [isOpen, setIsOpen] = useCycle(false, true);
@@ -133,12 +134,8 @@ const Header = () => {
           isOpen={isOpen}
           openCloseMenu={openCloseMenu}
         />
-        <FormContainer action="submit" hideInput={hideInput}>
-          <SearchInputBlock>
-            <SearchOutlinedStyled />
-            <Input type="text" placeholder="Serch for goods" />
-          </SearchInputBlock>
-        </FormContainer>
+        
+        <SearchProducts hideInput={hideInput} setHideInput={setHideInput} />
 
         {/* mediaSearch */}
         <SearchOutlinedStyledMedia onClick={toggleShow} />
