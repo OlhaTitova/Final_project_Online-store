@@ -15,7 +15,7 @@ import {
 
 export const MODULE_NAME = 'cart';
 export const selectProducts = (state) => state[MODULE_NAME].products;
-export const selectProductCartLength = (state) => state[MODULE_NAME].productCartLength;
+export const selectproductCartCount = (state) => state[MODULE_NAME].productCartCount;
 export const selectCartSummary = (state) => state[MODULE_NAME].summary;
 export const selectCustomer = (state) => state[MODULE_NAME].customer;
 export const selectCities = (state) => state[MODULE_NAME].cities;
@@ -30,7 +30,7 @@ const initialState = {
   branches: [],
   shippingCost: 0,
   order: {},
-  productCartLength: 0,
+  productCartCount: 0,
   cities: [
     {
       CityName: 'Kyiv',
@@ -70,20 +70,20 @@ export const cartReducer = (state = initialState, {type, payload}) => {
       return {
         ...state,
         products: payload.products,
-        summary: summaryTotalItems(payload)
-      }
-    case CLEAR_CART:
-      return {
-        ...state,
-        products: [],
-        summary: 0,
-        shippingCost: 0,
+        summary: summaryTotalItems(payload),
+        productCartCount: payload.products.reduce(
+          (sum, curr) => sum + curr.cartQuantity,
+          0
+        ),
       }
     case SET_CART:
       return {
         ...state,
         products: payload.products,
-        productsLength: payload.products.length,
+        productCartCount: payload.products.reduce(
+          (sum, curr) => sum + curr.cartQuantity,
+          0
+        ),
         customer: payload.customerId || {},
         summary: summaryTotalItems(payload)
       }
@@ -112,6 +112,13 @@ export const cartReducer = (state = initialState, {type, payload}) => {
       return {
         ...state,
         order: payload,
+      }
+    case CLEAR_CART:
+      return {
+        ...state,
+        products: [],
+        summary: 0,
+        shippingCost: 0,
       }
     case CLEAR_ORDER:
       return {
