@@ -1,6 +1,6 @@
 import styled, {css} from 'styled-components'
 import {
-  MenuOutlined, UserOutlined, ShoppingCartOutlined, SearchOutlined
+  MenuOutlined, UserOutlined, SearchOutlined
 
 } from '@ant-design/icons';
 import {forTablet, forDesktop, forMobile} from '../../styles/mediaBreakPoints';
@@ -201,17 +201,7 @@ export const LogoDesktop = styled.img`
     filter: invert(71%) sepia(14%) saturate(7210%) hue-rotate(553deg) brightness(102%) contrast(98%);
   }
 `;
-export const ShoppingCartOutlinedStyled = styled(ShoppingCartOutlined)`
-  filter: brightness(0) invert(1);
-  font-size: 25px;
-  flex: 1;
-  padding: 0 20px;
-  @media(min-width: ${forDesktop.minWidth}px) {
-    filter: invert(37%) sepia(0%) saturate(0%) hue-rotate(559deg) brightness(52%) contrast(106%);
-    flex: 3;
-    padding: 0px 10px 0px 10px;
-  }
-`;
+
 export const UserOutlinedStyled = styled(UserOutlined)`
   cursor: pointer;
   color: white;

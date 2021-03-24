@@ -28,9 +28,10 @@ const removeProductFromLS = (product) => {
 
 const getItemsFromDB = () => {
   const headers = getHeaders()
-  return axios.get(BASE_ENDPOINT, { headers })
+  const res = axios.get(BASE_ENDPOINT, { headers })
     .then((response) => response)
     .catch((err) => console.log(err.response))
+  return res
 }
 
 export const setWishlist = () => async (dispatch, getState) => {

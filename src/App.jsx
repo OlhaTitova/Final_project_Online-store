@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Route, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
 import CreateCustomerPage from './components/CreateCustomerPage/CreateCustomerPage'
@@ -18,11 +18,17 @@ import WishlistPage from './components/WishlistPage/WishlistPage'
 import { setWishlist } from './store/wishlist/middleware'
 import {CartPage} from './components/CartPage/CartPage'
 import OrderPage from './components/OrderPage/OrderPage'
+import { getCart } from './store/cart/middleware'
 
-const App = connect(null, { setWishlist})(({ setWishlist}) => {
-  window.addEventListener('DOMContentLoaded', () => {
+const App = connect(null, { setWishlist, getCart})(({
+  setWishlist,
+  getCart
+}) => {
+  useEffect(() => {
     setWishlist()
-  })
+    getCart()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <div>

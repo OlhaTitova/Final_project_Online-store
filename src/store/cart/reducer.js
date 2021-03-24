@@ -15,6 +15,7 @@ import {
 
 export const MODULE_NAME = 'cart';
 export const selectProducts = (state) => state[MODULE_NAME].products;
+export const selectProductCartLength = (state) => state[MODULE_NAME].productCartLength;
 export const selectCartSummary = (state) => state[MODULE_NAME].summary;
 export const selectCustomer = (state) => state[MODULE_NAME].customer;
 export const selectCities = (state) => state[MODULE_NAME].cities;
@@ -29,6 +30,7 @@ const initialState = {
   branches: [],
   shippingCost: 0,
   order: {},
+  productCartLength: 0,
   cities: [
     {
       CityName: 'Kyiv',
@@ -54,6 +56,7 @@ const initialState = {
 }
 
 export const cartReducer = (state = initialState, {type, payload}) => {
+  console.log(payload)
   const summaryTotalItems = (payload) => payload.products.reduce(
     (sum, curr) => sum + curr.cartQuantity * curr.product.currentPrice,
     0
@@ -80,6 +83,7 @@ export const cartReducer = (state = initialState, {type, payload}) => {
       return {
         ...state,
         products: payload.products,
+        productsLength: payload.products.length,
         customer: payload.customerId || {},
         summary: summaryTotalItems(payload)
       }

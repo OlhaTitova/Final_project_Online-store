@@ -22,12 +22,9 @@ const BASE_ENDPOINT = `${DOMAIN}/cart`
 
 export const addToCart = (product, quantity) => (dispatch, getStore) => {
   const { cart: { products } } = getStore()
-
   const productId = product._id
-
   let updatedCart = []
   const isExistInCart = products ? products.find((el) => el.product._id === productId) : null
-
   if (isExistInCart) {
     updatedCart = products.map((el) => {
       if (el.product._id === isExistInCart.product._id) {
@@ -47,19 +44,16 @@ export const addToCart = (product, quantity) => (dispatch, getStore) => {
       }
     ]
   }
-
   const headers = getHeaders()
   axios.put(BASE_ENDPOINT, {products: updatedCart}, { headers })
     .then((updatedCart) => {
-      if (updatedCart.status === 200) {
-        console.log(updatedCart.data)
-        dispatch(addToCartCreator(updatedCart.data));
-        message.success('Product added to cart!')
-      }
+      dispatch(addToCartCreator(updatedCart.data));
+      message.success('Product added to cart!')
     })
     .catch((error) => {
       if (error.response.status === 401) {
         addCartToLS(product, quantity)
+        dispatch(setCart({products: getCartLS()}))
         message.success('Product added to cart!')
       }
     })
@@ -207,7 +201,7 @@ export const PlaceOrder = (
     mobile: values.phoneNumber,
     firstName: values.firstName,
     letterSubject: `${values.firstName}, thank you for order!`,
-    letterHtml: '<h1>Your order is placed. OrderNo and details about order in your dashboard.</h1>'
+    letterHtml: '<h1>Your order is placed. Our manager will contact you soon.</h1>'
   }
   if (isLogin) {
     body.customerId = customer
@@ -216,7 +210,7 @@ export const PlaceOrder = (
   }
   
   axios
-    .post('/orders', body)
+    .post(`${DOMAIN}/orders`, body)
     .then((newOrder) => {
       dispatch(getOrderCreator(newOrder.data.order))
       clearCart(isLogin)(dispatch)

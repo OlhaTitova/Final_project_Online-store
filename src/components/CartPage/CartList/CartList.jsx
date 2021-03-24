@@ -1,5 +1,5 @@
 /* eslint-disable no-underscore-dangle */
-import React, {useEffect} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Empty } from 'antd';
@@ -9,26 +9,23 @@ import { CartItem } from '../CartItem/CartItem';
 import { ColumnRowBetween} from '../Flex';
 import StyledButton from '../../common/Buttons/StyledButton';
 import StyledCartList from './StyledCartList';
-import { getCart, clearCart } from '../../../store/cart/middleware';
+import { clearCart } from '../../../store/cart/middleware';
 import { selectProducts } from '../../../store/cart/reducer';
 
-const mapStateToProps = (state) => ({products: selectProducts(state)})
+const mapStateToProps = (state) => ({
+  products: selectProducts(state),
+  isLogin: state.auth.isLogin,
+})
 
 const CartList = connect(
   mapStateToProps, {
-    getCart, clearCart
+    clearCart
   }
 )(({
   products,
-  getCart,
+  isLogin,
   clearCart,
 }) => {
-  useEffect(() => {
-    setTimeout(() => {
-      getCart()
-    }, 1000)
-  }, [getCart]);
-
   const history = useHistory()
 
   const onClickContinue = () => {
@@ -53,7 +50,7 @@ const CartList = connect(
           <StyledButton onClick={onClickContinue} size="xl" shape="round" color="borderGrey">Continue Shopping</StyledButton>
         </div>
         <div className="margin">
-          <StyledButton onClick={() => clearCart()} size="xl" shape="round" color="black">Clear Shopping Cart</StyledButton>
+          <StyledButton onClick={() => clearCart(isLogin)} size="xl" shape="round" color="black">Clear Shopping Cart</StyledButton>
         </div>
       </ColumnRowBetween>
     </StyledCartList>
