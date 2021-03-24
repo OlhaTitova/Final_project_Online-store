@@ -29,21 +29,23 @@ const SearchProducts = connect(mapStateToProps, {clearSearchProducts, getSearchP
       getSearchProducts({query: value})
     } else clearSearchProducts()
   }
+  
+  const checkProductsLength = Boolean(searchProducts.length)
 
   const reset = useCallback(() => {
-    clearSearchProducts()
+    if (checkProductsLength) {
+      clearSearchProducts()
+    }
     setSearch('')
-  }, [clearSearchProducts])
-
-  const checkProductsLength = Boolean(searchProducts.length)
+  }, [checkProductsLength, clearSearchProducts])
 
   useEffect(() => {
     window.addEventListener('click', (e) => {
-      if (!e.target.closest('#search-form')) {
+      if (!e.target.closest('#search-form') && checkProductsLength) {
         reset()
       }
     })
-  }, [hideInput, reset])
+  }, [checkProductsLength, hideInput, reset])
 
   return (
     <FormContainer

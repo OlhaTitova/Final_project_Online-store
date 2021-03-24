@@ -42,7 +42,6 @@ export const setWishlist = () => async (dispatch, getState) => {
     const { data, status } = response
     if (data && status === 200) itemsToSet.push(...data.products)
     else {
-      console.log(response)
       itemsToSet.push(...getParsedListFromLS())
     }
   } else {

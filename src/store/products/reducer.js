@@ -61,7 +61,7 @@ export const reducer = (state = initialState, {type, payload}) => {
         ...state,
         catalog: {
           ...state.catalog,
-          productsQuantity: payload
+          productsQuantity: state.catalog.catalogProducts.length ? payload : 0
         }
       }
     case CLEAN_CATALOG_PRODUCTS:
