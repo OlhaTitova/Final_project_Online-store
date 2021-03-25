@@ -119,6 +119,7 @@ export const cartReducer = (state = initialState, {type, payload}) => {
         products: [],
         summary: 0,
         shippingCost: 0,
+        productCartCount: 0,
       }
     case CLEAR_ORDER:
       return {

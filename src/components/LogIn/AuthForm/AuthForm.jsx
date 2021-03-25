@@ -10,11 +10,13 @@ import 'antd/dist/antd.css';
 import { connect } from 'react-redux';
 import {authLogIn} from '../../../store/auth/middleware';
 import { compareLSItemsAndDBItems } from '../../../store/wishlist/middleware'
+import {addLSToServer} from '../../../store/cart/middleware'
 
-const AuthForm = connect(null, { authLogIn, compareLSItemsAndDBItems })((
+const AuthForm = connect(null, { authLogIn, compareLSItemsAndDBItems, addLSToServer })((
   {
     authLogIn,
-    compareLSItemsAndDBItems
+    compareLSItemsAndDBItems,
+    addLSToServer,
   }
 ) => {
   const formLayout = 'vertical'
@@ -27,6 +29,7 @@ const AuthForm = connect(null, { authLogIn, compareLSItemsAndDBItems })((
 
     if (status === 200) {
       localStorage.setItem('token', data.token)
+      addLSToServer()
       history.push('/')
       compareLSItemsAndDBItems()
     }

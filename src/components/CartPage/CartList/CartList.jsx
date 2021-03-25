@@ -43,7 +43,11 @@ const CartList = connect(
   return (
     <StyledCartList>
       <TheadCart />
-      {products.length ? showCartItem(products) : (<Empty />)}
+      {products.length ? showCartItem(products) : (
+        <Empty description={false}>
+          <span>Your shopping cart is empty</span>
+        </Empty>
+      )}
 
       <ColumnRowBetween>
         <div className="margin">

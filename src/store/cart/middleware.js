@@ -218,4 +218,79 @@ export const PlaceOrder = (
     .catch((err) => err.response)
 }
 
+export const getCartServer = async () => {
+  const headers = getHeaders()
+  const cartState = []
+  await axios.get(BASE_ENDPOINT, { headers })
+    .then((res) => {
+      // console.log(res)
+      const {data, status} = res
+      if (data && status === 200) cartState.push(...data.products)
+    })
+    .catch((err) => err.response)
+  return cartState
+}
+
+export const addLSToServer = () => async (dispatch) => {
+  const cartLS = JSON.parse(localStorage.getItem('cart')) || []
+  const products = await getCartServer()
+ 
+  console.log(products)
+  console.log(cartLS)
+
+  // eslint-disable-next-line prefer-const
+  let res = [];
+  
+  if (cartLS.length === 0 && products.length > 0) {
+    res = products
+    console.log(res)
+  }
+  if (cartLS.length > 0 && products.length === 0) {
+    res = cartLS
+    console.log(res)
+  } else {
+    products.forEach((el) => {
+      cartLS.forEach((item) => {
+        if (el.product._id === item.product._id) {
+          res.push(
+            {
+              product: item.product,
+              cartQuantity: item.cartQuantity + el.cartQuantity
+            }
+          )
+        } else {
+          res.push(
+            {
+              product: item.product,
+              cartQuantity: item.cartQuantity
+            },
+            {
+              product: el.product,
+              cartQuantity: el.cartQuantity
+            }
+          )
+        }
+      })
+    })
+  }
+  console.log(res)
+
+  const updatedCartForServer = res.map((item) => ({
+    product: item.product._id,
+    cartQuantity: item.cartQuantity
+  }))
+
+  console.log(updatedCartForServer)
+
+  const headers = getHeaders()
+  axios.put(BASE_ENDPOINT, {products: updatedCartForServer}, { headers })
+    .then((updatedCart) => {
+      if (updatedCart.status === 200) {
+        localStorage.removeItem('cart')
+        dispatch(addToCartCreator(updatedCart.data));
+      }
+    })
+    .catch((error) => console.log(error.response))
+}
+
 export default addToCart;
