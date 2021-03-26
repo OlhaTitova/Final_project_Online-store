@@ -33,8 +33,6 @@ const mapStateToProps = (state) => ({
 const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOrder})(({
   cities, branches, customer, getCity, getShippingCost, shippingCost, PlaceOrder, isLogin, products
 }) => {
-  console.log(customer)
-
   const recipientCityRef = useRef();
   const countryRef = useRef();
   const branchName = useRef();
