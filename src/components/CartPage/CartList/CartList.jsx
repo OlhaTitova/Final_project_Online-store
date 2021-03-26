@@ -31,7 +31,6 @@ const CartList = connect(
   const onClickContinue = () => {
     history.push('/')
   }
-
   const showCartItem = (productsAll) => productsAll.map((item) => (
     <CartItem
       product={item.product}
@@ -48,7 +47,6 @@ const CartList = connect(
           <span>Your shopping cart is empty</span>
         </Empty>
       )}
-
       <ColumnRowBetween>
         <div className="margin">
           <StyledButton onClick={onClickContinue} size="xl" shape="round" color="borderGrey">Continue Shopping</StyledButton>

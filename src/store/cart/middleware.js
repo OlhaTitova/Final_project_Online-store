@@ -24,10 +24,10 @@ export const addToCart = (product, quantity) => (dispatch, getStore) => {
   const { cart: { products } } = getStore()
   const productId = product._id
   let updatedCart = []
-  const isExistInCart = products ? products.find((el) => el.product._id === productId) : null
-  if (isExistInCart) {
+  const itemInCartAndLS = products ? products.find((el) => el.product._id === productId) : null
+  if (itemInCartAndLS) {
     updatedCart = products.map((el) => {
-      if (el.product._id === isExistInCart.product._id) {
+      if (el.product._id === itemInCartAndLS.product._id) {
         return {
           ...el,
           cartQuantity: el.cartQuantity + quantity
@@ -223,7 +223,6 @@ export const getCartServer = async () => {
   const cartState = []
   await axios.get(BASE_ENDPOINT, { headers })
     .then((res) => {
-      // console.log(res)
       const {data, status} = res
       if (data && status === 200) cartState.push(...data.products)
     })
@@ -233,55 +232,25 @@ export const getCartServer = async () => {
 
 export const addLSToServer = () => async (dispatch) => {
   const cartLS = JSON.parse(localStorage.getItem('cart')) || []
-  const products = await getCartServer()
- 
-  console.log(products)
-  console.log(cartLS)
-
-  // eslint-disable-next-line prefer-const
-  let res = [];
-  
-  if (cartLS.length === 0 && products.length > 0) {
-    res = products
-    console.log(res)
-  }
+  let products = await getCartServer()
   if (cartLS.length > 0 && products.length === 0) {
-    res = cartLS
-    console.log(res)
+    products = cartLS
   } else {
-    products.forEach((el) => {
-      cartLS.forEach((item) => {
-        if (el.product._id === item.product._id) {
-          res.push(
-            {
-              product: item.product,
-              cartQuantity: item.cartQuantity + el.cartQuantity
-            }
-          )
-        } else {
-          res.push(
-            {
-              product: item.product,
-              cartQuantity: item.cartQuantity
-            },
-            {
-              product: el.product,
-              cartQuantity: el.cartQuantity
-            }
-          )
-        }
-      })
+    cartLS.forEach((el) => {
+      const itemInCartAndLS = products.find((item) => item.product._id === el.product._id)
+      if (itemInCartAndLS) {
+        itemInCartAndLS.cartQuantity += el.cartQuantity
+      } else {
+        products.push(
+          el
+        )
+      }
     })
   }
-  console.log(res)
-
-  const updatedCartForServer = res.map((item) => ({
+  const updatedCartForServer = products.map((item) => ({
     product: item.product._id,
     cartQuantity: item.cartQuantity
   }))
-
-  console.log(updatedCartForServer)
-
   const headers = getHeaders()
   axios.put(BASE_ENDPOINT, {products: updatedCartForServer}, { headers })
     .then((updatedCart) => {
@@ -292,5 +261,3 @@ export const addLSToServer = () => async (dispatch) => {
     })
     .catch((error) => console.log(error.response))
 }
-
-export default addToCart;
