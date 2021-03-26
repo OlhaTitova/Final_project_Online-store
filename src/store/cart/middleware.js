@@ -119,7 +119,8 @@ export const removeFromCart = (productID) => (dispatch) => {
     })
 }
 
-export const clearCart = (isLogin) => (dispatch) => {
+export const clearCart = () => (dispatch, getStore) => {
+  const {auth: {isLogin} } = getStore()
   const headers = getHeaders()
   axios.delete(BASE_ENDPOINT, { headers })
     .then(() => {

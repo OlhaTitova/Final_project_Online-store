@@ -150,10 +150,7 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
             max: 25,
           },
           {
-            pattern: new RegExp(
-              // eslint-disable-next-line no-useless-escape
-              /^[a-zа-яіїё]+$/i
-            ),
+            pattern: /^[a-zа-яіїё]+$/i,
             message: 'First name cannot contain characters or numbers'
           }
         ]}
@@ -175,10 +172,7 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
             max: 25,
           },
           {
-            pattern: new RegExp(
-              // eslint-disable-next-line no-useless-escape
-              /^[a-zA-ZА-Яа-я]+$/
-            ),
+            pattern: /^[a-zа-яіїё]+$/i,
             message: 'Last name cannot contain characters or numbers'
           }
         ]}
@@ -197,10 +191,7 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
             max: 12,
           },
           {
-            pattern: new RegExp(
-              // eslint-disable-next-line no-useless-escape
-              /^[0-9]+$/
-            ),
+            pattern: /^[0-9]+$/,
             message: 'Phone number cannot contain letter'
           }
         ]}

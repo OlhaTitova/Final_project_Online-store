@@ -14,7 +14,6 @@ import { selectProducts } from '../../../store/cart/reducer';
 
 const mapStateToProps = (state) => ({
   products: selectProducts(state),
-  isLogin: state.auth.isLogin,
 })
 
 const CartList = connect(
@@ -23,7 +22,6 @@ const CartList = connect(
   }
 )(({
   products,
-  isLogin,
   clearCart,
 }) => {
   const history = useHistory()
@@ -52,7 +50,7 @@ const CartList = connect(
           <StyledButton onClick={onClickContinue} size="xl" shape="round" color="borderGrey">Continue Shopping</StyledButton>
         </div>
         <div className="margin">
-          <StyledButton onClick={() => clearCart(isLogin)} size="xl" shape="round" color="black">Clear Shopping Cart</StyledButton>
+          <StyledButton onClick={() => clearCart()} size="xl" shape="round" color="black">Clear Shopping Cart</StyledButton>
         </div>
       </ColumnRowBetween>
     </StyledCartList>

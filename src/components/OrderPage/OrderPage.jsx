@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { selectIsLogin } from '../../store/auth/reducer';
 import { RowColumn, WrapperButton } from '../CartPage/Flex';
 import StyledButton from '../common/Buttons/StyledButton';
 import { ContainerCart } from '../common/Container';
@@ -8,7 +9,7 @@ import Heading from '../common/Heading/Heading';
 import OrderInfo from './OrderInfo/OrderInfo';
 
 const mapStateToProps = (state) => ({
-  isLogin: state.auth.isLogin
+  isLogin: selectIsLogin(state)
 })
 
 const OrderPage = connect(mapStateToProps, null)(({isLogin}) => {
