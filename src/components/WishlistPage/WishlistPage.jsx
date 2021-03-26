@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux';
-import { WishlistBox } from './StylesWishlistPage';
+import { WishlistBox, StyledEmpty } from './StylesWishlistPage';
 import { addProductToWishlist, removeProductFromWishlist } from '../../store/wishlist/middleware'
 import { selectWishlistItems } from '../../store/wishlist/reducer'
 import { ProductCard } from '../ProductCard/ProductCard'
@@ -23,7 +23,7 @@ const Wishlist = connect(mapStateToProps, {
         My wishlist
       </Heading>
       <WishlistBox>
-        {items.length ? items : <div>Wishlist is empty now</div>}
+        {items.length ? items : <StyledEmpty description="No items have been added." />}
       </WishlistBox>
     </Container>
     

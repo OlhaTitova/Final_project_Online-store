@@ -6,19 +6,19 @@ import { IconWrapper } from './StylesFavoriteIcon'
 import { selectWishlistItems } from '../../store/wishlist/reducer'
 import { addProductToWishlist, removeProductFromWishlist } from '../../store/wishlist/middleware'
 
-const mapStateToProps = (state) => ({wishlist: selectWishlistItems(state)})
+const mapStateToProps = (state) => ({wishlistItems: selectWishlistItems(state)})
 
 const FavoriteIcon = connect(mapStateToProps, { addProductToWishlist, removeProductFromWishlist })((
   {
+    wishlistItems,
     product,
-    wishlist,
     addProductToWishlist,
     removeProductFromWishlist,
     small,
     showTooltip
   }
 ) => {
-  const isFavorite = Boolean(wishlist.find((item) => item._id === product._id))
+  const isFavorite = Boolean(wishlistItems.find((item) => item._id === product._id))
 
   const chooseHandler = () => (
     isFavorite
@@ -41,7 +41,7 @@ const FavoriteIcon = connect(mapStateToProps, { addProductToWishlist, removeProd
 })
 FavoriteIcon.propTypes = {
   product: PropTypes.instanceOf(Object).isRequired,
-  wishlist: PropTypes.instanceOf(Array),
+  wishlistItems: PropTypes.instanceOf(Array),
   addProductToWishlist: PropTypes.func,
   removeProductFromWishlist: PropTypes.func,
   small: PropTypes.bool,

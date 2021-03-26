@@ -8,11 +8,12 @@ export const createCustomer = (credentials, history) => {
   axios.post(BASE_ENDPOINT, credentials)
     .then((res) => {
       if (res.status === 200) {
-        history.push('/')
+        history.push('/signin')
         message.info('New account created successfully')
       }
     })
     .catch((error) => {
+      console.log(error.response)
       if (error.response) {
         const requestMessage = error.response.data.message
         message.error(`Error: ${requestMessage}`)
@@ -36,7 +37,7 @@ export const updateCustomer = (credentials) => () => {
   return res
 }
   
-export const getCustomer = () => () => {
+export const getCustomer = () => {
   const headers = getHeaders()
   const res = axios.get(`${BASE_ENDPOINT}/customer`, { headers })
     .then((data) => data)

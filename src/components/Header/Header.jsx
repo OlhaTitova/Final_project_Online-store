@@ -140,6 +140,7 @@ const Header = () => {
         {/* mediaSearch */}
         <SearchOutlinedStyledMedia onClick={toggleShow} />
         {/* mediaSearch */}
+
         <Link to="/cart">
           <ShoppingCartOutlinedStyled />
         </Link>
