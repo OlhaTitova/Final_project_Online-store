@@ -7,7 +7,7 @@ import { selectCities, selectOrder } from '../../../store/cart/reducer';
 
 const mapStateToProps = (state) => ({
   order: selectOrder(state),
-  cities: selectCities(state)
+  cities: selectCities(state),
 })
 
 const OrderInfo = connect(mapStateToProps, null)(({order, cities}) => {
@@ -65,8 +65,7 @@ const OrderInfo = connect(mapStateToProps, null)(({order, cities}) => {
         </span>
       </p>
       <h2>
-        An email has been sent to your email with a link
-        to the page where you can see detailed information about the order
+        Our manager will contact you soon.
       </h2>
     </div>
   )

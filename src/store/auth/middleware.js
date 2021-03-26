@@ -3,6 +3,9 @@ import { DOMAIN } from '../general'
 import { clearRefreshTimer, logIn, logOut } from './actionCreator'
 import updateWishlistCreator from '../wishlist/actionCreator'
 import { initialState as wishlistInitialState} from '../wishlist/reducer'
+import { clearCart } from '../cart/middleware'
+// import { setCart } from '../cart/actionCreator'
+// import { getCartLS } from '../../utils/cartLS'
 
 const BASE_ENDPOINT = '/customers'
 
@@ -26,6 +29,7 @@ export const authLogOut = () => (dispatch) => {
   dispatch(clearRefreshTimer())
   dispatch(logOut())
   dispatch(updateWishlistCreator(wishlistInitialState))
+  dispatch(clearCart())
 }
 
 export default authLogIn

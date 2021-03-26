@@ -46,6 +46,7 @@ export const RowBetween = styled(DisplayRow)`
 `;
 
 export const ColumnRowBetween = styled(DisplayRow)`
+    padding-top: 30px;
     flex-direction: column;
 
     @media(min-width: ${forDesktop.minWidth}px){

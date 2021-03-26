@@ -22,15 +22,12 @@ const BASE_ENDPOINT = `${DOMAIN}/cart`
 
 export const addToCart = (product, quantity) => (dispatch, getStore) => {
   const { cart: { products } } = getStore()
-
   const productId = product._id
-
   let updatedCart = []
-  const isExistInCart = products ? products.find((el) => el.product._id === productId) : null
-
-  if (isExistInCart) {
+  const itemInCartAndLS = products ? products.find((el) => el.product._id === productId) : null
+  if (itemInCartAndLS) {
     updatedCart = products.map((el) => {
-      if (el.product._id === isExistInCart.product._id) {
+      if (el.product._id === itemInCartAndLS.product._id) {
         return {
           ...el,
           cartQuantity: el.cartQuantity + quantity
@@ -47,19 +44,16 @@ export const addToCart = (product, quantity) => (dispatch, getStore) => {
       }
     ]
   }
-
   const headers = getHeaders()
   axios.put(BASE_ENDPOINT, {products: updatedCart}, { headers })
     .then((updatedCart) => {
-      if (updatedCart.status === 200) {
-        console.log(updatedCart.data)
-        dispatch(addToCartCreator(updatedCart.data));
-        message.success('Product added to cart!')
-      }
+      dispatch(addToCartCreator(updatedCart.data));
+      message.success('Product added to cart!')
     })
     .catch((error) => {
       if (error.response.status === 401) {
         addCartToLS(product, quantity)
+        dispatch(setCart({products: getCartLS()}))
         message.success('Product added to cart!')
       }
     })
@@ -125,7 +119,8 @@ export const removeFromCart = (productID) => (dispatch) => {
     })
 }
 
-export const clearCart = (isLogin) => (dispatch) => {
+export const clearCart = () => (dispatch, getStore) => {
+  const {auth: {isLogin} } = getStore()
   const headers = getHeaders()
   axios.delete(BASE_ENDPOINT, { headers })
     .then(() => {
@@ -207,7 +202,7 @@ export const PlaceOrder = (
     mobile: values.phoneNumber,
     firstName: values.firstName,
     letterSubject: `${values.firstName}, thank you for order!`,
-    letterHtml: '<h1>Your order is placed. OrderNo and details about order in your dashboard.</h1>'
+    letterHtml: '<h1>Your order is placed. Our manager will contact you soon.</h1>'
   }
   if (isLogin) {
     body.customerId = customer
@@ -216,7 +211,7 @@ export const PlaceOrder = (
   }
   
   axios
-    .post('/orders', body)
+    .post(`${DOMAIN}/orders`, body)
     .then((newOrder) => {
       dispatch(getOrderCreator(newOrder.data.order))
       clearCart(isLogin)(dispatch)
@@ -224,4 +219,46 @@ export const PlaceOrder = (
     .catch((err) => err.response)
 }
 
-export default addToCart;
+export const getCartServer = async () => {
+  const headers = getHeaders()
+  const cartState = []
+  await axios.get(BASE_ENDPOINT, { headers })
+    .then((res) => {
+      const {data, status} = res
+      if (data && status === 200) cartState.push(...data.products)
+    })
+    .catch((err) => err.response)
+  return cartState
+}
+
+export const addLSToServer = () => async (dispatch) => {
+  const cartLS = JSON.parse(localStorage.getItem('cart')) || []
+  let products = await getCartServer()
+  if (cartLS.length > 0 && products.length === 0) {
+    products = cartLS
+  } else {
+    cartLS.forEach((el) => {
+      const itemInCartAndLS = products.find((item) => item.product._id === el.product._id)
+      if (itemInCartAndLS) {
+        itemInCartAndLS.cartQuantity += el.cartQuantity
+      } else {
+        products.push(
+          el
+        )
+      }
+    })
+  }
+  const updatedCartForServer = products.map((item) => ({
+    product: item.product._id,
+    cartQuantity: item.cartQuantity
+  }))
+  const headers = getHeaders()
+  axios.put(BASE_ENDPOINT, {products: updatedCartForServer}, { headers })
+    .then((updatedCart) => {
+      if (updatedCart.status === 200) {
+        localStorage.removeItem('cart')
+        dispatch(addToCartCreator(updatedCart.data));
+      }
+    })
+    .catch((error) => error.response)
+}

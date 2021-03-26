@@ -9,18 +9,23 @@ import { useHistory } from 'react-router-dom';
 import 'antd/dist/antd.css';
 import { connect } from 'react-redux';
 import {authLogIn} from '../../../store/auth/middleware';
-import { compareLSItemsAndDBItems } from '../../../store/wishlist/middleware';
+import { compareLSItemsAndDBItems } from '../../../store/wishlist/middleware'
+import {addLSToServer, getCart} from '../../../store/cart/middleware'
 import {setRefreshTimer} from '../../../store/auth/actionCreator'
 
 const AuthForm = connect(null, {
   authLogIn,
   setRefreshTimer,
-  compareLSItemsAndDBItems
+  compareLSItemsAndDBItems,
+  addLSToServer,
+  getCart
 })((
   {
     authLogIn,
     compareLSItemsAndDBItems,
     setRefreshTimer,
+    addLSToServer,
+    getCart
   }
 ) => {
   const startInterval = () => (
@@ -39,6 +44,8 @@ const AuthForm = connect(null, {
     if (status === 200) {
       setRefreshTimer(startInterval())
       localStorage.setItem('token', data.token)
+      addLSToServer()
+      getCart()
       history.push('/')
       compareLSItemsAndDBItems()
     }

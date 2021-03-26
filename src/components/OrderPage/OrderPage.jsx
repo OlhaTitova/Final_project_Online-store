@@ -1,12 +1,18 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { selectIsLogin } from '../../store/auth/reducer';
 import { RowColumn, WrapperButton } from '../CartPage/Flex';
 import StyledButton from '../common/Buttons/StyledButton';
 import { ContainerCart } from '../common/Container';
 import Heading from '../common/Heading/Heading';
 import OrderInfo from './OrderInfo/OrderInfo';
 
-const OrderPage = () => {
+const mapStateToProps = (state) => ({
+  isLogin: selectIsLogin(state)
+})
+
+const OrderPage = connect(mapStateToProps, null)(({isLogin}) => {
   const history = useHistory()
 
   const onClickHome = () => {
@@ -29,20 +35,25 @@ const OrderPage = () => {
             Back to Homepage
           </StyledButton>
         </WrapperButton>
-        <WrapperButton>
-          <StyledButton
-            onClick={onClickDashboard}
-            size="lg"
-            shape="round"
-            color="borderGrey"
-          >
-            Go to Dashboard
-          </StyledButton>
-        </WrapperButton>
+        
+        {isLogin
+          ? (
+            <WrapperButton>
+              <StyledButton
+                onClick={onClickDashboard}
+                size="lg"
+                shape="round"
+                color="borderGrey"
+              >
+                Go to Dashboard
+              </StyledButton>
+            </WrapperButton>
+          )
+          : null}
       </RowColumn>
       <OrderInfo />
     </ContainerCart>
   )
-}
+})
 
 export default OrderPage

@@ -149,6 +149,10 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
             min: 2,
             max: 25,
           },
+          {
+            pattern: /^[a-zа-яіїё]+$/i,
+            message: 'First name cannot contain characters or numbers'
+          }
         ]}
       >
         <Input placeholder="First name" />
@@ -167,6 +171,10 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
             min: 2,
             max: 25,
           },
+          {
+            pattern: /^[a-zа-яіїё]+$/i,
+            message: 'Last name cannot contain characters or numbers'
+          }
         ]}
       >
         <Input placeholder="Last name" />
@@ -182,6 +190,10 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
             min: 12,
             max: 12,
           },
+          {
+            pattern: /^[0-9]+$/,
+            message: 'Phone number cannot contain letter'
+          }
         ]}
       >
         <Input placeholder="Mobile Number 380 XX XXX XXXX" />

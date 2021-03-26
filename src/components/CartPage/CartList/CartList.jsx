@@ -1,5 +1,5 @@
 /* eslint-disable no-underscore-dangle */
-import React, {useEffect} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Empty } from 'antd';
@@ -9,32 +9,26 @@ import { CartItem } from '../CartItem/CartItem';
 import { ColumnRowBetween} from '../Flex';
 import StyledButton from '../../common/Buttons/StyledButton';
 import StyledCartList from './StyledCartList';
-import { getCart, clearCart } from '../../../store/cart/middleware';
+import { clearCart } from '../../../store/cart/middleware';
 import { selectProducts } from '../../../store/cart/reducer';
 
-const mapStateToProps = (state) => ({products: selectProducts(state)})
+const mapStateToProps = (state) => ({
+  products: selectProducts(state),
+})
 
 const CartList = connect(
   mapStateToProps, {
-    getCart, clearCart
+    clearCart
   }
 )(({
   products,
-  getCart,
   clearCart,
 }) => {
-  useEffect(() => {
-    setTimeout(() => {
-      getCart()
-    }, 1000)
-  }, [getCart]);
-
   const history = useHistory()
 
   const onClickContinue = () => {
     history.push('/')
   }
-
   const showCartItem = (productsAll) => productsAll.map((item) => (
     <CartItem
       product={item.product}
@@ -46,8 +40,11 @@ const CartList = connect(
   return (
     <StyledCartList>
       <TheadCart />
-      {products.length ? showCartItem(products) : (<Empty />)}
-
+      {products.length ? showCartItem(products) : (
+        <Empty description={false}>
+          <span>Your shopping cart is empty</span>
+        </Empty>
+      )}
       <ColumnRowBetween>
         <div className="margin">
           <StyledButton onClick={onClickContinue} size="xl" shape="round" color="borderGrey">Continue Shopping</StyledButton>

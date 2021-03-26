@@ -15,6 +15,7 @@ import {
 
 export const MODULE_NAME = 'cart';
 export const selectProducts = (state) => state[MODULE_NAME].products;
+export const selectproductCartCount = (state) => state[MODULE_NAME].productCartCount;
 export const selectCartSummary = (state) => state[MODULE_NAME].summary;
 export const selectCustomer = (state) => state[MODULE_NAME].customer;
 export const selectCities = (state) => state[MODULE_NAME].cities;
@@ -29,6 +30,7 @@ const initialState = {
   branches: [],
   shippingCost: 0,
   order: {},
+  productCartCount: 0,
   cities: [
     {
       CityName: 'Kyiv',
@@ -58,7 +60,6 @@ export const cartReducer = (state = initialState, {type, payload}) => {
     (sum, curr) => sum + curr.cartQuantity * curr.product.currentPrice,
     0
   )
-
   switch (type) {
     case ADD_TO_CART:
     case DECREASE_QUANTITY:
@@ -67,20 +68,21 @@ export const cartReducer = (state = initialState, {type, payload}) => {
       return {
         ...state,
         products: payload.products,
-        summary: summaryTotalItems(payload)
-      }
-    case CLEAR_CART:
-      return {
-        ...state,
-        products: [],
-        summary: 0,
-        shippingCost: 0,
+        summary: summaryTotalItems(payload),
+        productCartCount: payload.products.reduce(
+          (sum, curr) => sum + curr.cartQuantity,
+          0
+        ),
       }
     case SET_CART:
       return {
         ...state,
         products: payload.products,
         customer: payload.customerId || {},
+        productCartCount: payload.products.reduce(
+          (sum, curr) => sum + curr.cartQuantity,
+          0
+        ),
         summary: summaryTotalItems(payload)
       }
     case SET_CART_SUMMARY:
@@ -108,6 +110,14 @@ export const cartReducer = (state = initialState, {type, payload}) => {
       return {
         ...state,
         order: payload,
+      }
+    case CLEAR_CART:
+      return {
+        ...state,
+        products: [],
+        summary: 0,
+        shippingCost: 0,
+        productCartCount: 0,
       }
     case CLEAR_ORDER:
       return {
