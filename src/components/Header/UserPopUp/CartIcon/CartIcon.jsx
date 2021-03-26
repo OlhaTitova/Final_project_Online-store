@@ -10,9 +10,14 @@ const CartIcon = connect(mapStateToProps, null)(({productCartCount}) => (
   <CartWrapper>
     <Link to="/cart">
       <ShoppingCartOutlinedStyled />
-      <StyledCount>
-        {productCartCount}
-      </StyledCount>
+      {productCartCount > 0
+        ? (
+          <StyledCount>
+            {productCartCount}
+          </StyledCount>
+        )
+        : null}
+      
     </Link>
   </CartWrapper>
 ))

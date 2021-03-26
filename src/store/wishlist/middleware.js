@@ -28,7 +28,7 @@ const removeProductFromLS = (product) => {
 
 const getItemsFromDB = () => {
   const headers = getHeaders()
-  const res = axios.get(BASE_ENDPOINT, { headers })
+  return axios.get(BASE_ENDPOINT, { headers })
     .then((response) => response)
     .catch((err) => err.response)
 }
