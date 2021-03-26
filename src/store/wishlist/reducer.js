@@ -1,12 +1,12 @@
 import UPDATE_WISHLIST from './actionType'
 
 export const MODULE_NAME = 'wishlist'
-export const selectWishlistItems = (state) => state[MODULE_NAME].wishitstItems
-export const selectWishlistLength = (state) => state[MODULE_NAME].wishitstLength
+export const selectWishlistItems = (state) => state[MODULE_NAME].wishlistItems
+export const selectWishlistLength = (state) => state[MODULE_NAME].wishlistLength
 
 export const initialState = {
-  wishitstItems: [],
-  wishitstLength: 0
+  wishlistItems: [],
+  wishlistLength: 0
 }
 
 export const reducer = (state = initialState, { type, payload }) => {
@@ -14,10 +14,12 @@ export const reducer = (state = initialState, { type, payload }) => {
     case UPDATE_WISHLIST:
       return {
         ...state,
-        wishitstItems: payload.wishitstItems,
-        wishitstLength: payload.wishitstLength
+        wishlistItems: payload.wishlistItems,
+        wishlistLength: payload.wishlistLength
       }
     default:
-      return state
+      return {
+        ...state
+      }
   }
 }

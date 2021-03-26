@@ -2,7 +2,7 @@ import { PhoneFilled } from '@ant-design/icons';
 import styled from 'styled-components';
 import { forDesktop } from '../../../styles/mediaBreakPoints';
 
-const StyledCheckAvailabilityWrapper = styled.div`
+export const StyledCheckAvailabilityWrapper = styled.div`
   display: flex;
   align-items: center;
 `
@@ -19,9 +19,12 @@ export const StyledCheckAvailabilityIcon = styled(PhoneFilled)`
   }
 `
 
-export const StyledCheckAvailabilityText = styled.span`
+export const StyledCheckAvailabilityBtn = styled.button`
   margin-left: 5px;
   font-size: 10px;
+  border: none;
+  text-decoration: underline;
+  background-color: transparent;
   text-transform: lowercase;
   color: #C94D3F;
 
@@ -29,5 +32,3 @@ export const StyledCheckAvailabilityText = styled.span`
     font-size: 12px;
   }
 `
-
-export default StyledCheckAvailabilityWrapper;

@@ -1,11 +1,13 @@
 import React from 'react';
-import StyledCheckAvailabilityWrapper, { StyledCheckAvailabilityIcon, StyledCheckAvailabilityText } from './StyledCheckAvailability';
+import { connect } from 'react-redux';
+import { StyledCheckAvailabilityWrapper, StyledCheckAvailabilityIcon, StyledCheckAvailabilityBtn } from './StyledCheckAvailability';
+import { showModal } from '../../../store/subscriceOnProductModal/middleware'
 
-export const CheckAvailability = () => (
-  <StyledCheckAvailabilityWrapper>
+export const CheckAvailability = connect(null, { showModal })(({ showModal }) => (
+  <StyledCheckAvailabilityWrapper onClick={showModal}>
     <StyledCheckAvailabilityIcon />
-    <StyledCheckAvailabilityText>check availability</StyledCheckAvailabilityText>
+    <StyledCheckAvailabilityBtn>check availability</StyledCheckAvailabilityBtn>
   </StyledCheckAvailabilityWrapper>
-)
+))
 
 export default CheckAvailability;

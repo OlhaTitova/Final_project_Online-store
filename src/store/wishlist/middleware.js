@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable no-underscore-dangle */
 import axios from 'axios'
 import { DOMAIN, getHeaders } from '../general'
@@ -49,8 +48,8 @@ export const setWishlist = () => async (dispatch, getState) => {
   }
 
   const dataToAdd = {
-    wishitstItems: itemsToSet,
-    wishitstLength: itemsToSet.length
+    wishlistItems: itemsToSet,
+    wishlistLength: itemsToSet.length
   }
   dispatch(updateWishlistCreator(dataToAdd))
 }
@@ -75,8 +74,8 @@ export const addProductToWishlist = (product) => async (dispatch, getState) => {
     updatedList.push(...updatedItems)
   }
   const dataToAdd = {
-    wishitstItems: updatedList,
-    wishitstLength: updatedList.length
+    wishlistItems: updatedList,
+    wishlistLength: updatedList.length
   }
   dispatch(updateWishlistCreator(dataToAdd))
 }
@@ -102,8 +101,8 @@ export const removeProductFromWishlist = (product) => async (dispatch, getState)
   }
 
   const dataToAdd = {
-    wishitstItems: updatedList,
-    wishitstLength: updatedList.length
+    wishlistItems: updatedList,
+    wishlistLength: updatedList.length
   }
   dispatch(updateWishlistCreator(dataToAdd))
 }
@@ -121,8 +120,8 @@ export const compareLSItemsAndDBItems = () => async (dispatch) => {
     if (!check) uniqueList.push(el)
   })
   const dataToAdd = {
-    wishitstItems: uniqueList,
-    wishitstLength: uniqueList.length
+    wishlistItems: uniqueList,
+    wishlistLength: uniqueList.length
   }
   dispatch(updateWishlistCreator(dataToAdd))
 
