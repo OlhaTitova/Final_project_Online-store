@@ -259,5 +259,5 @@ export const addLSToServer = () => async (dispatch) => {
         dispatch(addToCartCreator(updatedCart.data));
       }
     })
-    .catch((error) => console.log(error.response))
+    .catch((error) => error.response)
 }

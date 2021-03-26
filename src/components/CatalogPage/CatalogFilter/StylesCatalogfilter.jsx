@@ -29,7 +29,7 @@ export const Wrapper = styled.aside`
       top: 0%;
       left: -100%;
       width: 100%;
-      height: calc(100% - 80px);
+      height: calc(100% - 70px);
       overflow: auto;
       background: #ECECEC;
       transition: all 0.5s ease-out;
@@ -68,7 +68,7 @@ export const FilterTitle = styled.div`
 `;
 
 export const StyledCheckbox = styled(Checkbox)`
-  width: 100%;
+  width: 100% !important;
   padding: 10px;
   margin-left: 0 !important;
   &.ant-checkbox-wrapper-checked{
@@ -113,7 +113,6 @@ export const AllBrandsTitle = styled.div`
   }
   @media(min-width: 592px) {
     border-top: 7px solid white;
-    margin-top: 50px;
     height: 60px;
     width: 100%;
     display: flex;

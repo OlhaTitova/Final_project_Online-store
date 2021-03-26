@@ -21,6 +21,7 @@ const CatalogPage = () => {
       <Heading>Products</Heading>
       <Flex>
         <CatalogFilter
+          filter={filter}
           setFilter={setFilter}
           showFilter={showFilter}
           setShowFilter={setShowFilter}

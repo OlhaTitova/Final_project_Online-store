@@ -30,8 +30,7 @@ const getItemsFromDB = () => {
   const headers = getHeaders()
   const res = axios.get(BASE_ENDPOINT, { headers })
     .then((response) => response)
-    .catch((err) => console.log(err.response))
-  return res
+    .catch((err) => err.response)
 }
 
 export const setWishlist = () => async (dispatch, getState) => {
@@ -39,8 +38,12 @@ export const setWishlist = () => async (dispatch, getState) => {
   const itemsToSet = []
   
   if (isLogin) {
-    const { data, status } = await getItemsFromDB()
+    const response = await getItemsFromDB()
+    const { data, status } = response
     if (data && status === 200) itemsToSet.push(...data.products)
+    else {
+      itemsToSet.push(...getParsedListFromLS())
+    }
   } else {
     itemsToSet.push(...getParsedListFromLS())
   }
