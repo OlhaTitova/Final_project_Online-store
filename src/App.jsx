@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Route, Switch } from 'react-router-dom'
 import { connect } from 'react-redux'
 import CreateCustomerPage from './components/CreateCustomerPage/CreateCustomerPage'
@@ -18,11 +18,25 @@ import WishlistPage from './components/WishlistPage/WishlistPage'
 import { setWishlist } from './store/wishlist/middleware'
 import {CartPage} from './components/CartPage/CartPage'
 import OrderPage from './components/OrderPage/OrderPage'
+import {authLogIn} from './store/auth/middleware'
+import { setRefreshTimer } from './store/auth/actionCreator'
 
-const App = connect(null, { setWishlist})(({ setWishlist}) => {
+const App = connect(null, { authLogIn, setRefreshTimer, setWishlist})(({
+  authLogIn,
+  setWishlist,
+  setRefreshTimer
+}) => {
   window.addEventListener('DOMContentLoaded', () => {
     setWishlist()
   })
+
+  useEffect(() => {
+    if (localStorage.getItem('credentials')) {
+      setRefreshTimer(setInterval(() => {
+        authLogIn(JSON.parse(localStorage.getItem('credentials')))
+      }, 1800000))
+    }
+  }, [authLogIn, setRefreshTimer])
 
   return (
     <div>

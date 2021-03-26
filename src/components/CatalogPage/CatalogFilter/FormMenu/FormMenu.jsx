@@ -7,7 +7,7 @@ import { brands as defBrands, categories as defCategories, checkFilterConfig } f
 import { StyledCheckbox } from '../StylesCatalogfilter'
 
 export const FormMenu = ({filter}) => {
-  const [{brands, categories}, setConfig] = useState({brands: defBrands, categories: defCategories})
+  const [{brand, categories}, setConfig] = useState({brand: defBrands, categories: defCategories})
 
   const checkConfig = async (filter) => {
     const newConfig = filter.categories ? await checkFilterConfig(filter) : {}
@@ -16,7 +16,7 @@ export const FormMenu = ({filter}) => {
         ...prev,
         ...newConfig
       }))
-    } else setConfig({brands: defBrands, categories: defCategories})
+    } else setConfig({brand: defBrands, categories: defCategories})
   }
 
   useEffect(() => {
@@ -42,7 +42,7 @@ export const FormMenu = ({filter}) => {
       <Menu.SubMenu key="brands" title="Brand">
         <Form.Item name="brand" noStyle>
           <Checkbox.Group style={{width: '100%'}}>
-            {brands?.map(({value, title}) => (
+            {brand?.map(({value, title}) => (
               <StyledCheckbox
                 key={value}
                 value={value}

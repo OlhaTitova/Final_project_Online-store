@@ -35,9 +35,9 @@ const CatalogSort = ({config, setSortAndPagination, setShowFilter}) => {
       <SelectWrapper>
         <span className="title-select">Show:</span>
         <StyledSelect bordered={false} onChange={(value) => onChange(value, 'perPage')} defaultValue={perPage}>
-          <Select.Option value="15">15 per page</Select.Option>
-          <Select.Option value="30">30 per page</Select.Option>
-          <Select.Option value="45">45 per page</Select.Option>
+          <Select.Option value="16">16 per page</Select.Option>
+          <Select.Option value="32">32 per page</Select.Option>
+          <Select.Option value="48">48 per page</Select.Option>
           <Select.Option value="60">60 per page</Select.Option>
         </StyledSelect>
       </SelectWrapper>
