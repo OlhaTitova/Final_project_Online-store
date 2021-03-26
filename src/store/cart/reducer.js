@@ -56,6 +56,7 @@ const initialState = {
 }
 
 export const cartReducer = (state = initialState, {type, payload}) => {
+  console.log(payload)
   const summaryTotalItems = (payload) => payload.products.reduce(
     (sum, curr) => sum + curr.cartQuantity * curr.product.currentPrice,
     0
@@ -78,11 +79,11 @@ export const cartReducer = (state = initialState, {type, payload}) => {
       return {
         ...state,
         products: payload.products,
+        customer: payload.customerId || {},
         productCartCount: payload.products.reduce(
           (sum, curr) => sum + curr.cartQuantity,
           0
         ),
-        customer: payload.customerId || {},
         summary: summaryTotalItems(payload)
       }
     case SET_CART_SUMMARY:

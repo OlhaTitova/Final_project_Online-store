@@ -10,20 +10,22 @@ import 'antd/dist/antd.css';
 import { connect } from 'react-redux';
 import {authLogIn} from '../../../store/auth/middleware';
 import { compareLSItemsAndDBItems } from '../../../store/wishlist/middleware'
-import {addLSToServer} from '../../../store/cart/middleware'
+import {addLSToServer, getCart} from '../../../store/cart/middleware'
 import {setRefreshTimer} from '../../../store/auth/actionCreator'
 
 const AuthForm = connect(null, {
   authLogIn,
   setRefreshTimer,
   compareLSItemsAndDBItems,
-  addLSToServer
+  addLSToServer,
+  getCart
 })((
   {
     authLogIn,
     compareLSItemsAndDBItems,
     setRefreshTimer,
-    addLSToServer
+    addLSToServer,
+    getCart
   }
 ) => {
   const startInterval = () => (
@@ -43,6 +45,7 @@ const AuthForm = connect(null, {
       setRefreshTimer(startInterval())
       localStorage.setItem('token', data.token)
       addLSToServer()
+      getCart()
       history.push('/')
       compareLSItemsAndDBItems()
     }
