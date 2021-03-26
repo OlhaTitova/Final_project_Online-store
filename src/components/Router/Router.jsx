@@ -15,15 +15,16 @@ import WishlistPage from '../WishlistPage/WishlistPage'
 import {CartPage} from '../CartPage/CartPage'
 import OrderPage from '../OrderPage/OrderPage'
 import NoMatchPage from '../NoMatchPage/NoMatchPage'
+import { Catalog } from '../MainCatalog/Catalog'
 
 const Router = () => (
   <Switch>
     <Route exact path="/">
       <BannerSlider />
       <NewProductsSlider />
+      <Catalog />
       <HomepageBrands />
       <HomepageFollowUs />
-      {/* <MainCatalog /> */}
     </Route>
     <Route exact path="/signin">
       <LogIn />

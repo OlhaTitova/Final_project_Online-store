@@ -55,7 +55,7 @@ export const ProductCard = connect(null, { addToCart })((
   // getting an average rating and the number of reviews left
   const { reviewsQuantity, rating } = rateCalculator(reviews)
   return (
-    <CardItem hideBorder={hideBorder}>
+    <CardItem hideBorder={hideBorder} className="hidden">
 
       <Link to={`products/${itemNo}`}>
         <ImageWrapper>

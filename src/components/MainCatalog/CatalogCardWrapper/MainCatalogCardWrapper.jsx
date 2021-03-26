@@ -1,10 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { StyledMainCatalogCardWrapper } from '../StyledMainCatalog'
+
+import { StyledCatalogCardWrapper } from '../StyledCatalog'
 import { ProductCard } from '../../ProductCard/ProductCard'
 
-export const MainCatalogCardWrapper = ({ productsList }) => (
-  <StyledMainCatalogCardWrapper>
+export const CatalogCardWrapper = ({ productsList }) => (
+  <StyledCatalogCardWrapper>
     {
       productsList.map((productsItem) => (
         <ProductCard
@@ -13,10 +14,10 @@ export const MainCatalogCardWrapper = ({ productsList }) => (
         />
       ))
     }
-  </StyledMainCatalogCardWrapper>
+  </StyledCatalogCardWrapper>
 )
 
-MainCatalogCardWrapper.propTypes = {
+CatalogCardWrapper.propTypes = {
   productsList: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string.isRequired.isRequired,
     imageUrls: PropTypes.arrayOf(PropTypes.string).isRequired,
@@ -28,4 +29,4 @@ MainCatalogCardWrapper.propTypes = {
   })).isRequired
 }
 
-export default MainCatalogCardWrapper
+export default CatalogCardWrapper
