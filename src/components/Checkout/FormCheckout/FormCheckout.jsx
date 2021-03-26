@@ -19,6 +19,7 @@ import StyledButton from '../../common/Buttons/StyledButton';
 import {
   getCity, getShippingCost, PlaceOrder
 } from '../../../store/cart/middleware';
+import { selectIsLogin } from '../../../store/auth/reducer';
 
 const mapStateToProps = (state) => ({
   cities: selectCities(state),
@@ -26,7 +27,7 @@ const mapStateToProps = (state) => ({
   customer: selectCustomer(state),
   shippingCost: selectShippingCost(state),
   products: selectProducts(state),
-  isLogin: state.auth.isLogin
+  isLogin: selectIsLogin(state)
 })
 
 const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOrder})(({

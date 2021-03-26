@@ -9,21 +9,13 @@ import {
 } from 'antd';
 import { useHistory, useLocation } from 'react-router';
 import close from '../../../images/filter/close.svg';
-import WishlistBox from './WishlistBox/WishlistBox'
 // styles
 import {
   StyledForm, Wrapper, FilterTitle,
-  CloseBtn, AlignBtn, AllBrandsTitle,
-  GridFilterPart, ContainerBrandsImg, ContainerImage, GlobalStyle
+  CloseBtn, AlignBtn, ContainerImage, GlobalStyle
 } from './StylesCatalogfilter';
 import {checkFormValues} from '../../../utils/checkFormValues';
 // img
-import imageBrands1 from '../../../images/filter/imageBrands1.svg';
-import imageBrands2 from '../../../images/filter/imageBrands2.svg';
-import imageBrands3 from '../../../images/filter/imageBrands3.svg';
-import imageBrands4 from '../../../images/filter/imageBrands4.svg';
-import imageBrands5 from '../../../images/filter/imageBrands5.svg';
-import imageBrands6 from '../../../images/filter/imageBrands6.svg';
 import styl from '../../../images/filter/styl.svg';
 import StyledButton from '../../common/Buttons/StyledButton'
 import {FormMenu} from './FormMenu/FormMenu';
@@ -114,30 +106,6 @@ const CatalogFilter = ({
             Apply Filter
           </StyledButton>
         </AlignBtn>
-        <AllBrandsTitle>
-          <h5>All Brands</h5>
-        </AllBrandsTitle>
-        <GridFilterPart>
-          <ContainerBrandsImg>
-            <img src={imageBrands1} alt="imageBrands1" />
-          </ContainerBrandsImg>
-          <ContainerBrandsImg>
-            <img src={imageBrands2} alt="imageBrands2" />
-          </ContainerBrandsImg>
-          <ContainerBrandsImg>
-            <img src={imageBrands3} alt="imageBrands3" />
-          </ContainerBrandsImg>
-          <ContainerBrandsImg>
-            <img src={imageBrands4} alt="imageBrands4" />
-          </ContainerBrandsImg>
-          <ContainerBrandsImg>
-            <img src={imageBrands5} alt="imageBrands5" />
-          </ContainerBrandsImg>
-          <ContainerBrandsImg>
-            <img src={imageBrands6} alt="imageBrands6" />
-          </ContainerBrandsImg>
-        </GridFilterPart>
-        <WishlistBox />
         <ContainerImage>
           <img src={styl} alt="styl" />
         </ContainerImage>

@@ -19,16 +19,30 @@ import { setWishlist } from './store/wishlist/middleware'
 import {CartPage} from './components/CartPage/CartPage'
 import OrderPage from './components/OrderPage/OrderPage'
 import { getCart } from './store/cart/middleware'
+import {authLogIn} from './store/auth/middleware'
+import { setRefreshTimer } from './store/auth/actionCreator'
 
-const App = connect(null, { setWishlist, getCart})(({
+const App = connect(null, {
+  authLogIn, setRefreshTimer, setWishlist, getCart
+})(({
+  authLogIn,
   setWishlist,
-  getCart
+  setRefreshTimer,
+  getCart,
 }) => {
   useEffect(() => {
     setWishlist()
     getCart()
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  useEffect(() => {
+    if (localStorage.getItem('credentials')) {
+      setRefreshTimer(setInterval(() => {
+        authLogIn(JSON.parse(localStorage.getItem('credentials')))
+      }, 1800000))
+    }
+  }, [authLogIn, setRefreshTimer])
 
   return (
     <div>

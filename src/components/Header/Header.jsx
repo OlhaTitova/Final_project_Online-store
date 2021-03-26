@@ -136,7 +136,7 @@ const Header = () => {
           openCloseMenu={openCloseMenu}
         />
         
-        <SearchProducts hideInput={hideInput} setHideInput={setHideInput} />
+        <SearchProducts hideInput={hideInput} setHideInput={toggleShow} />
 
         {/* mediaSearch */}
         <SearchOutlinedStyledMedia onClick={toggleShow} />

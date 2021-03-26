@@ -91,7 +91,7 @@ export const brands = SortArr([
 export const checkFilterConfig = async (param) => {
   let paramStr = ''
   const menuConfig = {
-    brands: [],
+    brand: [],
   }
   Object.keys(param).forEach((key, index) => {
     if (index === 0) {
@@ -110,11 +110,11 @@ export const checkFilterConfig = async (param) => {
 
       if (param.categories) {
         brands.forEach(((brand) => {
-          if (refBrand.has(brand.value)) {
-            menuConfig.brands.push(brand)
+          if (refBrand.has(brand.value) || param.brand.includes(brand.value)) {
+            menuConfig.brand.push(brand)
           }
         }))
-      } else delete menuConfig.brands
+      } else delete menuConfig.brand
       return products
     })
     .catch((error) => error)

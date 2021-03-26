@@ -11,16 +11,28 @@ import { connect } from 'react-redux';
 import {authLogIn} from '../../../store/auth/middleware';
 import { compareLSItemsAndDBItems } from '../../../store/wishlist/middleware'
 import {addLSToServer} from '../../../store/cart/middleware'
+import {setRefreshTimer} from '../../../store/auth/actionCreator'
 
-const AuthForm = connect(null, { authLogIn, compareLSItemsAndDBItems, addLSToServer })((
+const AuthForm = connect(null, {
+  authLogIn,
+  setRefreshTimer,
+  compareLSItemsAndDBItems,
+  addLSToServer
+})((
   {
     authLogIn,
     compareLSItemsAndDBItems,
-    addLSToServer,
+    setRefreshTimer,
+    addLSToServer
   }
 ) => {
-  const formLayout = 'vertical'
+  const startInterval = () => (
+    setInterval(() => {
+      authLogIn(JSON.parse(localStorage.getItem('credentials')))
+    }, 1800000)
+  )
 
+  const formLayout = 'vertical'
   const [error, setError] = useState({})
   const history = useHistory()
 
@@ -28,6 +40,7 @@ const AuthForm = connect(null, { authLogIn, compareLSItemsAndDBItems, addLSToSer
     const {status, data} = await authLogIn(values)
 
     if (status === 200) {
+      setRefreshTimer(startInterval())
       localStorage.setItem('token', data.token)
       addLSToServer()
       history.push('/')
@@ -87,6 +100,10 @@ const AuthForm = connect(null, { authLogIn, compareLSItemsAndDBItems, addLSToSer
           {
             required: true,
             message: 'Please input your password!',
+          },
+          {
+            pattern: /^[a-zа0-9]+$/i,
+            message: 'Allowed characters is a-z, 0-9'
           },
           {
             min: 8,
