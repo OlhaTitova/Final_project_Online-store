@@ -8,6 +8,7 @@ import ProductSubscribeModal from './components/ProductSubscribeModal/ProductSub
 import Router from './components/Router/Router'
 import {authLogIn} from './store/auth/middleware'
 import { setRefreshTimer } from './store/auth/actionCreator'
+import ServiceSection from './components/ServiceSection/ServiceSection'
 
 const App = connect(null, {
   authLogIn, setRefreshTimer, setWishlist, getCart
@@ -33,6 +34,7 @@ const App = connect(null, {
       <Header />
       <ProductSubscribeModal />
       <Router />
+      <ServiceSection />
       <Footer />
     </div>
   )

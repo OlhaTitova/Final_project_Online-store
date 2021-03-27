@@ -2,7 +2,7 @@ import {
   RightOutlined,
   CloseOutlined
 } from '@ant-design/icons';
-import {motion} from 'framer-motion';
+import { motion } from 'framer-motion';
 import styled, { css } from 'styled-components';
 import {forDesktop} from '../../../styles/mediaBreakPoints';
 
