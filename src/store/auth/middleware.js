@@ -14,6 +14,7 @@ export const authLogIn = (credentials) => async (dispatch) => {
     .then((data) => {
       if (data.status === 200) {
         localStorage.setItem('credentials', JSON.stringify(credentials))
+        localStorage.setItem('token', data.data.token)
         dispatch(logIn())
       }
       return data

@@ -23,6 +23,7 @@ const App = connect(null, {
     getCart()
 
     if (localStorage.getItem('credentials')) {
+      authLogIn(JSON.parse(localStorage.getItem('credentials')))
       setRefreshTimer(setInterval(() => {
         authLogIn(JSON.parse(localStorage.getItem('credentials')))
       }, 1800000))

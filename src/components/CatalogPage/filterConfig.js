@@ -29,7 +29,7 @@ export const categories = SortArr([
   },
   {
     value: 'desctops',
-    title: 'Desctops'
+    title: 'Desktops'
   }
 ])
 
@@ -108,9 +108,9 @@ export const checkFilterConfig = async (param) => {
         if (product.brand) refBrand.add(product.brand)
       })
 
-      if (param.categories) {
+      if (param.categories.length) {
         brands.forEach(((brand) => {
-          if (refBrand.has(brand.value) || param.brand.includes(brand.value)) {
+          if (refBrand.has(brand.value) || param?.brand?.includes(brand.value)) {
             menuConfig.brand.push(brand)
           }
         }))

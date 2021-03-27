@@ -43,7 +43,6 @@ const AuthForm = connect(null, {
 
     if (status === 200) {
       setRefreshTimer(startInterval())
-      localStorage.setItem('token', data.token)
       addLSToServer()
       getCart()
       history.push('/')

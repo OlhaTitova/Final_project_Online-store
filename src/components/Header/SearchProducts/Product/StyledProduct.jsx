@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { forMobile } from '../../../../styles/mediaBreakPoints';
+import { forMobile, forTablet } from '../../../../styles/mediaBreakPoints';
 
 export const ProductWrapper = styled.div`
     display: flex;
@@ -22,12 +22,15 @@ export const ProductImg = styled.div`
 `
 
 export const ProductInfo = styled.div`
-    width: 60%;
+    width: 80%;
     display: flex;
     flex-direction: column;
     text-align: start;
     justify-content: space-between;
-    padding: 10px 0
+    padding: 10px 0;
+    @media (min-width: ${forTablet.minWidth}px) {
+        width: 60%;
+    }
 `
 
 export const ProductDescription = styled.div`
@@ -38,12 +41,15 @@ export const ProductDescription = styled.div`
 `
 
 export const PriceWrapper = styled.div`
-    display: flex;
-    flex-direction: column;
-    width: 20%;
-    height: 100%;
-    align-items: center;
-    justify-content: center;
+    display: none;
+    @media (min-width: ${forTablet.minWidth}px) {
+        display: flex;
+        flex-direction: column;
+        width: 20%;
+        height: 100%;
+        align-items: center;
+        justify-content: center;
+    }
 `
 
 export const ProductFullPrice = styled.div`

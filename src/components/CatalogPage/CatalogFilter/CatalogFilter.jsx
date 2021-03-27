@@ -28,10 +28,9 @@ const layout = {
 const CatalogFilter = ({
   showFilter, setShowFilter, setFilter, filter
 }) => {
-  const {pathname} = useLocation()
+  const {search} = useLocation()
   const history = useHistory()
   const formRef = createRef()
-
   const [form] = Form.useForm();
 
   const onFinish = (values) => {
@@ -59,22 +58,25 @@ const CatalogFilter = ({
     }
   ]), [filter])
 
-  const checkPathToConfig = useCallback((pathname) => {
-    const [key, value] = pathname.split('/').splice(2)[0].split('=')
-    if (value) {
-      setFilter((prev) => ({
-        ...prev,
-        [key]: value.split(',')
-      }))
-    }
+  const checkPathToConfig = useCallback((search) => {
+    const refSearch = {}
+    const params = search?.split('?').splice(1)[0].split('&')
+    params?.forEach((param) => {
+      const [key, value] = param.split('=')
+      refSearch[key] = value.split(',')
+    })
+    setFilter((prev) => ({
+      ...prev,
+      ...refSearch
+    }))
   }, [setFilter])
   
   useEffect(() => {
-    if (pathname !== '/catalog') {
-      checkPathToConfig(pathname)
+    if (search !== '') {
+      checkPathToConfig(search)
       history.push('/catalog')
     }
-  }, [checkPathToConfig, filter, history, pathname])
+  }, [checkPathToConfig, search, history])
 
   return (
     <StyledForm ref={formRef} fields={fields} form={form} {...layout} onFinish={onFinish}>

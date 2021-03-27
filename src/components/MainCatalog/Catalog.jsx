@@ -39,7 +39,7 @@ export const Catalog = connect(mapStateToProps, { getMainCatalogProducts })(({
           billboardInfo={{
             title: 'gaming monitors',
             img: 'https://fuzzmusic.ru/wp-content/uploads/2020/08/pesni-iz-igry-kiberpank-2077-1.jpg',
-            url: '/catalog'
+            url: '/catalog?categories=gamingMonitors'
           }}
         />
         <CatalogCardWrapper
@@ -52,7 +52,7 @@ export const Catalog = connect(mapStateToProps, { getMainCatalogProducts })(({
           billboardInfo={{
             title: 'desktops',
             img: 'https://merchandising-assets.bestbuy.ca/bltc8653f66842bff7f/blt3ce6d340560cf08f/5e71863623ff3341c4f5aba8/computing-evergreen-feature-gaming-desktop-orientation-s.jpg?width=2877&quality=80',
-            url: '/catalog'
+            url: '/catalog?categories=desctops'
           }}
         />
         <CatalogCardWrapper
@@ -65,7 +65,7 @@ export const Catalog = connect(mapStateToProps, { getMainCatalogProducts })(({
           billboardInfo={{
             title: 'laptops',
             img: 'https://www.xmg.gg/wp-content/uploads/XMG_Pro-15_gg_Rotationsbanner_EN_Desktop.jpg',
-            url: '/catalog'
+            url: '/catalog?categories=laptops'
           }}
         />
         <CatalogCardWrapper
@@ -78,7 +78,7 @@ export const Catalog = connect(mapStateToProps, { getMainCatalogProducts })(({
           billboardInfo={{
             title: 'tablets',
             img: 'https://cdn.pixabay.com/photo/2015/06/24/15/45/hands-820272_1280.jpg',
-            url: '/catalog'
+            url: '/catalog?categories=tablets'
           }}
         />
         <CatalogCardWrapper
