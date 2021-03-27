@@ -3,14 +3,17 @@ import {
   GET_GAMING_MONITORS, GET_LAPTOPS, GET_TABLETS
 } from './actionTypes'
 
+export const MODULE_NAME = 'mainCatalog'
+export const selectCatalog = (state) => state[MODULE_NAME]
+
 const initialState = {
   gamingMonitorList: [],
-  desktops: [],
+  desktopList: [],
   laptopList: [],
   tabletList: []
 }
 
-export const reducer = (state = initialState, { type, payload }) => {
+export const mainCatalogReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case GET_GAMING_MONITORS:
       return {
@@ -21,7 +24,7 @@ export const reducer = (state = initialState, { type, payload }) => {
     case GET_DESKTOPS:
       return {
         ...state,
-        desktops: payload
+        desktopList: payload
       }
 
     case GET_LAPTOPS:
@@ -41,4 +44,4 @@ export const reducer = (state = initialState, { type, payload }) => {
   }
 }
 
-export default reducer
+export default mainCatalogReducer

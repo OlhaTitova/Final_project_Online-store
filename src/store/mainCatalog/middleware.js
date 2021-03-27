@@ -1,35 +1,47 @@
 import axios from 'axios';
-import {
-  getGamingMonitorsCreater,
-  getDesctopsCreater,
-  getLaptopsCreater,
-  getTabletsCreater
-} from './actionCreator';
+import { getMainCatalogCreater } from './actionCreator';
+import { DOMAIN } from '../general';
 
 export const getMainCatalogProducts = () => (dispatch) => {
-  axios.get('/products')
+  axios.get(`${DOMAIN}/products`)
     .then((data) => {
       const gamingMonitorList = []
+      const desctopsList = []
       const laptopList = []
       const tabletList = []
-      const desctopsList = []
 
       data.data.forEach((product) => {
         switch (product.categories) {
           case 'gamingMonitors':
-            gamingMonitorList.push(product)
+            if (
+              gamingMonitorList.length < 4
+              && product.quantity > 0
+              && product.newProduct === 'no'
+            ) gamingMonitorList.push(product)
             break
 
           case 'desctops':
-            desctopsList.push(product)
+            if (
+              desctopsList.length < 4
+              && product.quantity > 0
+              && product.newProduct === 'no'
+            ) desctopsList.push(product)
             break
 
           case 'laptops':
-            laptopList.push(product)
+            if (
+              laptopList.length < 4
+              && product.quantity > 0
+              && product.newProduct === 'no'
+            ) laptopList.push(product)
             break
 
           case 'tablets':
-            tabletList.push(product)
+            if (
+              tabletList.length < 4
+              && product.quantity > 0
+              && product.newProduct === 'no'
+            ) tabletList.push(product)
             break
 
           default:
@@ -39,10 +51,14 @@ export const getMainCatalogProducts = () => (dispatch) => {
         return null
       })
 
-      dispatch(getGamingMonitorsCreater(gamingMonitorList))
-      dispatch(getDesctopsCreater(desctopsList))
-      dispatch(getLaptopsCreater(laptopList))
-      dispatch(getTabletsCreater(tabletList))
+      const combinePayload = {
+        gamingMonitorList,
+        desctopsList,
+        laptopList,
+        tabletList
+      }
+
+      dispatch(getMainCatalogCreater(combinePayload))
     })
     .catch((error) => error.response)
 }
