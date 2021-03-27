@@ -6,7 +6,6 @@ import storage from 'redux-persist/lib/storage'
 import { MODULE_NAME as authModule, reducer as authReducer } from './auth/reducer';
 import { MODULE_NAME as cart, cartReducer } from './cart/reducer'
 import { MODULE_NAME as productsModule, reducer as productsReducer } from './products/reducer';
-import { subscribersReducer } from './createSubscribe/reducer'
 import { MODULE_NAME as wishlistModule, reducer as wishlistReducer } from './wishlist/reducer'
 import { MODULE_NAME as mainCatalog, mainCatalogReducer} from './mainCatalog/reducer';
 import { MODULE_NAME as subscribeModalModule, reducer as subscribeModalReducer } from './subscriceOnProductModal/reducer'
@@ -22,7 +21,6 @@ const rootReducer = combineReducers({
   [authModule]: persistedAuthReducer,
   [cart]: cartReducer,
   [productsModule]: productsReducer,
-  subscribe: subscribersReducer,
   [wishlistModule]: wishlistReducer,
   [mainCatalog]: mainCatalogReducer,
   [subscribeModalModule]: subscribeModalReducer

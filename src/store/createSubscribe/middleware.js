@@ -1,19 +1,21 @@
 import axios from 'axios'
-import { createSubscribe, createSubscribeSuccess, createSubscribeError } from './actionCreator'
+import { message } from 'antd'
 import { DOMAIN } from '../general'
 
 const BASE_ENDPOINT = `${DOMAIN}/subscribers`
 
-const createNewSubscribe = (newSubscriber) => async (dispatch) => {
-  dispatch(createSubscribe())
-
-  axios.post(BASE_ENDPOINT, newSubscriber)
+const createNewSubscribe = (credentials) => {
+  axios.post(BASE_ENDPOINT, credentials,)
     .then((response) => {
-      console.log(response)
-      dispatch(createSubscribeSuccess(response.data))
+      if (response.status === 200) {
+        message.info('You have been subscribed to updates!')
+      }
     })
-    .catch((err) => {
-      dispatch(createSubscribeError(err.response))
+    .catch((error) => {
+      if (error.response) {
+        const requestMessage = error.response.data.message
+        message.error(`Error: ${requestMessage}.`)
+      }
     })
 }
 export default createNewSubscribe

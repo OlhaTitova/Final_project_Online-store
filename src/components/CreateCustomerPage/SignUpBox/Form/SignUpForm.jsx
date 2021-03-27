@@ -72,9 +72,6 @@ const SignUpForm = () => {
           },
           {
             min: 2,
-            message: 'First Name must be beetwen 2 and 25 characters.'
-          },
-          {
             max: 25,
             message: 'First Name must be beetwen 2 and 25 characters.'
           }
@@ -97,9 +94,6 @@ const SignUpForm = () => {
           },
           {
             min: 2,
-            message: 'Last Name must be beetwen 2 and 25 characters.'
-          },
-          {
             max: 25,
             message: 'Last Name must be beetwen 2 and 25 characters.'
           }
