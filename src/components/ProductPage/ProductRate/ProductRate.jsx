@@ -7,20 +7,21 @@ import { getOneProduct, updateOneProduct } from '../../../store/products/middlew
 import rateCalculator from '../../../utils/rateCalculator'
 
 const ProductRate = connect(null, { updateOneProduct })(({
-  rating,
   reviews,
   productID,
   itemNo,
   updateOneProduct
 }) => {
+  const { rating, reviewsQuantity } = rateCalculator(reviews)
+
   const [rate, setRate] = useState(rating)
-  const [reviewsCount, setReviewsCount] = useState(reviews)
+  const [reviewsCount, setReviewsCount] = useState(reviewsQuantity)
   
   const handleChange = async (value) => {
     if (value === 0) return
     setRate(value)
     const response = await getOneProduct(itemNo)
-    if (response.status !== 200) return
+    if (!response || response.status !== 200) return
     
     const product = response.data
     const reviewsArr = product.reviews
@@ -30,11 +31,11 @@ const ProductRate = connect(null, { updateOneProduct })(({
       reviews: [...reviewsArr, value]
     }
     const result = await updateOneProduct(productID, updatedProduct)
-    if (result.status !== 200) return
+    if (!result || result.status !== 200) return
     
     const newReviewsArr = result.data.reviews
-    const { reviews } = rateCalculator(newReviewsArr)
-    setReviewsCount(reviews)
+    const { reviewsQuantity } = rateCalculator(newReviewsArr)
+    setReviewsCount(reviewsQuantity)
   }
   const desc = ['terrible', 'bad', 'normal', 'good', 'wonderful']
 
@@ -47,15 +48,13 @@ const ProductRate = connect(null, { updateOneProduct })(({
       </ReviewsCount>
       <span>
         <Rate tooltips={desc} onChange={handleChange} value={rate} />
-        {rate ? <span className="ant-rate-text">{desc[rate - 1]}</span> : ''}
       </span>
     </RateBox>
   )
 })
 
 ProductRate.propTypes = {
-  rating: PropTypes.number.isRequired,
-  reviews: PropTypes.number.isRequired,
+  reviews: PropTypes.instanceOf(Array).isRequired,
   productID: PropTypes.string.isRequired,
   itemNo: PropTypes.string.isRequired,
   updateOneProduct: PropTypes.func

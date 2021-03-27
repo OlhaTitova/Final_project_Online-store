@@ -9,10 +9,32 @@ import { useHistory } from 'react-router-dom';
 import 'antd/dist/antd.css';
 import { connect } from 'react-redux';
 import {authLogIn} from '../../../store/auth/middleware';
+import { compareLSItemsAndDBItems } from '../../../store/wishlist/middleware'
+import {addLSToServer, getCart} from '../../../store/cart/middleware'
+import {setRefreshTimer} from '../../../store/auth/actionCreator'
 
-const AuthForm = connect(null, {authLogIn})(({authLogIn}) => {
+const AuthForm = connect(null, {
+  authLogIn,
+  setRefreshTimer,
+  compareLSItemsAndDBItems,
+  addLSToServer,
+  getCart
+})((
+  {
+    authLogIn,
+    compareLSItemsAndDBItems,
+    setRefreshTimer,
+    addLSToServer,
+    getCart
+  }
+) => {
+  const startInterval = () => (
+    setInterval(() => {
+      authLogIn(JSON.parse(localStorage.getItem('credentials')))
+    }, 1800000)
+  )
+
   const formLayout = 'vertical'
-
   const [error, setError] = useState({})
   const history = useHistory()
 
@@ -20,8 +42,11 @@ const AuthForm = connect(null, {authLogIn})(({authLogIn}) => {
     const {status, data} = await authLogIn(values)
 
     if (status === 200) {
-      localStorage.setItem('token', data.token)
+      setRefreshTimer(startInterval())
+      addLSToServer()
+      getCart()
       history.push('/')
+      compareLSItemsAndDBItems()
     }
 
     if (status === 400) {
@@ -79,8 +104,12 @@ const AuthForm = connect(null, {authLogIn})(({authLogIn}) => {
             message: 'Please input your password!',
           },
           {
-            min: 7,
-            message: 'Password lenght minimum 7!',
+            pattern: /^[a-zа0-9]+$/i,
+            message: 'Allowed characters is a-z, 0-9'
+          },
+          {
+            min: 8,
+            message: 'Password length must be at least 8 symbols.',
           },
         ]}
       >

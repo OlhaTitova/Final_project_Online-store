@@ -8,3 +8,6 @@ export const CartGroupBox = styled.div`
 export const FlexBox = styled.div`
     display: flex;
 `
+export const AvilableQuantityBox = styled.div`
+    margin: 10px 0 20px 0;
+`

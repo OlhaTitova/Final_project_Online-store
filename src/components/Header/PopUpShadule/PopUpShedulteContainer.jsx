@@ -15,10 +15,9 @@ const PopUpShedulteContainer = ({isOpenSheduleMenu, setisOpenSheduleMenu}) => {
       y: -250,
       opacity: 0,
       transition: {
-        delay: 0.15,
         type: 'spring',
-        stiffness: 200,
-        damping: 40
+        stiffness: 20,
+        damping: 2
       }
 
     },

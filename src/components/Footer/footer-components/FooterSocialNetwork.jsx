@@ -4,7 +4,7 @@ import { Wrapper, SocialNetwotkLink } from './footer-style-components/Styled'
 
 const FooterSocialNetwork = () => (
   <Wrapper>
-    <SocialNetwotkLink href="https://www.facebook.com/jv.russia/" target="blank">
+    <SocialNetwotkLink href="https://www.facebook.com" target="blank">
       <FacebookFilled />
     </SocialNetwotkLink>
     <SocialNetwotkLink href="https://www.instagram.com/?hl=ru" target="blank">

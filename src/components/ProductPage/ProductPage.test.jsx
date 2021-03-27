@@ -4,7 +4,7 @@ import '@testing-library/jest-dom/extend-expect'
 import { render } from '@testing-library/react'
 import { Provider } from 'react-redux'
 import { HashRouter as Router } from 'react-router-dom'
-import { shallow, configure } from 'enzyme'
+import { shallow, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16'
 import { store } from '../../store/index'
 import ProductPage from './ProductPage'
@@ -80,7 +80,7 @@ describe('All tests for Product page', () => {
 
   test('chek is rateCalculator returns object with correct keys', () => {
     const expected = {
-      reviews: 5,
+      reviewsQuantity: 5,
       rating: 5,
     }
     expect(rateCalculator([5, 5, 5, 5, 5])).toBeInstanceOf(Object)

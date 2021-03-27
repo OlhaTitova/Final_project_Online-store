@@ -1,81 +1,121 @@
 import styled from 'styled-components';
-import { forDesktop } from '../../styles/mediaBreakPoints'
+import { forDesktop, forTablet } from '../../styles/mediaBreakPoints'
 
-const StyledCardItem = styled.li`
-  list-style: none;
-  width: 215px;
-  padding: 5px 13px;
+export const CardItem = styled.div` 
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  max-width: 235px;
+  padding: 5px 8px;
 
-  @media(min-width: ${forDesktop.minWidth}px){
-    padding: 10px 24px;
+  &:hover {
+    box-shadow: 0 1px 16px rgba(0,0,0,0.12), 
+              0 2px 2px rgba(0,0,0,0.12), 
+              0 4px 4px rgba(0,0,0,0.12), 
+              0 8px 8px rgba(0,0,0,0.12),
+              0 16px 16px rgba(0,0,0,0.12);
+
+  }
+
+  @media(min-width: ${forTablet.minWidth}px) {
+    padding: 10px 15px;
   }
 `
 
-export const StyledCardImg = styled.div`
+export const ImageWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 150px;
   width: 100%;
-  height: 100px;
-
-  background-image: url(${(props) => props.url});
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-
-  margin-bottom: 5px;
-
-  @media(min-width: ${forDesktop.minWidth}px){
-    height: 150px;
-  }
-
 `
 
-export const StyledCardReviews = styled.span`
+export const CardImage = styled.img`
+  object-fit: contain;
+  width: 100%;
+  height: 100%;
+`
+
+export const ReviewsBox = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin: 9px 0;
+`
+export const RatingBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  @media(min-width: ${forDesktop.minWidth}px){
+    flex-direction: row;
+    align-items: center;
+  }
+`
+
+export const CardReviews = styled.span`
   color: #8C8C8C;
-  font-size: 10px;
-
-  margin-left: 10px;
+  font-size: 12px;
+  margin-top: 4px;
 
   @media(min-width: ${forDesktop.minWidth}px){
-    font-size: 13px;
+    margin-left: 5px;
+    margin-top: 0;
   }
 `
 
-export const StyledCardTitle = styled.h2`
+export const CardTitle = styled.h3`
   font-size: 11px;
   line-height: 16px;
+  font-weight: 500;
+  margin: 10px 0;
+  text-align: left;
+  min-height: 35px;
 
-  margin-top: 5px;
-
-  @media(min-width: ${forDesktop.minWidth}px){
+  @media(min-width: ${forTablet.minWidth}px){
     font-size: 13px;
-    line-height: 19px;
-
-    margin-top: 10px;
+    line-height: 19.5px;
+    min-height: 40px;
   }
 `
 
-export const StyledCardLastPrice = styled.p`
-  color: #666666;
-  text-decoration-line: line-through;
+export const PurchaseGroup = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 100%;
+
+  @media(min-width: ${forDesktop.minWidth}px) {
+    flex-direction: row;
+    align-items: center;
+  }
+`
+export const PriceBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+`
+
+export const CardLastPrice = styled.div`
   font-size: 12px;
+  text-decoration-line: line-through;
+  color: #666666;
 
-  margin-top: 5px;
-
-  @media(min-width: ${forDesktop.minWidth}px){
+  @media(min-width: ${forTablet.minWidth}px){
     font-size: 14px;
-    margin-top: 10px;
   }
 `
 
-export const StyledCardNowPrice = styled.p`
+export const CardCurrentPrice = styled.div`
   font-size: 14px;
   font-weight: 600;
   color: black;
-  margin-top: 3px;
 
-  @media(min-width: ${forDesktop.minWidth}px){
+  @media(min-width: ${forTablet.minWidth}px){
     font-size: 18px;
-    margin-top: 6px;
   }
 `
-
-export default StyledCardItem;

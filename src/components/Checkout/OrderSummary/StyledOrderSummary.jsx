@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import StyledSummary from '../../CartWrapper/Summary/StyledSummary'
+import StyledSummary from '../../CartPage/Summary/StyledSummary';
 
 const StyledOrderSummary = styled(StyledSummary)`
 

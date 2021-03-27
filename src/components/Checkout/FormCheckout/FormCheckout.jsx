@@ -1,27 +1,54 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable react/jsx-props-no-spreading */
-import React, {useRef} from 'react';
-import { Form, Input, Select} from 'antd';
-import { connect } from 'react-redux';
+import React, {useMemo, useRef, useState} from 'react';
+import PropTypes from 'prop-types';
 import {
-  selectBranches, selectCities, selectCustomer,
+  Form, Input, Radio, Row, Select
+} from 'antd';
+import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom/';
+import {
+  selectBranches,
+  selectCities,
+  selectCustomer,
+  selectProducts,
+  selectShippingCost
 } from '../../../store/cart/reducer';
-import { getCity, getShippingCost } from '../../../store/cart/middleware';
+import {StyledRadio, StyledShippingTitle} from '../StyledCheckout';
+import StyledButton from '../../common/Buttons/StyledButton';
+import {
+  getCity, getShippingCost, PlaceOrder
+} from '../../../store/cart/middleware';
+import { selectIsLogin } from '../../../store/auth/reducer';
 
 const mapStateToProps = (state) => ({
   cities: selectCities(state),
   branches: selectBranches(state),
   customer: selectCustomer(state),
+  shippingCost: selectShippingCost(state),
+  products: selectProducts(state),
+  isLogin: selectIsLogin(state)
 })
 
-const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost})(({
-  cities, branches, customer, getCity, getShippingCost
+const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOrder})(({
+  cities, branches, customer, getCity, getShippingCost, shippingCost, PlaceOrder, isLogin, products
 }) => {
-  const senderCityRef = useRef();
   const recipientCityRef = useRef();
+  const countryRef = useRef();
+  const branchName = useRef();
 
-  const getShippingCostHandler = () => {
-    getShippingCost(senderCityRef, recipientCityRef)
-  }
+  const [valuePaymentInfo, setValuePaymentInfo] = useState('Cash');
+
+  const onChange = (e) => {
+    setValuePaymentInfo(e.target.value);
+  };
+
+  const history = useHistory()
+
+  const onFinish = (values) => {
+    PlaceOrder(products, isLogin, values, customer, shippingCost, valuePaymentInfo)
+    history.push('/order')
+  };
 
   const formLayout = {
     labelCol: {
@@ -29,7 +56,7 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost})(({
         span: 24,
       },
       sm: {
-        span: 8,
+        span: 6,
       },
       md: {
         span: 8,
@@ -56,27 +83,27 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost})(({
         
   const { Option } = Select;
 
-  const fields = [{
+  const fields = useMemo(() => ([{
     name: 'email',
-    value: customer.email
+    value: customer.email || null
   },
   {
     name: 'firstName',
-    value: customer.firstName
+    value: customer.firstName || null
   },
   {
     name: 'lastName',
-    value: customer.lastName
+    value: customer.lastName || null
   },
   {
     name: 'phoneNumber',
-    value: customer.telephone
+    value: customer.telephone || null
   },
   {
     name: 'country',
     value: 'Ukraine'
   },
-  ]
+  ]), [customer])
 
   return (
     <Form
@@ -86,14 +113,19 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost})(({
       initialValues={{
         remember: true,
       }}
+      onFinish={onFinish}
     >
+      <StyledShippingTitle>
+        Customer Details:
+      </StyledShippingTitle>
+
       <Form.Item
         label="Email"
         name="email"
         rules={[
           {
             required: true,
-            message: 'Please input your email.',
+            message: 'Please input your active email.',
           },
           {
             type: 'email',
@@ -101,22 +133,29 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost})(({
           },
         ]}
       >
-        <Input />
+        <Input placeholder="test@testmail.com" />
       </Form.Item>
       
       <Form.Item
         label="First name"
         name="firstName"
-        id={customer.firstName}
-        options={customer.firstName}
         rules={[
           {
             required: true,
             message: 'Please input your name.',
           },
+          {
+            type: 'string',
+            min: 2,
+            max: 25,
+          },
+          {
+            pattern: /^[a-zа-яіїё]+$/i,
+            message: 'First name cannot contain characters or numbers'
+          }
         ]}
       >
-        <Input placeholder="First name" value={customer.firstName} />
+        <Input placeholder="First name" />
       </Form.Item>
 
       <Form.Item
@@ -127,9 +166,18 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost})(({
             required: true,
             message: 'Please input your Last name.',
           },
+          {
+            type: 'string',
+            min: 2,
+            max: 25,
+          },
+          {
+            pattern: /^[a-zа-яіїё]+$/i,
+            message: 'Last name cannot contain characters or numbers'
+          }
         ]}
       >
-        <Input placeholder="Last name" value={customer.lastName} />
+        <Input placeholder="Last name" />
       </Form.Item>
 
       <Form.Item
@@ -138,55 +186,61 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost})(({
         rules={[
           {
             required: true,
-            message: 'Please input your phone number',
+            message: 'Please input your phone number 380 XX XXX XXXX',
+            min: 12,
+            max: 12,
           },
+          {
+            pattern: /^[0-9]+$/,
+            message: 'Phone number cannot contain letter'
+          }
         ]}
       >
-        <Input placeholder="Mobile Number (+380 XX XXX XXXX)" value={customer.telephone} />
+        <Input placeholder="Mobile Number 380 XX XXX XXXX" />
       </Form.Item>
+
+      <StyledShippingTitle>
+        Payment Details:
+      </StyledShippingTitle>
+
+      <Radio.Group
+        name="paymentInfo"
+        onChange={onChange}
+        value={valuePaymentInfo}
+        style={{marginBottom: '20px'}}
+      >
+        <Row>
+          <StyledRadio value="Cash">
+            Cash
+          </StyledRadio>
+          <StyledRadio value="Card">
+            Card
+          </StyledRadio>
+        </Row>
+      </Radio.Group>
+      
+      <StyledShippingTitle>
+        Shipping Details:
+      </StyledShippingTitle>
 
       <Form.Item
         label="Country"
         name="country"
         rules={[{ required: true, message: 'Country is required' }]}
       >
-        <Input disabled />
-      </Form.Item>
-      
-      <Form.Item
-        label="Sender city"
-        name="senderCity"
-        rules={[{ required: true, message: 'Sender city is required' }]}
-      >
-        <Select placeholder="Select sender city" onChange={getCity} ref={senderCityRef}>
-          {cities.map((item) => (
-            <Option value={item.Ref} key={item.Ref}>
-              {item.CityName}
-            </Option>
-          ))}
-        </Select>
+        <Input disabled ref={countryRef} />
       </Form.Item>
 
       <Form.Item
-        label="№ sender branch"
-        name="SenderBranch"
-        rules={[{ required: true, message: 'Branch is required' }]}
-      >
-        <Select placeholder="Select Sender branch">
-          {branches.map((item) => (
-            <Option value={item.branchRef} key={item.branchRef}>
-              {item.branchName}
-            </Option>
-          ))}
-        </Select>
-      </Form.Item>
-
-      <Form.Item
-        label="Recipient city"
+        label="City"
         name="recipientCity"
         rules={[{ required: true, message: 'Recipient city is required' }]}
       >
-        <Select placeholder="Select recipient city" onChange={getCity} ref={recipientCityRef}>
+        <Select
+          placeholder="Select the city of recipient"
+          onChange={getCity}
+          ref={recipientCityRef}
+        >
           {cities.map((item) => (
             <Option value={item.Ref} key={item.Ref}>
               {item.CityName}
@@ -196,19 +250,44 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost})(({
       </Form.Item>
 
       <Form.Item
-        label="№ recipient branch"
+        label="№ branch"
         name="recipientBranch"
         rules={[{ required: true, message: 'Branch is required' }]}
       >
-        <Select placeholder="Select recipient branch" onChange={getShippingCostHandler}>
+        <Select
+          placeholder="Select the branch of Nova Poshta of the recipient"
+          onChange={() => getShippingCost(recipientCityRef)}
+          ref={branchName}
+        >
           {branches.map((item) => (
-            <Option value={item.branchRef} key={item.branchRef}>
+            <Option value={item.branchName} key={item.branchRef}>
               {item.branchName}
             </Option>
           ))}
         </Select>
       </Form.Item>
+      
+      <StyledButton shape="round" htmlType="submit">
+        Place Order
+      </StyledButton>
+
     </Form>
   )
 })
+
 export default FormCheckout;
+
+FormCheckout.propTypes = {
+  cities: PropTypes.string,
+  branches: PropTypes.string,
+  shippingCost: PropTypes.number,
+  getCity: PropTypes.func,
+  getShippingCost: PropTypes.func,
+  PlaceOrder: PropTypes.func,
+  customer: PropTypes.shape({
+    telephone: PropTypes.string,
+    lastName: PropTypes.string,
+    firstName: PropTypes.string,
+    email: PropTypes.string,
+  }),
+}

@@ -28,23 +28,6 @@ describe('PopUpList components test for Header', () => {
       </Provider>
     )
   })
-  test('PopUpList button is defined', () => {
-    const {getByText} = render(
-      <Provider store={store}>
-        <Router>
-          <PopUpList
-            openSlide={{ }}
-            isOpen
-            openCloseMenu={() => { }}
-            setIsOpen={() => { }}
-            hideList
-            checkForLinkOpen={() => { }}
-          />
-        </Router>
-      </Provider>
-    )
-    expect(getByText('Our Deals')).toBeDefined()
-  })
 })
 
 describe('Events of Header', () => {

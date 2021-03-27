@@ -1,7 +1,9 @@
 /* eslint-disable no-underscore-dangle */
 import { message } from 'antd'
 import axios from 'axios'
-import {getHeaders} from '../headers'
+import {
+  addCartToLS, decreaseQuantityLS, getCartLS, increaseQuantityLS, removeFromCartLS
+} from '../../utils/cartLS'
 import {
   setCart,
   decreaseQuantityCreator,
@@ -11,17 +13,21 @@ import {
   increaseQuantityCreator,
   getBranches,
   getShippingCostCreator,
+  getOrderCreator,
+  clearOrderCreator
 } from './actionCreator'
+import { DOMAIN, getHeaders } from '../general'
 
-export const addToCart = (productId, quantity) => (dispatch, getStore) => {
+const BASE_ENDPOINT = `${DOMAIN}/cart`
+
+export const addToCart = (product, quantity) => (dispatch, getStore) => {
   const { cart: { products } } = getStore()
-
+  const productId = product._id
   let updatedCart = []
-  const isExistInCart = products ? products.find((el) => el.product._id === productId) : null
-
-  if (isExistInCart) {
+  const itemInCartAndLS = products ? products.find((el) => el.product._id === productId) : null
+  if (itemInCartAndLS) {
     updatedCart = products.map((el) => {
-      if (el.product._id === isExistInCart.product._id) {
+      if (el.product._id === itemInCartAndLS.product._id) {
         return {
           ...el,
           cartQuantity: el.cartQuantity + quantity
@@ -38,68 +44,94 @@ export const addToCart = (productId, quantity) => (dispatch, getStore) => {
       }
     ]
   }
-
   const headers = getHeaders()
-  axios.put('/cart', {products: updatedCart}, { headers })
+  axios.put(BASE_ENDPOINT, {products: updatedCart}, { headers })
     .then((updatedCart) => {
-      if (updatedCart.status === 200) {
-        dispatch(addToCartCreator(updatedCart.data));
-        message.success('Товар добавлен в корзину!')
+      dispatch(addToCartCreator(updatedCart.data));
+      message.success('Product added to cart!')
+    })
+    .catch((error) => {
+      if (error.response.status === 401) {
+        addCartToLS(product, quantity)
+        dispatch(setCart({products: getCartLS()}))
+        message.success('Product added to cart!')
       }
     })
-    .catch((error) => error.response)
 }
 
 export const getCart = () => (dispatch) => {
   const headers = getHeaders()
-  axios.get('/cart', { headers })
-    .then((carts) => {
-      if (carts.status === 200) {
-        dispatch(setCart(carts.data))
+  axios.get(BASE_ENDPOINT, { headers })
+    .then((cart) => {
+      if (cart.data !== null) {
+        dispatch(setCart(cart.data))
       }
     })
-    .catch((err) => (err.response));
+    .catch((err) => {
+      if (err.response.status === 401) {
+        dispatch(setCart({products: getCartLS()}))
+      }
+    });
 }
 
-export const increaseQuantity = (productId) => (dispatch) => {
+export const increaseQuantity = (product) => (dispatch) => {
   const headers = getHeaders()
-  axios.put(`/cart/${productId}`, null, { headers })
+  axios.put(`${BASE_ENDPOINT}/${product._id}`, null, { headers })
     .then((updatedCart) => {
       if (updatedCart.status === 200) {
         dispatch(increaseQuantityCreator(updatedCart.data));
       }
     })
-    .catch((error) => error.response)
+    .catch((error) => {
+      if (error.response.status === 401) {
+        dispatch(increaseQuantityCreator({products: increaseQuantityLS(product._id)}))
+      }
+    })
 }
 
 export const decreaseQuantity = (productID) => (dispatch) => {
   const headers = getHeaders()
-  const res = axios.delete(`/cart/product/${productID}`, { headers })
+  axios.delete(`${BASE_ENDPOINT}/product/${productID}`, { headers })
     .then((updatedCart) => {
       if (updatedCart.status === 200) {
         dispatch(decreaseQuantityCreator(updatedCart.data))
       }
     })
-    .catch((err) => err.response);
-  return res;
+    .catch((error) => {
+      if (error.response.status === 401) {
+        dispatch(decreaseQuantityCreator({products: decreaseQuantityLS(productID)}))
+      }
+    })
 }
 
 export const removeFromCart = (productID) => (dispatch) => {
   const headers = getHeaders()
-  axios.delete(`/cart/${productID}`, { headers })
+  axios.delete(`${BASE_ENDPOINT}/${productID}`, { headers })
     .then((result) => {
       if (result.status === 200) {
         dispatch(removeFromCartCreator(result.data))
       }
     })
-    .catch((err) => err.response);
+    .catch((error) => {
+      if (error.response.status === 401) {
+        dispatch(removeFromCartCreator({products: removeFromCartLS(productID)}))
+      }
+    })
 }
 
-export const clearCart = () => (dispatch) => {
+export const clearCart = () => (dispatch, getStore) => {
+  const {auth: {isLogin} } = getStore()
   const headers = getHeaders()
-  axios.delete('/cart', { headers })
-    .then(() => dispatch(clearCartCreator()))
-    .catch((err) => err.response);
+  axios.delete(BASE_ENDPOINT, { headers })
+    .then(() => {
+      if (isLogin) dispatch(clearCartCreator())
+    })
+    .catch((err) => {
+      if (err.response.status === 401) {
+        dispatch(clearCartCreator())
+        localStorage.removeItem('cart')
+      }
+    })
 }
 
 export const getCity = (props) => (dispatch) => {
@@ -116,19 +148,18 @@ export const getCity = (props) => (dispatch) => {
       const dataBranches = data.data.data.map((item) => ({
         branchName: item.DescriptionRu,
         branchRef: item.Ref
-      }));
+      }))
       dispatch(getBranches(dataBranches))
-      console.log(dataBranches);
     })
     .catch((error) => error.response)
 }
 
-export const getShippingCost = (senderCityRef, recipientCityRef) => (dispatch) => {
+export const getShippingCost = (recipientCityRef) => (dispatch) => {
   axios.post('https://api.novaposhta.ua/v2.0/json/', {
     modelName: 'InternetDocument',
     calledMethod: 'getDocumentPrice',
     methodProperties: {
-      CitySender: senderCityRef.current.props.value,
+      CitySender: '8d5a980d-391c-11dd-90d9-001a92567626',
       CityRecipient: recipientCityRef.current.props.value,
       Weight: '10',
       ServiceType: 'DoorsDoors',
@@ -152,4 +183,82 @@ export const getShippingCost = (senderCityRef, recipientCityRef) => (dispatch) =
     .catch((error) => error.response)
 }
 
-export default addToCart;
+export const PlaceOrder = (
+  products, isLogin, values, customer, shippingCost, valuePaymentInfo,
+) => (dispatch) => {
+  dispatch(clearOrderCreator())
+  // eslint-disable-next-line prefer-const
+  let body = {
+    canceled: false,
+    deliveryAddress: JSON.stringify({
+      country: values.country,
+      city: values.recipientCity,
+      branch: values.recipientBranch,
+    }),
+    shipping: JSON.stringify(shippingCost),
+    paymentInfo: JSON.stringify(valuePaymentInfo),
+    status: 'not shipped',
+    email: values.email,
+    mobile: values.phoneNumber,
+    firstName: values.firstName,
+    letterSubject: `${values.firstName}, thank you for order!`,
+    letterHtml: '<h1>Your order is placed. Our manager will contact you soon.</h1>'
+  }
+  if (isLogin) {
+    body.customerId = customer
+  } else {
+    body.products = JSON.stringify(products)
+  }
+  
+  axios
+    .post(`${DOMAIN}/orders`, body)
+    .then((newOrder) => {
+      dispatch(getOrderCreator(newOrder.data.order))
+      clearCart(isLogin)(dispatch)
+    })
+    .catch((err) => err.response)
+}
+
+export const getCartServer = async () => {
+  const headers = getHeaders()
+  const cartState = []
+  await axios.get(BASE_ENDPOINT, { headers })
+    .then((res) => {
+      const {data, status} = res
+      if (data && status === 200) cartState.push(...data.products)
+    })
+    .catch((err) => err.response)
+  return cartState
+}
+
+export const addLSToServer = () => async (dispatch) => {
+  const cartLS = JSON.parse(localStorage.getItem('cart')) || []
+  let products = await getCartServer()
+  if (cartLS.length > 0 && products.length === 0) {
+    products = cartLS
+  } else {
+    cartLS.forEach((el) => {
+      const itemInCartAndLS = products.find((item) => item.product._id === el.product._id)
+      if (itemInCartAndLS) {
+        itemInCartAndLS.cartQuantity += el.cartQuantity
+      } else {
+        products.push(
+          el
+        )
+      }
+    })
+  }
+  const updatedCartForServer = products.map((item) => ({
+    product: item.product._id,
+    cartQuantity: item.cartQuantity
+  }))
+  const headers = getHeaders()
+  axios.put(BASE_ENDPOINT, {products: updatedCartForServer}, { headers })
+    .then((updatedCart) => {
+      if (updatedCart.status === 200) {
+        localStorage.removeItem('cart')
+        dispatch(addToCartCreator(updatedCart.data));
+      }
+    })
+    .catch((error) => error.response)
+}

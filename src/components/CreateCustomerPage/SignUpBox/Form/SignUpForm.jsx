@@ -4,7 +4,6 @@ import React from 'react'
 import { useHistory } from 'react-router-dom';
 import { Input } from 'antd';
 import StyledFrom from './StylesSignUpForm'
-import 'antd/dist/antd.css'
 import { createCustomer } from '../../../../store/customer/middleware'
 import StyledButton from '../../../common/Buttons/StyledButton'
 
@@ -48,7 +47,7 @@ const SignUpForm = () => {
       validator: isPasswordsMatch
     }
   }
-    
+
   return (
     <StyledFrom
       {...formLayout}
@@ -67,6 +66,15 @@ const SignUpForm = () => {
             required: true,
             message: 'Please input your name.',
           },
+          {
+            pattern: /^[a-zа-яіїё]+$/i,
+            message: 'Allowed characters is a-z, а-я.'
+          },
+          {
+            min: 2,
+            max: 25,
+            message: 'First Name must be beetwen 2 and 25 characters.'
+          }
         ]}
       >
         <Input />
@@ -80,6 +88,15 @@ const SignUpForm = () => {
             required: true,
             message: 'Please input your Surename.',
           },
+          {
+            pattern: /^[a-zа-яіїё]+$/i,
+            message: 'Allowed characters is a-z, а-я.'
+          },
+          {
+            min: 2,
+            max: 25,
+            message: 'Last Name must be beetwen 2 and 25 characters.'
+          }
         ]}
       >
         <Input />
@@ -92,6 +109,18 @@ const SignUpForm = () => {
           {
             required: true,
             message: 'Please set your login.',
+          },
+          {
+            min: 3,
+            message: 'Login must be between 3 and 10 characters.',
+          },
+          {
+            max: 10,
+            message: 'Login must be between 3 and 10 characters.'
+          },
+          {
+            pattern: /^[a-z0-9]+$/i,
+            message: 'Allowed characters is a-z, 0-9.'
           },
         ]}
       >
@@ -124,8 +153,16 @@ const SignUpForm = () => {
             message: 'Please input your password.',
           },
           {
-            message: 'Password length must be at least 8 symbols',
-            min: 8
+            min: 8,
+            message: 'Password must be between 8 and 30 characters'
+          },
+          {
+            max: 30,
+            message: 'Password must be between 8 and 30 characters'
+          },
+          {
+            pattern: /^[a-z0-9]+$/i,
+            message: 'Allowed characters is a-z, 0-9.'
           },
         ]}
       >
@@ -139,10 +176,6 @@ const SignUpForm = () => {
           {
             required: true,
             message: 'Please input your password.',
-          },
-          {
-            message: 'Password length must be at least 8 symbols',
-            min: 8
           },
           passwordMatchValidator,
         ]}

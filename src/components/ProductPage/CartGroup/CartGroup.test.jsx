@@ -33,7 +33,7 @@ describe('All tests for Cart Group', () => {
         <CartGroup {...regularProps} />
       </Provider>
     )
-    expect(getByText(`Осталось на складе: ${regularProps.avilableQuantity} шт.`)).toBeDefined()
+    expect(getByText(`Avilable quantity: ${regularProps.avilableQuantity} pc.`)).toBeDefined()
   })
 
   test('Check is div defined by correct text -- 2', () => {
@@ -42,7 +42,7 @@ describe('All tests for Cart Group', () => {
         <CartGroup {...otherProps} />
       </Provider>
     )
-    expect(getByText('Товар закончился.')).toBeDefined()
+    expect(getByText('The item is out of stock.')).toBeDefined()
   })
 
   test('Check is button defined', () => {

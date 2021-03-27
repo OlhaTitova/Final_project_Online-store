@@ -10,7 +10,7 @@ const FooterLinks = ({ title, links, id }) => (
     <FooterLinksTitle htmlFor={id}>{title}</FooterLinksTitle>
     <Content>
       {links.map((link) => (
-        <FooterLinkItem key={link.text} to={link.to}>
+        <FooterLinkItem key={link.text} to={link.to} onClick={() => window.scrollTo(0, 0)}>
           {link.text}
         </FooterLinkItem>
       ))}
