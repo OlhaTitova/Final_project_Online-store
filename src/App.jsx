@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import Footer from './components/Footer/Footer'
-import Header from './components/Header/Header'
+import Header from './components/Header/Header';
 import { setWishlist } from './store/wishlist/middleware'
-import { getCart } from './store/cart/middleware'
 import ProductSubscribeModal from './components/ProductSubscribeModal/ProductSubscribeModal'
 import Router from './components/Router/Router'
 import {authLogIn} from './store/auth/middleware'
 import { setRefreshTimer } from './store/auth/actionCreator'
+import { getCart } from './store/cart/middleware'
 import ServiceSection from './components/ServiceSection/ServiceSection'
 
 const App = connect(null, {
@@ -16,7 +16,7 @@ const App = connect(null, {
   authLogIn,
   setWishlist,
   setRefreshTimer,
-  getCart,
+  getCart
 }) => {
   useEffect(() => {
     setWishlist()
@@ -38,7 +38,7 @@ const App = connect(null, {
       <ServiceSection />
       <Footer />
     </div>
-  )
+  );
 })
 
 export default App

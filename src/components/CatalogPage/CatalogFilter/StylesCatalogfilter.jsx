@@ -34,7 +34,7 @@ export const Wrapper = styled.aside`
       background: #ECECEC;
       transition: all 0.5s ease-out;
       opacity: 0;
-      z-index: 10;
+      z-index: 60;
       ${(props) => (props.showFilter && css`
         left: 0%;
         opacity: 1;

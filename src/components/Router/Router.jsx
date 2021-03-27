@@ -15,6 +15,7 @@ import WishlistPage from '../WishlistPage/WishlistPage'
 import {CartPage} from '../CartPage/CartPage'
 import OrderPage from '../OrderPage/OrderPage'
 import NoMatchPage from '../NoMatchPage/NoMatchPage'
+import DashBoard from '../DashBoard/DashBoard'
 import { Catalog } from '../MainCatalog/Catalog'
 import ReviewSlider from '../ReviewSlider/ReviewSlider'
 
@@ -58,6 +59,9 @@ const Router = () => (
     </Route>
     <Route exact path="/catalog">
       <CatalogPage />
+    </Route>
+    <Route exact path="/dashboard">
+      <DashBoard />
     </Route>
     <Route>
       <NoMatchPage />

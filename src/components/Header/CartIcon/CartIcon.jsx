@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { selectproductCartCount } from '../../../../store/cart/reducer'
+import { selectproductCartCount } from '../../../store/cart/reducer'
 import {CartWrapper, ShoppingCartOutlinedStyled, StyledCount} from './StyledCartIcon'
 
 const mapStateToProps = (state) => ({productCartCount: selectproductCartCount(state)})

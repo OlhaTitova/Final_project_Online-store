@@ -4,8 +4,7 @@ import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { authLogOut } from '../../../store/auth/middleware';
 import close from '../../../images/header/Close.svg';
-import { NavUserContainer, Close } from './UserPopUpStyled';
-import WishlistLI from './WishlistLI/WishlistLI'
+import { NavUserContainer, Close, UlList } from './UserPopUpStyled';
 import { selectIsLogin } from '../../../store/auth/reducer';
 
 const mapStateToProps = (state) => ({
@@ -17,22 +16,22 @@ const UserPopUp = connect(mapStateToProps, { authLogOut })(({
 }) => {
   const openSlideUser = {
     hidden: {
-      x: 50,
+      x: -180,
       scale: 0,
       opacity: 0,
       transition: {
-        delay: 0.35,
         type: 'spring',
         stiffness: 200,
         damping: 40
-      }
+      },
+      originX: 0.9,
+      originY: 0,
     },
     show: {
       opacity: 1,
       x: -180,
       scale: 1,
       transition: {
-        delay: 0.35,
         type: 'spring',
         stiffness: 200,
         damping: 40
@@ -51,7 +50,6 @@ const UserPopUp = connect(mapStateToProps, { authLogOut })(({
         }
       }
     })
-    // console.log(isOpenUser);
   }, [isOpenUser, setIsOpenUser])
   return (
     <NavUserContainer
@@ -60,15 +58,18 @@ const UserPopUp = connect(mapStateToProps, { authLogOut })(({
       initial={false}
       animate={isOpenUser ? 'show' : 'hidden'}
     >
-      <ul>
-        <li>My Account</li>
-        {isLogin && <WishlistLI />}
-        <li>Compare (0)</li>
+      <UlList>
         {isLogin ? null : (
           <NavLink to="/signup">
             <li>Create an Account</li>
           </NavLink>
         )}
+        {isLogin
+          && (
+            <NavLink to="/dashboard">
+              <li>My Dashboard</li>
+            </NavLink>
+          )}
         {isLogin
           ? (
             <NavLink to="/" onClick={authLogOut}>
@@ -82,7 +83,7 @@ const UserPopUp = connect(mapStateToProps, { authLogOut })(({
         <Close data-testid="closeImg" onClick={() => setIsOpenUser(false)}>
           <img src={close} alt="close" />
         </Close>
-      </ul>
+      </UlList>
     </NavUserContainer>
   );
 })

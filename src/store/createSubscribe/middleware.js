@@ -1,8 +1,8 @@
 import axios from 'axios'
 import { message } from 'antd'
-import { DOMAIN } from '../general'
+import { DOMAIN, getHeaders } from '../general'
 
-const BASE_ENDPOINT = `${DOMAIN}/subscribers`
+const BASE_ENDPOINT = `${DOMAIN}/subscribers`;
 
 const createNewSubscribe = (credentials) => {
   axios.post(BASE_ENDPOINT, credentials,)
@@ -14,8 +14,20 @@ const createNewSubscribe = (credentials) => {
     .catch((error) => {
       if (error.response) {
         const requestMessage = error.response.data.message
-        message.error(`Error: ${requestMessage}.`)
+        if (requestMessage) {
+          message.error(`Error: ${requestMessage}.`)
+        } else {
+          message.error('Something went wrong, please try again.')
+        }
       }
     })
+}
+export const getSubscriber = (email) => {
+  const headers = getHeaders();
+  const result = axios
+    .get(`${BASE_ENDPOINT}/${email}`, {headers})
+    .then((data) => data)
+    .catch((err) => err.response);
+  return result
 }
 export default createNewSubscribe

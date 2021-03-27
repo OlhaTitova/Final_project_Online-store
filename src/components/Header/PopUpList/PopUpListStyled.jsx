@@ -4,7 +4,7 @@ import {
 } from '@ant-design/icons';
 import { motion } from 'framer-motion';
 import styled, { css } from 'styled-components';
-import {forDesktop} from '../../../styles/mediaBreakPoints';
+import { forDesktop } from '../../../styles/mediaBreakPoints';
 
 export const PopUpContainer = styled(motion.div)`
   position: absolute;
@@ -13,14 +13,14 @@ export const PopUpContainer = styled(motion.div)`
   width: 100%;
   height: 70%;
   background-color: white;
-  z-index: 20;
-  
+  z-index: 52;
    ul{
     display: flex;
     width: 100%;
     flex-direction: column;
     @media(min-width: ${forDesktop.minWidth}px) {
-      min-width: 80%;
+      width: 90%;
+      height: 100%;
       flex-direction: row;
       justify-content: space-between;
       align-items: center;
@@ -37,7 +37,8 @@ export const PopUpContainer = styled(motion.div)`
       h5{
         font-size: 20px;
         @media(min-width: ${forDesktop.minWidth}px) {
-          font-size: 11px;
+          font-size: 14px;
+          font-weight: 600;
         }
       }
     }
@@ -45,21 +46,33 @@ export const PopUpContainer = styled(motion.div)`
    @media(min-width: ${forDesktop.minWidth}px) {
       position: static;
       width: 100%;
-      display: flex;
-      align-items: center;
       ${(props) => !props.isOpen && css`
         clip-path: circle(2200px at 40px 40px) !important;
       `}
-      ${(props) => props.hideList && css`
+      ${(props) => props.isOpen && css`
+        clip-path: circle(2200px at 40px 40px) !important;
+      `}
+      ${(props) => !props.hideInput && css`
         display: none;
-    `}
+      `}
+      ${(props) => props.hideInput && css`
+        display: block;
+      `}
+  }
+  
+`;
+export const ExceptionLi = styled.li`
+  @media(min-width: ${forDesktop.minWidth}px) {
+    padding-left: 65px !important;
   }
 `;
-export const StyledExceptionLi = styled.li`
-  margin-bottom: 20px;
-  @media(min-width: ${forDesktop.minWidth}px) {
-    margin-bottom: 0px;
-  }
+export const TechTag = styled.h1`
+  position: absolute;
+  top: 30px;
+  left: 66px;
+  font-size: 25px;
+  color: #0157fe;
+  font-weight: 500;
 `;
 export const HeaderOfPopUp = styled.div`
   position: relative;
@@ -92,10 +105,6 @@ export const RightOutlinedStyled = styled(RightOutlined)`
     @media(min-width: ${forDesktop.minWidth}px) {
       display: none;
     }
-`;
-export const Logo = styled.img`
-    padding-left: 20px;
-    filter: invert(78%) sepia(90%) saturate(6818%) hue-rotate(576deg) brightness(112%) contrast(145%);
 `;
 export const CloseOutlinedStyled = styled(CloseOutlined)`
     color: black;

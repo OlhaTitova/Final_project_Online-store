@@ -17,7 +17,7 @@ const footerConfig = [
     id: 2,
     links: [
       { to: '/catalog?categories=gamingMonitors', text: 'Gaming Monitors' },
-      { to: '/catalog?categories=tablet', text: 'Tablets' },
+      { to: '/catalog?categories=tablets', text: 'Tablets' },
       { to: '/catalog?categories=laptops', text: 'Laptops' },
       { to: '/catalog?categories=desctops', text: 'Desctops' },
     ],

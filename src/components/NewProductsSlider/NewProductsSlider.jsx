@@ -7,6 +7,7 @@ import { Container } from '../common/Container'
 import { getNewProductsCreator } from '../../store/products/actionCreator'
 import { getFilteredProducts } from '../../store/products/middleware'
 import SliderTitle from './SliderTitle/SliderTitle'
+import { ItemWrapper } from './StylesNewProductSlider'
 
 const mapStateToProps = (state) => ({ newProducts: state.products.newProducts })
 
@@ -56,11 +57,13 @@ const NewProductsSlider = connect(
       <SliderTitle />
       <Carousel carouselSettings={carouselSettings}>
         {newProducts.map((el) => (
-          <ProductCard
-            key={el.itemNo}
-            productInfo={el}
-            hideBorder
-          />
+          <ItemWrapper>
+            <ProductCard
+              key={el.itemNo}
+              productInfo={el}
+              hideBorder
+            />
+          </ItemWrapper>
         ))}
       </Carousel>
     </Container>

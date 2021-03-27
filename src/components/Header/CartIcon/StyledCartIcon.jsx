@@ -1,6 +1,6 @@
 import { ShoppingCartOutlined } from '@ant-design/icons';
 import styled from 'styled-components'
-import {forDesktop} from '../../../../styles/mediaBreakPoints';
+import {forDesktop} from '../../../styles/mediaBreakPoints';
 
 export const CartWrapper = styled.div`
     position: relative;

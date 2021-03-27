@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { forDesktop, forTablet } from '../../styles/mediaBreakPoints'
 
 export const CardItem = styled.div` 
@@ -18,10 +18,6 @@ export const CardItem = styled.div`
               0 16px 16px rgba(0,0,0,0.12);
 
   }
-  
-  ${(props) => props.hideBorder && css`
-    border: none;
-  `}
 
   @media(min-width: ${forTablet.minWidth}px) {
     padding: 10px 15px;

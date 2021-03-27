@@ -5,24 +5,27 @@ import {
   DownOutlined
 } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
-import vector from '../../images/header/Vector.png';
 import FaceBook from '../../images/header/FaceBook.png';
 import Inst from '../../images/header/Inst.png';
 import PopUpList from './PopUpList/PopUpList';
 import PopUpShedulteContainer from './PopUpShadule/PopUpShedulteContainer';
 import UserPopUp from './UserPopUp/UserPopUp';
+import LogoMobile from './Utils/LogoMobile';
+import LogoDesktop from './Utils/LogoDesktop'
+import WishListComponent from './WishListComponent/WishListComponent'
 
 // styled
 import {
   HeaderContainer, ContainerAlign, ContactUsCall, CallBackAsk,
   SearchAndItemsBlock,
   RelativePosUserPopUp, CircleDesktop, ShaduleContainer,
-  ShaduleArrowContainer, LogoDesktop,
+  ShaduleArrowContainer,
   UserOutlinedStyled, SearchOutlinedStyledMedia,
-  CircleMobile, Logo, MenuOutlinedStyled
+  CircleMobile, MenuOutlinedStyled,
+  CloseOutlinedFormStyled, TechTag,
 } from './HeaderStyled';
 import SearchProducts from './SearchProducts/SearchProducts';
-import CartIcon from './UserPopUp/CartIcon/CartIcon';
+import CartIcon from './CartIcon/CartIcon'
 
 const Header = () => {
   const [isOpen, setIsOpen] = useCycle(false, true);
@@ -43,24 +46,20 @@ const Header = () => {
     hidden: {
       clipPath: 'circle(0.1px at 0.1px 0.1px)',
       transition: {
-        delay: 0.15,
         type: 'spring',
         stiffness: 400,
         damping: 40
       }
     }
   };
-
   const checkForLinkOpen = (e) => {
     if (e.target.localName === 'h5') {
       setIsOpen((prev) => !prev)
     }
   }
-
   const openCloseMenu = () => {
     setIsOpen((prev) => (!prev))
   }
-
   const toggleShow = () => {
     setHideInput((prev) => !prev);
     setHideList((prev) => !prev);
@@ -72,10 +71,7 @@ const Header = () => {
         <ContainerAlign>
           <Link to="/" style={{outline: 'none'}}>
             <CircleMobile>
-              <Logo
-                src={vector}
-                alt="icon"
-              />
+              <LogoMobile />
             </CircleMobile>
           </Link>
           <ShaduleArrowContainer id="shadule">
@@ -116,15 +112,12 @@ const Header = () => {
           />
         </ContainerAlign>
       </ShaduleContainer>
-
       <SearchAndItemsBlock>
         <MenuOutlinedStyled onClick={openCloseMenu} data-testid="burger" />
-        <Link to="/" style={{outline: 'none'}}>
+        <Link to="/" style={{outline: 'none', paddingRight: '20px'}}>
           <CircleDesktop>
-            <LogoDesktop
-              src={vector}
-              alt="icon2"
-            />
+            <LogoDesktop />
+            <TechTag>Tech Store</TechTag>
           </CircleDesktop>
         </Link>
         <PopUpList
@@ -134,13 +127,17 @@ const Header = () => {
           openSlide={openSlide}
           isOpen={isOpen}
           openCloseMenu={openCloseMenu}
+          hideInput={hideInput}
         />
         
         <SearchProducts hideInput={hideInput} setHideInput={toggleShow} />
 
-        {/* mediaSearch */}
-        <SearchOutlinedStyledMedia onClick={toggleShow} />
-        {/* mediaSearch */}
+        {hideInput
+          ? (<SearchOutlinedStyledMedia onClick={toggleShow} />)
+          : (<CloseOutlinedFormStyled onClick={toggleShow} />)}
+          
+        <WishListComponent />
+
         <CartIcon />
         <RelativePosUserPopUp>
           <UserOutlinedStyled id="userBtn" data-testid="userBtn" />
@@ -150,7 +147,6 @@ const Header = () => {
           />
         </RelativePosUserPopUp>
       </SearchAndItemsBlock>
-
     </HeaderContainer>
   );
 };

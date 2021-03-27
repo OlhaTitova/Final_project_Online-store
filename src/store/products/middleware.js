@@ -104,6 +104,7 @@ export const getSearchProducts = (searchPhrases) => (dispatch) => {
     .post(`${BASE_ENDPOINT}/search`, searchPhrases)
     .then(({data}) => {
       dispatch(setSearchProducts(data))
+      console.log(data)
     })
     .catch((err) => err);
 }
