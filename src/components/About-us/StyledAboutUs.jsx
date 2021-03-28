@@ -1,44 +1,18 @@
 import styled from 'styled-components';
 import { forTablet, forDesktop } from '../../styles/mediaBreakPoints'
 
-const ComponentContainer = styled.div`
+export const ComponentContainer = styled.div`
   width: 100%;
   margin: 0 auto;
   min-width: 320px;
 `
-const TitleBox = styled.div`  
-  width: 90%;
-  margin: 10px auto 15px auto;
-
-  @media(min-width: ${forTablet.minWidth}) and (max-width: ${forTablet.maxWidth}px) {
-    width: 92%;
-    margin: 0 auto 16px auto;
-  }
-
-  @media(min-width: ${forDesktop.minWidth}px){
-    width: 90%;
-    margin: 20px auto;
-    padding: 0 1%;
-  }
-`
-const TitleText = styled.div`
-  font-size: 22px;
-  font-weight: bold;
-
-  @media(min-width: ${forDesktop.minWidth}px){
-    font-size: 42px;
-    font-weight: bold;
-    justify-content: start;
-    padding: 0 1,5%;
-  }
-`
-const Flex = styled.div`
+export const Flex = styled.div`
   display: flex;
   flex-direction: column;
   flex-grow: 1;
   width: 100%;
 `
-const Section = styled.div`
+export const Section = styled.div`
   align-items: flex-start;
   display: flex;
   width: 100%;
@@ -54,7 +28,7 @@ const Section = styled.div`
     align-items: center;
   }
 `
-const ContentBlock = styled.div`
+export const ContentBlock = styled.div`
   width: 100%;
   display: flex;
   flex-direction: ${(props) => (props.colored ? 'column-reverse' : 'column')};
@@ -83,7 +57,7 @@ const ContentBlock = styled.div`
     padding: 50px 6% 50px 5%;;
   }
 `
-const ContentContainer = styled.div`
+export const ContentContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 80%;
@@ -108,7 +82,7 @@ const ContentContainer = styled.div`
     padding-left: 5%;
   }
 `
-const SectionTitle = styled.div`
+export const SectionTitle = styled.div`
   display: flex;
   flex-direction: column;
   width: 90%;
@@ -129,7 +103,7 @@ const SectionTitle = styled.div`
     margin-bottom: 32px;
   }
 `
-const SectionContent = styled.div`
+export const SectionContent = styled.div`
   display: flex;
   flex-direction: column;
   width: 95%;
@@ -152,14 +126,13 @@ const SectionContent = styled.div`
     line-height: 22px;
   }
 `
-const SectionImg = styled.div`
+export const SectionImg = styled.div`
   display: flex;
   justify-content: center;
   width: 100%;
   height: 30%;
   object-fit: cover;
 
-  // Tablet
   @media(min-width: ${forTablet.minWidth}px) and (max-width: ${forTablet.maxWidth}px) {
     height: 60%;
     width: 48%;
@@ -181,7 +154,7 @@ const SectionImg = styled.div`
     padding-left: ${(props) => (props.nocolored ? '2%' : '1%')};
   }
 `
-const Image = styled.img`
+export const Image = styled.img`
   object-fit: cover;
   margin-top: ${(props) => (props.first ? '0' : '25px')};
   display: flex;
@@ -207,7 +180,7 @@ const Image = styled.img`
     object-fit: ${(props) => (props.first ? 'none' : 'cover')};
   }
 `
-const Img = styled.img` 
+export const Img = styled.img` 
   height: 30px;
   width: ${(props) => (props.biggerSize ? '52px' : '30px')};
 
@@ -217,10 +190,6 @@ const Img = styled.img`
     margin-bottom: 10px;
   }
 `
-const Text = styled.p`
+export const Text = styled.p`
   margin-bottom: 20px;
 `
-export {
-  Img, Image, SectionImg, ContentContainer, SectionContent, SectionTitle, Section, Flex, TitleBox,
-  TitleText, Text, ContentBlock, ComponentContainer
-};

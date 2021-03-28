@@ -3,7 +3,7 @@
 import React, {useMemo, useRef, useState} from 'react';
 import PropTypes from 'prop-types';
 import {
-  Form, Input, Radio, Row, Select
+  Form, Input, Radio, Select
 } from 'antd';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom/';
@@ -37,7 +37,9 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
   const countryRef = useRef();
   const branchName = useRef();
 
-  const [valuePaymentInfo, setValuePaymentInfo] = useState('Cash');
+  const [valuePaymentInfo, setValuePaymentInfo] = useState(
+    'Payment at the time of receipt of the goods'
+  );
 
   const onChange = (e) => {
     setValuePaymentInfo(e.target.value);
@@ -148,6 +150,7 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
             type: 'string',
             min: 2,
             max: 25,
+            message: 'FirstName must be between 2 and 25 characters',
           },
           {
             pattern: /^[a-zа-яіїё]+$/i,
@@ -170,6 +173,7 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
             type: 'string',
             min: 2,
             max: 25,
+            message: 'LastName must be between 2 and 25 characters',
           },
           {
             pattern: /^[a-zа-яіїё]+$/i,
@@ -209,14 +213,9 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
         value={valuePaymentInfo}
         style={{marginBottom: '20px'}}
       >
-        <Row>
-          <StyledRadio value="Cash">
-            Cash
-          </StyledRadio>
-          <StyledRadio value="Card">
-            Card
-          </StyledRadio>
-        </Row>
+        <StyledRadio value="Payment at the time of receipt of the goods">
+          Payment at the time of receipt of the goods
+        </StyledRadio>
       </Radio.Group>
       
       <StyledShippingTitle>

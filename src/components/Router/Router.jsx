@@ -18,6 +18,7 @@ import NoMatchPage from '../NoMatchPage/NoMatchPage'
 import DashBoard from '../DashBoard/DashBoard'
 import { Catalog } from '../MainCatalog/Catalog'
 import ReviewSlider from '../ReviewSlider/ReviewSlider'
+import Description from '../Description/Description'
 
 const Router = () => (
   <Switch>
@@ -25,6 +26,7 @@ const Router = () => (
       <BannerSlider />
       <NewProductsSlider />
       <Catalog />
+      <Description />
       <HomepageBrands />
       <HomepageFollowUs />
       <ReviewSlider />

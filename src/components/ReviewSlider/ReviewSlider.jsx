@@ -5,19 +5,9 @@ import 'antd/dist/antd.css'
 import { Container } from '../common/Container'
 import { Wrapper } from '../common/Wrapper'
 import ReviewWrapper, {
-  RoundDots, ReviewTextWrap, ReviewIcon, ReviewText, ReviewAuthor
+  RoundDots, ReviewTextWrap, ReviewIcon, ReviewText, ReviewAuthor, contentStyle
 } from './StyledReviewSlider'
 import bracketsIcon from '../../images/brackets.png'
-
-const contentStyle = {
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  height: '300px',
-  color: '#000000',
-  textAlign: 'left',
-  background: '#F5F9FF',
-};
 
 const ReviewSlider = () => (
   <Container>

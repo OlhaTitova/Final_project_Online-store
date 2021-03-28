@@ -15,7 +15,7 @@ import {
 
 export const MODULE_NAME = 'cart';
 export const selectProducts = (state) => state[MODULE_NAME].products;
-export const selectproductCartCount = (state) => state[MODULE_NAME].productCartCount;
+export const selectProductCartCount = (state) => state[MODULE_NAME].productCartCount;
 export const selectCartSummary = (state) => state[MODULE_NAME].summary;
 export const selectCustomer = (state) => state[MODULE_NAME].customer;
 export const selectCities = (state) => state[MODULE_NAME].cities;

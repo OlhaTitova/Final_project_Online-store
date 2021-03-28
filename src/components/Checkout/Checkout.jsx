@@ -1,5 +1,7 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import { selectIsLogin } from '../../store/auth/reducer';
 import { RowColumn, RowRevers, WrapperButton } from '../CartPage/Flex';
 import StyledButton from '../common/Buttons/StyledButton';
 import { ContainerCart } from '../common/Container';
@@ -8,7 +10,11 @@ import FormCheckout from './FormCheckout/FormCheckout';
 import OrderSummary from './OrderSummary/OrderSummary';
 import { WrapperFormCheckout } from './StyledCheckout';
 
-const Checkout = () => {
+const mapStateToProps = (state) => ({
+  isLogin: selectIsLogin(state)
+})
+
+const Checkout = connect(mapStateToProps, null)(({isLogin}) => {
   const history = useHistory()
 
   const onClickSignIn = () => {
@@ -24,16 +30,20 @@ const Checkout = () => {
         <Heading>
           Checkout
         </Heading>
-        <WrapperButton>
-          <StyledButton
-            onClick={onClickSignIn}
-            size="xl"
-            shape="round"
-            color="borderBlue"
-          >
-            Sign In
-          </StyledButton>
-        </WrapperButton>
+        {!isLogin
+          ? (
+            <WrapperButton>
+              <StyledButton
+                onClick={onClickSignIn}
+                size="xl"
+                shape="round"
+                color="borderBlue"
+              >
+                Sign In
+              </StyledButton>
+            </WrapperButton>
+          )
+          : null}
         <WrapperButton>
           <StyledButton
             onClick={onClickCart}
@@ -53,6 +63,6 @@ const Checkout = () => {
       </RowRevers>
     </ContainerCart>
   )
-}
+})
 
 export default Checkout

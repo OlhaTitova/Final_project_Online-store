@@ -102,4 +102,14 @@ export const ReviewAuthor = styled.p`
   }
 `;
 
+export const contentStyle = {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  height: '300px',
+  color: '#000000',
+  textAlign: 'left',
+  background: '#F5F9FF',
+};
+
 export default ReviewWrapper;

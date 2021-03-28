@@ -9,7 +9,6 @@ import {
 } from 'antd';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import { ButtonRemoveEdit, StyledCartItem, StyledInput} from './StyledCartItem';
 import { AlignItemsCenter } from '../Flex';
 import { decreaseQuantity, increaseQuantity, removeFromCart } from '../../../store/cart/middleware';
@@ -24,11 +23,8 @@ export const CartItem = connect(null, {
   decreaseQuantity,
   removeFromCart
 }) => {
-  const history = useHistory()
-
   const cartQuantityCheck = (cartQuantity, product) => {
     if (cartQuantity < 1) {
-      history.push('/')
       removeFromCart(product._id)
     }
     return cartQuantity
