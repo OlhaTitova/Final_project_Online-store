@@ -2,15 +2,17 @@ import {
   Checkbox, Form, InputNumber, Menu
 } from 'antd'
 import React, { useEffect, useState } from 'react'
-import PropTypes from 'prop-types';
+import { useLocation } from 'react-router-dom';
 import { brands as defBrands, categories as defCategories, checkFilterConfig } from '../../filterConfig'
 import { StyledCheckbox } from '../StylesCatalogfilter'
+import makeConfigFromUrl from '../../../../utils/makeConfigFromUrl';
 
-export const FormMenu = ({filter}) => {
+export const FormMenu = () => {
+  const {search} = useLocation()
   const [{brand, categories}, setConfig] = useState({brand: defBrands, categories: defCategories})
 
-  const checkConfig = async (filter) => {
-    const newConfig = filter.categories ? await checkFilterConfig(filter) : {}
+  const checkConfig = async (search = {}) => {
+    const newConfig = search.categories ? await checkFilterConfig(search) : {}
     if (Object.keys(newConfig).length) {
       setConfig((prev) => ({
         ...prev,
@@ -20,8 +22,9 @@ export const FormMenu = ({filter}) => {
   }
 
   useEffect(() => {
-    checkConfig(filter)
-  }, [filter])
+    const config = search ? makeConfigFromUrl(search) : {}
+    checkConfig(config)
+  }, [search])
 
   return (
     <Menu defaultOpenKeys={['сategories', 'brands']} mode="inline">
@@ -65,10 +68,6 @@ export const FormMenu = ({filter}) => {
       </Menu.SubMenu>
     </Menu>
   )
-}
-
-FormMenu.propTypes = {
-  filter: PropTypes.instanceOf(Object).isRequired
 }
 
 export default FormMenu

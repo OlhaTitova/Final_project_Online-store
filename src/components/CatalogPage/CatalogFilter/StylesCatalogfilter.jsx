@@ -32,7 +32,7 @@ export const Wrapper = styled.aside`
       top: 0%;
       left: -100%;
       width: 100%;
-      height: calc(100% - 70px);
+      height: calc(100% - 76px);
       overflow: auto;
       background: #ECECEC;
       transition: all 0.5s ease-out;
@@ -101,6 +101,7 @@ export const AlignBtn = styled.div`
     position: fixed;
     left: 0;
     bottom: 0;
+    z-index: 100
   }
   @media(min-width: 592px) {
     width: 100%;

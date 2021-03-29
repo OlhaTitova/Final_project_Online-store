@@ -1,12 +1,13 @@
-/* eslint-disable react/jsx-props-no-spreading */
-import React, { useEffect } from 'react'
-import PropTypes from 'prop-types'
+import React, { useEffect, useMemo } from 'react'
 import { connect } from 'react-redux'
+import { useLocation } from 'react-router-dom'
 import {ProductCard} from '../../ProductCard/ProductCard'
 import { getProductsToCatalog } from '../../../store/products/middleware'
 import CatalogPagination from '../CatalogPagination/CatalogPagination'
 import { ProductsWrapper, Wrapper } from './StyledCatalogProductsPlace'
 import CatalogNoProducts from '../CatalogNoProducts/CatalogNoProducts'
+import makeConfigFromUrl from '../../../utils/makeConfigFromUrl'
+import makeUrlFromConfig from '../../../utils/makeUrlFromConfig'
 
 const mapStateToProps = (state) => ({
   catalogProducts: state.products.catalog.catalogProducts,
@@ -17,16 +18,22 @@ const CatalogProductsPlace = connect(mapStateToProps, {
   getProductsToCatalog
 })((
   {
-    config,
-    setSortAndPagination,
     catalogProducts,
     productsQuantity,
     getProductsToCatalog
   }
 ) => {
+  const {search} = useLocation()
+  const config = useMemo(() => (search ? makeConfigFromUrl(search) : {}), [search])
+
   useEffect(() => {
-    getProductsToCatalog(config)
-  }, [config, getProductsToCatalog])
+    if (config.perPage) {
+      getProductsToCatalog(search)
+    } else {
+      config.perPage = 16
+      getProductsToCatalog(`?${makeUrlFromConfig(config)}`)
+    }
+  }, [config, getProductsToCatalog, search])
 
   return (
     catalogProducts.length === 0
@@ -41,18 +48,10 @@ const CatalogProductsPlace = connect(mapStateToProps, {
               />
             ))}
           </ProductsWrapper>
-          <CatalogPagination
-            config={config}
-            setSortAndPagination={setSortAndPagination}
-          />
+          {productsQuantity > (config.perPage || 16) && <CatalogPagination />}
         </Wrapper>
       )
   )
 })
-
-CatalogProductsPlace.propTypes = {
-  config: PropTypes.instanceOf(Object).isRequired,
-  setSortAndPagination: PropTypes.func.isRequired
-}
 
 export default CatalogProductsPlace

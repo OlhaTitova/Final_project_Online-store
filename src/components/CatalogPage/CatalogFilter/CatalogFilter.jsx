@@ -1,24 +1,21 @@
-/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable react/jsx-props-no-spreading */
-import React, {
-  createRef, useCallback, useEffect, useMemo
-} from 'react'
+import React, { useMemo} from 'react'
 import PropTypes from 'prop-types';
 import {
   Form
 } from 'antd';
-import { useHistory, useLocation } from 'react-router';
+import { useHistory, useLocation } from 'react-router-dom';
 import close from '../../../images/filter/close.svg';
-// styles
 import {
   StyledForm, Wrapper, FilterTitle,
   CloseBtn, AlignBtn, ContainerImage, GlobalStyle
 } from './StylesCatalogfilter';
 import {checkFormValues} from '../../../utils/checkFormValues';
-// img
 import styl from '../../../images/filter/styl.svg';
 import StyledButton from '../../common/Buttons/StyledButton'
 import {FormMenu} from './FormMenu/FormMenu';
+import makeConfigFromUrl from '../../../utils/makeConfigFromUrl';
+import makeUrlFromConfig from '../../../utils/makeUrlFromConfig';
 
 const layout = {
   labelCol: { span: 6 },
@@ -26,60 +23,56 @@ const layout = {
 };
 
 const CatalogFilter = ({
-  showFilter, setShowFilter, setFilter, filter
+  showFilter, setShowFilter
 }) => {
   const {search} = useLocation()
   const history = useHistory()
-  const formRef = createRef()
+  const config = search ? makeConfigFromUrl(search) : {}
   const [form] = Form.useForm();
 
   const onFinish = (values) => {
     if (!Object.keys(values).length) return
-    const refValue = checkFormValues(values);
-    setFilter({
-      ...refValue,
+    const filterParts = ['brand', 'categories', 'minPrice', 'maxPrice']
+    const refValue = checkFormValues(values)
+    const refConfig = {...config, ...refValue}
+    Object.keys(refConfig).forEach((key) => {
+      if (filterParts.includes(key) && (refValue[key] === undefined || refValue[key] === null)) {
+        delete refConfig[key]
+      }
     })
+    history.push(`/catalog?${makeUrlFromConfig(refConfig)}`)
     setShowFilter(false)
   };
 
   const clearForm = () => {
     form.resetFields()
-    setFilter({})
+    const {
+      brand, categories, minPrice, maxPrice, ...refConfig
+    } = config
+    history.push(`/catalog?${makeUrlFromConfig(refConfig)}`)
   }
 
   const fields = useMemo(() => ([
     {
       name: 'brand',
-      value: filter?.brand || null
+      value: config?.brand || null
     },
     {
       name: 'categories',
-      value: filter?.categories || null
+      value: config?.categories || null
+    },
+    {
+      name: 'minPrice',
+      value: +config?.minPrice || null
+    },
+    {
+      name: 'maxPrice',
+      value: (config.maxPrice === '10000000' ? null : +config?.maxPrice) || null
     }
-  ]), [filter])
-
-  const checkPathToConfig = useCallback((search) => {
-    const refSearch = {}
-    const params = search?.split('?').splice(1)[0].split('&')
-    params?.forEach((param) => {
-      const [key, value] = param.split('=')
-      refSearch[key] = value.split(',')
-    })
-    setFilter((prev) => ({
-      ...prev,
-      ...refSearch
-    }))
-  }, [setFilter])
-  
-  useEffect(() => {
-    if (search !== '') {
-      checkPathToConfig(search)
-      history.push('/catalog')
-    }
-  }, [checkPathToConfig, search, history])
+  ]), [config.brand, config.categories, config.maxPrice, config.minPrice])
 
   return (
-    <StyledForm ref={formRef} fields={fields} form={form} {...layout} onFinish={onFinish}>
+    <StyledForm fields={fields} form={form} {...layout} onFinish={onFinish}>
       <GlobalStyle showFilter={showFilter} />
       <Wrapper showFilter={showFilter}>
         <FilterTitle>
@@ -88,8 +81,16 @@ const CatalogFilter = ({
             <img src={close} alt="close" />
           </CloseBtn>
         </FilterTitle>
-        <FormMenu filter={filter} />
+        <FormMenu filter={config} />
         <AlignBtn>
+          <StyledButton
+            size="sm"
+            shape="round"
+            htmlType="submit"
+            style={{margin: 10, padding: 7}}
+          >
+            Apply Filter
+          </StyledButton>
           <StyledButton
             size="sm"
             shape="round"
@@ -98,14 +99,6 @@ const CatalogFilter = ({
             style={{margin: 10, padding: 7}}
           >
             Clear Filter
-          </StyledButton>
-          <StyledButton
-            size="sm"
-            shape="round"
-            htmlType="submit"
-            style={{margin: 10, padding: 7}}
-          >
-            Apply Filter
           </StyledButton>
         </AlignBtn>
         <ContainerImage>
@@ -117,10 +110,8 @@ const CatalogFilter = ({
 }
 
 CatalogFilter.propTypes = {
-  filter: PropTypes.instanceOf(Object).isRequired,
   showFilter: PropTypes.bool.isRequired,
   setShowFilter: PropTypes.func.isRequired,
-  setFilter: PropTypes.func.isRequired
 }
 
 export default CatalogFilter

@@ -90,16 +90,19 @@ export const brands = SortArr([
 
 export const checkFilterConfig = async (param) => {
   let paramStr = ''
+  const {
+    perPage, sort, startPage, ...refParam
+  } = param
   const menuConfig = {
     brand: [],
   }
-  Object.keys(param).forEach((key, index) => {
+  Object.keys(refParam).forEach((key, index) => {
     if (index === 0) {
-      return paramStr += `${key}=${param[key].toString()}`
+      return paramStr += `${key}=${refParam[key].toString()}`
     }
-    return paramStr += `&${key}=${param[key].toString()}`
+    return paramStr += `&${key}=${refParam[key].toString()}`
   })
-    
+
   await axios.get(`${DOMAIN}/products/filter?${paramStr}`)
     .then(({data: {products}}) => {
       const refBrand = new Set()
