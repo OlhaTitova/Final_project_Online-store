@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import 'antd/dist/antd.css';
-import { useCycle } from 'framer-motion';
 import {
   DownOutlined
 } from '@ant-design/icons';
@@ -22,13 +21,13 @@ import {
   ShaduleArrowContainer,
   UserOutlinedStyled, SearchOutlinedStyledMedia,
   CircleMobile, MenuOutlinedStyled,
-  CloseOutlinedFormStyled, TechTag,
+  CloseOutlinedFormStyled, TechTag
 } from './HeaderStyled';
 import SearchProducts from './SearchProducts/SearchProducts';
 import CartIcon from './CartIcon/CartIcon'
 
 const Header = () => {
-  const [isOpen, setIsOpen] = useCycle(false, true);
+  const [isOpen, setIsOpen] = useState(false);
   const [isOpenSheduleMenu, setisOpenSheduleMenu] = useState(false);
   const [isOpenUser, setIsOpenUser] = useState(false);
   const [hideInput, setHideInput] = useState(true);
@@ -54,7 +53,7 @@ const Header = () => {
   };
   const checkForLinkOpen = (e) => {
     if (e.target.localName === 'h5') {
-      setIsOpen((prev) => !prev)
+      setIsOpen(() => false)
     }
   }
   const openCloseMenu = () => {
@@ -74,13 +73,13 @@ const Header = () => {
               <LogoMobile />
             </CircleMobile>
           </Link>
-          <ShaduleArrowContainer id="shadule">
+          <ShaduleArrowContainer id="arrowDownShedule">
             <p>
               Mon - Thu:
               <span> 9.30 AM - 5.30 PM</span>
             </p>
-            <div data-testid="arrowDownShedule" id="arrowDownShedule">
-              <DownOutlined style={{color: 'white', cursor: 'pointer'}} />
+            <div data-testid="arrowDownShedule">
+              <DownOutlined style={{color: 'white'}} />
             </div>
           </ShaduleArrowContainer>
           <ContactUsCall>
@@ -140,7 +139,11 @@ const Header = () => {
 
         <CartIcon />
         <RelativePosUserPopUp>
-          <UserOutlinedStyled id="userBtn" data-testid="userBtn" />
+          <UserOutlinedStyled
+            id="userBtn"
+            data-testid="userBtn"
+            onClick={() => setIsOpenUser(true)}
+          />
           <UserPopUp
             isOpenUser={isOpenUser}
             setIsOpenUser={setIsOpenUser}

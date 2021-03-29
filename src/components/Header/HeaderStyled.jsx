@@ -8,14 +8,16 @@ import {forTablet, forDesktop, forMobile} from '../../styles/mediaBreakPoints';
 
 export const HeaderContainer = styled.header`
   width: 100%;
-  @media(max-width: ${forDesktop.minWidth}px) {
-    padding-bottom: 20px;
-  }
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
   @media(min-width: ${forDesktop.minWidth}px) {
     padding-bottom: 2px;
   }
 `;
 export const ShaduleArrowContainer = styled.div`
+   cursor: pointer;
    @media(max-width: 430px) {
     p {
       text-align: center;

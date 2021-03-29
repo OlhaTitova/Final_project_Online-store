@@ -13,6 +13,9 @@ export const GlobalStyle = createGlobalStyle`
 
 export const StyledForm = styled(Form)`
   background: #F5F7FF;
+  @media(max-width: 592px) {
+    z-index: 200;
+  } 
   @media(min-width: 592px) {
     min-width: 250px;
     width: 27%;

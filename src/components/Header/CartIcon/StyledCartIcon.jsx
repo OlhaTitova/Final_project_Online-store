@@ -18,21 +18,29 @@ export const ShoppingCartOutlinedStyled = styled(ShoppingCartOutlined)`
     }
 `
 export const StyledCount = styled.div`
-    background-color: #000000;
+    background-color: white;
     position: absolute;
     border-radius: 50%;
-    font-size: 9px;
-    font-weight: 600;
-    width: 15px;
-    height: 15px;
-    color: #ffffff;
-    padding-top: 4px;
+    width: 17px;
+    height: 17px;
     right: 10px;
-    top: -3px;
+    top: -4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     @media(min-width: ${forDesktop.minWidth}px) {
         background-color: #0157fe;
-        right: 0;
-        top: -3px;    
+        right: 0;  
+        top: -5px;
     }
 `
+export const Amount = styled.p`
+    color: black;
+    font-weight: 600;
+    font-size: 10px;
+    height: 50%;
+    @media(min-width: ${forDesktop.minWidth}px) {
+      color: white;
+    }
+`;
 export default StyledCount

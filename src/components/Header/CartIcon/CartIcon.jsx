@@ -2,7 +2,9 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { selectProductCartCount } from '../../../store/cart/reducer'
-import {CartWrapper, ShoppingCartOutlinedStyled, StyledCount} from './StyledCartIcon'
+import {
+  CartWrapper, ShoppingCartOutlinedStyled, StyledCount, Amount
+} from './StyledCartIcon'
 
 const mapStateToProps = (state) => ({productCartCount: selectProductCartCount(state)})
 
@@ -13,7 +15,9 @@ const CartIcon = connect(mapStateToProps, null)(({productCartCount}) => (
       {productCartCount > 0
         ? (
           <StyledCount>
-            {productCartCount}
+            <Amount>
+              {productCartCount}
+            </Amount>
           </StyledCount>
         )
         : null}
