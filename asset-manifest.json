@@ -1,17 +1,17 @@
 {
   "files": {
     "main.css": "/Final_project_Online-store/static/css/main.109765d1.chunk.css",
-    "main.js": "/Final_project_Online-store/static/js/main.f91ce640.chunk.js",
-    "main.js.map": "/Final_project_Online-store/static/js/main.f91ce640.chunk.js.map",
+    "main.js": "/Final_project_Online-store/static/js/main.0c9becaf.chunk.js",
+    "main.js.map": "/Final_project_Online-store/static/js/main.0c9becaf.chunk.js.map",
     "runtime-main.js": "/Final_project_Online-store/static/js/runtime-main.adfe1d77.js",
     "runtime-main.js.map": "/Final_project_Online-store/static/js/runtime-main.adfe1d77.js.map",
-    "static/css/2.1e58ee36.chunk.css": "/Final_project_Online-store/static/css/2.1e58ee36.chunk.css",
-    "static/js/2.8866c199.chunk.js": "/Final_project_Online-store/static/js/2.8866c199.chunk.js",
-    "static/js/2.8866c199.chunk.js.map": "/Final_project_Online-store/static/js/2.8866c199.chunk.js.map",
+    "static/css/2.33461475.chunk.css": "/Final_project_Online-store/static/css/2.33461475.chunk.css",
+    "static/js/2.fe0f6114.chunk.js": "/Final_project_Online-store/static/js/2.fe0f6114.chunk.js",
+    "static/js/2.fe0f6114.chunk.js.map": "/Final_project_Online-store/static/js/2.fe0f6114.chunk.js.map",
     "index.html": "/Final_project_Online-store/index.html",
-    "static/css/2.1e58ee36.chunk.css.map": "/Final_project_Online-store/static/css/2.1e58ee36.chunk.css.map",
+    "static/css/2.33461475.chunk.css.map": "/Final_project_Online-store/static/css/2.33461475.chunk.css.map",
     "static/css/main.109765d1.chunk.css.map": "/Final_project_Online-store/static/css/main.109765d1.chunk.css.map",
-    "static/js/2.8866c199.chunk.js.LICENSE.txt": "/Final_project_Online-store/static/js/2.8866c199.chunk.js.LICENSE.txt",
+    "static/js/2.fe0f6114.chunk.js.LICENSE.txt": "/Final_project_Online-store/static/js/2.fe0f6114.chunk.js.LICENSE.txt",
     "static/media/Close.a7458a5f.svg": "/Final_project_Online-store/static/media/Close.a7458a5f.svg",
     "static/media/adata.f14fad46.png": "/Final_project_Online-store/static/media/adata.f14fad46.png",
     "static/media/close.feb729ca.svg": "/Final_project_Online-store/static/media/close.feb729ca.svg",
@@ -37,9 +37,9 @@
   },
   "entrypoints": [
     "static/js/runtime-main.adfe1d77.js",
-    "static/css/2.1e58ee36.chunk.css",
-    "static/js/2.8866c199.chunk.js",
+    "static/css/2.33461475.chunk.css",
+    "static/js/2.fe0f6114.chunk.js",
     "static/css/main.109765d1.chunk.css",
-    "static/js/main.f91ce640.chunk.js"
+    "static/js/main.0c9becaf.chunk.js"
   ]
 }
