@@ -64,6 +64,14 @@ export const StyledForm = styled(Form)`
     padding-top: 15px;
     grid-area: form;
 
+    & .ant-form-item {
+        margin-bottom: 15px !important;
+        
+        & .ant-form-item-label {
+        padding: 0 !important;
+        }
+    }
+
 @media(min-width: ${forTablet.minWidth}px) and (max-width: ${forTablet.maxWidth}px){
     padding-right: 26px;
 }
@@ -87,28 +95,13 @@ export const StyledFormItemTextArea = styled(Form.Item)`
     width: 100%;
 `
 
-export const StyledInputWrapper = styled.div`
-    display: flex;
-    flex-direction: column;
-
-@media(min-width: ${forDesktop.minWidth}px){
-    margin-right: 20px;
-}
-`
-
-export const Lable = styled.label`
-    font-weight: 600;
-    font-size: 11px;
-
-@media(min-width: ${forDesktop.minWidth}px){
-    font-size: 13px;
-}
-`
-
 export const StyledInput = styled(Input)`
     width: 100%;
     font-size: 11px;
-    color: #8C8C8C;
+    
+    &::placeholder {
+        color: #8C8C8C;
+    } 
 
 @media(min-width: ${forDesktop.minWidth}px){
     font-size: 14px;
@@ -117,20 +110,18 @@ export const StyledInput = styled(Input)`
 
 export const StyledInputTextArea = styled(Input.TextArea)`
     width: 100%;
-    height: 145px!important;
+    min-height: 145px!important;
     font-size: 11px;
-    color: #8C8C8C;
-    resize: none;
+    
+    &:placeholder {
+        color: #8C8C8C;
+    }
 
 @media(min-width: ${forDesktop.minWidth}px){
     width: 100%;
     height: 236px;
     font-size: 14px;
 }
-`
-
-export const StyledLableSpan = styled.span`
-    color: #ff0000;
 `
 
 export const StyledContact = styled.div`

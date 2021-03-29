@@ -8,6 +8,7 @@ import { getNewProductsCreator } from '../../store/products/actionCreator'
 import { getFilteredProducts } from '../../store/products/middleware'
 import SliderTitle from './SliderTitle/SliderTitle'
 import { ItemWrapper } from './StylesNewProductSlider'
+import { forDesktop } from '../../styles/mediaBreakPoints'
 
 const mapStateToProps = (state) => ({ newProducts: state.products.newProducts })
 
@@ -37,10 +38,19 @@ const NewProductsSlider = connect(
         }
       },
       {
+        breakpoint: forDesktop.minWidth,
+        settings: {
+          slidesToShow: 4,
+          slidesToScroll: 4,
+          dots: true,
+        }
+      },
+      {
         breakpoint: 820,
         settings: {
           slidesToShow: 3,
           slidesToScroll: 3,
+          dots: true,
         }
       },
       {
@@ -48,6 +58,7 @@ const NewProductsSlider = connect(
         settings: {
           slidesToShow: 2,
           slidesToScroll: 2,
+          dots: true
         }
       }
     ]
@@ -55,9 +66,9 @@ const NewProductsSlider = connect(
   return (
     <Container>
       <SliderTitle />
-      <Carousel carouselSettings={carouselSettings}>
+      <Carousel carouselSettings={carouselSettings} moveBottomDots="0px">
         {newProducts.map((el) => (
-          <ItemWrapper>
+          <ItemWrapper key={el.itemNo}>
             <ProductCard
               key={el.itemNo}
               productInfo={el}

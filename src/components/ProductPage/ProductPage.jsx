@@ -22,6 +22,7 @@ import SpinAnimation from '../SpinAnimation/SpinAnimation'
 import { getOneProduct } from '../../store/products/middleware'
 import ProductRate from './ProductRate/ProductRate'
 import FavoriteIcon from '../FavotiteIcon/FavoriteIcon'
+import { forDesktop } from '../../styles/mediaBreakPoints'
 
 const ProductPage = () => {
   const [product, setProduct] = useState(null)
@@ -40,13 +41,25 @@ const ProductPage = () => {
     getProduct()
   }, [history, itemNo])
 
+  const carouselSettings = {
+    dots: false,
+    responsive: [
+      {
+        breakpoint: forDesktop.minWidth,
+        settings: {
+          dots: true
+        }
+      }
+    ]
+  }
+
   if (!product) return <SpinAnimation width="100%" height="80vh" />
 
   return (
     <Container>
       <PageContainer>
         <ProductImagesCarouselBox>
-          <Carousel carouselSettings={{ dots: false }}>
+          <Carousel carouselSettings={carouselSettings}>
             {product.imageUrls.map((url) => (
               <ImageBox key={url}>
                 <StyledImg src={url} key={url} alt="Product image" />

@@ -20,7 +20,7 @@ export const RoundDots = styled.div`
   }
 `;
 
-const ReviewWrapper = styled.div`
+export const ReviewWrapper = styled.div`
   width: 280px;
 
   @media(min-width: ${forTablet.minWidth}px) and (max-width: ${forTablet.maxWidth}px) {
@@ -101,5 +101,15 @@ export const ReviewAuthor = styled.p`
     line-height: 21px;  
   }
 `;
+
+export const contentStyle = {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  height: '300px',
+  color: '#000000',
+  textAlign: 'left',
+  background: '#F5F9FF',
+};
 
 export default ReviewWrapper;

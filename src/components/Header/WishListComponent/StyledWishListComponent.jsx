@@ -1,13 +1,13 @@
 import styled from 'styled-components'
-import { forTablet } from '../../../styles/mediaBreakPoints'
+import { forDesktop } from '../../../styles/mediaBreakPoints'
 
 export const StyledLiked = styled.svg`
     margin-left: 7px;
-    stroke: black;
+    stroke: white;
     stroke-width: 1.2px;
-    @media(max-width: ${forTablet.maxWidth}px) {
+    @media(min-width: ${forDesktop.minWidth}px) {
       margin-left: 18px;
-      stroke: white;
+      stroke: black;
     }
 `;
 export const Circle = styled.div`
@@ -16,19 +16,23 @@ export const Circle = styled.div`
     left: 23px;
     width: 17px;
     height: 17px;
-    background-color: #0157fe;
+    background-color: white;
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
-    @media(max-width: ${forTablet.maxWidth}px) {
+    @media(min-width: ${forDesktop.minWidth}px) {
       left: 35px;
       top: -5px;
-      background-color: black;
+      background-color: #0157fe;
     }
 `;
 export const Amount = styled.p`
-    color: white;
+    color: black;
     font-weight: 600;
     font-size: 10px;
+    height: 50%;
+    @media(min-width: ${forDesktop.minWidth}px) {
+      color: white;
+    }
 `;

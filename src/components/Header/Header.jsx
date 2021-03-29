@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import 'antd/dist/antd.css';
-import { useCycle } from 'framer-motion';
 import {
   DownOutlined
 } from '@ant-design/icons';
@@ -22,13 +21,13 @@ import {
   ShaduleArrowContainer,
   UserOutlinedStyled, SearchOutlinedStyledMedia,
   CircleMobile, MenuOutlinedStyled,
-  CloseOutlinedFormStyled, TechTag,
+  CloseOutlinedFormStyled, TechTag
 } from './HeaderStyled';
 import SearchProducts from './SearchProducts/SearchProducts';
 import CartIcon from './CartIcon/CartIcon'
 
 const Header = () => {
-  const [isOpen, setIsOpen] = useCycle(false, true);
+  const [isOpen, setIsOpen] = useState(false);
   const [isOpenSheduleMenu, setisOpenSheduleMenu] = useState(false);
   const [isOpenUser, setIsOpenUser] = useState(false);
   const [hideInput, setHideInput] = useState(true);
@@ -39,8 +38,8 @@ const Header = () => {
       clipPath: 'circle(2200px at 40px 40px)',
       transition: {
         type: 'spring',
-        stiffness: 20,
-        restDelta: 2
+        stiffness: 15,
+        restDelta: 1.5
       }
     },
     hidden: {
@@ -54,7 +53,7 @@ const Header = () => {
   };
   const checkForLinkOpen = (e) => {
     if (e.target.localName === 'h5') {
-      setIsOpen((prev) => !prev)
+      setIsOpen(() => false)
     }
   }
   const openCloseMenu = () => {
@@ -74,21 +73,23 @@ const Header = () => {
               <LogoMobile />
             </CircleMobile>
           </Link>
-          <ShaduleArrowContainer id="shadule">
-            <p>
+          <ShaduleArrowContainer>
+            <p id="arrowDownShedule">
               Mon - Thu:
               <span> 9.30 AM - 5.30 PM</span>
             </p>
-            <div data-testid="arrowDownShedule" id="arrowDownShedule">
-              <DownOutlined style={{color: 'white', cursor: 'pointer'}} />
+            <div data-testid="arrowDownShedule">
+              <DownOutlined style={{color: 'white', cursor: 'pointer'}} id="arrowDownShedule" />
             </div>
           </ShaduleArrowContainer>
           <ContactUsCall>
             <p>
               Visit our showroom in 1234 Street Adress City Address, 1234
             </p>
-            <Link to="/contactus">
-              <h3>Contact Us</h3>
+            <Link to="/contactus" style={{outline: 'none'}}>
+              <h3>
+                Contact Us
+              </h3>
             </Link>
           </ContactUsCall>
           <CallBackAsk>
@@ -142,7 +143,11 @@ const Header = () => {
 
         <CartIcon />
         <RelativePosUserPopUp>
-          <UserOutlinedStyled id="userBtn" data-testid="userBtn" />
+          <UserOutlinedStyled
+            id="userBtn"
+            data-testid="userBtn"
+            onClick={() => setIsOpenUser(true)}
+          />
           <UserPopUp
             isOpenUser={isOpenUser}
             setIsOpenUser={setIsOpenUser}

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import {
   PopUpContainer, HeaderOfPopUp, Line,
   RightOutlinedStyled, CloseOutlinedStyled,
@@ -31,29 +31,46 @@ const PopUpList = ({
     </HeaderOfPopUp>
     <Listnavigation onClick={(e) => checkForLinkOpen(e)}>
       <ExceptionLi>
-        <Link to="/catalog?categories=desctops">
+        <NavLink
+          to="/catalog?categories=desctops"
+        >
           <h5>Desctops</h5>
-        </Link>
+        </NavLink>
         <RightOutlinedStyled />
       </ExceptionLi>
       <li>
-        <Link to="/catalog?categories=gamingMonitors">
+        <NavLink
+          to="/catalog?categories=gamingMonitors"
+        >
           <h5>Gaming Monitors</h5>
-        </Link>
+        </NavLink>
         <RightOutlinedStyled />
       </li>
       <li>
-        <Link to="/catalog?categories=laptops">
+        <NavLink
+          to="/catalog?categories=laptops"
+        >
           <h5>Laptops</h5>
-        </Link>
+        </NavLink>
+       
         <RightOutlinedStyled />
       </li>
       <li>
-        <Link to="/catalog?categories=tablets"><h5>Tablets</h5></Link>
+        <NavLink
+          to="/catalog?categories=tablets"
+        >
+          <h5>
+            Tablets
+          </h5>
+        </NavLink>
         <RightOutlinedStyled />
       </li>
       <li>
-        <Link to="/catalog"><h5>Catalog</h5></Link>
+        <NavLink
+          to="/catalog"
+        >
+          <h5>Catalog</h5>
+        </NavLink>
         <RightOutlinedStyled />
       </li>
     </Listnavigation>

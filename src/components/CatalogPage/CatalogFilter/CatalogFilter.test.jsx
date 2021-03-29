@@ -11,7 +11,7 @@ describe('All test for catalog filter', () => {
     render(
       <Provider store={store}>
         <Router>
-          <CatalogFilter showFilter setShowFilter={() => {}} setFilter={() => {}} />
+          <CatalogFilter showFilter setShowFilter={() => {}} />
         </Router>
       </Provider>
     )
@@ -23,32 +23,10 @@ describe('All test for catalog filter', () => {
           <CatalogFilter
             showFilter
             setShowFilter={() => {}}
-            setFilter={() => {}}
           />
         </Router>
       </Provider>
     )
-    expect(getByText('Apply Filtres')).toBeDefined()
-  })
-  test('check checkbox render', () => {
-    const {queryByTestId} = render(
-      <Provider store={store}>
-        <Router>
-          <CatalogFilter
-            showFilter
-            setShowFilter={() => {}}
-            setFilter={() => {}}
-          />
-        </Router>
-      </Provider>
-    )
-    expect(queryByTestId('msi-check')).toBeDefined()
-    expect(queryByTestId('lg-check')).toBeDefined()
-    expect(queryByTestId('liyama-check')).toBeDefined()
-    expect(queryByTestId('samsung-check')).toBeDefined()
-    expect(queryByTestId('gamingMonitors-check')).toBeDefined()
-    expect(queryByTestId('tablets-check')).toBeDefined()
-    expect(queryByTestId('laptops-check')).toBeDefined()
-    expect(queryByTestId('desctops-check')).toBeDefined()
+    expect(getByText('Apply Filter')).toBeDefined()
   })
 })

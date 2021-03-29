@@ -31,7 +31,7 @@ const App = connect(null, {
   }, [authLogIn, getCart, setRefreshTimer, setWishlist])
 
   return (
-    <div>
+    <div style={{marginTop: '120px'}}>
       <Header />
       <ProductSubscribeModal />
       <Router />

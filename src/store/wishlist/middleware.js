@@ -68,7 +68,7 @@ export const addProductToWishlist = (product) => async (dispatch, getState) => {
         const { data, status } = response
         if (data && status === 200) updatedList.push(...data.products)
       })
-      .catch((err) => console.log(err.response))
+      .catch((err) => err.response)
   } else {
     const updatedItems = addProductToLS(product)
     updatedList.push(...updatedItems)
@@ -94,7 +94,7 @@ export const removeProductFromWishlist = (product) => async (dispatch, getState)
         const { data, status } = response
         if (data && status === 200) updatedList.push(...data.products)
       })
-      .catch((err) => console.log(err.response))
+      .catch((err) => err.response)
   } else {
     const updatedItems = removeProductFromLS(product)
     updatedList.push(...updatedItems)
@@ -131,5 +131,5 @@ export const compareLSItemsAndDBItems = () => async (dispatch) => {
   const headers = getHeaders()
   axios.put(BASE_ENDPOINT, updatedItems, { headers })
     .then((res) => res)
-    .catch((err) => console.log(err.response))
+    .catch((err) => err.response)
 }
