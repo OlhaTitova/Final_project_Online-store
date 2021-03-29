@@ -7,6 +7,12 @@ import styled, { css } from 'styled-components';
 import { forDesktop, forMobile } from '../../../styles/mediaBreakPoints';
 
 export const PopUpContainer = styled(motion.div)`
+  ${(props) => !props.isOpen && css`
+    display: none;
+  `}
+  ${(props) => props.isOpen && css`
+    display: block;
+  `}
   position: absolute;
   top: 0;
   left: 0;
@@ -30,6 +36,7 @@ export const PopUpContainer = styled(motion.div)`
       flex-direction: row;
       justify-content: space-between;
       align-items: center;
+
   }
     h5{
         font-size: 20px;
@@ -43,7 +50,7 @@ export const PopUpContainer = styled(motion.div)`
       display: flex;
       flex-direction: row;
       justify-content: space-between;
-      padding: 25px 20px 10px 25px;
+      padding: 25px 20px 20px 25px;
       @media(min-width: ${forDesktop.minWidth}px) {
         padding: 0px 5px 0px 5px;
       }
@@ -81,7 +88,7 @@ export const TechTag = styled.h1`
   font-weight: 500;
 `;
 export const HeaderOfPopUp = styled.div`
-  position: relative;
+  //position: relative;
   height: 80px;
   background-color: white;
   display: flex;

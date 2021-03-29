@@ -20,7 +20,7 @@ export const RoundDots = styled.div`
   }
 `;
 
-const ReviewWrapper = styled.div`
+export const ReviewWrapper = styled.div`
   width: 280px;
 
   @media(min-width: ${forTablet.minWidth}px) and (max-width: ${forTablet.maxWidth}px) {

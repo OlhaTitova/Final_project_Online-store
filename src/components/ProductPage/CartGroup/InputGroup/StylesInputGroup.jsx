@@ -15,6 +15,11 @@ export const StyledInput = styled.input`
     margin-left: 10px;
     border: none;
     background-color: #EBEBEB;
+    
+    &::selection {
+        color: inherit;
+        background-color: #EBEBEB;
+    }
 `
 export const ArrowsBox = styled.div`
     display: flex;

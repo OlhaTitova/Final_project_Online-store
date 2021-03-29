@@ -38,8 +38,8 @@ const Header = () => {
       clipPath: 'circle(2200px at 40px 40px)',
       transition: {
         type: 'spring',
-        stiffness: 20,
-        restDelta: 2
+        stiffness: 15,
+        restDelta: 1.5
       }
     },
     hidden: {
@@ -73,20 +73,24 @@ const Header = () => {
               <LogoMobile />
             </CircleMobile>
           </Link>
-          <ShaduleArrowContainer id="arrowDownShedule">
-            <p>
+          <ShaduleArrowContainer>
+            <p id="arrowDownShedule">
               Mon - Thu:
               <span> 9.30 AM - 5.30 PM</span>
             </p>
             <div data-testid="arrowDownShedule">
-              <DownOutlined style={{color: 'white'}} />
+              <DownOutlined style={{color: 'white', cursor: 'pointer'}} id="arrowDownShedule" />
             </div>
           </ShaduleArrowContainer>
           <ContactUsCall>
             <p>
               Visit our showroom in 1234 Street Adress City Address, 1234
             </p>
-            <h3 style={{cursor: 'pointer'}}>Contact Us</h3>
+            <Link to="/contactus" style={{outline: 'none'}}>
+              <h3>
+                Contact Us
+              </h3>
+            </Link>
           </ContactUsCall>
           <CallBackAsk>
             <h5>

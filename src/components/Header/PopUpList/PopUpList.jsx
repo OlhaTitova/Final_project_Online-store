@@ -39,7 +39,6 @@ const PopUpList = ({
         <RightOutlinedStyled />
       </ExceptionLi>
       <li>
-        
         <NavLink
           to="/catalog?categories=gamingMonitors"
         >
@@ -48,7 +47,6 @@ const PopUpList = ({
         <RightOutlinedStyled />
       </li>
       <li>
-        
         <NavLink
           to="/catalog?categories=laptops"
         >

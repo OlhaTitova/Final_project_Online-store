@@ -17,7 +17,9 @@ export const HeaderContainer = styled.header`
   }
 `;
 export const ShaduleArrowContainer = styled.div`
-   cursor: pointer;
+    p {
+      cursor: pointer;
+    }
    @media(max-width: 430px) {
     p {
       text-align: center;
@@ -31,7 +33,7 @@ export const ShaduleArrowContainer = styled.div`
   display: flex;
   align-items: center;
   @media(min-width: ${forTablet.minWidth}px) {
-    flex: 7;
+    flex: 3;
   }
   @media(min-width: ${forDesktop.minWidth}px) {
     flex: 0.4;
@@ -81,7 +83,7 @@ export const ContactUsCall = styled.div`
     p{
       display: none;
     }
-    flex: 6;
+    flex: 2;
     display: flex;
     justify-content: flex-end;
     

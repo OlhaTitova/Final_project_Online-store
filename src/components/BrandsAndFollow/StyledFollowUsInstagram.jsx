@@ -48,7 +48,7 @@ const Image = styled.a`
     margin-left: 5px;
   }
 `
-const PostContent = styled.p`
+const PostContent = styled.a`
   @media(min-width: ${forDesktop.minWidth}px){
     display: flex;
     font-size: 12px;

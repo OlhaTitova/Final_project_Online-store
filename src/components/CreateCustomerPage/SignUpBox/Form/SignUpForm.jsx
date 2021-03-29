@@ -183,19 +183,6 @@ const SignUpForm = () => {
         <Input.Password />
       </StyledFrom.Item>
 
-      <StyledFrom.Item
-        label="Avatar url"
-        name="avatarUrl"
-        rules={[
-          {
-            type: 'url',
-            message: 'Entered data is not an url.'
-          }
-        ]}
-      >
-        <Input />
-      </StyledFrom.Item>
-
       <StyledFrom.Item {...tailLayout}>
         <StyledButton size="lg" shape="round" htmlType="submit">Submit</StyledButton>
       </StyledFrom.Item>
