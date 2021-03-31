@@ -5,6 +5,9 @@ export const getHeaders = () => ({
   'Content-Type': 'application/json'
 })
 
+export const validName = /^[a-zа-яіїё\s]+$/i;
+export const validTelephone = /^[0-9]+$/;
+
 export const letterSubjectSubscribe = 'Good day! Dear customer';
 export const letterHtmlSubscribe = `<!DOCTYPE html><html lang='en'> <head> <meta charset='UTF-8' />
     <meta name='viewport' content='width=device-width, initial-scale=1.0' />

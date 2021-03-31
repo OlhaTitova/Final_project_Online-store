@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { getHeaders, DOMAIN } from '../general';
+import { DOMAIN, getHeaders } from '../../utils/constants';
 
 const BASE_ENDPOINT = `${DOMAIN}/orders`;
 

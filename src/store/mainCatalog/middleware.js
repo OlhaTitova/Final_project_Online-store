@@ -1,6 +1,6 @@
 import axios from 'axios';
+import { DOMAIN } from '../../utils/constants';
 import { getMainCatalogCreater } from './actionCreator';
-import { DOMAIN } from '../general';
 
 export const getMainCatalogProducts = () => (dispatch) => {
   axios.get(`${DOMAIN}/products`)

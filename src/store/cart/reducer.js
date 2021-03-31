@@ -7,10 +7,13 @@ import {
   SET_CART,
   SET_CART_SUMMARY,
   GET_BRANCHES,
+  CLEAR_BRANCHES,
   GET_SHIPPING_COST,
   GET_CUSTOMER,
   GET_ORDER,
-  CLEAR_ORDER
+  CLEAR_ORDER,
+  START_LOADING,
+  STOP_LOADING
 } from './actionType';
 
 export const MODULE_NAME = 'cart';
@@ -22,6 +25,7 @@ export const selectCities = (state) => state[MODULE_NAME].cities;
 export const selectBranches = (state) => state[MODULE_NAME].branches;
 export const selectShippingCost = (state) => state[MODULE_NAME].shippingCost;
 export const selectOrder = (state) => state[MODULE_NAME].order;
+export const selectIsLoading = (state) => state[MODULE_NAME].isLoading;
 
 const initialState = {
   summary: 0,
@@ -31,6 +35,7 @@ const initialState = {
   shippingCost: 0,
   order: {},
   productCartCount: 0,
+  isLoading: false,
   cities: [
     {
       CityName: 'Kyiv',
@@ -96,6 +101,12 @@ export const cartReducer = (state = initialState, {type, payload}) => {
         branches: payload,
         shippingCost: 0,
       }
+    case CLEAR_BRANCHES:
+      return {
+        ...state,
+        branches: [],
+        shippingCost: 0,
+      }
     case GET_SHIPPING_COST:
       return {
         ...state,
@@ -123,6 +134,16 @@ export const cartReducer = (state = initialState, {type, payload}) => {
       return {
         ...state,
         order: {},
+      }
+    case START_LOADING:
+      return {
+        ...state,
+        isLoading: true,
+      }
+    case STOP_LOADING:
+      return {
+        ...state,
+        isLoading: false,
       }
     default:
       return state

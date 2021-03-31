@@ -1,6 +1,9 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable react/jsx-props-no-spreading */
-import React, {useMemo, useRef, useState} from 'react';
+import React, {
+  useMemo, useRef, useState, useEffect
+} from 'react';
 import PropTypes from 'prop-types';
 import {
   Form, Input, Radio, Select
@@ -20,6 +23,7 @@ import {
   getCity, getShippingCost, PlaceOrder
 } from '../../../store/cart/middleware';
 import { selectIsLogin } from '../../../store/auth/reducer';
+import { validName, validTelephone } from '../../../utils/constants';
 
 const mapStateToProps = (state) => ({
   cities: selectCities(state),
@@ -31,24 +35,35 @@ const mapStateToProps = (state) => ({
 })
 
 const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOrder})(({
-  cities, branches, customer, getCity, getShippingCost, shippingCost, PlaceOrder, isLogin, products
+  cities, branches, customer, getCity, shippingCost, PlaceOrder, isLogin, products
 }) => {
+  console.log(branches)
+  const history = useHistory()
+
   const recipientCityRef = useRef();
   const countryRef = useRef();
-  const branchName = useRef();
+  const branchSelect = useRef();
 
   const [valuePaymentInfo, setValuePaymentInfo] = useState(
     'Payment at the time of receipt of the goods'
   );
+  
+  // const onChangeHandler = async (props, values.recipientBranch) => {
+  //   await getCity(props);
+  //   console.log(values)
+  //   // values.value = null
+  // }
 
+  // const [cities, setCities] = useState();
+  // const [branch, setBranch] = useState(branches[cities[0]][0]);
+  
   const onChange = (e) => {
     setValuePaymentInfo(e.target.value);
   };
-
-  const history = useHistory()
-
+  
   const onFinish = (values) => {
     PlaceOrder(products, isLogin, values, customer, shippingCost, valuePaymentInfo)
+    window.scrollTo(0, 0);
     history.push('/order')
   };
 
@@ -99,13 +114,34 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
   },
   {
     name: 'phoneNumber',
-    value: customer.telephone || null
+    value: customer.telephone || '+380'
   },
   {
     name: 'country',
     value: 'Ukraine'
   },
+  {
+    name: 'recipientBranch',
+    value: null
+  },
   ]), [customer])
+
+  const [value, setValue] = useState('')
+
+  useEffect(() => {
+    console.log(value)
+  })
+
+  const handleCityChange = async (props) => {
+    await getCity(props);
+    setValue('');
+  }
+
+  const handlerBranchValue = (e) => {
+    // console.log(e)
+    getShippingCost(recipientCityRef);
+    setValue(e);
+  }
 
   return (
     <Form
@@ -135,7 +171,9 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
           },
         ]}
       >
-        <Input placeholder="test@testmail.com" />
+        <Input
+          placeholder="test@testmail.com"
+        />
       </Form.Item>
       
       <Form.Item
@@ -153,7 +191,7 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
             message: 'FirstName must be between 2 and 25 characters',
           },
           {
-            pattern: /^[a-zа-яіїё]+$/i,
+            pattern: validName,
             message: 'First name cannot contain characters or numbers'
           }
         ]}
@@ -176,7 +214,7 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
             message: 'LastName must be between 2 and 25 characters',
           },
           {
-            pattern: /^[a-zа-яіїё]+$/i,
+            pattern: validName,
             message: 'Last name cannot contain characters or numbers'
           }
         ]}
@@ -190,17 +228,17 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
         rules={[
           {
             required: true,
-            message: 'Please input your phone number 380 XX XXX XXXX',
+            message: 'Please input your phone number +380 XX XXX XXXX',
             min: 12,
             max: 12,
           },
           {
-            pattern: /^[0-9]+$/,
+            pattern: validTelephone,
             message: 'Phone number cannot contain letter'
           }
         ]}
       >
-        <Input placeholder="Mobile Number 380 XX XXX XXXX" />
+        <Input placeholder="Mobile Number +380 XX XXX XXXX" />
       </Form.Item>
 
       <StyledShippingTitle>
@@ -233,15 +271,19 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
       <Form.Item
         label="City"
         name="recipientCity"
-        rules={[{ required: true, message: 'Recipient city is required' }]}
+        rules={[
+          { required: true, message: 'Recipient city is required' },
+          
+        ]}
       >
         <Select
           placeholder="Select the city of recipient"
-          onChange={getCity}
+          onChange={handleCityChange}
           ref={recipientCityRef}
         >
           {cities.map((item) => (
             <Option value={item.Ref} key={item.Ref}>
+              {/* {console.log(item.CityName)} */}
               {item.CityName}
             </Option>
           ))}
@@ -251,15 +293,22 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
       <Form.Item
         label="№ branch"
         name="recipientBranch"
-        rules={[{ required: true, message: 'Branch is required' }]}
+        rules={[
+          { required: true, message: 'Branch is required' },
+        ]}
       >
         <Select
           placeholder="Select the branch of Nova Poshta of the recipient"
-          onChange={() => getShippingCost(recipientCityRef)}
-          ref={branchName}
+          onChange={handlerBranchValue}
+          value={value}
+          ref={branchSelect}
         >
+          <Option value="Chose the branch" key={0}>
+            Chose the branch
+          </Option>
           {branches.map((item) => (
             <Option value={item.branchName} key={item.branchRef}>
+              {/* {console.log(item.branchName)} */}
               {item.branchName}
             </Option>
           ))}

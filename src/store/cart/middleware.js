@@ -4,6 +4,7 @@ import axios from 'axios'
 import {
   addCartToLS, decreaseQuantityLS, getCartLS, increaseQuantityLS, removeFromCartLS
 } from '../../utils/cartLS'
+import { DOMAIN, getHeaders } from '../../utils/constants'
 import {
   setCart,
   decreaseQuantityCreator,
@@ -14,9 +15,11 @@ import {
   getBranches,
   getShippingCostCreator,
   getOrderCreator,
-  clearOrderCreator
+  clearOrderCreator,
+  startLoading,
+  stopLoading,
+  clearBranches
 } from './actionCreator'
-import { DOMAIN, getHeaders } from '../general'
 
 const BASE_ENDPOINT = `${DOMAIN}/cart`
 
@@ -133,6 +136,7 @@ export const clearCart = () => (dispatch, getStore) => {
 }
 
 export const getCity = (props) => (dispatch) => {
+  dispatch(clearBranches());
   axios.post('https://api.novaposhta.ua/v2.0/json/', {
     modelName: 'AddressGeneral',
     calledMethod: 'getWarehouses',
@@ -153,6 +157,7 @@ export const getCity = (props) => (dispatch) => {
 }
 
 export const getShippingCost = (recipientCityRef) => (dispatch) => {
+  console.log(recipientCityRef)
   axios.post('https://api.novaposhta.ua/v2.0/json/', {
     modelName: 'InternetDocument',
     calledMethod: 'getDocumentPrice',
@@ -182,8 +187,9 @@ export const getShippingCost = (recipientCityRef) => (dispatch) => {
 }
 
 export const PlaceOrder = (
-  products, isLogin, values, customer, shippingCost, valuePaymentInfo,
+  products, isLogin, values, customer, shippingCost, valuePaymentInfo
 ) => (dispatch) => {
+  dispatch(startLoading())
   dispatch(clearOrderCreator())
   // eslint-disable-next-line prefer-const
   let body = {
@@ -215,6 +221,9 @@ export const PlaceOrder = (
       dispatch(clearCart())
     })
     .catch((err) => err.response)
+    .finally(() => {
+      dispatch(stopLoading())
+    })
 }
 
 export const getCartServer = async () => {

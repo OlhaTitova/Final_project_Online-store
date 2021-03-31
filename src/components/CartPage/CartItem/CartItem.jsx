@@ -5,7 +5,7 @@ import {
   CloseOutlined, MinusOutlined, PlusOutlined,
 } from '@ant-design/icons';
 import {
-  Button, Row, Col,
+  Button, Row, Col, message,
 } from 'antd';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -32,10 +32,12 @@ export const CartItem = connect(null, {
 
   const incVisibility = (cartQuantity, product) => {
     if (cartQuantity >= product.quantity) {
+      message.warning(`In stock ${product.quantity} items`)
       return true
     }
     return false
   }
+
   return (
     <StyledCartItem>
       <Row align="middle">
@@ -47,9 +49,7 @@ export const CartItem = connect(null, {
         <Col xs={16} md={16} lg={7}>
           <Link to={`/products/${product.itemNo}`}>
             <p className="bold">{upperCaseFirstLetter(product.name)}</p>
-            <p>{upperCaseFirstLetter(product.description)}</p>
           </Link>
-
         </Col>
         <Col xs={5} md={7} lg={3}>
           <span className="price">
