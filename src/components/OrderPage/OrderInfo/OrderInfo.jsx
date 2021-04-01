@@ -12,9 +12,6 @@ const mapStateToProps = (state) => ({
 })
 
 const OrderInfo = connect(mapStateToProps, null)(({order, cities, isLoading}) => {
-  console.log(isLoading)
-  console.log(order)
-  
   const date = order.date ? new Date(order.date).toLocaleDateString() : null
 
   const cityName = (cityRefForShipping) => {

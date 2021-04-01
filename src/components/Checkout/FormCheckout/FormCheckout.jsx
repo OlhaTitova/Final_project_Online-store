@@ -114,10 +114,7 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
     window.scrollTo(0, 0);
     history.push('/order')
   };
-
-  const handler = () => {
-    getShippingCost(recipientCityRef)
-  }
+    
   return (
     <Form
       {...formLayout}
@@ -167,18 +164,6 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
             pattern: validName,
             message: 'First name cannot contain characters or numbers'
           },
-          // ({ getFieldValue }) => ({
-          //   validator(_, value) {
-          //     console.log(value.length)
-          //     console.log(getFieldValue('firstName').length)
-          //     // if(value === '')
-          //     if (value) {
-          //       const v = getFieldValue('firstName').trim()
-          //       return Promise.resolve(v);
-          //     }
-          //     return Promise.reject(new Error('FirstName field must contain at least 2 letters'))
-          //   },
-          // }),
         ]}
       >
         <Input placeholder="First name" />
@@ -284,7 +269,7 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
       >
         <Select
           placeholder="Select the branch of Nova Poshta of the recipient"
-          onChange={handler}
+          onChange={() => getShippingCost(recipientCityRef)}
           ref={branchSelect}
         >
           {branches.map((item) => (
