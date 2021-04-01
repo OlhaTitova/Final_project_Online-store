@@ -157,7 +157,7 @@ export const getCity = (props) => (dispatch) => {
 }
 
 export const getShippingCost = (recipientCityRef) => (dispatch) => {
-  console.log(recipientCityRef)
+  console.log(dispatch)
   axios.post('https://api.novaposhta.ua/v2.0/json/', {
     modelName: 'InternetDocument',
     calledMethod: 'getDocumentPrice',
@@ -181,6 +181,7 @@ export const getShippingCost = (recipientCityRef) => (dispatch) => {
     apiKey: '469ae707669208ac6f2d113fc7edbe13'
   })
     .then((data) => {
+      console.log(data.data.data[0].Cost)
       dispatch(getShippingCostCreator(data.data.data[0].Cost))
     })
     .catch((error) => error.response)

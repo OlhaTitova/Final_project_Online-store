@@ -1,8 +1,6 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable no-underscore-dangle */
 /* eslint-disable react/jsx-props-no-spreading */
 import React, {
-  useMemo, useRef, useState, useEffect
+  useMemo, useRef, useState
 } from 'react';
 import PropTypes from 'prop-types';
 import {
@@ -37,36 +35,9 @@ const mapStateToProps = (state) => ({
 const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOrder})(({
   cities, branches, customer, getCity, shippingCost, PlaceOrder, isLogin, products
 }) => {
-  console.log(branches)
+  const { Option } = Select;
   const history = useHistory()
-
-  const recipientCityRef = useRef();
-  const countryRef = useRef();
-  const branchSelect = useRef();
-
-  const [valuePaymentInfo, setValuePaymentInfo] = useState(
-    'Payment at the time of receipt of the goods'
-  );
   
-  // const onChangeHandler = async (props, values.recipientBranch) => {
-  //   await getCity(props);
-  //   console.log(values)
-  //   // values.value = null
-  // }
-
-  // const [cities, setCities] = useState();
-  // const [branch, setBranch] = useState(branches[cities[0]][0]);
-  
-  const onChange = (e) => {
-    setValuePaymentInfo(e.target.value);
-  };
-  
-  const onFinish = (values) => {
-    PlaceOrder(products, isLogin, values, customer, shippingCost, valuePaymentInfo)
-    window.scrollTo(0, 0);
-    history.push('/order')
-  };
-
   const formLayout = {
     labelCol: {
       xs: {
@@ -98,8 +69,6 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
     },
   };
         
-  const { Option } = Select;
-
   const fields = useMemo(() => ([{
     name: 'email',
     value: customer.email || null
@@ -120,37 +89,41 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
     name: 'country',
     value: 'Ukraine'
   },
-  {
-    name: 'recipientBranch',
-    value: null
-  },
   ]), [customer])
 
-  const [value, setValue] = useState('')
+  const recipientCityRef = useRef();
+  const countryRef = useRef();
+  const branchSelect = useRef();
+  const [valuePaymentInfo, setValuePaymentInfo] = useState(
+    'Payment at the time of receipt of the goods'
+  );
 
-  useEffect(() => {
-    console.log(value)
-  })
-
+  const [form] = Form.useForm();
+  
   const handleCityChange = async (props) => {
     await getCity(props);
-    setValue('');
+    form.setFieldsValue({recipientBranch: 'Select the branch of Nova Poshta of the recipient'})
   }
 
-  const handlerBranchValue = (e) => {
-    // console.log(e)
-    getShippingCost(recipientCityRef);
-    setValue(e);
-  }
+  const onChangeRadio = (e) => {
+    setValuePaymentInfo(e.target.value);
+  };
 
+  const onFinish = (values) => {
+    PlaceOrder(products, isLogin, values, customer, shippingCost, valuePaymentInfo)
+    window.scrollTo(0, 0);
+    history.push('/order')
+  };
+
+  const handler = () => {
+    getShippingCost(recipientCityRef)
+  }
   return (
     <Form
       {...formLayout}
       name="checkout-form"
       fields={fields}
-      initialValues={{
-        remember: true,
-      }}
+      form={form}
       onFinish={onFinish}
     >
       <StyledShippingTitle>
@@ -193,7 +166,19 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
           {
             pattern: validName,
             message: 'First name cannot contain characters or numbers'
-          }
+          },
+          // ({ getFieldValue }) => ({
+          //   validator(_, value) {
+          //     console.log(value.length)
+          //     console.log(getFieldValue('firstName').length)
+          //     // if(value === '')
+          //     if (value) {
+          //       const v = getFieldValue('firstName').trim()
+          //       return Promise.resolve(v);
+          //     }
+          //     return Promise.reject(new Error('FirstName field must contain at least 2 letters'))
+          //   },
+          // }),
         ]}
       >
         <Input placeholder="First name" />
@@ -228,7 +213,7 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
         rules={[
           {
             required: true,
-            message: 'Please input your phone number +380 XX XXX XXXX',
+            message: 'Please input your phone number 380 XX XXX XXXX',
             min: 12,
             max: 12,
           },
@@ -238,7 +223,7 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
           }
         ]}
       >
-        <Input placeholder="Mobile Number +380 XX XXX XXXX" />
+        <Input placeholder="Mobile Number 380 XX XXX XXXX" />
       </Form.Item>
 
       <StyledShippingTitle>
@@ -247,7 +232,7 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
 
       <Radio.Group
         name="paymentInfo"
-        onChange={onChange}
+        onChange={onChangeRadio}
         value={valuePaymentInfo}
         style={{marginBottom: '20px'}}
       >
@@ -271,6 +256,7 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
       <Form.Item
         label="City"
         name="recipientCity"
+        title="City choice"
         rules={[
           { required: true, message: 'Recipient city is required' },
           
@@ -283,7 +269,6 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
         >
           {cities.map((item) => (
             <Option value={item.Ref} key={item.Ref}>
-              {/* {console.log(item.CityName)} */}
               {item.CityName}
             </Option>
           ))}
@@ -299,16 +284,11 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
       >
         <Select
           placeholder="Select the branch of Nova Poshta of the recipient"
-          onChange={handlerBranchValue}
-          value={value}
+          onChange={handler}
           ref={branchSelect}
         >
-          <Option value="Chose the branch" key={0}>
-            Chose the branch
-          </Option>
           {branches.map((item) => (
             <Option value={item.branchName} key={item.branchRef}>
-              {/* {console.log(item.branchName)} */}
               {item.branchName}
             </Option>
           ))}

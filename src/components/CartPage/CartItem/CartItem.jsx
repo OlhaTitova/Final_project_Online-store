@@ -23,6 +23,7 @@ export const CartItem = connect(null, {
   decreaseQuantity,
   removeFromCart
 }) => {
+  console.log('item')
   const cartQuantityCheck = (cartQuantity, product) => {
     if (cartQuantity < 1) {
       removeFromCart(product._id)
