@@ -33,7 +33,7 @@ const mapStateToProps = (state) => ({
 })
 
 const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOrder})(({
-  cities, branches, customer, getCity, shippingCost, PlaceOrder, isLogin, products
+  cities, branches, customer, getCity, shippingCost, PlaceOrder, isLogin, products, getShippingCost
 }) => {
   const { Option } = Select;
   const history = useHistory()
@@ -102,7 +102,7 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
   
   const handleCityChange = async (props) => {
     await getCity(props);
-    form.setFieldsValue({recipientBranch: 'Select the branch of Nova Poshta of the recipient'})
+    form.setFieldsValue({recipientBranch: null})
   }
 
   const onChangeRadio = (e) => {

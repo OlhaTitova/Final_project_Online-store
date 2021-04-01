@@ -1,5 +1,5 @@
 /* eslint-disable no-underscore-dangle */
-import React from 'react';
+import React, {useState } from 'react';
 import PropTypes from 'prop-types';
 import {
   CloseOutlined, MinusOutlined, PlusOutlined,
@@ -23,20 +23,30 @@ export const CartItem = connect(null, {
   decreaseQuantity,
   removeFromCart
 }) => {
-  console.log('item')
+  const [disabled, setDisabled] = useState(cartQuantity === product.quantity)
+
+  const handleClickInc = (cartQuantity, product) => {
+    if (cartQuantity + 1 >= product.quantity) {
+      setDisabled(true)
+      message.warning(`In stock ${product.quantity} items`)
+    } else {
+      setDisabled(false)
+    }
+    if (cartQuantity <= product.quantity) {
+      increaseQuantity(product)
+    }
+  }
+
+  const handleClickDec = (product) => {
+    setDisabled(false)
+    decreaseQuantity(product._id)
+  }
+  
   const cartQuantityCheck = (cartQuantity, product) => {
     if (cartQuantity < 1) {
       removeFromCart(product._id)
     }
     return cartQuantity
-  }
-
-  const incVisibility = (cartQuantity, product) => {
-    if (cartQuantity >= product.quantity) {
-      message.warning(`In stock ${product.quantity} items`)
-      return true
-    }
-    return false
   }
 
   return (
@@ -60,9 +70,9 @@ export const CartItem = connect(null, {
         </Col>
         <Col xs={7} md={8} lg={5}>
           <AlignItemsCenter>
-            <Button onClick={() => decreaseQuantity(product._id)} shape="circle" icon={<MinusOutlined />} />
+            <Button onClick={() => handleClickDec(product)} shape="circle" icon={<MinusOutlined />} />
             <StyledInput value={cartQuantityCheck(cartQuantity, product)} />
-            <Button disabled={incVisibility(cartQuantity, product)} onClick={() => increaseQuantity(product)} shape="circle" icon={<PlusOutlined />} />
+            <Button disabled={disabled} onClick={() => handleClickInc(cartQuantity, product)} shape="circle" icon={<PlusOutlined />} />
           </AlignItemsCenter>
         </Col>
         <Col xs={9} md={6} lg={3} className="subtotal">
