@@ -184,8 +184,9 @@ export const getShippingCost = (recipientCityRef) => (dispatch) => {
 }
 
 export const PlaceOrder = (
-  products, isLogin, values, customer, shippingCost, valuePaymentInfo
-) => (dispatch) => {
+  products, values, customer, shippingCost, valuePaymentInfo
+) => (dispatch, getStore) => {
+  const {auth: {isLogin} } = getStore()
   dispatch(startLoading())
   dispatch(clearOrderCreator())
   const body = {

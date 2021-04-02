@@ -20,7 +20,6 @@ import StyledButton from '../../common/Buttons/StyledButton';
 import {
   getCity, getShippingCost, PlaceOrder
 } from '../../../store/cart/middleware';
-import { selectIsLogin } from '../../../store/auth/reducer';
 import { validName, validTelephone } from '../../../utils/constants';
 
 const mapStateToProps = (state) => ({
@@ -29,11 +28,10 @@ const mapStateToProps = (state) => ({
   customer: selectCustomer(state),
   shippingCost: selectShippingCost(state),
   products: selectProducts(state),
-  isLogin: selectIsLogin(state)
 })
 
 const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOrder})(({
-  cities, branches, customer, getCity, shippingCost, PlaceOrder, isLogin, products, getShippingCost
+  cities, branches, customer, getCity, shippingCost, PlaceOrder, products, getShippingCost
 }) => {
   const { Option } = Select;
   const history = useHistory()
@@ -110,7 +108,7 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
   };
 
   const onFinish = (values) => {
-    PlaceOrder(products, isLogin, values, customer, shippingCost, valuePaymentInfo)
+    PlaceOrder(products, values, customer, shippingCost, valuePaymentInfo)
     window.scrollTo(0, 0);
     history.push('/order')
   };
