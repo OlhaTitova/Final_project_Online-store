@@ -1,6 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 import axios from 'axios'
-import { DOMAIN, getHeaders } from '../general'
+import { DOMAIN, getHeaders } from '../../utils/constants'
 import updateWishlistCreator from './actionCreator'
 
 const BASE_ENDPOINT = `${DOMAIN}/wishlist`

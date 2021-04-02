@@ -9,7 +9,9 @@ import {
   GET_BRANCHES,
   GET_SHIPPING_COST,
   GET_ORDER,
-  CLEAR_ORDER
+  CLEAR_ORDER,
+  START_LOADING,
+  STOP_LOADING
 } from './actionType';
 
 export const setCart = (cart) => ({
@@ -53,4 +55,10 @@ export const getOrderCreator = (order) => ({
 })
 export const clearOrderCreator = () => ({
   type: CLEAR_ORDER,
+})
+export const startLoading = () => ({
+  type: START_LOADING,
+})
+export const stopLoading = () => ({
+  type: STOP_LOADING,
 })

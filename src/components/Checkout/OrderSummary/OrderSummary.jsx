@@ -11,7 +11,6 @@ const mapStateToProps = (state) => ({
 })
 
 const OrderSummary = connect(mapStateToProps, null)(({summary, shippingCost}) => (
-  
   <StyledOrderSummary>
     <h4>Order summary</h4>
     <RowBetween>
@@ -56,7 +55,7 @@ const OrderSummary = connect(mapStateToProps, null)(({summary, shippingCost}) =>
       </RowBetween>
     </div>
   </StyledOrderSummary>
-));
+))
 
 export default OrderSummary;
   

@@ -4,6 +4,7 @@ import axios from 'axios'
 import {
   addCartToLS, decreaseQuantityLS, getCartLS, increaseQuantityLS, removeFromCartLS
 } from '../../utils/cartLS'
+import { DOMAIN, getHeaders } from '../../utils/constants'
 import {
   setCart,
   decreaseQuantityCreator,
@@ -14,9 +15,10 @@ import {
   getBranches,
   getShippingCostCreator,
   getOrderCreator,
-  clearOrderCreator
+  clearOrderCreator,
+  startLoading,
+  stopLoading,
 } from './actionCreator'
-import { DOMAIN, getHeaders } from '../general'
 
 const BASE_ENDPOINT = `${DOMAIN}/cart`
 
@@ -182,11 +184,11 @@ export const getShippingCost = (recipientCityRef) => (dispatch) => {
 }
 
 export const PlaceOrder = (
-  products, isLogin, values, customer, shippingCost, valuePaymentInfo,
+  products, isLogin, values, customer, shippingCost, valuePaymentInfo
 ) => (dispatch) => {
+  dispatch(startLoading())
   dispatch(clearOrderCreator())
-  // eslint-disable-next-line prefer-const
-  let body = {
+  const body = {
     canceled: false,
     deliveryAddress: JSON.stringify({
       country: values.country,
@@ -215,6 +217,9 @@ export const PlaceOrder = (
       dispatch(clearCart())
     })
     .catch((err) => err.response)
+    .finally(() => {
+      dispatch(stopLoading())
+    })
 }
 
 export const getCartServer = async () => {

@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { message } from 'antd'
-import { DOMAIN, getHeaders } from '../general'
+import { DOMAIN, getHeaders } from '../../utils/constants'
 
 const BASE_ENDPOINT = `${DOMAIN}/subscribers`;
 

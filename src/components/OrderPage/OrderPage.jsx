@@ -16,10 +16,12 @@ const OrderPage = connect(mapStateToProps, null)(({isLogin}) => {
   const history = useHistory()
 
   const onClickHome = () => {
+    window.scrollTo(0, 0);
     history.push('/')
   }
   const onClickDashboard = () => {
-    history.push('/')
+    window.scrollTo(0, 0);
+    history.push('/dashboard')
   }
   return (
     <ContainerCart>

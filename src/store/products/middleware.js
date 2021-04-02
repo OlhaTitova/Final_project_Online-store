@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { DOMAIN, getHeaders } from '../../utils/constants';
 import {
   setProducts,
   addProduct,
@@ -8,7 +9,6 @@ import {
   cleanCatalogProducts,
   setSearchProducts
 } from './actionCreator';
-import { DOMAIN, getHeaders } from '../general'
 
 const BASE_ENDPOINT = `${DOMAIN}/products`
 

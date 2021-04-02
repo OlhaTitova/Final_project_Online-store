@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { DOMAIN } from '../../store/general';
+import { DOMAIN } from '../../utils/constants';
 
 function SortArr(arr) {
   return arr.sort((a, b) => {
