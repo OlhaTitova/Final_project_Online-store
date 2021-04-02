@@ -26,13 +26,16 @@ export const CartItem = connect(null, {
   const [disabled, setDisabled] = useState(cartQuantity === product.quantity)
 
   const handleClickInc = (cartQuantity, product) => {
-    if (cartQuantity + 1 >= product.quantity) {
+    if (cartQuantity + 1 === product.quantity) {
       setDisabled(true)
       message.warning(`In stock ${product.quantity} items`)
     } else {
-      setDisabled(false)
+      setDisabled(true)
+      setTimeout(() => {
+        setDisabled(false)
+      }, 300);
     }
-    if (cartQuantity <= product.quantity) {
+    if (cartQuantity < product.quantity) {
       increaseQuantity(product)
     }
   }

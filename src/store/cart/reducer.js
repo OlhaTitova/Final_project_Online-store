@@ -7,7 +7,6 @@ import {
   SET_CART,
   SET_CART_SUMMARY,
   GET_BRANCHES,
-  CLEAR_BRANCHES,
   GET_SHIPPING_COST,
   GET_CUSTOMER,
   GET_ORDER,
@@ -99,12 +98,6 @@ export const cartReducer = (state = initialState, {type, payload}) => {
       return {
         ...state,
         branches: payload,
-        shippingCost: 0,
-      }
-    case CLEAR_BRANCHES:
-      return {
-        ...state,
-        branches: [],
         shippingCost: 0,
       }
     case GET_SHIPPING_COST:

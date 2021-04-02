@@ -7,7 +7,6 @@ import {
   SET_CART,
   SET_CART_SUMMARY,
   GET_BRANCHES,
-  CLEAR_BRANCHES,
   GET_SHIPPING_COST,
   GET_ORDER,
   CLEAR_ORDER,
@@ -45,9 +44,6 @@ export const setCartSummaryCreator = (sum) => ({
 export const getBranches = (branches) => ({
   type: GET_BRANCHES,
   payload: branches,
-})
-export const clearBranches = () => ({
-  type: CLEAR_BRANCHES,
 })
 export const getShippingCostCreator = (shippingCost) => ({
   type: GET_SHIPPING_COST,

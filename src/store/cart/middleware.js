@@ -18,7 +18,6 @@ import {
   clearOrderCreator,
   startLoading,
   stopLoading,
-  clearBranches
 } from './actionCreator'
 
 const BASE_ENDPOINT = `${DOMAIN}/cart`
@@ -136,7 +135,6 @@ export const clearCart = () => (dispatch, getStore) => {
 }
 
 export const getCity = (props) => (dispatch) => {
-  dispatch(clearBranches());
   axios.post('https://api.novaposhta.ua/v2.0/json/', {
     modelName: 'AddressGeneral',
     calledMethod: 'getWarehouses',
@@ -190,8 +188,7 @@ export const PlaceOrder = (
 ) => (dispatch) => {
   dispatch(startLoading())
   dispatch(clearOrderCreator())
-  // eslint-disable-next-line prefer-const
-  let body = {
+  const body = {
     canceled: false,
     deliveryAddress: JSON.stringify({
       country: values.country,

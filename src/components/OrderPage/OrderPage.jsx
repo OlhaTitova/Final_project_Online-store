@@ -21,7 +21,7 @@ const OrderPage = connect(mapStateToProps, null)(({isLogin}) => {
   }
   const onClickDashboard = () => {
     window.scrollTo(0, 0);
-    history.push('/')
+    history.push('/dashboard')
   }
   return (
     <ContainerCart>
