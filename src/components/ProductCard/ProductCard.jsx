@@ -4,9 +4,8 @@ import { Link } from 'react-router-dom';
 
 // Compomemts
 import { connect } from 'react-redux';
-import { addToCart } from '../../store/cart/middleware'
 import { InStock } from './InStock/InStock';
-import { CheckAvailability } from './CheckAvailability/CheckAvailability';
+import { ProductSoldOut } from './ProductSoldOut/ProductSoldOut';
 import { StarRating } from '../StarRating/StarRating'
 import StyledButton from '../common/Buttons/StyledButton'
 import FavoriteIcon from '../FavotiteIcon/FavoriteIcon'
@@ -30,11 +29,14 @@ import {
 import cutString from '../../utils/cutString';
 import rateCalculator from '../../utils/rateCalculator';
 import upperCaseFirstLetter from '../../utils/upperCaseFirstLetter';
+import { addToCart } from '../../store/cart/middleware'
+import { showModal } from '../../store/subscriceOnProductModal/middleware'
 
-export const ProductCard = connect(null, { addToCart })((
+export const ProductCard = connect(null, { addToCart, showModal })((
   {
     productInfo,
     addToCart,
+    showModal,
   }
 ) => {
   const {
@@ -48,6 +50,7 @@ export const ProductCard = connect(null, { addToCart })((
   } = productInfo
   const isAvilable = quantity > 0
 
+  const promotionalProduct = previousPrice !== 0
   // string length limitation and translation of the first letter into capital
   const verifiedTitle = upperCaseFirstLetter(cutString(name, 38))
 
@@ -56,7 +59,7 @@ export const ProductCard = connect(null, { addToCart })((
   return (
     <CardItem className="hidden">
 
-      <Link to={`products/${itemNo}`}>
+      <Link to={`products/${itemNo}`} onClick={() => window.scrollTo(0, 0)}>
         <ImageWrapper>
           <CardImage src={imageUrls[0]} />
         </ImageWrapper>
@@ -77,9 +80,9 @@ export const ProductCard = connect(null, { addToCart })((
           showTooltip
         />
       </ReviewsBox>
-      {isAvilable ? <InStock /> : <CheckAvailability /> }
+      {isAvilable ? <InStock /> : <ProductSoldOut /> }
 
-      <Link to={`products/${itemNo}`}>
+      <Link to={`products/${itemNo}`} onClick={() => window.scrollTo(0, 0)}>
         <CardTitle>
           {verifiedTitle}
         </CardTitle>
@@ -87,22 +90,34 @@ export const ProductCard = connect(null, { addToCart })((
 
       <PurchaseGroup>
         <PriceBox>
+          {promotionalProduct && (
           <CardLastPrice>
             {`${previousPrice} ₴`}
           </CardLastPrice>
-          <CardCurrentPrice>
+          )}
+          <CardCurrentPrice promotionalProduct={promotionalProduct}>
             {`${currentPrice} ₴`}
           </CardCurrentPrice>
         </PriceBox>
-        <StyledButton
-          type="borderBlue"
-          size="xs"
-          shape="round"
-          disabled={!isAvilable}
-          onClick={() => addToCart(productInfo, 1)}
-        >
-          Add to cart
-        </StyledButton>
+        {isAvilable ? (
+          <StyledButton
+            size="xs"
+            shape="round"
+            onClick={() => addToCart(productInfo, 1)}
+          >
+            Add to cart
+          </StyledButton>
+        ) : (
+          <StyledButton
+            color="borderGrey"
+            size="xs"
+            shape="round"
+            onClick={showModal}
+          >
+            Check avilabiliy
+          </StyledButton>
+        )}
+        
       </PurchaseGroup>
     </CardItem>
   )

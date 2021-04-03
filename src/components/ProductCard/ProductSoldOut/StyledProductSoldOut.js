@@ -2,12 +2,12 @@ import { PhoneFilled } from '@ant-design/icons';
 import styled from 'styled-components';
 import { forDesktop } from '../../../styles/mediaBreakPoints';
 
-export const StyledCheckAvailabilityWrapper = styled.div`
+export const ProductSoldOutWrapper = styled.div`
   display: flex;
   align-items: center;
 `
 
-export const StyledCheckAvailabilityIcon = styled(PhoneFilled)`
+export const SoldOutIcon = styled(PhoneFilled)`
   padding: 3px;
   font-size: 4px;
   border-radius: 100%;
@@ -19,11 +19,10 @@ export const StyledCheckAvailabilityIcon = styled(PhoneFilled)`
   }
 `
 
-export const StyledCheckAvailabilityBtn = styled.button`
+export const SoldOutText = styled.div`
   margin-left: 5px;
   font-size: 10px;
   border: none;
-  text-decoration: underline;
   background-color: transparent;
   text-transform: lowercase;
   color: #C94D3F;

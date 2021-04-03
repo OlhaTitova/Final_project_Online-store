@@ -56,7 +56,7 @@ ${(props) => props.size === 'sm' && css`
   width: 130px;
 `};
 ${(props) => props.size === 'xs' && css`
-  width: 120px;
+  width: 100%;
 `};
 
   @media(min-width: ${forTablet.minWidth}px) and (max-width: ${forTablet.maxWidth}px) {
@@ -73,9 +73,6 @@ ${(props) => props.size === 'xs' && css`
     ${(props) => props.size === 'sm' && css`
       width: 130px;
      `};
-    ${(props) => props.size === 'xs' && css`
-      width: 120px;
-    `};
   }
 
   @media(min-width: ${forDesktop.minWidth}px){
@@ -97,7 +94,6 @@ ${(props) => props.size === 'xs' && css`
       width: 150px;
      `};
     ${(props) => props.size === 'xs' && css`
-      width: 100px;
       padding: 4px 10px;
       font-size: 11px;
   `};

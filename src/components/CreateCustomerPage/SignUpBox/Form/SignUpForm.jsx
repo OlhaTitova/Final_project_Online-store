@@ -18,6 +18,7 @@ const SignUpForm = () => {
       return acc
     }, {})
     credentials.isAdmin = true
+    credentials.ratedProducts = []
 
     createCustomer(credentials, history)
   };
