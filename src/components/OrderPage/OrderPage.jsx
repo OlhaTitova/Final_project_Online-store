@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { useHistory, Link } from 'react-router-dom';
 import { selectIsLogin } from '../../store/auth/reducer';
@@ -15,12 +15,14 @@ const mapStateToProps = (state) => ({
 const OrderPage = connect(mapStateToProps, null)(({isLogin}) => {
   const history = useHistory()
 
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+
   const onClickHome = () => {
-    window.scrollTo(0, 0);
     history.push('/')
   }
   const onClickDashboard = () => {
-    window.scrollTo(0, 0);
     history.push('/dashboard')
   }
   return (

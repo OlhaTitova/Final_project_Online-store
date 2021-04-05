@@ -19,7 +19,6 @@ const Summary = connect(mapStateToProps, null)(({summary}) => {
     if (summary === 0) {
       message.warning('Your shopping cart is empty. Please add items to your shopping cart');
     } else {
-      window.scrollTo(0, 0);
       history.push('/checkout')
     }
   }

@@ -108,7 +108,6 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
 
   const onFinish = (values) => {
     PlaceOrder(products, values, customer, shippingCost, valuePaymentInfo)
-    window.scrollTo(0, 0);
     history.push('/order')
   };
     
@@ -160,9 +159,8 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
           },
           {
             pattern: validName,
-            message: 'First name cannot contain characters or numbers'
+            message: 'First name cannot contain characters, space or numbers'
           },
-          formTrimStringValidator('Name should not contain just a spaces.')
         ]}
       >
         <Input placeholder="First name" />
@@ -184,9 +182,8 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
           },
           {
             pattern: validName,
-            message: 'Last name cannot contain characters or numbers'
+            message: 'Last name cannot contain characters, space or numbers'
           },
-          formTrimStringValidator('Name should not contain just a spaces.')
         ]}
       >
         <Input placeholder="Last name" />
