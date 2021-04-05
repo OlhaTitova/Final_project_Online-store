@@ -18,7 +18,7 @@ const FormInfoChange = connect(mapStateToProps, { setHideModal })(({
   const [form] = Form.useForm();
 
   const onFinish = (values) => {
-    updateCustomer(values);
+    updateCustomer(values, 'Your contact information has been changed');
     setHideModal();
     setInfo((prev) => ({
       ...prev,

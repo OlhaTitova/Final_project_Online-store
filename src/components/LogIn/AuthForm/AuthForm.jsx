@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-props-no-spreading */
 import { React, useState} from 'react';
 import styled from 'styled-components'
@@ -25,7 +26,8 @@ const AuthForm = connect(null, {
     compareLSItemsAndDBItems,
     setRefreshTimer,
     addLSToServer,
-    getCart
+    getCart,
+    finishCallback
   }
 ) => {
   const startInterval = () => (
@@ -33,20 +35,20 @@ const AuthForm = connect(null, {
       authLogIn(JSON.parse(localStorage.getItem('credentials')))
     }, 1800000)
   )
-
   const formLayout = 'vertical'
   const [error, setError] = useState({})
   const history = useHistory()
 
   const onFinish = async (values) => {
     const {status, data} = await authLogIn(values)
-
+    
     if (status === 200) {
       setRefreshTimer(startInterval())
       addLSToServer()
       getCart()
-      history.push('/')
       compareLSItemsAndDBItems()
+      // eslint-disable-next-line no-unused-expressions
+      typeof finishCallback === 'function' ? finishCallback() : history.push('/')
     }
 
     if (status === 400) {

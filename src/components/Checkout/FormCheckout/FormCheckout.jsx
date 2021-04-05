@@ -17,10 +17,9 @@ import {
 } from '../../../store/cart/reducer';
 import {StyledRadio, StyledShippingTitle} from '../StyledCheckout';
 import StyledButton from '../../common/Buttons/StyledButton';
-import {
-  getCity, getShippingCost, PlaceOrder
-} from '../../../store/cart/middleware';
+import { getCity, getShippingCost, PlaceOrder} from '../../../store/cart/middleware';
 import { validName, validTelephone } from '../../../utils/constants';
+import formTrimStringValidator from '../../../utils/formTrimStringValidator';
 
 const mapStateToProps = (state) => ({
   cities: selectCities(state),
@@ -81,7 +80,7 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
   },
   {
     name: 'phoneNumber',
-    value: customer.telephone || '+380'
+    value: customer.telephone || '380'
   },
   {
     name: 'country',
@@ -137,6 +136,7 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
             type: 'email',
             message: 'Entered data is not an email.',
           },
+          formTrimStringValidator()
         ]}
       >
         <Input
@@ -162,6 +162,7 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
             pattern: validName,
             message: 'First name cannot contain characters or numbers'
           },
+          formTrimStringValidator('Name should not contain just a spaces.')
         ]}
       >
         <Input placeholder="First name" />
@@ -184,7 +185,8 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
           {
             pattern: validName,
             message: 'Last name cannot contain characters or numbers'
-          }
+          },
+          formTrimStringValidator('Name should not contain just a spaces.')
         ]}
       >
         <Input placeholder="Last name" />

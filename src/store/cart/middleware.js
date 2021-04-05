@@ -30,6 +30,13 @@ export const addToCart = (product, quantity) => (dispatch, getStore) => {
   if (itemInCartAndLS) {
     updatedCart = products.map((el) => {
       if (el.product._id === itemInCartAndLS.product._id) {
+        if (el.cartQuantity + quantity > el.product.quantity) {
+          message.warning('The quantity has been automatically adjusted to the stock quantity')
+          return {
+            ...el,
+            cartQuantity: el.product.quantity
+          }
+        }
         return {
           ...el,
           cartQuantity: el.cartQuantity + quantity

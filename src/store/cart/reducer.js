@@ -64,6 +64,11 @@ export const cartReducer = (state = initialState, {type, payload}) => {
     (sum, curr) => sum + curr.cartQuantity * curr.product.currentPrice,
     0
   )
+  const totalCountInCartOneProduct = (payload) => payload.products.reduce(
+    (sum, curr) => sum + curr.cartQuantity,
+    0
+  )
+    
   switch (type) {
     case ADD_TO_CART:
     case DECREASE_QUANTITY:
@@ -73,20 +78,14 @@ export const cartReducer = (state = initialState, {type, payload}) => {
         ...state,
         products: payload.products,
         summary: summaryTotalItems(payload),
-        productCartCount: payload.products.reduce(
-          (sum, curr) => sum + curr.cartQuantity,
-          0
-        ),
+        productCartCount: totalCountInCartOneProduct(payload),
       }
     case SET_CART:
       return {
         ...state,
         products: payload.products,
         customer: payload.customerId || {},
-        productCartCount: payload.products.reduce(
-          (sum, curr) => sum + curr.cartQuantity,
-          0
-        ),
+        productCartCount: totalCountInCartOneProduct(payload),
         summary: summaryTotalItems(payload)
       }
     case SET_CART_SUMMARY:
