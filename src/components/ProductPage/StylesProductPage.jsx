@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { forTablet, forDesktop } from '../../styles/mediaBreakPoints'
 
 export const PageContainer = styled.div`
@@ -63,13 +63,35 @@ export const AboutProduct = styled.ul`
     }
 `
 export const PriceBox = styled.div`
-    border-radius: 4px;
-    font-size: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
     margin: 15px 0;
-    font-weight: 300;
-    b {
-        font-weight: 700;
-        margin-right: 10px;
+`
+export const PreviousPrice = styled.span`
+    margin-bottom: 5px;
+    font-size: 17px;
+    color: #666666;
+    text-decoration-line: line-through;
+
+    span {
+        font-size: 14px;
+        margin-left: 5px;
+    }
+`
+export const CurrentPrice = styled.span`
+    font-weight: 700;
+    font-size: 24px;
+    
+    ${(props) => props.promotionalProduct && css`
+        color: #f84147;
+  `}
+
+    span {
+        font-size: 17px;
+        font-weight: 500;
+        margin-left: 5px;
     }
 `
 export const FavoriteBox = styled.div`

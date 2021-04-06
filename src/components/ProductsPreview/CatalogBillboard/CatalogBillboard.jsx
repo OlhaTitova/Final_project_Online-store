@@ -7,7 +7,9 @@ import {
 } from './StyledCatalogBillboard'
 
 export const CatalogBillboard = ({ billboardInfo }) => {
-  const { title, img, url } = billboardInfo
+  const {
+    title, img, url, category
+  } = billboardInfo
 
   return (
     <CatalogBillboardWrapper src={img}>
@@ -16,7 +18,9 @@ export const CatalogBillboard = ({ billboardInfo }) => {
         to={url}
         onClick={() => window.scrollTo(0, 0)}
       >
-        view all products
+        View all
+        {' '}
+        {category}
       </CatalogBillboardLink>
     </CatalogBillboardWrapper>
   )
@@ -26,7 +30,8 @@ CatalogBillboard.propTypes = {
   billboardInfo: PropTypes.shape({
     title: PropTypes.string.isRequired,
     img: PropTypes.string.isRequired,
-    url: PropTypes.string.isRequired
+    url: PropTypes.string.isRequired,
+    category: PropTypes.string.isRequired
   }).isRequired
 }
 

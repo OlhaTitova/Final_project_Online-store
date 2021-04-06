@@ -5,9 +5,17 @@ import { CartGroupBox, FlexBox, AvilableQuantityBox } from './StylesCartGroup'
 import InputGroup from './InputGroup/InputGroup'
 import StyledButton from '../../common/Buttons/StyledButton'
 import checkValue from '../../../utils/checkValue'
-import {addToCart} from '../../../store/cart/middleware'
+import { addToCart } from '../../../store/cart/middleware'
+import { showSubscribeModal } from '../../../store/subscriceOnProductModal/middleware'
 
-const CartGroup = connect(null, { addToCart })(({ product, avilableQuantity, addToCart }) => {
+const CartGroup = connect(null, { addToCart, showSubscribeModal })((
+  {
+    product,
+    avilableQuantity,
+    addToCart,
+    showSubscribeModal,
+  }
+) => {
   const [quantity, setQuanity] = useState(avilableQuantity > 0 ? 1 : 0)
   const inputHandler = (e) => {
     const value = +e.target.value.trim()
@@ -37,7 +45,24 @@ const CartGroup = connect(null, { addToCart })(({ product, avilableQuantity, add
           inputHandler={inputHandler}
           quantity={quantity}
         />
-        <StyledButton size="lg" shape="round" disabled={!isAvilable} onClick={() => addToCart(product, quantity)}>Add to cart</StyledButton>
+        {isAvilable ? (
+          <StyledButton
+            size="lg"
+            shape="round"
+            onClick={() => addToCart(product, quantity)}
+          >
+            Add to cart
+          </StyledButton>
+        ) : (
+          <StyledButton
+            color="borderGrey"
+            size="lg"
+            shape="round"
+            onClick={showSubscribeModal}
+          >
+            Check avilabiliy
+          </StyledButton>
+        )}
       </FlexBox>
     </CartGroupBox>
   )

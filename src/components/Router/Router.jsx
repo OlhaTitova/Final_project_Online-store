@@ -1,6 +1,7 @@
 import React from 'react'
 import { Route, Switch } from 'react-router-dom'
 import CreateCustomerPage from '../CreateCustomerPage/CreateCustomerPage'
+import { Catalog as ProductsPreview } from '../ProductsPreview/Catalog'
 import { BannerSlider } from '../BannerSlider/BannerSlider'
 import { AboutUsPage } from '../About-us/AboutUs'
 import NewProductsSlider from '../NewProductsSlider/NewProductsSlider'
@@ -16,7 +17,6 @@ import {CartPage} from '../CartPage/CartPage'
 import OrderPage from '../OrderPage/OrderPage'
 import NoMatchPage from '../NoMatchPage/NoMatchPage'
 import DashBoard from '../DashBoard/DashBoard'
-import { Catalog } from '../MainCatalog/Catalog'
 import ReviewSlider from '../ReviewSlider/ReviewSlider'
 import Description from '../Description/Description'
 
@@ -25,7 +25,7 @@ const Router = () => (
     <Route exact path="/">
       <BannerSlider />
       <NewProductsSlider />
-      <Catalog />
+      <ProductsPreview />
       <Description />
       <HomepageBrands />
       <HomepageFollowUs />

@@ -13,6 +13,7 @@ const mapStateToProps = (state) => ({
 })
 
 const OrderPage = connect(mapStateToProps, null)(({isLogin}) => {
+  window.scrollTo(0, 0);
   const history = useHistory()
 
   const onClickHome = () => {
@@ -20,7 +21,6 @@ const OrderPage = connect(mapStateToProps, null)(({isLogin}) => {
     history.push('/')
   }
   const onClickDashboard = () => {
-    window.scrollTo(0, 0);
     history.push('/dashboard')
   }
   return (

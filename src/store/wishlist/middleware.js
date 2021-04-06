@@ -1,7 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 import axios from 'axios'
 import { DOMAIN, getHeaders } from '../../utils/constants'
-import updateWishlistCreator from './actionCreator'
+import { updateWishlistCreator, startLoading, stopLoading } from './actionCreator'
 
 const BASE_ENDPOINT = `${DOMAIN}/wishlist`
 
@@ -33,6 +33,7 @@ const getItemsFromDB = () => {
 }
 
 export const setWishlist = () => async (dispatch, getState) => {
+  dispatch(startLoading())
   const {auth: { isLogin }} = getState()
   const itemsToSet = []
   
@@ -48,6 +49,7 @@ export const setWishlist = () => async (dispatch, getState) => {
   }
 
   dispatch(updateWishlistCreator(itemsToSet))
+  dispatch(stopLoading())
 }
 
 export const addProductToWishlist = (product) => async (dispatch, getState) => {

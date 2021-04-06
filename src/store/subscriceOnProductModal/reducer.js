@@ -6,19 +6,22 @@ export const selectCustomerEmail = (state) => state[MODULE_NAME].customerEmail
 
 const initialState = {
   isOpen: false,
+  customerEmail: ''
 }
 
-export const reducer = (state = initialState, { type }) => {
+export const reducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case SHOW_MODAL:
       return {
         ...state,
         isOpen: true,
+        customerEmail: payload
       }
     case HIDE_MODAL:
       return {
         ...state,
         isOpen: false,
+        customerEmail: ''
       }
     default:
       return {

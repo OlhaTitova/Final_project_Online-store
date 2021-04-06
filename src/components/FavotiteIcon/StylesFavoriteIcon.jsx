@@ -4,13 +4,18 @@ import { forDesktop } from '../../styles/mediaBreakPoints'
 export const IconWrapper = styled.div`
     position: relative;
     cursor: pointer;
+    & svg {
+        stroke: #f7749e;
+    }
     ${(props) => props.isFavorite && css`
         & svg {
-         fill: #eb2d69;
+         fill: #eb2d69 !important;
+         stroke: #eb2d69 !important;
         }
     `}
     &:hover svg  {
-        fill: #eb2d69;
+        fill: #f7749e;
+        stroke: #f7749e;
     }
 
     @media(min-width: ${forDesktop.minWidth}px) {

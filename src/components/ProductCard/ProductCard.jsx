@@ -30,13 +30,13 @@ import cutString from '../../utils/cutString';
 import rateCalculator from '../../utils/rateCalculator';
 import upperCaseFirstLetter from '../../utils/upperCaseFirstLetter';
 import { addToCart } from '../../store/cart/middleware'
-import { showModal } from '../../store/subscriceOnProductModal/middleware'
+import { showSubscribeModal } from '../../store/subscriceOnProductModal/middleware'
 
-export const ProductCard = connect(null, { addToCart, showModal })((
+export const ProductCard = connect(null, { addToCart, showSubscribeModal })((
   {
     productInfo,
     addToCart,
-    showModal,
+    showSubscribeModal,
   }
 ) => {
   const {
@@ -48,18 +48,16 @@ export const ProductCard = connect(null, { addToCart, showModal })((
     quantity,
     itemNo,
   } = productInfo
+
   const isAvilable = quantity > 0
-
   const promotionalProduct = previousPrice !== 0
-  // string length limitation and translation of the first letter into capital
   const verifiedTitle = upperCaseFirstLetter(cutString(name, 38))
-
-  // getting an average rating and the number of reviews left
   const { reviewsQuantity, rating } = rateCalculator(reviews)
+
   return (
     <CardItem className="hidden">
 
-      <Link to={`products/${itemNo}`} onClick={() => window.scrollTo(0, 0)}>
+      <Link to={`products/${itemNo}`}>
         <ImageWrapper>
           <CardImage src={imageUrls[0]} />
         </ImageWrapper>
@@ -82,7 +80,7 @@ export const ProductCard = connect(null, { addToCart, showModal })((
       </ReviewsBox>
       {isAvilable ? <InStock /> : <ProductSoldOut /> }
 
-      <Link to={`products/${itemNo}`} onClick={() => window.scrollTo(0, 0)}>
+      <Link to={`products/${itemNo}`}>
         <CardTitle>
           {verifiedTitle}
         </CardTitle>
@@ -112,7 +110,7 @@ export const ProductCard = connect(null, { addToCart, showModal })((
             color="borderGrey"
             size="xs"
             shape="round"
-            onClick={showModal}
+            onClick={showSubscribeModal}
           >
             Check avilabiliy
           </StyledButton>

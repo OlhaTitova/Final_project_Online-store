@@ -111,8 +111,7 @@ export const CardCurrentPrice = styled.div`
   color: black;
   padding: 2px;
   ${(props) => props.promotionalProduct && css`
-    background-color: #f8ff26;
-    border-radius: 4px;
+    color: #f84147;
   `}
 
   @media(min-width: ${forTablet.minWidth}px){
