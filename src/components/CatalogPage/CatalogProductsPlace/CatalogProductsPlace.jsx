@@ -1,23 +1,26 @@
 import React, { useEffect, useMemo } from 'react'
 import { connect } from 'react-redux'
 import { useLocation } from 'react-router-dom'
+import { Empty, Spin } from 'antd'
 import {ProductCard} from '../../ProductCard/ProductCard'
-import { getProductsToCatalog } from '../../../store/products/middleware'
+import { getProductsToCatalog } from '../../../store/catalog/middleware'
 import CatalogPagination from '../CatalogPagination/CatalogPagination'
 import { ProductsWrapper, Wrapper } from './StyledCatalogProductsPlace'
-import CatalogNoProducts from '../CatalogNoProducts/CatalogNoProducts'
 import makeConfigFromUrl from '../../../utils/makeConfigFromUrl'
 import makeUrlFromConfig from '../../../utils/makeUrlFromConfig'
+import { selectCatalogProducts, selectIsLoading, selectProductsQuantity } from '../../../store/catalog/reducer'
 
 const mapStateToProps = (state) => ({
-  catalogProducts: state.products.catalog.catalogProducts,
-  productsQuantity: state.products.catalog.productsQuantity
+  catalogProducts: selectCatalogProducts(state),
+  productsQuantity: selectProductsQuantity(state),
+  isLoading: selectIsLoading(state)
 })
 
 const CatalogProductsPlace = connect(mapStateToProps, {
   getProductsToCatalog
 })((
   {
+    isLoading,
     catalogProducts,
     productsQuantity,
     getProductsToCatalog
@@ -35,18 +38,25 @@ const CatalogProductsPlace = connect(mapStateToProps, {
     }
   }, [config, getProductsToCatalog, search])
 
+  if (isLoading) return <Spin size="large" tip="Loading..." style={{margin: '50px auto'}} />
+
   return (
-    catalogProducts.length === 0
-      ? <CatalogNoProducts productsQuantity={productsQuantity} />
+    !productsQuantity
+      ? (
+        <Empty description={false}>
+          <span>Sorry, no products</span>
+        </Empty>
+      )
       : (
         <Wrapper>
           <ProductsWrapper>
-            {catalogProducts.map((el) => (
-              <ProductCard
-                key={el.itemNo}
-                productInfo={el}
-              />
-            ))}
+            {catalogProducts
+              .map((el) => (
+                <ProductCard
+                  key={el.itemNo}
+                  productInfo={el}
+                />
+              ))}
           </ProductsWrapper>
           {productsQuantity > (config.perPage || 16) && <CatalogPagination />}
         </Wrapper>

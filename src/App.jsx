@@ -5,31 +5,20 @@ import Header from './components/Header/Header';
 import { setWishlist } from './store/wishlist/middleware'
 import ProductSubscribeModal from './components/ProductSubscribeModal/ProductSubscribeModal'
 import Router from './components/Router/Router'
-import {authLogIn} from './store/auth/middleware'
-import { setRefreshTimer } from './store/auth/actionCreator'
 import { getCart } from './store/cart/middleware'
 import ServiceSection from './components/ServiceSection/ServiceSection'
 import AuthModal from './components/AuthModal/AuthModal'
 
 const App = connect(null, {
-  authLogIn, setRefreshTimer, setWishlist, getCart
+  setWishlist, getCart
 })(({
-  authLogIn,
   setWishlist,
-  setRefreshTimer,
   getCart
 }) => {
   useEffect(() => {
     setWishlist()
     getCart()
-
-    if (localStorage.getItem('credentials')) {
-      authLogIn(JSON.parse(localStorage.getItem('credentials')))
-      setRefreshTimer(setInterval(() => {
-        authLogIn(JSON.parse(localStorage.getItem('credentials')))
-      }, 1800000))
-    }
-  }, [authLogIn, getCart, setRefreshTimer, setWishlist])
+  }, [getCart, setWishlist])
 
   return (
     <div style={{marginTop: '120px'}}>

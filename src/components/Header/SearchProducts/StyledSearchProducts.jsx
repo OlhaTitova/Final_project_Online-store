@@ -5,7 +5,7 @@ export const SearchList = styled.div`
     position: absolute;
     background-color: #FFFFFF;
     z-index: 100000;
-    width: 120%;
+    width: 145%;
     text-align: center;
     border-radius: 10px;
     box-shadow: 0 10px 10px rgba(0,0,0,0.1);

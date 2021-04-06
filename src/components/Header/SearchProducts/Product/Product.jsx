@@ -13,6 +13,8 @@ import { CardReviews, RatingBox } from '../../../ProductCard/StyledProductCard';
 
 export const Product = ({product, reset}) => {
   const { reviewsQuantity, rating } = rateCalculator(product.reviews)
+  const discount = Boolean(product.previousPrice)
+
   return (
     <Link onClick={reset} to={`/products/${product.itemNo}`}>
       <ProductWrapper>
@@ -32,8 +34,8 @@ export const Product = ({product, reset}) => {
           </RatingBox>
         </ProductInfo>
         <PriceWrapper>
-          <ProductFullPrice>{product.previousPrice}</ProductFullPrice>
-          <ProductCurrentPrice>{`${product.currentPrice} ₴`}</ProductCurrentPrice>
+          {discount ? <ProductFullPrice>{product.previousPrice}</ProductFullPrice> : null}
+          <ProductCurrentPrice discount={discount}>{`${product.currentPrice} ₴`}</ProductCurrentPrice>
         </PriceWrapper>
       </ProductWrapper>
     </Link>
