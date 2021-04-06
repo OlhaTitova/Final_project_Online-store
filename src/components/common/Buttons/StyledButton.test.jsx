@@ -20,7 +20,7 @@ describe('All tests for StyledButton', () => {
   
   test('Check is callback has been called by the click', () => {
     const handleClick = jest.fn()
-    const { getByText } = render(<StyledButton color="balck" size="md" onClick={handleClick}>Click me</StyledButton>)
+    const { getByText } = render(<StyledButton color="black" size="md" onClick={handleClick}>Click me</StyledButton>)
     fireEvent.click(getByText('Click me'))
     expect(handleClick).toHaveBeenCalledTimes(1)
   })
