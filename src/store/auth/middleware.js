@@ -1,9 +1,9 @@
 import axios from 'axios'
 import { message } from 'antd';
-import { clearRefreshTimer, logIn, logOut } from './actionCreator'
+import { DOMAIN } from '../../utils/constants'
+import { logIn, logOut } from './actionCreator'
 import updateWishlistCreator from '../wishlist/actionCreator'
 import { clearCart } from '../cart/middleware'
-import { DOMAIN } from '../../utils/constants';
 
 const BASE_ENDPOINT = '/customers'
 
@@ -11,7 +11,6 @@ export const authLogIn = (credentials) => async (dispatch) => {
   const res = await axios.post(`${DOMAIN}${BASE_ENDPOINT}/login`, credentials)
     .then((data) => {
       if (data.status === 200) {
-        localStorage.setItem('credentials', JSON.stringify(credentials))
         localStorage.setItem('token', data.data.token)
         dispatch(logIn())
       }
@@ -22,10 +21,8 @@ export const authLogIn = (credentials) => async (dispatch) => {
 }
 
 export const authLogOut = () => (dispatch) => {
-  localStorage.removeItem('credentials')
   localStorage.removeItem('token')
   localStorage.removeItem('wishlist')
-  dispatch(clearRefreshTimer())
   dispatch(logOut())
   dispatch(updateWishlistCreator([]))
   dispatch(clearCart())

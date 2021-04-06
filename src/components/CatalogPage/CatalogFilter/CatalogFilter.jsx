@@ -1,10 +1,14 @@
+/* eslint-disable prefer-destructuring */
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { useMemo} from 'react'
-import PropTypes from 'prop-types';
+import React, {
+  useCallback, useEffect, useMemo, useState
+} from 'react'
 import {
   Form
 } from 'antd';
 import { useHistory, useLocation } from 'react-router-dom';
+import { connect } from 'react-redux';
 import close from '../../../images/filter/close.svg';
 import {
   StyledForm, Wrapper, FilterTitle,
@@ -16,25 +20,38 @@ import StyledButton from '../../common/Buttons/StyledButton'
 import {FormMenu} from './FormMenu/FormMenu';
 import makeConfigFromUrl from '../../../utils/makeConfigFromUrl';
 import makeUrlFromConfig from '../../../utils/makeUrlFromConfig';
+import { selectMinMaxPrice } from '../../../store/catalog/reducer';
 
 const layout = {
   labelCol: { span: 6 },
   wrapperCol: { span: 18 },
 };
 
-const CatalogFilter = ({
-  showFilter, setShowFilter
+const mapStateToProps = (state) => ({
+  minMaxPrice: selectMinMaxPrice(state)
+})
+
+const CatalogFilter = connect(mapStateToProps)(({
+  showFilter,
+  setShowFilter,
+  minMaxPrice
 }) => {
   const {search} = useLocation()
   const history = useHistory()
   const config = search ? makeConfigFromUrl(search) : {}
-  const [form] = Form.useForm();
 
   const onFinish = (values) => {
-    if (!Object.keys(values).length) return
-    const filterParts = ['brand', 'categories', 'minPrice', 'maxPrice']
     const refValue = checkFormValues(values)
-    const refConfig = {...config, ...refValue}
+    if (values.price[0] !== minMaxPrice[0] || values.price[1] !== minMaxPrice[1]) {
+      refValue.minPrice = values.price[0]
+      refValue.maxPrice = values.price[1]
+    }
+    delete refValue.price
+    if (!Object.keys(refValue)) return
+    const filterParts = ['brand', 'categories', 'minPrice', 'maxPrice']
+    const refConfig = {
+      ...config, ...refValue
+    }
     Object.keys(refConfig).forEach((key) => {
       if (filterParts.includes(key) && (refValue[key] === undefined || refValue[key] === null)) {
         delete refConfig[key]
@@ -45,7 +62,6 @@ const CatalogFilter = ({
   };
 
   const clearForm = () => {
-    form.resetFields()
     const {
       brand, categories, minPrice, maxPrice, ...refConfig
     } = config
@@ -62,17 +78,13 @@ const CatalogFilter = ({
       value: config?.categories || null
     },
     {
-      name: 'minPrice',
-      value: +config?.minPrice || null
-    },
-    {
-      name: 'maxPrice',
-      value: (config.maxPrice === '10000000' ? null : +config?.maxPrice) || null
+      name: 'price',
+      value: [config.minPrice || minMaxPrice[0], config.maxPrice || minMaxPrice[1]]
     }
-  ]), [config.brand, config.categories, config.maxPrice, config.minPrice])
+  ]), [config.brand, config.categories, config.maxPrice, config.minPrice, minMaxPrice])
 
   return (
-    <StyledForm fields={fields} form={form} {...layout} onFinish={onFinish}>
+    <StyledForm fields={fields} {...layout} onFinish={onFinish}>
       <GlobalStyle showFilter={showFilter} />
       <Wrapper showFilter={showFilter}>
         <FilterTitle>
@@ -107,11 +119,6 @@ const CatalogFilter = ({
       </Wrapper>
     </StyledForm>
   );
-}
-
-CatalogFilter.propTypes = {
-  showFilter: PropTypes.bool.isRequired,
-  setShowFilter: PropTypes.func.isRequired,
-}
+})
 
 export default CatalogFilter

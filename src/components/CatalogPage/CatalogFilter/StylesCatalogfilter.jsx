@@ -32,8 +32,9 @@ export const Wrapper = styled.aside`
       top: 0%;
       left: -100%;
       width: 100%;
-      height: calc(100% - 76px);
-      overflow: auto;
+      height: 100%;
+      padding-bottom: 76px;
+      overflow: scroll;
       background: #ECECEC;
       transition: all 0.5s ease-out;
       opacity: 0;

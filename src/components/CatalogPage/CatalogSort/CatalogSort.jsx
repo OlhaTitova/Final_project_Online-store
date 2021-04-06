@@ -29,7 +29,7 @@ const CatalogSort = ({setShowFilter}) => {
       <FilterBtn type="submit" onClick={() => setShowFilter((prev) => !prev)}>Filter</FilterBtn>
       <SelectWrapper>
         <span className="title-select">Sort By:</span>
-        <StyledSelect bordered={false} onChange={(value) => onChange(value, 'sort')} defaultValue={config.sort || 'default'}>
+        <StyledSelect bordered={false} onChange={(value) => onChange(value, 'sort')} value={config.sort || 'default'}>
           <Select.Option value="default">Position</Select.Option>
           <Select.Option value="+currentPrice">From min price</Select.Option>
           <Select.Option value="-currentPrice">From max price</Select.Option>
@@ -37,11 +37,11 @@ const CatalogSort = ({setShowFilter}) => {
       </SelectWrapper>
       <SelectWrapper>
         <span className="title-select">Show:</span>
-        <StyledSelect bordered={false} onChange={(value) => onChange(value, 'perPage')} defaultValue={config.perPage || '16'}>
+        <StyledSelect bordered={false} onChange={(value) => onChange(value, 'perPage')} value={config.perPage || '16'}>
           <Select.Option value="16">16 per page</Select.Option>
           <Select.Option value="32">32 per page</Select.Option>
           <Select.Option value="48">48 per page</Select.Option>
-          <Select.Option value="60">60 per page</Select.Option>
+          <Select.Option value="64">64 per page</Select.Option>
         </StyledSelect>
       </SelectWrapper>
     </Wrapper>

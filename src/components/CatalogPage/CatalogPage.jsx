@@ -1,4 +1,6 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
+import { connect } from 'react-redux'
+import { getMinMaxPrice } from '../../store/catalog/middleware'
 import {Container} from '../common/Container'
 import Heading from '../common/Heading/Heading'
 import CatalogFilter from './CatalogFilter/CatalogFilter'
@@ -6,9 +8,14 @@ import CatalogProductsPlace from './CatalogProductsPlace/CatalogProductsPlace'
 import CatalogSort from './CatalogSort/CatalogSort'
 import { CatalogProducts, Flex } from './StyledCatalogPage'
 
-const CatalogPage = () => {
+const CatalogPage = connect(null, {getMinMaxPrice})(({getMinMaxPrice}) => {
   const [showFilter, setShowFilter] = useState(false);
 
+  useEffect(() => {
+    window.scrollTo(0, 0)
+    getMinMaxPrice()
+  }, [getMinMaxPrice])
+  
   return (
     <Container>
       <Heading>Products</Heading>
@@ -26,6 +33,6 @@ const CatalogPage = () => {
       </Flex>
     </Container>
   )
-}
+})
 
 export default CatalogPage

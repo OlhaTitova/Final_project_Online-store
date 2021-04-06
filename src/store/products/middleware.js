@@ -4,10 +4,6 @@ import {
   setProducts,
   addProduct,
   updateProduct,
-  setProductsToCatalog,
-  setCatalogProductsQuantity,
-  cleanCatalogProducts,
-  setSearchProducts
 } from './actionCreator';
 
 const BASE_ENDPOINT = `${DOMAIN}/products`
@@ -71,30 +67,4 @@ export const getFilteredProducts = (param, actionCreator) => (dispatch) => {
     })
     .catch((error) => error.response)
   return res
-}
-
-export const getProductsToCatalog = (param) => (dispatch) => {
-  dispatch(cleanCatalogProducts())
-  const res = axios.get(`${BASE_ENDPOINT}/filter${param}`)
-    .then((res) => {
-      if (res.status === 200) {
-        dispatch(setProductsToCatalog(res.data.products))
-        dispatch(setCatalogProductsQuantity(res.data.productsQuantity))
-      }
-      return res
-    })
-    .catch((error) => {
-      dispatch(setCatalogProductsQuantity(0))
-      return error
-    })
-  return res
-}
-
-export const getSearchProducts = (searchPhrases) => (dispatch) => {
-  axios
-    .post(`${BASE_ENDPOINT}/search`, searchPhrases)
-    .then(({data}) => {
-      dispatch(setSearchProducts(data))
-    })
-    .catch((err) => err);
 }

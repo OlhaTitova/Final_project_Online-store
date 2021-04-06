@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import { forMobile, forTablet } from '../../../../styles/mediaBreakPoints';
+import styled, { css } from 'styled-components';
+import { forTablet } from '../../../../styles/mediaBreakPoints';
 
 export const ProductWrapper = styled.div`
     display: flex;
@@ -35,7 +35,7 @@ export const ProductInfo = styled.div`
 
 export const ProductDescription = styled.div`
     font-size: 8px;
-    @media(max-width: ${forMobile.maxWidth}px){
+    @media(max-width: 700px){
         display: none;
     }
 `
@@ -61,5 +61,8 @@ export const ProductFullPrice = styled.div`
 export const ProductCurrentPrice = styled.div`
     font-size: 14px;
     font-weight: 600;
-    color: red;
+    color: #000000;
+    ${({discount}) => discount && css`
+        color: red;
+    `}
 `
