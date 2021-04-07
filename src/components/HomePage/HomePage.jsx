@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import {BannerSlider} from '../BannerSlider/BannerSlider';
 import {HomepageFollowUs} from '../BrandsAndFollow/FollowUsInstagram';
 import {HomepageBrands} from '../BrandsAndFollow/HomePageBrands';
@@ -8,9 +8,7 @@ import NewProductsSlider from '../NewProductsSlider/NewProductsSlider';
 import ReviewSlider from '../ReviewSlider/ReviewSlider';
 
 const HomePage = () => {
-  useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [])
+  window.scrollTo(0, 0)
 
   return (
     <div>
