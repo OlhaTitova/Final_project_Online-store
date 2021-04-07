@@ -8,66 +8,69 @@ import {
 }
   from './StyledAboutUs';
 
-export const AboutUsPage = () => (
-  <div>
-    <Container>
-      <Heading>About Us</Heading>
-    </Container>
-    <ComponentContainer>
-      <Flex className="container">
-        {data.map((item, i) => {
-          const section = item;
-          if (i % 2 === 0) {
+export const AboutUsPage = () => {
+  window.scrollTo(0, 0)
+  return (
+    <div>
+      <Container>
+        <Heading>About Us</Heading>
+      </Container>
+      <ComponentContainer>
+        <Flex className="container">
+          {data.map((item, i) => {
+            const section = item;
+            if (i % 2 === 0) {
+              return (
+                <Section key={section.id} colored className="section">
+                  <Container>
+                    <ContentBlock colored>
+                      <ContentContainer colored className="content">
+                        {section.icon === null ? '' : <Img src={section.icon} alt="logo" /> }
+                        <SectionTitle className="section-title">
+                          <p>
+                            {section.title}
+                          </p>
+                          <p>{section.subtitle}</p>
+                        </SectionTitle>
+                        <SectionContent className="section-content">
+                          <Text>{section.content}</Text>
+                          <p>{section.subcontent}</p>
+                        </SectionContent>
+                      </ContentContainer>
+                      <SectionImg>
+                        <Image src={section.img} first={i === 0} alt="computer" />
+                      </SectionImg>
+                    </ContentBlock>
+                  </Container>
+                </Section>
+              )
+            }
             return (
-              <Section key={section.id} colored className="section">
+              <Section key={section.id}>
                 <Container>
-                  <ContentBlock colored>
-                    <ContentContainer colored className="content">
-                      {section.icon === null ? '' : <Img src={section.icon} alt="logo" /> }
+                  <ContentBlock>
+                    <SectionImg nocolored>
+                      <Image src={section.img} alt="computer" />
+                    </SectionImg>
+                    <ContentContainer className="content">
+                      <Img biggerSize={section.biggerSize === 'ok'} iconSize={section.iconSize} src={section.icon} alt="logo" />
                       <SectionTitle className="section-title">
-                        <p>
-                          {section.title}
-                        </p>
-                        <p>{section.subtitle}</p>
+                        <p>{section.title}</p>
                       </SectionTitle>
                       <SectionContent className="section-content">
                         <Text>{section.content}</Text>
                         <p>{section.subcontent}</p>
                       </SectionContent>
                     </ContentContainer>
-                    <SectionImg>
-                      <Image src={section.img} first={i === 0} alt="computer" />
-                    </SectionImg>
                   </ContentBlock>
                 </Container>
               </Section>
             )
-          }
-          return (
-            <Section key={section.id}>
-              <Container>
-                <ContentBlock>
-                  <SectionImg nocolored>
-                    <Image src={section.img} alt="computer" />
-                  </SectionImg>
-                  <ContentContainer className="content">
-                    <Img biggerSize={section.biggerSize === 'ok'} iconSize={section.iconSize} src={section.icon} alt="logo" />
-                    <SectionTitle className="section-title">
-                      <p>{section.title}</p>
-                    </SectionTitle>
-                    <SectionContent className="section-content">
-                      <Text>{section.content}</Text>
-                      <p>{section.subcontent}</p>
-                    </SectionContent>
-                  </ContentContainer>
-                </ContentBlock>
-              </Container>
-            </Section>
-          )
-        })}
-      </Flex>
-    </ComponentContainer>
-  </div>
-)
+          })}
+        </Flex>
+      </ComponentContainer>
+    </div>
+  )
+}
 
 export default AboutUsPage;

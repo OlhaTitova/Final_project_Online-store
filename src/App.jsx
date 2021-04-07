@@ -8,17 +8,20 @@ import Router from './components/Router/Router'
 import { getCart } from './store/cart/middleware'
 import ServiceSection from './components/ServiceSection/ServiceSection'
 import AuthModal from './components/AuthModal/AuthModal'
+import { getMainCatalogProducts } from './store/productsPreview/middleware'
 
-const App = connect(null, {
-  setWishlist, getCart
-})(({
-  setWishlist,
-  getCart
-}) => {
+const App = connect(null, { setWishlist, getCart, getMainCatalogProducts })((
+  {
+    setWishlist,
+    getCart,
+    getMainCatalogProducts
+  }
+) => {
   useEffect(() => {
-    setWishlist()
+    getMainCatalogProducts()
     getCart()
-  }, [getCart, setWishlist])
+    setWishlist()
+  }, [getCart, getMainCatalogProducts, setWishlist])
 
   return (
     <div style={{marginTop: '120px'}}>

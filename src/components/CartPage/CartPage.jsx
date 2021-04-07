@@ -7,7 +7,6 @@ import { RowRevers } from './Flex';
 
 export const CartPage = () => {
   window.scrollTo(0, 0)
-
   return (
     <div>
       <ContainerCart>
@@ -20,7 +19,7 @@ export const CartPage = () => {
         </RowRevers>
       </ContainerCart>
     </div>
-  );
+  )
 }
 
 export default CartPage;

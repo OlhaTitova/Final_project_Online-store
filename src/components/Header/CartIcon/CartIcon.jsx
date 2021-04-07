@@ -10,7 +10,7 @@ const mapStateToProps = (state) => ({productCartCount: selectProductCartCount(st
 
 const CartIcon = connect(mapStateToProps, null)(({productCartCount}) => (
   <CartWrapper>
-    <Link to="/cart">
+    <Link to="/cart" onClick={() => window.scrollTo(0, 0)}>
       <ShoppingCartOutlinedStyled />
       {productCartCount > 0
         ? (

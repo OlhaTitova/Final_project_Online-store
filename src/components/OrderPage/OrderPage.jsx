@@ -13,7 +13,7 @@ const mapStateToProps = (state) => ({
 })
 
 const OrderPage = connect(mapStateToProps, null)(({isLogin}) => {
-  window.scrollTo(0, 0)
+  window.scrollTo(0, 0);
   const history = useHistory()
 
   const onClickHome = () => {

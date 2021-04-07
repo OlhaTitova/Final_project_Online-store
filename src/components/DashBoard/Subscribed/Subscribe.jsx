@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
-import { getSubscriber } from '../../../store/createSubscribe/middleware';
+import { getSubscriber } from '../../../store/subscriptions/middleware'
 import { BlockInfo, TextInfo } from '../StyledDashBoard';
 import SubscribedUser from './SubscribedUser';
 import NotSubscribedUser from './NotSubscribedUser';

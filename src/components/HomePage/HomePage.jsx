@@ -3,9 +3,9 @@ import {BannerSlider} from '../BannerSlider/BannerSlider';
 import {HomepageFollowUs} from '../BrandsAndFollow/FollowUsInstagram';
 import {HomepageBrands} from '../BrandsAndFollow/HomePageBrands';
 import Description from '../Description/Description';
-import {Catalog} from '../MainCatalog/Catalog';
 import NewProductsSlider from '../NewProductsSlider/NewProductsSlider';
 import ReviewSlider from '../ReviewSlider/ReviewSlider';
+import {Catalog as ProductsPreview } from '../ProductsPreview/Catalog';
 
 const HomePage = () => {
   window.scrollTo(0, 0)
@@ -14,7 +14,7 @@ const HomePage = () => {
     <div>
       <BannerSlider />
       <NewProductsSlider />
-      <Catalog />
+      <ProductsPreview />
       <Description />
       <HomepageBrands />
       <HomepageFollowUs />

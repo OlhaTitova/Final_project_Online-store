@@ -16,7 +16,6 @@ const mapStateToProps = (state) => ({
 
 const Checkout = connect(mapStateToProps, null)(({isLogin}) => {
   window.scrollTo(0, 0)
-
   const history = useHistory()
 
   const onClickSignIn = () => {

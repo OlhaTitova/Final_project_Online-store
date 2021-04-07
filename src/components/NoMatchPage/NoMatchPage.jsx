@@ -3,6 +3,7 @@ import { Result, Button } from 'antd';
 import { useHistory } from 'react-router-dom'
 
 const NoMatchPage = () => {
+  window.scrollTo(0, 0)
   const history = useHistory()
   return (
     <Result

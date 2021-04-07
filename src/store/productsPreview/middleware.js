@@ -1,8 +1,9 @@
 import axios from 'axios';
 import { DOMAIN } from '../../utils/constants';
-import { getMainCatalogCreater } from './actionCreator';
+import { getMainCatalogCreater, startLoading, stopLoading } from './actionCreator';
 
 export const getMainCatalogProducts = () => (dispatch) => {
+  dispatch(startLoading())
   axios.get(`${DOMAIN}/products`)
     .then((data) => {
       const gamingMonitorList = []
@@ -61,6 +62,9 @@ export const getMainCatalogProducts = () => (dispatch) => {
       dispatch(getMainCatalogCreater(combinePayload))
     })
     .catch((error) => error.response)
+    .finally(() => {
+      dispatch(stopLoading())
+    })
 }
 
 export default getMainCatalogProducts

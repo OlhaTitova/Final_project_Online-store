@@ -12,13 +12,11 @@ const createNewSubscribe = (credentials) => {
       }
     })
     .catch((error) => {
-      if (error.response) {
-        const requestMessage = error.response.data.message
-        if (requestMessage) {
-          message.error(`Error: ${requestMessage}.`)
-        } else {
-          message.error('Something went wrong, please try again.')
-        }
+      const requestMessage = error.response.data.message
+      if (requestMessage) {
+        message.warning(`${requestMessage}.`)
+      } else {
+        message.warning('Something went wrong, please try again.')
       }
     })
 }

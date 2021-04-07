@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { useEffect } from 'react';
+import React from 'react';
 import {
   Form,
   Input,
@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { setHideModal } from '../../../store/dashBoardModal/middleware';
 import { changePassword } from '../../../store/customer/middleware';
-import { selectModalState } from '../../../store/dashBoardModal/reducer'
+import { validPassword } from '../../../utils/constants'
 
 const formItemLayout = {
   labelCol: {
@@ -33,18 +33,9 @@ const tailFormItemLayout = {
     },
   },
 };
-const mapStateToProps = (state) => ({
-  show: selectModalState(state)
-})
 
-const PasswordChange = connect(mapStateToProps, { setHideModal })(({ setHideModal, show }) => {
+const PasswordChange = connect(null, { setHideModal })(({ setHideModal }) => {
   const [form] = Form.useForm();
-
-  useEffect(() => {
-    if (!show) {
-      form.resetFields()
-    }
-  }, [form, show])
 
   const onFinish = ({middlePassword, ...rest}) => {
     changePassword(rest);
@@ -68,8 +59,9 @@ const PasswordChange = connect(mapStateToProps, { setHideModal })(({ setHideModa
             message: 'Please input your old password!',
           },
           {
-            message: 'Password length must be at least 8 symbols',
-            min: 8
+            min: 8,
+            max: 30,
+            message: 'Password must be between 8 and 30 characters'
           },
         ]}
         hasFeedback
@@ -83,16 +75,16 @@ const PasswordChange = connect(mapStateToProps, { setHideModal })(({ setHideModa
         rules={[
           {
             required: true,
-            message: 'Please input your password!',
+            message: 'Please input your password.',
           },
           {
-            message: 'Password length must be at least 8 symbols',
-            min: 8
+            min: 8,
+            max: 30,
+            message: 'Password must be between 8 and 30 characters'
           },
           {
-            type: 'string',
-            pattern: /^[a-zA-ZА-Яа-я]+$/,
-            message: 'Enter please only letterts and numbers'
+            pattern: validPassword,
+            message: 'Allowed characters is a-z, 0-9.'
           }
         ]}
         hasFeedback
@@ -108,23 +100,14 @@ const PasswordChange = connect(mapStateToProps, { setHideModal })(({ setHideModa
         rules={[
           {
             required: true,
-            message: 'Please confirm your password!',
-          },
-          {
-            message: 'Password length must be at least 8 symbols',
-            min: 8
-          },
-          {
-            type: 'string',
-            pattern: /^[a-zA-ZА-Яа-я]+$/,
-            message: 'Enter please only letterts and numbers'
+            message: 'Please confirm your password.',
           },
           ({ getFieldValue }) => ({
             validator(_, value) {
               if (!value || getFieldValue('middlePassword') === value) {
                 return Promise.resolve();
               }
-              return Promise.reject(new Error('The two passwords that you entered do not match!'));
+              return Promise.reject(new Error('The two passwords that you entered does not match.'));
             },
           }),
         ]}

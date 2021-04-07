@@ -2,7 +2,7 @@ import axios from 'axios'
 import { message } from 'antd';
 import { DOMAIN } from '../../utils/constants'
 import { logIn, logOut } from './actionCreator'
-import updateWishlistCreator from '../wishlist/actionCreator'
+import { updateWishlistCreator } from '../wishlist/actionCreator'
 import { clearCart } from '../cart/middleware'
 
 const BASE_ENDPOINT = '/customers'
@@ -26,7 +26,7 @@ export const authLogOut = () => (dispatch) => {
   dispatch(logOut())
   dispatch(updateWishlistCreator([]))
   dispatch(clearCart())
-  message.success('You have been logged out from your account')
+  message.info('You have been logged out from your account.')
 }
 
 export default authLogIn

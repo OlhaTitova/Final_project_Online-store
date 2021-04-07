@@ -2,7 +2,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import createNewSubscribe from '../../../store/createSubscribe/middleware';
+import createNewSubscribe from '../../../store/subscriptions/middleware';
 import StyledSubscribedBlock from './StyledNotSubscribedUser';
 import { letterHtmlSubscribe, letterSubjectSubscribe } from '../../../utils/constants';
 

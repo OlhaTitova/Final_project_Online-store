@@ -77,7 +77,6 @@ export const CatalogBillboardLink = styled(Link)`
   display: inline-block;
   color: #fff;
   font-size: 12px;
-  text-transform: capitalize;
   text-decoration: underline;
   text-align: center;
 

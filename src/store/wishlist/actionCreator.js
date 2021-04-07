@@ -1,7 +1,8 @@
-import UPDATE_WISHLIST from './actionType'
+import {UPDATE_WISHLIST, START_LOADING, STOP_LOADING} from './actionType'
 
-const updateWishlistCreator = (payload) => ({
+export const updateWishlistCreator = (payload) => ({
   type: UPDATE_WISHLIST,
   payload
 })
-export default updateWishlistCreator
+export const startLoading = () => ({ type: START_LOADING })
+export const stopLoading = () => ({ type: STOP_LOADING })

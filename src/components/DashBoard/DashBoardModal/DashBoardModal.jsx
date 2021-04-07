@@ -41,6 +41,7 @@ const Modal = connect(mapStateToProps, { setHideModal })(({
       okButtonProps={{style: {display: 'none'}}}
       visible={show}
       onCancel={setHideModal}
+      destroyOnClose
     >
       {form}
     </StyledAntModal>

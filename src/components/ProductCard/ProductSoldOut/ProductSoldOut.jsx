@@ -4,7 +4,7 @@ import { ProductSoldOutWrapper, SoldOutIcon, SoldOutText } from './StyledProduct
 export const ProductSoldOut = () => (
   <ProductSoldOutWrapper>
     <SoldOutIcon />
-    <SoldOutText>Product is sold out.</SoldOutText>
+    <SoldOutText>sold out</SoldOutText>
   </ProductSoldOutWrapper>
 )
 

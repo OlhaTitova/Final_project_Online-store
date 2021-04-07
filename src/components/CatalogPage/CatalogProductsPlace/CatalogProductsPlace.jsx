@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo } from 'react'
 import { connect } from 'react-redux'
 import { useLocation } from 'react-router-dom'
-import { Empty, Spin } from 'antd'
+import { Empty } from 'antd'
 import {ProductCard} from '../../ProductCard/ProductCard'
 import { getProductsToCatalog } from '../../../store/catalog/middleware'
 import CatalogPagination from '../CatalogPagination/CatalogPagination'
@@ -9,6 +9,7 @@ import { ProductsWrapper, Wrapper } from './StyledCatalogProductsPlace'
 import makeConfigFromUrl from '../../../utils/makeConfigFromUrl'
 import makeUrlFromConfig from '../../../utils/makeUrlFromConfig'
 import { selectCatalogProducts, selectIsLoading, selectProductsQuantity } from '../../../store/catalog/reducer'
+import StyledSpinner from '../../StyledSpinner/StyledSpinner'
 
 const mapStateToProps = (state) => ({
   catalogProducts: selectCatalogProducts(state),
@@ -38,7 +39,7 @@ const CatalogProductsPlace = connect(mapStateToProps, {
     }
   }, [config, getProductsToCatalog, search])
 
-  if (isLoading) return <Spin size="large" tip="Loading..." style={{margin: '50px auto'}} />
+  if (isLoading) return <StyledSpinner size="large" tip="Loading..." />
 
   return (
     !productsQuantity

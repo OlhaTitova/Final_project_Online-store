@@ -8,7 +8,11 @@ import {StyledLiked, Circle, Amount} from './StyledWishListComponent'
 const mapStateToProps = (state) => ({wishlist: selectWishlistItems(state)})
 
 const WishListComponent = connect(mapStateToProps, null)(({wishlist}) => (
-  <Link to="/wishlist" style={{outline: 'none', position: 'relative'}}>
+  <Link
+    to="/wishlist"
+    style={{outline: 'none', position: 'relative'}}
+    onClick={() => window.scrollTo(0, 0)}
+  >
     <StyledLiked
       width={25}
       height={22}

@@ -9,10 +9,10 @@ import CatalogSort from './CatalogSort/CatalogSort'
 import { CatalogProducts, Flex } from './StyledCatalogPage'
 
 const CatalogPage = connect(null, {getMinMaxPrice})(({getMinMaxPrice}) => {
+  window.scrollTo(0, 0)
   const [showFilter, setShowFilter] = useState(false);
 
   useEffect(() => {
-    window.scrollTo(0, 0)
     getMinMaxPrice()
   }, [getMinMaxPrice])
   
