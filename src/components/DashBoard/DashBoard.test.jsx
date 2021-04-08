@@ -7,10 +7,6 @@ import { store } from '../../store/index';
 import DashBoard from './DashBoard';
 
 describe('Render DashBoard component', () => {
-  test('renders without crashing', () => {
-    window.scrollTo = jest.fn()
-  })
-
   test('DashBoard', () => {
     render(
       <Provider store={store}>

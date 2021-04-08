@@ -10,6 +10,8 @@ import React from 'react'
 
 configure({ adapter: new Adapter() });
 
+window.scrollTo = jest.fn()
+
 React.useLayoutEffect = React.useEffect
 
 console.error = (message) => {

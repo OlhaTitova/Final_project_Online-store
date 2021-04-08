@@ -11,10 +11,6 @@ describe('All test for CreateCustomerPage', () => {
     }; // обходной путь поскольку window не поддерживает matchMedia.
   };
 
-  test('renders without crashing', () => {
-    window.scrollTo = jest.fn()
-  })
-
   test('CreateCustomerPage render test', () => {
     render(
       <Router>

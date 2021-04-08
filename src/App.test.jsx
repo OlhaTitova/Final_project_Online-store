@@ -5,10 +5,6 @@ import { store } from './store/index'
 import App from './App'
 import render from 'enzyme/build/render'
 
-test('renders without crashing', () => {
-  window.scrollTo = jest.fn()
-})
-
 test('App render test', () => {
   // Поскольку JSDOM не поддерживает, window.matchMedia
   // В документации Jest теперь есть "официальный" обходной путь

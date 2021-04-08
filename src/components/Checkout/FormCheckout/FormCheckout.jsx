@@ -19,8 +19,7 @@ import {StyledRadio, StyledShippingTitle} from '../StyledCheckout';
 import StyledButton from '../../common/Buttons/StyledButton';
 import { getCity, getShippingCost, PlaceOrder} from '../../../store/cart/middleware';
 import { validName, validTelephone } from '../../../utils/constants';
-import formTrimStringValidator from '../../../utils/formTrimStringValidator';
-
+    
 const mapStateToProps = (state) => ({
   cities: selectCities(state),
   branches: selectBranches(state),
@@ -135,7 +134,6 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
             type: 'email',
             message: 'Entered data is not an email.',
           },
-          formTrimStringValidator()
         ]}
       >
         <Input

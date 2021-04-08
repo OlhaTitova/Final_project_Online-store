@@ -11,10 +11,6 @@ import rateCalculator from '../../utils/rateCalculator'
 
 describe('All tests for Product page', () => {
 
-  test('renders without crashing', () => {
-    window.scrollTo = jest.fn()
-  })
-
   test('Product Page render test', () => {
     render(
       <Provider store={store}>
