@@ -1,11 +1,7 @@
 /* eslint-disable padded-blocks */
 import React from 'react'
-import '@testing-library/jest-dom/extend-expect'
-import { render } from '@testing-library/react'
 import { Provider } from 'react-redux'
 import { HashRouter as Router } from 'react-router-dom'
-import { shallow, configure } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16'
 import { store } from '../../store/index'
 import ProductPage from './ProductPage'
 import upperCaseFirstLetter from '../../utils/upperCaseFirstLetter'
@@ -13,10 +9,12 @@ import rateCalculator from '../../utils/rateCalculator'
 
 describe('All tests for Product page', () => {
 
-  configure({ adapter: new Adapter() })
+  test('renders without crashing', () => {
+    window.scrollTo = jest.fn()
+  })
 
   test('Product Page render test', () => {
-    render(
+    global.render(
       <Provider store={store}>
         <Router>
           <ProductPage />
@@ -26,7 +24,7 @@ describe('All tests for Product page', () => {
   })
 
   test('check is animation runned', () => {
-    const result = shallow(
+    const result = global.shallow(
       <Provider store={store}>
         <Router>
           <ProductPage />
@@ -38,7 +36,7 @@ describe('All tests for Product page', () => {
   })
 
   test('Check is some children extist after componentDidMount', () => {
-    const result = shallow(
+    const result = global.shallow(
       <Provider store={store}>
         <Router>
           <ProductPage />
@@ -50,7 +48,7 @@ describe('All tests for Product page', () => {
   })
 
   test('Check is product image exist after componentDidMount', () => {
-    const result = shallow(
+    const result = global.shallow(
       <Provider store={store}>
         <Router>
           <ProductPage />
@@ -62,7 +60,7 @@ describe('All tests for Product page', () => {
   })
 
   test('Check is product has a description list', () => {
-    const result = shallow(
+    const result = global.shallow(
       <Provider store={store}>
         <Router>
           <ProductPage />
