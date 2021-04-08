@@ -2,6 +2,8 @@
 import React from 'react'
 import { Provider } from 'react-redux'
 import { HashRouter as Router } from 'react-router-dom'
+import render from 'enzyme/build/render'
+import shallow from 'enzyme/build/shallow'
 import { store } from '../../store/index'
 import ProductPage from './ProductPage'
 import upperCaseFirstLetter from '../../utils/upperCaseFirstLetter'
@@ -14,7 +16,7 @@ describe('All tests for Product page', () => {
   })
 
   test('Product Page render test', () => {
-    global.render(
+    render(
       <Provider store={store}>
         <Router>
           <ProductPage />
@@ -24,7 +26,7 @@ describe('All tests for Product page', () => {
   })
 
   test('check is animation runned', () => {
-    const result = global.shallow(
+    const result = shallow(
       <Provider store={store}>
         <Router>
           <ProductPage />
@@ -36,7 +38,7 @@ describe('All tests for Product page', () => {
   })
 
   test('Check is some children extist after componentDidMount', () => {
-    const result = global.shallow(
+    const result = shallow(
       <Provider store={store}>
         <Router>
           <ProductPage />
@@ -48,7 +50,7 @@ describe('All tests for Product page', () => {
   })
 
   test('Check is product image exist after componentDidMount', () => {
-    const result = global.shallow(
+    const result = shallow(
       <Provider store={store}>
         <Router>
           <ProductPage />
@@ -60,7 +62,7 @@ describe('All tests for Product page', () => {
   })
 
   test('Check is product has a description list', () => {
-    const result = global.shallow(
+    const result = shallow(
       <Provider store={store}>
         <Router>
           <ProductPage />

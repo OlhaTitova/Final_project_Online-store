@@ -3,8 +3,8 @@
 // import CartItem from './CartItem'
   
 // test('should render CartPage component', () => {
-//   const component = global.shallow(<CartItem />)
-//   global.render(component)
+//   const component = shallow(<CartItem />)
+//   render(component)
 // })
 
 test('renders without crashing', () => {

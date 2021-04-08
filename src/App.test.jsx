@@ -1,9 +1,9 @@
 import React from 'react'
-import '@testing-library/jest-dom/extend-expect'
 import { HashRouter as Router } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import { store } from './store/index'
 import App from './App'
+import render from 'enzyme/build/render'
 
 test('renders without crashing', () => {
   window.scrollTo = jest.fn()
@@ -26,7 +26,7 @@ test('App render test', () => {
     })),
   });
 
-  global.render(
+  render(
     <Provider store={store}>
       <Router>
         <App />

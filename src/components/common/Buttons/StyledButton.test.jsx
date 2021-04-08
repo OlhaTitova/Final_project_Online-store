@@ -1,13 +1,9 @@
 import React from 'react'
-import '@testing-library/jest-dom/extend-expect'
 import { fireEvent, render } from '@testing-library/react'
-import { shallow, configure } from 'enzyme'
-import Adapter from 'enzyme-adapter-react-16'
+import { shallow } from 'enzyme'
 import StyledButton from './StyledButton'
 
 describe('All tests for StyledButton', () => {
-  configure({ adapter: new Adapter() })
-    
   test('StyledButton render test', () => {
     render(<StyledButton color="black" size="md" />)
   })

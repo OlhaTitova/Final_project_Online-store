@@ -7,5 +7,5 @@ test('renders without crashing', () => {
 
 // test('should render CartPage component', () => {
 //     const component = shallow(<CartPage  />)
-//     global.render(component)
+//     render(component)
 // })

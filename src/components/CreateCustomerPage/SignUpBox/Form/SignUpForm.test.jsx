@@ -1,14 +1,10 @@
 import React from 'react'
-import '@testing-library/jest-dom/extend-expect'
 import { render } from '@testing-library/react'
 import { HashRouter as Router } from 'react-router-dom'
-import { shallow, configure } from 'enzyme'
-import Adapter from 'enzyme-adapter-react-16'
+import { shallow } from 'enzyme'
 import SignUpForm from './SignUpForm'
 
 describe('All test for Sign Up Form', () => {
-  configure({ adapter: new Adapter() })
-
   window.matchMedia = window.matchMedia || function () {
     return {
       addListener: jest.fn(),
