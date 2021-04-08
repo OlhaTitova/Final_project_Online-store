@@ -14,7 +14,7 @@ import { AlignItemsCenter } from '../Flex';
 import { decreaseQuantity, increaseQuantity, removeFromCart } from '../../../store/cart/middleware';
 import upperCaseFirstLetter from '../../../utils/upperCaseFirstLetter';
 
-export const CartItem = connect(null, {
+const CartItem = connect(null, {
   increaseQuantity, decreaseQuantity, removeFromCart
 })(({
   product,
@@ -101,8 +101,8 @@ CartItem.propTypes = {
     name: PropTypes.string,
     currentPrice: PropTypes.number,
     _id: PropTypes.string,
-  }),
-  increaseQuantity: PropTypes.func,
-  decreaseQuantity: PropTypes.func,
-  removeFromCart: PropTypes.func,
+  }).isRequired,
+  increaseQuantity: PropTypes.func.isRequired,
+  decreaseQuantity: PropTypes.func.isRequired,
+  removeFromCart: PropTypes.func.isRequired,
 }

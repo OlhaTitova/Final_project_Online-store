@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { Empty } from 'antd';
 import { useHistory } from 'react-router-dom';
 import TheadCart from '../TheadCart/TheadCart';
-import { CartItem } from '../CartItem/CartItem';
+import CartItem from '../CartItem/CartItem';
 import { ColumnRowBetween} from '../Flex';
 import StyledButton from '../../common/Buttons/StyledButton';
 import StyledCartList from './StyledCartList';
@@ -60,12 +60,11 @@ const CartList = connect(
 export default CartList;
 
 CartList.propTypes = {
-  product: PropTypes.shape({
+  products: PropTypes.arrayOf(PropTypes.shape({
     imageUrls: PropTypes.arrayOf(PropTypes.string),
     name: PropTypes.string,
     currentPrice: PropTypes.number,
     _id: PropTypes.string,
-  }),
-  getCart: PropTypes.func,
-  clearCart: PropTypes.func,
+  })),
+  clearCart: PropTypes.func.isRequired,
 }
