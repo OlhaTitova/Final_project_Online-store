@@ -1,16 +1,12 @@
 import React from 'react';
-import '@testing-library/jest-dom/extend-expect';
 import { render } from '@testing-library/react';
 import { HashRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { shallow, configure } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16'
+import { shallow } from 'enzyme';
 import { store } from '../../store/index';
 import PasswordInfoChange from './PasswordInfoChange';
 
 describe('Test for PasswordInfoChange component', () => {
-  configure({adapter: new Adapter()})
-
   test('PasswordInfoChange component', () => {
     render(
       <Provider store={store}>

@@ -7,6 +7,12 @@ export const addCartToLS = (product, quantity) => {
   if (containsInCartLS) {
     updatedCartLS = cartLS.map((item) => {
       if (item.product._id === containsInCartLS.product._id) {
+        if (item.cartQuantity + quantity > item.product.quantity) {
+          return {
+            ...item,
+            cartQuantity: item.product.quantity
+          }
+        }
         return {
           ...item,
           cartQuantity: item.cartQuantity + quantity

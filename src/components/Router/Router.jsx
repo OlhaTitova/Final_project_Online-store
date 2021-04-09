@@ -1,35 +1,24 @@
 import React from 'react'
 import { Route, Switch } from 'react-router-dom'
 import CreateCustomerPage from '../CreateCustomerPage/CreateCustomerPage'
-import { Catalog as ProductsPreview } from '../ProductsPreview/Catalog'
-import { BannerSlider } from '../BannerSlider/BannerSlider'
-import { AboutUsPage } from '../About-us/AboutUs'
-import NewProductsSlider from '../NewProductsSlider/NewProductsSlider'
+import AboutUsPage from '../About-us/AboutUs'
 import ContactUsPage from '../ContactUs/ContactUsPage'
 import ProductPage from '../ProductPage/ProductPage'
-import { HomepageBrands } from '../BrandsAndFollow/HomePageBrands'
-import { HomepageFollowUs } from '../BrandsAndFollow/FollowUsInstagram'
 import CatalogPage from '../CatalogPage/CatalogPage'
 import LogIn from '../LogIn/LogIn'
 import Checkout from '../Checkout/Checkout'
 import WishlistPage from '../WishlistPage/WishlistPage'
-import {CartPage} from '../CartPage/CartPage'
+import CartPage from '../CartPage/CartPage'
 import OrderPage from '../OrderPage/OrderPage'
 import NoMatchPage from '../NoMatchPage/NoMatchPage'
 import DashBoard from '../DashBoard/DashBoard'
 import ReviewSlider from '../ReviewSlider/ReviewSlider'
-import Description from '../Description/Description'
+import HomePage from '../HomePage/HomePage'
 
 const Router = () => (
   <Switch>
     <Route exact path="/">
-      <BannerSlider />
-      <NewProductsSlider />
-      <ProductsPreview />
-      <Description />
-      <HomepageBrands />
-      <HomepageFollowUs />
-      <ReviewSlider />
+      <HomePage />
     </Route>
     <Route exact path="/signin">
       <LogIn />

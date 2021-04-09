@@ -1,13 +1,9 @@
 import React from 'react'
-import '@testing-library/jest-dom/extend-expect'
 import { fireEvent, render } from '@testing-library/react'
-import { shallow, configure } from 'enzyme'
-import Adapter from 'enzyme-adapter-react-16'
+import { shallow } from 'enzyme'
 import StyledButton from './StyledButton'
 
 describe('All tests for StyledButton', () => {
-  configure({ adapter: new Adapter() })
-    
   test('StyledButton render test', () => {
     render(<StyledButton color="black" size="md" />)
   })
@@ -20,7 +16,7 @@ describe('All tests for StyledButton', () => {
   
   test('Check is callback has been called by the click', () => {
     const handleClick = jest.fn()
-    const { getByText } = render(<StyledButton color="balck" size="md" onClick={handleClick}>Click me</StyledButton>)
+    const { getByText } = render(<StyledButton color="black" size="md" onClick={handleClick}>Click me</StyledButton>)
     fireEvent.click(getByText('Click me'))
     expect(handleClick).toHaveBeenCalledTimes(1)
   })

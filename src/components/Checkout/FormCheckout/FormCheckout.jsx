@@ -17,23 +17,19 @@ import {
 } from '../../../store/cart/reducer';
 import {StyledRadio, StyledShippingTitle} from '../StyledCheckout';
 import StyledButton from '../../common/Buttons/StyledButton';
-import {
-  getCity, getShippingCost, PlaceOrder
-} from '../../../store/cart/middleware';
-import { selectIsLogin } from '../../../store/auth/reducer';
+import { getCity, getShippingCost, PlaceOrder} from '../../../store/cart/middleware';
 import { validName, validTelephone } from '../../../utils/constants';
-
+    
 const mapStateToProps = (state) => ({
   cities: selectCities(state),
   branches: selectBranches(state),
   customer: selectCustomer(state),
   shippingCost: selectShippingCost(state),
   products: selectProducts(state),
-  isLogin: selectIsLogin(state)
 })
 
 const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOrder})(({
-  cities, branches, customer, getCity, shippingCost, PlaceOrder, isLogin, products, getShippingCost
+  cities, branches, customer, getCity, shippingCost, PlaceOrder, products, getShippingCost
 }) => {
   const { Option } = Select;
   const history = useHistory()
@@ -83,7 +79,7 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
   },
   {
     name: 'phoneNumber',
-    value: customer.telephone || '+380'
+    value: customer.telephone || '380'
   },
   {
     name: 'country',
@@ -110,8 +106,7 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
   };
 
   const onFinish = (values) => {
-    PlaceOrder(products, isLogin, values, customer, shippingCost, valuePaymentInfo)
-    window.scrollTo(0, 0);
+    PlaceOrder(products, values, customer, shippingCost, valuePaymentInfo)
     history.push('/order')
   };
     
@@ -162,7 +157,7 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
           },
           {
             pattern: validName,
-            message: 'First name cannot contain characters or numbers'
+            message: 'First name cannot contain characters, space or numbers'
           },
         ]}
       >
@@ -185,8 +180,8 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
           },
           {
             pattern: validName,
-            message: 'Last name cannot contain characters or numbers'
-          }
+            message: 'Last name cannot contain characters, space or numbers'
+          },
         ]}
       >
         <Input placeholder="Last name" />
