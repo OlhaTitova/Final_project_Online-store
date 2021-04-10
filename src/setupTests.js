@@ -11,24 +11,18 @@ configure({ adapter: new Adapter() });
 
 window.scrollTo = () => {}
 
-// Поскольку JSDOM не поддерживает, window.matchMedia
-// В документации Jest теперь есть "официальный" обходной путь
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
-  value: (query) => ({
+  value: jest.fn().mockImplementation((query) => ({
     matches: false,
     media: query,
     onchange: null,
-    addListener: () => {}, // Deprecated
-    removeListener: () => {}, // Deprecated
-    addEventListener: () => {},
-    removeEventListener: () => {},
-    dispatchEvent: () => {},
-  }),
+    addListener: jest.fn(), // deprecated
+    removeListener: jest.fn(), // deprecated
+    addEventListener: jest.fn(),
+    removeEventListener: jest.fn(),
+    dispatchEvent: jest.fn(),
+  })),
 });
 
 // React.useLayoutEffect = React.useEffect
-
-// console.error = (message) => {
-//   throw new Error(message);
-// }

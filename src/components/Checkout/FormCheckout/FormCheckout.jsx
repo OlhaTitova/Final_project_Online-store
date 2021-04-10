@@ -317,6 +317,12 @@ FormCheckoutComponent.propTypes = {
     firstName: PropTypes.string,
     email: PropTypes.string,
   }).isRequired,
+  products: PropTypes.arrayOf(PropTypes.shape({
+    imageUrls: PropTypes.arrayOf(PropTypes.string),
+    name: PropTypes.string,
+    currentPrice: PropTypes.number,
+    _id: PropTypes.string,
+  })).isRequired,
 }
 
 export default FormCheckout;

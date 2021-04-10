@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { useHistory, Link } from 'react-router-dom';
@@ -10,7 +10,10 @@ import Heading from '../common/Heading/Heading';
 import OrderInfo from './OrderInfo/OrderInfo';
 
 export const OrderPageComponent = ({isLogin}) => {
-  window.scrollTo(0, 0);
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+  
   const history = useHistory()
 
   const onClickHome = () => {
@@ -60,61 +63,10 @@ const mapStateToProps = (state) => ({
   isLogin: selectIsLogin(state)
 })
 
-const OrderPage = connect(mapStateToProps, null)(({isLogin}) => {
-  window.scrollTo(0, 0);
-  const history = useHistory()
-
-  const onClickHome = () => {
-    history.push('/')
-  }
-  const onClickDashboard = () => {
-    history.push('/dashboard')
-  }
-  return (
-    <ContainerCart>
-      <RowColumn>
-        <Heading>Order</Heading>
-        <WrapperButton>
-          <StyledButton
-            onClick={onClickHome}
-            size="lg"
-            shape="round"
-            color="borderBlue"
-          >
-            Back to Homepage
-          </StyledButton>
-        </WrapperButton>
-        
-        {isLogin
-          ? (
-            <WrapperButton>
-              <Link to="/dashboard">
-                <StyledButton
-                  onClick={onClickDashboard}
-                  size="lg"
-                  shape="round"
-                  color="borderGrey"
-                >
-                  Go to Dashboard
-                </StyledButton>
-              </Link>
-            </WrapperButton>
-          )
-          : null}
-      </RowColumn>
-      <OrderInfo />
-    </ContainerCart>
-  )
-})
-
-export default OrderPage
-OrderPageComponent.defaultProps = {
-  isLogin: false
-}
+const OrderPage = connect(mapStateToProps, null)(OrderPageComponent)
 
 OrderPageComponent.propTypes = {
-  isLogin: PropTypes.bool
+  isLogin: PropTypes.bool.isRequired
 }
-OrderPage.propTypes = {
-  ...OrderPageComponent.propTypes
-}
+
+export default OrderPage
