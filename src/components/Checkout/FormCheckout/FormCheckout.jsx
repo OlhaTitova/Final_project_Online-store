@@ -296,8 +296,6 @@ const FormCheckout = connect(
   }
 )(FormCheckoutComponent)
 
-export default FormCheckout;
-
 FormCheckoutComponent.propTypes = {
   cities: PropTypes.arrayOf(
     PropTypes.shape({
@@ -321,6 +319,4 @@ FormCheckoutComponent.propTypes = {
   }).isRequired,
 }
 
-FormCheckout.propTypes = {
-  ...FormCheckoutComponent.propTypes
-}
+export default FormCheckout;

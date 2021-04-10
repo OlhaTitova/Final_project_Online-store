@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
@@ -12,7 +12,10 @@ import OrderSummary from './OrderSummary/OrderSummary';
 import { WrapperFormCheckout } from './StyledCheckout';
 
 export const CheckoutComponent = ({isLogin}) => {
-  window.scrollTo(0, 0)
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+
   const history = useHistory()
 
   const onClickSignIn = () => {
@@ -67,64 +70,10 @@ const mapStateToProps = (state) => ({
   isLogin: selectIsLogin(state)
 })
 
-const Checkout = connect(mapStateToProps, null)(({isLogin}) => {
-  window.scrollTo(0, 0)
-  const history = useHistory()
-
-  const onClickSignIn = () => {
-    history.push('/signin')
-  }
-  const onClickCart = () => {
-    history.push('/cart')
-  }
-
-  return (
-    <ContainerCart>
-      <RowColumn>
-        <Heading>
-          Checkout
-        </Heading>
-        {!isLogin
-          ? (
-            <WrapperButton>
-              <StyledButton
-                onClick={onClickSignIn}
-                size="xl"
-                shape="round"
-                color="borderBlue"
-              >
-                Sign In
-              </StyledButton>
-            </WrapperButton>
-          )
-          : null}
-        <WrapperButton>
-          <StyledButton
-            onClick={onClickCart}
-            size="xl"
-            shape="round"
-            color="borderGrey"
-          >
-            Back to cart
-          </StyledButton>
-        </WrapperButton>
-      </RowColumn>
-      <RowRevers>
-        <OrderSummary />
-        <WrapperFormCheckout>
-          <FormCheckout />
-        </WrapperFormCheckout>
-      </RowRevers>
-    </ContainerCart>
-  )
-})
-
-export default Checkout
+const Checkout = connect(mapStateToProps, null)(CheckoutComponent)
 
 CheckoutComponent.propTypes = {
   isLogin: PropTypes.bool.isRequired
 }
 
-Checkout.propTypes = {
-  ...CheckoutComponent.propTypes
-}
+export default Checkout

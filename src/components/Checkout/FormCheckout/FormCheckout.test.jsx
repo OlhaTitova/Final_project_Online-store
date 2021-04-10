@@ -3,7 +3,7 @@ import {
   fireEvent, render, screen, waitFor
 } from '@testing-library/react';
 import { Router } from 'react-router-dom';
-import { createHashHistory } from 'history';
+import { createMemoryHistory } from 'history';
 import { FormCheckoutComponent } from './FormCheckout';
 import { productsMock } from '../../../mocks/products';
 import { citiesMock } from '../../../mocks/cities';
@@ -133,7 +133,7 @@ describe('FormCheckoutComponent', () => {
 
   it('handle put order', async () => {
     const placeOrder = jest.fn();
-    const history = createHashHistory();
+    const history = createMemoryHistory();
 
     render(
       <Router history={history}>

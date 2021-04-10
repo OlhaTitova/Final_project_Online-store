@@ -1,11 +1,16 @@
-import render from 'enzyme/build/render';
 import React from 'react';
+import { render } from '@testing-library/react'
 import { CheckoutComponent } from './Checkout';
 
-describe.skip('CheckoutComponent', () => {
+jest.mock('./OrderSummary/OrderSummary', () => 'order-summary')
+jest.mock('./FormCheckout/FormCheckout', () => 'form-checkout')
+
+describe('CheckoutComponent', () => {
   test('render', () => {
-    render(<CheckoutComponent
+    const {asFragment} = render(<CheckoutComponent
       isLogin
     />)
+
+    expect(asFragment()).toMatchSnapshot()
   })
 })
