@@ -6,14 +6,29 @@
 import '@testing-library/jest-dom';
 import { configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import React from 'react'
 
 configure({ adapter: new Adapter() });
 
-window.scrollTo = jest.fn()
+window.scrollTo = () => {}
 
-React.useLayoutEffect = React.useEffect
+// Поскольку JSDOM не поддерживает, window.matchMedia
+// В документации Jest теперь есть "официальный" обходной путь
+Object.defineProperty(window, 'matchMedia', {
+  writable: true,
+  value: (query) => ({
+    matches: false,
+    media: query,
+    onchange: null,
+    addListener: () => {}, // Deprecated
+    removeListener: () => {}, // Deprecated
+    addEventListener: () => {},
+    removeEventListener: () => {},
+    dispatchEvent: () => {},
+  }),
+});
 
-console.error = (message) => {
-  throw new Error(message);
-}
+// React.useLayoutEffect = React.useEffect
+
+// console.error = (message) => {
+//   throw new Error(message);
+// }

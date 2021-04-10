@@ -17,23 +17,24 @@ import {
 } from '../../../store/cart/reducer';
 import {StyledRadio, StyledShippingTitle} from '../StyledCheckout';
 import StyledButton from '../../common/Buttons/StyledButton';
-import { getCity, getShippingCost, PlaceOrder} from '../../../store/cart/middleware';
+import { getBranches, getShippingCost, placeOrder} from '../../../store/cart/middleware';
 import { validName, validTelephone } from '../../../utils/constants';
     
-const mapStateToProps = (state) => ({
-  cities: selectCities(state),
-  branches: selectBranches(state),
-  customer: selectCustomer(state),
-  shippingCost: selectShippingCost(state),
-  products: selectProducts(state),
-})
+export const FormCheckoutComponent = (props) => {
+  const {
+    cities,
+    branches,
+    customer,
+    getBranches,
+    shippingCost,
+    placeOrder,
+    products,
+    getShippingCost
+  } = props
 
-const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOrder})(({
-  cities, branches, customer, getCity, shippingCost, PlaceOrder, products, getShippingCost
-}) => {
   const { Option } = Select;
   const history = useHistory()
-  
+    
   const formLayout = {
     labelCol: {
       xs: {
@@ -64,7 +65,7 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
       },
     },
   };
-        
+          
   const fields = useMemo(() => ([{
     name: 'email',
     value: customer.email || null
@@ -79,37 +80,37 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
   },
   {
     name: 'phoneNumber',
-    value: customer.telephone || '380'
+    value: customer.telephone || '+380'
   },
   {
     name: 'country',
     value: 'Ukraine'
   },
   ]), [customer])
-
+  
   const recipientCityRef = useRef();
   const countryRef = useRef();
   const branchSelect = useRef();
   const [valuePaymentInfo, setValuePaymentInfo] = useState(
     'Payment at the time of receipt of the goods'
   );
-
-  const [form] = Form.useForm();
   
+  const [form] = Form.useForm();
+    
   const handleCityChange = async (props) => {
-    await getCity(props);
+    await getBranches(props);
     form.setFieldsValue({recipientBranch: null})
   }
-
+  
   const onChangeRadio = (e) => {
     setValuePaymentInfo(e.target.value);
   };
-
+  
   const onFinish = (values) => {
-    PlaceOrder(products, values, customer, shippingCost, valuePaymentInfo)
+    placeOrder(products, values, customer, shippingCost, valuePaymentInfo)
     history.push('/order')
   };
-    
+      
   return (
     <Form
       {...formLayout}
@@ -121,7 +122,7 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
       <StyledShippingTitle>
         Customer Details:
       </StyledShippingTitle>
-
+  
       <Form.Item
         label="Email"
         name="email"
@@ -140,7 +141,7 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
           placeholder="test@testmail.com"
         />
       </Form.Item>
-      
+        
       <Form.Item
         label="First name"
         name="firstName"
@@ -163,7 +164,7 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
       >
         <Input placeholder="First name" />
       </Form.Item>
-
+  
       <Form.Item
         label="Last name"
         name="lastName"
@@ -186,16 +187,16 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
       >
         <Input placeholder="Last name" />
       </Form.Item>
-
+  
       <Form.Item
         label="Phone number"
         name="phoneNumber"
         rules={[
           {
             required: true,
-            message: 'Please input your phone number 380 XX XXX XXXX',
-            min: 12,
-            max: 12,
+            message: 'Please input your phone number +380 XX XXX XXXX',
+            min: 13,
+            max: 13,
           },
           {
             pattern: validTelephone,
@@ -203,13 +204,13 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
           }
         ]}
       >
-        <Input placeholder="Mobile Number 380 XX XXX XXXX" />
+        <Input placeholder="Mobile Number +380 XX XXX XXXX" />
       </Form.Item>
-
+  
       <StyledShippingTitle>
         Payment Details:
       </StyledShippingTitle>
-
+  
       <Radio.Group
         name="paymentInfo"
         onChange={onChangeRadio}
@@ -220,11 +221,11 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
           Payment at the time of receipt of the goods
         </StyledRadio>
       </Radio.Group>
-      
+        
       <StyledShippingTitle>
         Shipping Details:
       </StyledShippingTitle>
-
+  
       <Form.Item
         label="Country"
         name="country"
@@ -232,14 +233,14 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
       >
         <Input disabled ref={countryRef} />
       </Form.Item>
-
+  
       <Form.Item
         label="City"
         name="recipientCity"
         title="City choice"
         rules={[
           { required: true, message: 'Recipient city is required' },
-          
+            
         ]}
       >
         <Select
@@ -254,7 +255,7 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
           ))}
         </Select>
       </Form.Item>
-
+  
       <Form.Item
         label="№ branch"
         name="recipientBranch"
@@ -274,28 +275,57 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
           ))}
         </Select>
       </Form.Item>
-      
+        
       <StyledButton shape="round" htmlType="submit">
         Place Order
       </StyledButton>
-
+  
     </Form>
   )
+}
+
+const mapStateToProps = (state) => ({
+  cities: selectCities(state),
+  branches: selectBranches(state),
+  customer: selectCustomer(state),
+  shippingCost: selectShippingCost(state),
+  products: selectProducts(state),
 })
+
+const FormCheckout = connect(
+  mapStateToProps,
+  {
+    getBranches,
+    getShippingCost,
+    placeOrder
+  }
+)(FormCheckoutComponent)
 
 export default FormCheckout;
 
-FormCheckout.propTypes = {
-  cities: PropTypes.string,
-  branches: PropTypes.string,
-  shippingCost: PropTypes.number,
-  getCity: PropTypes.func,
-  getShippingCost: PropTypes.func,
-  PlaceOrder: PropTypes.func,
+FormCheckoutComponent.propTypes = {
+  cities: PropTypes.arrayOf(
+    PropTypes.shape({
+      CityName: PropTypes.string.isRequired,
+      Ref: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+  branches: PropTypes.arrayOf(PropTypes.shape({
+    branchName: PropTypes.string.isRequired,
+    branchRef: PropTypes.string.isRequired,
+  })).isRequired,
+  shippingCost: PropTypes.number.isRequired,
+  getBranches: PropTypes.func.isRequired,
+  getShippingCost: PropTypes.func.isRequired,
+  placeOrder: PropTypes.func.isRequired,
   customer: PropTypes.shape({
     telephone: PropTypes.string,
     lastName: PropTypes.string,
     firstName: PropTypes.string,
     email: PropTypes.string,
-  }),
+  }).isRequired,
+}
+
+FormCheckout.propTypes = {
+  ...FormCheckoutComponent.propTypes
 }

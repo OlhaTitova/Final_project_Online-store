@@ -12,12 +12,12 @@ import {
   removeFromCartCreator,
   clearCartCreator,
   increaseQuantityCreator,
-  getBranches,
   getShippingCostCreator,
   getOrderCreator,
   clearOrderCreator,
   startLoading,
   stopLoading,
+  getBranchesCreator,
 } from './actionCreator'
 
 const BASE_ENDPOINT = `${DOMAIN}/cart`
@@ -141,7 +141,7 @@ export const clearCart = () => (dispatch, getStore) => {
   }
 }
 
-export const getCity = (props) => (dispatch) => {
+export const getBranches = (props) => (dispatch) => {
   axios.post('https://api.novaposhta.ua/v2.0/json/', {
     modelName: 'AddressGeneral',
     calledMethod: 'getWarehouses',
@@ -156,7 +156,7 @@ export const getCity = (props) => (dispatch) => {
         branchName: item.DescriptionRu,
         branchRef: item.Ref
       }))
-      dispatch(getBranches(dataBranches))
+      dispatch(getBranchesCreator(dataBranches))
     })
     .catch((error) => error.response)
 }
@@ -190,7 +190,7 @@ export const getShippingCost = (recipientCityRef) => (dispatch) => {
     .catch((error) => error.response)
 }
 
-export const PlaceOrder = (
+export const placeOrder = (
   products, values, customer, shippingCost, valuePaymentInfo
 ) => (dispatch, getStore) => {
   const {auth: {isLogin} } = getStore()

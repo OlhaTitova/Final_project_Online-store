@@ -12,6 +12,43 @@ import StyledCartList from './StyledCartList';
 import { clearCart } from '../../../store/cart/middleware';
 import { selectProducts } from '../../../store/cart/reducer';
 
+export const CartListComponent = ({
+  products,
+  clearCart,
+}) => {
+  const history = useHistory()
+
+  const onClickContinue = () => {
+    history.push('/')
+  }
+  const showCartItem = (productsAll) => productsAll.map((item) => (
+    <CartItem
+      product={item.product}
+      cartQuantity={item.cartQuantity}
+      key={item.product._id}
+    />
+  ))
+
+  return (
+    <StyledCartList>
+      <TheadCart />
+      {products.length ? showCartItem(products) : (
+        <Empty description={false}>
+          <span>Your shopping cart is empty</span>
+        </Empty>
+      )}
+      <ColumnRowBetween>
+        <div className="margin">
+          <StyledButton onClick={onClickContinue} size="xl" shape="round" color="borderGrey">Continue Shopping</StyledButton>
+        </div>
+        <div className="margin">
+          <StyledButton onClick={() => clearCart()} size="xl" shape="round" color="black">Clear Shopping Cart</StyledButton>
+        </div>
+      </ColumnRowBetween>
+    </StyledCartList>
+  )
+}
+
 const mapStateToProps = (state) => ({
   products: selectProducts(state),
 })
@@ -24,6 +61,7 @@ const CartList = connect(
   products,
   clearCart,
 }) => {
+  console.log(products)
   const history = useHistory()
 
   const onClickContinue = () => {
@@ -59,12 +97,21 @@ const CartList = connect(
 
 export default CartList;
 
-CartList.propTypes = {
+CartListComponent.defaultProps = {
+  products: [],
+  clearCart: null,
+}
+
+CartListComponent.propTypes = {
   products: PropTypes.arrayOf(PropTypes.shape({
     imageUrls: PropTypes.arrayOf(PropTypes.string),
     name: PropTypes.string,
     currentPrice: PropTypes.number,
     _id: PropTypes.string,
   })),
-  clearCart: PropTypes.func.isRequired,
+  clearCart: PropTypes.func,
+}
+
+CartList.propTypes = {
+  ...CartListComponent.propTypes
 }

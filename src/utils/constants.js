@@ -8,7 +8,7 @@ export const getHeaders = () => ({
 export const validName = /^[a-zа-яіїё]+$/i;
 export const validLogin = /^[a-z0-9]+$/i;
 export const validPassword = /^[a-z0-9]+$/i;
-export const validTelephone = /^[0-9]+$/;
+export const validTelephone = /^\+\d+$/;
 
 export const letterSubjectSubscribe = 'Good day! Dear customer';
 export const letterHtmlSubscribe = `<!DOCTYPE html><html lang='en'> <head> <meta charset='UTF-8' />
