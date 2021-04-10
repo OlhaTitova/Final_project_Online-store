@@ -14,6 +14,7 @@ import NoMatchPage from '../NoMatchPage/NoMatchPage'
 import DashBoard from '../DashBoard/DashBoard'
 import ReviewSlider from '../ReviewSlider/ReviewSlider'
 import HomePage from '../HomePage/HomePage'
+import { routes } from '../../utils/constants'
 
 const Router = () => (
   <Switch>
@@ -39,7 +40,7 @@ const Router = () => (
     <Route exact path="/checkout">
       <Checkout />
     </Route>
-    <Route exact path="/order">
+    <Route exact path={routes.order}>
       <OrderPage />
     </Route>
     <Route exact path="/products/:itemNo">

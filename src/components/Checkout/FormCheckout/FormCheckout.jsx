@@ -18,7 +18,7 @@ import {
 import {StyledRadio, StyledShippingTitle} from '../StyledCheckout';
 import StyledButton from '../../common/Buttons/StyledButton';
 import { getBranches, getShippingCost, placeOrder} from '../../../store/cart/middleware';
-import { validName, validTelephone } from '../../../utils/constants';
+import { routes, validName, validTelephone } from '../../../utils/constants';
     
 export const FormCheckoutComponent = (props) => {
   const {
@@ -91,24 +91,20 @@ export const FormCheckoutComponent = (props) => {
   const recipientCityRef = useRef();
   const countryRef = useRef();
   const branchSelect = useRef();
-  const [valuePaymentInfo, setValuePaymentInfo] = useState(
+  const [valuePaymentInfo] = useState(
     'Payment at the time of receipt of the goods'
   );
   
   const [form] = Form.useForm();
     
-  const handleCityChange = async (props) => {
-    await getBranches(props);
+  const handleCityChange = (cityRef) => {
     form.setFieldsValue({recipientBranch: null})
+    getBranches(cityRef);
   }
-  
-  const onChangeRadio = (e) => {
-    setValuePaymentInfo(e.target.value);
-  };
   
   const onFinish = (values) => {
     placeOrder(products, values, customer, shippingCost, valuePaymentInfo)
-    history.push('/order')
+    history.push(routes.order)
   };
       
   return (
@@ -213,7 +209,6 @@ export const FormCheckoutComponent = (props) => {
   
       <Radio.Group
         name="paymentInfo"
-        onChange={onChangeRadio}
         value={valuePaymentInfo}
         style={{marginBottom: '20px'}}
       >

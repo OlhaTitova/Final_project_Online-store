@@ -23,3 +23,7 @@ export const letterHtmlContactUs = `<!DOCTYPE html><html lang='en'> <head> <meta
     <meta http-equiv='X-UA-Compatible' content='ie=edge' /> <title>Document</title>
     </head> <body> <p>Thank you for your appeal!</p> 
 <p>Our manager will contact you soon</p></body></html>`
+
+export const routes = {
+  order: '/order'
+}

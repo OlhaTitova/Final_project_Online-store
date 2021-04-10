@@ -141,13 +141,13 @@ export const clearCart = () => (dispatch, getStore) => {
   }
 }
 
-export const getBranches = (props) => (dispatch) => {
+export const getBranches = (cityRef) => (dispatch) => {
   axios.post('https://api.novaposhta.ua/v2.0/json/', {
     modelName: 'AddressGeneral',
     calledMethod: 'getWarehouses',
     methodProperties: {
       Language: 'ru',
-      CityRef: props,
+      CityRef: cityRef,
     },
     apiKey: '469ae707669208ac6f2d113fc7edbe13'
   })

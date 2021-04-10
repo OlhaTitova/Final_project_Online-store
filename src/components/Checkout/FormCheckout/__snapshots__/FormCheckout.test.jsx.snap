@@ -139,7 +139,7 @@ exports[`FormCheckoutComponent render 1`] = `
             <input
               class="ant-input"
               id="checkout-form_phoneNumber"
-              placeholder="Mobile Number 380 XX XXX XXXX"
+              placeholder="Mobile Number +380 XX XXX XXXX"
               type="text"
               value="+380660788828"
             />
