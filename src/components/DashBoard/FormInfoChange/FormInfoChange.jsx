@@ -6,20 +6,35 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { updateCustomer } from '../../../store/customer/middleware';
 import { setHideModal } from '../../../store/dashBoardModal/middleware';
-import { validName } from '../../../utils/constants'
+import { selectCustomerInfo } from '../../../store/customer/reducer'
+import { validName, validTelephone } from '../../../utils/constants'
 
-const FormInfoChange = connect(null, { setHideModal })(({
-  setInfo, setHideModal
+const mapStateToProps = (state) => ({
+  info: selectCustomerInfo(state)
+})
+
+const FormInfoChange = connect(mapStateToProps, { setHideModal, updateCustomer })(({
+  setHideModal, updateCustomer
 }) => {
   const [form] = Form.useForm();
 
   const onFinish = (values) => {
-    updateCustomer(values, 'Your contact information has been changed');
+    let results = values;
+
+    if (Object.values(results).every((elem) => elem === undefined)) {
+      setHideModal();
+      form.resetFields();
+      return
+    }
+
+    if (values.telephone) {
+      results = {
+        ...values,
+        telephone: `+${values.telephone}`
+      }
+    }
+    updateCustomer(results, 'Your contact information has been changed');
     setHideModal();
-    setInfo((prev) => ({
-      ...prev,
-      ...values
-    }))
     form.resetFields()
   }
   return (
@@ -28,10 +43,6 @@ const FormInfoChange = connect(null, { setHideModal })(({
         name="firstName"
         label="First name"
         rules={[
-          {
-            required: true,
-            message: 'Please input your name.',
-          },
           {
             pattern: validName,
             message: 'Allowed characters is a-z, а-я.'
@@ -51,10 +62,6 @@ const FormInfoChange = connect(null, { setHideModal })(({
         label="Last name"
         rules={[
           {
-            required: true,
-            message: 'Please input your last name.',
-          },
-          {
             pattern: validName,
             message: 'Allowed characters is a-z, а-я.'
           },
@@ -62,6 +69,24 @@ const FormInfoChange = connect(null, { setHideModal })(({
             min: 2,
             max: 25,
             message: 'Last Name must be beetwen 2 and 25 characters.'
+          },
+        ]}
+      >
+        <Input />
+      </Form.Item>
+      <Form.Item
+        name="telephone"
+        label="New Phone"
+        rules={[
+          {
+            type: 'string',
+            pattern: validTelephone,
+            message: 'Enter correct Phone'
+          },
+          {
+            min: 12,
+            max: 12,
+            message: 'Phone must be 12 characters',
           },
         ]}
       >
@@ -76,7 +101,9 @@ const FormInfoChange = connect(null, { setHideModal })(({
   );
 })
 FormInfoChange.propTypes = {
-  setInfo: PropTypes.func.isRequired,
-  setHideModal: PropTypes.func
+  setHideModal: PropTypes.func,
+}
+FormInfoChange.defaultProps = {
+  setHideModal: () => null,
 }
 export default FormInfoChange;

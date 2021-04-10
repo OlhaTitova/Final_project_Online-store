@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { setShowModal } from '../../store/dashBoardModal/middleware';
-import { BlockInfo, TextInfo } from './StyledDashBoard';
-import Modal from './DashBoardModal/DashBoardModal';
+import { setShowModal } from '../../../store/dashBoardModal/middleware';
+import { BlockInfo, TextInfo } from '../StyledDashBoard';
+import Modal from '../DashBoardModal/DashBoardModal';
 
-const PasswordInfoChange = connect(null, {setShowModal})(({ setShowModal, info, setInfo }) => (
+const PasswordInfoChange = connect(null, {setShowModal})(({ setShowModal, info }) => (
   <BlockInfo>
     <h4>Contact Information</h4>
     <div>
@@ -20,6 +20,11 @@ const PasswordInfoChange = connect(null, {setShowModal})(({ setShowModal, info, 
           {' '}
           {info.lastName}
         </p>
+        <p>
+          <span style={{fontSize: '18px', fontWeight: '600'}}>Phone:</span>
+          {' '}
+          {info.telephone}
+        </p>
       </TextInfo>
       <div>
         <button
@@ -30,7 +35,6 @@ const PasswordInfoChange = connect(null, {setShowModal})(({ setShowModal, info, 
         >
           Edit
         </button>
-        <Modal setInfo={setInfo} title />
         <button
           type="submit"
           id="setPassword"
@@ -38,6 +42,8 @@ const PasswordInfoChange = connect(null, {setShowModal})(({ setShowModal, info, 
         >
           Change Password
         </button>
+        <Modal title />
+
       </div>
     </div>
   </BlockInfo>
@@ -46,6 +52,5 @@ const PasswordInfoChange = connect(null, {setShowModal})(({ setShowModal, info, 
 PasswordInfoChange.propTypes = {
   setShowModal: PropTypes.func,
   info: PropTypes.instanceOf(Object),
-  setInfo: PropTypes.func,
 }
 export default PasswordInfoChange;

@@ -129,7 +129,6 @@ export const SearchAndItemsBlock = styled.div`
   justify-content: space-around;
   align-items: center;
   @media(min-width: ${forDesktop.minWidth}px) {
-    border-bottom: 1px solid #CCCCCC;
     background-color: white;
     max-width: 1200px;
     width: 90%;
@@ -294,4 +293,9 @@ export const SearchOutlinedStyledMedia = styled(SearchOutlinedStyled)`
     padding-left: 20px;
     font-size: 22px;
   }
+`;
+export const StrechedContainer = styled.div`
+  background: white;
+  width: 100%;
+  border-bottom: 1px solid #CCCCCC;
 `;

@@ -1,30 +1,28 @@
-import React, { useEffect, useState } from 'react';
+/* eslint-disable consistent-return */
+import React from 'react';
 import { connect } from 'react-redux';
 import { Container } from '../common/Container'
-import { getCustomer } from '../../store/customer/middleware';
 import Subscribe from './Subscribed/Subscribe';
 import {
-  AccountInfo, MyDash, WrapperBlocks, RowBlocks
+  AccountInfo, MyDash, WrapperBlocks, RowBlocks,
 } from './StyledDashBoard';
-import PasswordInfoChange from './PasswordInfoChange';
+import PasswordInfoChange from './PasswordInfoChange/PasswordInfoChange';
 import StyledSpinner from '../StyledSpinner/StyledSpinner'
 import Orders from './Orders/Orders';
+import { selectCustomerInfo, selectIsLoading } from '../../store/customer/reducer'
 
-const DashBoard = connect(null, { getCustomer })(() => {
-  window.scrollTo(0, 0)
-  const [info, setInfo] = useState({})
+const mapStateToProps = (state) => ({
+  customerInfo: selectCustomerInfo(state),
+  isLoading: selectIsLoading(state)
+})
 
-  useEffect(() => {
-    const customer = async () => {
-      const information = await getCustomer()
-      const infoCustomer = information.data;
-      setInfo(() => infoCustomer)
-    }
-    customer()
-  }, [])
+const DashBoard = connect(mapStateToProps, null)(({
+  customerInfo,
+  isLoading
+}) => {
+  window.scrollTo(0, 0);
 
-  if (Object.keys(info).length === 0) return <StyledSpinner size="large" tip="Loading..." margin="100px auto" />
-
+  if (isLoading) return <StyledSpinner size="large" tip="Loading..." />
   return (
     <Container>
       <MyDash>
@@ -35,11 +33,11 @@ const DashBoard = connect(null, { getCustomer })(() => {
       </AccountInfo>
       <WrapperBlocks>
         <RowBlocks>
-          <PasswordInfoChange info={info} setInfo={setInfo} />
+          <PasswordInfoChange info={customerInfo} />
         </RowBlocks>
         <RowBlocks>
           <Subscribe
-            email={info.email}
+            email={customerInfo.email}
           />
         </RowBlocks>
         <RowBlocks>

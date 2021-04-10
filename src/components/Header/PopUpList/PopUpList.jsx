@@ -1,17 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { NavLink } from 'react-router-dom';
 import {
   PopUpContainer, HeaderOfPopUp, Line,
   RightOutlinedStyled, CloseOutlinedStyled,
-  Listnavigation, ExceptionLi, TechTag
+  Listnavigation, ExceptionLi, TechTag, LinkStyled
 } from './PopUpListStyled';
 import LogoBurger from '../Utils/LogoDesktop';
 
 const PopUpList = ({
-  openSlide, isOpen, openCloseMenu, setIsOpen,
-  hideList, checkForLinkOpen,
-  hideInput
+  openSlide, isOpen, openCloseMenu,
+  hideList, checkForLinkOpen, setIsOpen,
+  hideInput, backToDefaulOpen
 }) => (
 
   <PopUpContainer
@@ -24,55 +23,63 @@ const PopUpList = ({
     animate={isOpen ? 'show' : 'hidden'}
   >
     <HeaderOfPopUp>
-      <TechTag>Tech Store</TechTag>
-      <LogoBurger />
-      <CloseOutlinedStyled onClick={(e) => { openCloseMenu(e) }} />
+      <TechTag>
+        <LinkStyled
+          to="/"
+          onClick={backToDefaulOpen}
+        >
+          Tech Store
+        </LinkStyled>
+      </TechTag>
+      <LinkStyled to="/" style={{outline: 'none'}}>
+        <LogoBurger backToDefaulOpen={backToDefaulOpen} />
+      </LinkStyled>
+      <CloseOutlinedStyled onClick={() => openCloseMenu()} />
       <Line />
     </HeaderOfPopUp>
     <Listnavigation onClick={(e) => checkForLinkOpen(e)}>
-      <ExceptionLi>
-        <NavLink
-          to="/catalog?categories=desctops"
-        >
-          <h5>Desctops</h5>
-        </NavLink>
-        <RightOutlinedStyled />
-      </ExceptionLi>
-      <li>
-        <NavLink
-          to="/catalog?categories=gamingMonitors"
-        >
+      <LinkStyled
+        to="/catalog?categories=desctops"
+      >
+        <ExceptionLi>
+          <h5>Desktops</h5>
+          <RightOutlinedStyled />
+        </ExceptionLi>
+      </LinkStyled>
+      <LinkStyled
+        to="/catalog?categories=gamingMonitors"
+      >
+        <li>
           <h5>Gaming Monitors</h5>
-        </NavLink>
-        <RightOutlinedStyled />
-      </li>
-      <li>
-        <NavLink
-          to="/catalog?categories=laptops"
-        >
+          <RightOutlinedStyled />
+        </li>
+      </LinkStyled>
+      <LinkStyled
+        to="/catalog?categories=laptops"
+      >
+        <li>
           <h5>Laptops</h5>
-        </NavLink>
-       
-        <RightOutlinedStyled />
-      </li>
-      <li>
-        <NavLink
-          to="/catalog?categories=tablets"
-        >
+          <RightOutlinedStyled />
+        </li>
+      </LinkStyled>
+      <LinkStyled
+        to="/catalog?categories=tablets"
+      >
+        <li>
           <h5>
             Tablets
           </h5>
-        </NavLink>
-        <RightOutlinedStyled />
-      </li>
-      <li>
-        <NavLink
-          to="/catalog"
-        >
+          <RightOutlinedStyled />
+        </li>
+      </LinkStyled>
+      <LinkStyled
+        to="/catalog"
+      >
+        <li>
           <h5>Catalog</h5>
-        </NavLink>
-        <RightOutlinedStyled />
-      </li>
+          <RightOutlinedStyled />
+        </li>
+      </LinkStyled>
     </Listnavigation>
   </PopUpContainer>
 )
@@ -83,6 +90,7 @@ PopUpList.propTypes = {
   openCloseMenu: PropTypes.func.isRequired,
   checkForLinkOpen: PropTypes.func.isRequired,
   openSlide: PropTypes.instanceOf(Object).isRequired,
-  hideInput: PropTypes.bool.isRequired
+  hideInput: PropTypes.bool.isRequired,
+  backToDefaulOpen: PropTypes.func.isRequired
 }
 export default PopUpList;
