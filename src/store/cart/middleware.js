@@ -39,8 +39,6 @@ export const addToCart = (product, quantity) => (dispatch, getStore) => {
             ...el,
             cartQuantity: el.product.quantity
           }
-          // return el
-          // можно же просто вернуть el ? или тут какой-то особый смысл ?)
         }
         return {
           ...el,

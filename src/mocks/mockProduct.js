@@ -25,6 +25,7 @@ export const mockProduct = {
     screenSize: '32 inches',
     aspectRatio: '16:9'
   },
-  description: 'An immersive 27" super curved gaming monitor with a fast 144Hz refresh rate and 1ms response time, helping you get the most out of your monitor. Features such as AMD FreeSync Premium, QHD resolution, and a curved design make this monitor ultra competitive for any gamer.'
+  description: 'An immersive 27" super curved gaming monitor with a fast 144Hz refresh rate and 1ms response time, helping you get the most out of your monitor. Features such as AMD FreeSync Premium, QHD resolution, and a curved design make this monitor ultra competitive for any gamer.',
+  itemNo: 554194,
 }
 export default mockProduct

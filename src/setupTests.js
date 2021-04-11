@@ -1,3 +1,4 @@
+/* eslint-disable import/prefer-default-export */
 /* eslint-disable import/no-extraneous-dependencies */
 // jest-dom adds custom jest matchers for asserting on DOM nodes.
 // allows you to do things like:
@@ -11,26 +12,5 @@ configure({ adapter: new Adapter() });
 
 window.scrollTo = jest.fn()
 jest.mock('axios')
-
-window.matchMedia = window.matchMedia || function () {
-  return {
-    addListener: jest.fn(),
-    removeListener: jest.fn(),
-  };
-};
-
-Object.defineProperty(window, 'matchMedia', {
-  writable: true,
-  value: jest.fn().mockImplementation((query) => ({
-    matches: false,
-    media: query,
-    onchange: null,
-    addListener: jest.fn(), // deprecated
-    removeListener: jest.fn(), // deprecated
-    addEventListener: jest.fn(),
-    removeEventListener: jest.fn(),
-    dispatchEvent: jest.fn(),
-  })),
-});
 
 // React.useLayoutEffect = React.useEffect

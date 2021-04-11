@@ -12,6 +12,8 @@ export const productsMock = [
       ],
       name: 'monitor 31.5" aoc cq32g1',
       currentPrice: 10500,
+      quantity: 49,
+      itemNo: 896750,
       _id: '604ffa554e7ef500153393f4'
     }
   },
@@ -26,7 +28,23 @@ export const productsMock = [
       ],
       name: 'monitor aoc 27" c27g1',
       currentPrice: 12300,
+      quantity: 10,
+      itemNo: 694186,
       _id: '604ffa554e7ef500153393f7'
     }
   }
 ];
+
+export const productMock = {
+  imageUrls: [
+    'https://i1.rozetka.ua/goods/13495213/aoc_cq32g1_images_13495213490.jpg',
+    'https://i1.rozetka.ua/goods/13495213/aoc_cq32g1_images_13495213568.jpg',
+    'https://i2.rozetka.ua/goods/13495213/aoc_cq32g1_images_13495213646.jpg',
+    'https://i1.rozetka.ua/goods/13495213/aoc_cq32g1_images_13495213724.jpg',
+  ],
+  name: 'monitor 31.5" aoc cq32g1',
+  currentPrice: 10500,
+  quantity: 49,
+  itemNo: 896750,
+  _id: '604ffa554e7ef500153393f4'
+}

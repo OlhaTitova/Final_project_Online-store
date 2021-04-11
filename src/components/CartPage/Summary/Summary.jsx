@@ -52,60 +52,10 @@ const mapStateToProps = (state) => ({
   summary: selectCartSummary(state),
 })
 
-const Summary = connect(mapStateToProps, null)(({summary}) => {
-  const history = useHistory()
-
-  const onClick = (summary) => {
-    if (summary === 0) {
-      message.warning('Your shopping cart is empty. Please add items to your shopping cart');
-    } else {
-      history.push('/checkout')
-    }
-  }
-
-  return (
-    <StyledSummary>
-      <h4>Summary</h4>
-      <RowBetween>
-        <div>
-          <p className="sumtotal">
-            Items total:
-          </p>
-        </div>
-        <div>
-          <span className="sumtotal">
-            {summary}
-            ₴
-          </span>
-        </div>
-      </RowBetween>
-      <div>
-        <StyledButton
-          shape="round"
-          color="yellow"
-          onClick={() => onClick(summary)}
-        >
-          Proceed to Checkout
-        </StyledButton>
-      </div>
-    </StyledSummary>
-  )
-});
-
-export default Summary;
-
-SummaryComponent.defaultProps = {
-  summary: 0,
-}
+const Summary = connect(mapStateToProps, null)(SummaryComponent);
 
 SummaryComponent.propTypes = {
-  summary: PropTypes.number,
+  summary: PropTypes.number.isRequired,
 }
 
-Summary.defaultProps = {
-  ...SummaryComponent.defaultProps
-}
-
-Summary.propTypes = {
-  ...SummaryComponent.propTypes
-}
+export default Summary;

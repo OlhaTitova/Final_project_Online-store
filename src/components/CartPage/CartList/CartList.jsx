@@ -57,61 +57,18 @@ const CartList = connect(
   mapStateToProps, {
     clearCart
   }
-)(({
-  products,
-  clearCart,
-}) => {
-  console.log(products)
-  const history = useHistory()
-
-  const onClickContinue = () => {
-    history.push('/')
-  }
-  const showCartItem = (productsAll) => productsAll.map((item) => (
-    <CartItem
-      product={item.product}
-      cartQuantity={item.cartQuantity}
-      key={item.product._id}
-    />
-  ))
-
-  return (
-    <StyledCartList>
-      <TheadCart />
-      {products.length ? showCartItem(products) : (
-        <Empty description={false}>
-          <span>Your shopping cart is empty</span>
-        </Empty>
-      )}
-      <ColumnRowBetween>
-        <div className="margin">
-          <StyledButton onClick={onClickContinue} size="xl" shape="round" color="borderGrey">Continue Shopping</StyledButton>
-        </div>
-        <div className="margin">
-          <StyledButton onClick={() => clearCart()} size="xl" shape="round" color="black">Clear Shopping Cart</StyledButton>
-        </div>
-      </ColumnRowBetween>
-    </StyledCartList>
-  )
-})
-
-export default CartList;
-
-CartListComponent.defaultProps = {
-  products: [],
-  clearCart: null,
-}
+)(CartListComponent)
 
 CartListComponent.propTypes = {
   products: PropTypes.arrayOf(PropTypes.shape({
-    imageUrls: PropTypes.arrayOf(PropTypes.string),
-    name: PropTypes.string,
-    currentPrice: PropTypes.number,
-    _id: PropTypes.string,
-  })),
-  clearCart: PropTypes.func,
+    imageUrls: PropTypes.arrayOf(PropTypes.string).isRequired,
+    name: PropTypes.string.isRequired,
+    currentPrice: PropTypes.number.isRequired,
+    quantity: PropTypes.number.isRequired,
+    itemNo: PropTypes.number.isRequired,
+    _id: PropTypes.string.isRequired,
+  })).isRequired,
+  clearCart: PropTypes.func.isRequired,
 }
 
-CartList.propTypes = {
-  ...CartListComponent.propTypes
-}
+export default CartList;

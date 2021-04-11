@@ -1,6 +1,5 @@
 import React from 'react'
 import { Route, Switch } from 'react-router-dom'
-import { routes } from '../../utils/constants'
 import CreateCustomerPage from '../CreateCustomerPage/CreateCustomerPage'
 import AboutUsPage from '../About-us/AboutUs'
 import ContactUsPage from '../ContactUs/ContactUsPage'
@@ -42,7 +41,7 @@ const Router = () => (
     <Route exact path="/checkout">
       <Checkout />
     </Route>
-    <Route exact path={routes.order}>
+    <Route exact path="/order">
       <OrderPage />
     </Route>
     <Route exact path="/products/:itemNo">

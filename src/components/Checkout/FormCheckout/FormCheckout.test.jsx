@@ -9,9 +9,12 @@ import { FormCheckoutComponent } from './FormCheckout';
 import { productsMock } from '../../../mocks/products';
 import { citiesMock } from '../../../mocks/cities';
 import { branchesMock } from '../../../mocks/branches';
-import { routes } from '../../../utils/constants';
+import { machMedia } from '../../../mocks/matchMedia.mock';
 
 describe('FormCheckoutComponent', () => {
+  beforeEach(() => {
+    machMedia()
+  })
   test('render', () => {
     const {asFragment} = render(<FormCheckoutComponent
       products={productsMock}
@@ -203,6 +206,6 @@ describe('FormCheckoutComponent', () => {
       'Payment at the time of receipt of the goods',
     ])
 
-    expect(history.location.pathname).toBe(routes.order)
+    expect(history.location.pathname).toBe('/order')
   });
 })

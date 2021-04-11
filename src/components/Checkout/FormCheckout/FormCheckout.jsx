@@ -18,7 +18,7 @@ import {
 import {StyledRadio, StyledShippingTitle} from '../StyledCheckout';
 import StyledButton from '../../common/Buttons/StyledButton';
 import { getBranches, getShippingCost, placeOrder} from '../../../store/cart/middleware';
-import { routes, validName, validTelephone } from '../../../utils/constants';
+import { validName, validTelephone } from '../../../utils/constants';
     
 export const FormCheckoutComponent = (props) => {
   const {
@@ -80,7 +80,7 @@ export const FormCheckoutComponent = (props) => {
   },
   {
     name: 'phoneNumber',
-    value: customer.telephone || '380'
+    value: customer.telephone || '+380'
   },
   {
     name: 'country',
@@ -104,7 +104,7 @@ export const FormCheckoutComponent = (props) => {
   
   const onFinish = (values) => {
     placeOrder(products, values, customer, shippingCost, valuePaymentInfo)
-    history.push(routes.order)
+    history.push('/order')
   };
       
   return (
@@ -196,7 +196,7 @@ export const FormCheckoutComponent = (props) => {
           },
           {
             pattern: validTelephone,
-            message: 'Phone number cannot contain letter'
+            message: 'Phone number cannot contain letter and symbols'
           }
         ]}
       >
