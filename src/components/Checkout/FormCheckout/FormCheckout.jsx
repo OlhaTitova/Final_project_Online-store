@@ -80,7 +80,7 @@ export const FormCheckoutComponent = (props) => {
   },
   {
     name: 'phoneNumber',
-    value: customer.telephone || '+380'
+    value: customer.telephone || '380'
   },
   {
     name: 'country',

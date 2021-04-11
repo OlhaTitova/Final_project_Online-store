@@ -6,20 +6,26 @@ import SubscribedUser from './SubscribedUser';
 import NotSubscribedUser from './NotSubscribedUser';
 
 const Subscribe = ({ email }) => {
-  const [isSubscribed, setIsSubscribed] = useState('')
+  const [isSubscribed, setIsSubscribed] = useState(false)
 
   useEffect(() => {
+    let cleanUpFlag = false;
+
     const getSubscriberInfo = async () => {
-      if (email) {
-        const checkSubscription = await getSubscriber(email);
-        if (checkSubscription.status === 200) {
-          setIsSubscribed(() => true)
+      if (typeof email === 'string') {
+        const { status } = await getSubscriber(email);
+        if (!cleanUpFlag) {
+          if (status === 200) {
+            setIsSubscribed(() => true)
+          } else {
+            setIsSubscribed(() => false)
+          }
         }
-      } else {
-        setIsSubscribed(() => false)
       }
     }
+
     getSubscriberInfo()
+    return () => cleanUpFlag = true
   }, [email, isSubscribed, setIsSubscribed])
 
   return (
@@ -41,6 +47,9 @@ const Subscribe = ({ email }) => {
   );
 }
 Subscribe.propTypes = {
-  email: PropTypes.string.isRequired
+  email: PropTypes.string
+}
+Subscribe.defaultProps = {
+  email: '',
 }
 export default Subscribe;

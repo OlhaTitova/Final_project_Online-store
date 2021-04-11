@@ -1,41 +1,35 @@
-import React, {useEffect, useState} from 'react';
-import getOrders from '../../../store/orders/middleware';
+/* eslint-disable consistent-return */
+import React from 'react';
+import { connect } from 'react-redux';
 import OrderComponent from './OrderComponent';
-import DirectionChange from './StyledOrders';
+import OrderWrapper from './StyledOrders';
+import { selectOrders } from '../../../store/customer/reducer'
 
-const Orders = () => {
-  const [orders, setOrders] = useState(null)
-  useEffect(() => {
-    const ordersToRender = async () => {
-      const results = await getOrders();
-      setOrders(() => results.data)
-    }
-    ordersToRender()
-  }, [])
-  return (
-    <div style={{marginTop: '20px'}}>
-      <div>
-        <h5 style={{
-          textAlign: 'center',
-          fontSize: '20px',
-          paddingBottom: '20px'
-        }}
-        >
-          My Orders
-        </h5>
-      </div>
-      <DirectionChange>
-        {orders !== null ? (
-          orders.map((item, i) => (
-            <OrderComponent
-              key={item.orderNo}
-              orders={orders[i]}
-            />
-          ))
-        ) : (' ')}
-      </DirectionChange>
+const mapStateToProps = (state) => ({
+  orders: selectOrders(state)
+})
+
+const Orders = connect(mapStateToProps, null)(({orders}) => (
+  <div style={{marginTop: '20px'}}>
+    <div>
+      <h5 style={{
+        textAlign: 'center',
+        fontSize: '20px',
+        paddingBottom: '20px'
+      }}
+      >
+        My Orders
+      </h5>
     </div>
-  );
-}
+    <OrderWrapper>
+      {orders.map((item) => (
+        <OrderComponent
+          key={item.orderNo}
+          order={item}
+        />
+      ))}
+    </OrderWrapper>
+  </div>
+))
 
 export default Orders;

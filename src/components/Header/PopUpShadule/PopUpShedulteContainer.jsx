@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import close from '../../../images/header/Close.svg'
+import { openSlideShadule as openSlide} from '../Utils/Animations'
 
 // styled
 import {
@@ -10,28 +11,6 @@ import {
 } from './PopUpShedulteContainerStyled';
 
 const PopUpShedulteContainer = ({isOpenSheduleMenu, setisOpenSheduleMenu}) => {
-  const openSlide = {
-    hidden: {
-      y: -250,
-      opacity: 0,
-      transition: {
-        type: 'spring',
-        stiffness: 20,
-        damping: 2
-      }
-
-    },
-    show: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        type: 'spring',
-        stiffness: 20,
-        restDelta: 2
-      }
-    }
-  };
-
   useEffect(() => {
     window.addEventListener('click', (e) => {
       if (e.target.closest('#arrowDownShedule') !== null) {
@@ -108,12 +87,12 @@ const PopUpShedulteContainer = ({isOpenSheduleMenu, setisOpenSheduleMenu}) => {
           <h6>
             Phones:
             {' '}
-            <span>(00) 1234 5678</span>
+            <a href="tel: +(00) 1234 5678">(00) 1234 5678</a>
           </h6>
           <h6>
             E-mail:
             {' '}
-            <span>shop@email.com</span>
+            <a href="mailto: shop@email.com">shop@email.com</a>
           </h6>
         </BlackEP>
       </ContactsContainer>

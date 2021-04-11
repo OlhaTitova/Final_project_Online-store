@@ -12,19 +12,24 @@ import {authLogIn} from '../../../store/auth/middleware';
 import { compareLSItemsAndDBItems } from '../../../store/wishlist/middleware'
 import {addLSToServer, getCart} from '../../../store/cart/middleware'
 import { validPassword } from '../../../utils/constants'
+import { getCustomer, getOrders } from '../../../store/customer/middleware'
 
 const AuthForm = connect(null, {
   authLogIn,
   compareLSItemsAndDBItems,
   addLSToServer,
-  getCart
+  getCart,
+  getCustomer,
+  getOrders
 })((
   {
     authLogIn,
     compareLSItemsAndDBItems,
     addLSToServer,
     getCart,
-    finishCallback
+    finishCallback,
+    getCustomer,
+    getOrders
   }
 ) => {
   const formLayout = 'vertical'
@@ -35,6 +40,8 @@ const AuthForm = connect(null, {
     const {status, data} = await authLogIn(values)
     
     if (status === 200) {
+      getCustomer()
+      getOrders()
       addLSToServer()
       getCart()
       compareLSItemsAndDBItems()

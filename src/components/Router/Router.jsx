@@ -1,5 +1,6 @@
 import React from 'react'
 import { Route, Switch } from 'react-router-dom'
+import { routes } from '../../utils/constants'
 import CreateCustomerPage from '../CreateCustomerPage/CreateCustomerPage'
 import AboutUsPage from '../About-us/AboutUs'
 import ContactUsPage from '../ContactUs/ContactUsPage'
@@ -14,7 +15,6 @@ import NoMatchPage from '../NoMatchPage/NoMatchPage'
 import DashBoard from '../DashBoard/DashBoard'
 import ReviewSlider from '../ReviewSlider/ReviewSlider'
 import HomePage from '../HomePage/HomePage'
-import { routes } from '../../utils/constants'
 
 const Router = () => (
   <Switch>

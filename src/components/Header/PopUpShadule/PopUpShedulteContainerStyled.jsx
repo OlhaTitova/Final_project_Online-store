@@ -17,11 +17,10 @@ export const PopUpBlock = styled(motion.div)`
     background-color: white;
     z-index: 56;
     border-radius: 5px;
-    box-shadow: 0 1px 1px rgba(0,0,0,0.12), 
-              0 2px 2px rgba(0,0,0,0.12), 
-              0 4px 4px rgba(0,0,0,0.12), 
-              0 8px 8px rgba(0,0,0,0.12),
-              0 16px 16px rgba(0,0,0,0.12);
+    box-shadow: 0 0px 1px rgba(0,0,0,0.12), 
+              0 0px 2px rgba(0,0,0,0.12), 
+              0 0px 4px rgba(0,0,0,0.12), 
+              0 0px 8px rgba(0,0,0,0.12);
     @media(min-width: ${forTablet.minWidth}px) {
       width: 350px;
     }
@@ -108,9 +107,10 @@ export const BlackEP = styled.div`
   align-items: center;
   h6{
     padding: 5px;
-    span{
+    a{
       display: inline-block;
       color: #2596be;
+      outline: none;
     }
   }
 `;
