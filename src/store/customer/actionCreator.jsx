@@ -1,4 +1,5 @@
 import {
+  CLEAR_CUSTOMER,
   SET_CUSTOMER_INFO, SET_ORDERS, START_LOADING, STOP_LOADING
 } from './actionType';
 
@@ -18,4 +19,7 @@ export const startLoading = () => ({
 
 export const stopLoading = () => ({
   type: STOP_LOADING
+})
+export const clearCustomer = () => ({
+  type: CLEAR_CUSTOMER
 })

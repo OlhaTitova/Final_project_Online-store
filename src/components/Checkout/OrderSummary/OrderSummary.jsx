@@ -57,65 +57,11 @@ const mapStateToProps = (state) => ({
   shippingCost: selectShippingCost(state),
 })
 
-const OrderSummary = connect(mapStateToProps, null)(({summary, shippingCost}) => (
-  <StyledOrderSummary>
-    <h4>Order summary</h4>
-    <RowBetween>
-      <div>
-        <p className="sumtotal">
-          Items total:
-        </p>
-      </div>
-      <div>
-        <span className="sumtotal">
-          ₴
-          {summary}
-        </span>
-      </div>
-    </RowBetween>
-    <RowBetween>
-      <div>
-        <p className="sumtotal">
-          Shipping:
-        </p>
-      </div>
-      <div>
-        <span className="sumtotal">
-          ₴
-          {shippingCost}
-        </span>
-      </div>
-    </RowBetween>
-    <div className="line">
-      <RowBetween>
-        <div>
-          <p className="ordertotal">
-            Order total:
-          </p>
-        </div>
-        <div>
-          <span className="ordertotal">
-            {summary + shippingCost}
-            ₴
-          </span>
-        </div>
-      </RowBetween>
-    </div>
-  </StyledOrderSummary>
-))
-
-export default OrderSummary;
-  
-OrderSummaryComponent.defaultProps = {
-  summary: 0,
-  shippingCost: 0,
-}
+const OrderSummary = connect(mapStateToProps, null)(OrderSummaryComponent)
 
 OrderSummaryComponent.propTypes = {
-  summary: PropTypes.number,
-  shippingCost: PropTypes.number,
+  summary: PropTypes.number.isRequired,
+  shippingCost: PropTypes.number.isRequired,
 }
 
-OrderSummary.propTypes = {
-  ...OrderSummaryComponent.propTypes
-}
+export default OrderSummary;

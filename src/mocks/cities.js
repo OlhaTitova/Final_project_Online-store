@@ -21,3 +21,8 @@ export const citiesMock = [
     Ref: 'db5c88d0-391c-11dd-90d9-001a92567626'
   },
 ]
+
+export const cityMock = {
+  CityName: 'Kyiv',
+  Ref: '8d5a980d-391c-11dd-90d9-001a92567626'
+}

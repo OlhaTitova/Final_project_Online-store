@@ -69,8 +69,8 @@ const CartGroup = connect(null, { addToCart, showSubscribeModal })((
 })
 
 CartGroup.propTypes = {
-  product: PropTypes.instanceOf(Object).isRequired,
-  avilableQuantity: PropTypes.number.isRequired,
+  product: PropTypes.instanceOf(Object),
+  avilableQuantity: PropTypes.number,
   addToCart: PropTypes.func
 }
 

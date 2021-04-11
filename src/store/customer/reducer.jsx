@@ -1,4 +1,5 @@
 import {
+  CLEAR_CUSTOMER,
   SET_CUSTOMER_INFO, SET_ORDERS, START_LOADING, STOP_LOADING
 } from './actionType';
 
@@ -20,11 +21,20 @@ export const reducer = (state = initialState, {type, payload}) => {
         ...state,
         customerInfo: payload
       }
+
     case SET_ORDERS:
       return {
         ...state,
         orders: payload
       }
+
+    case CLEAR_CUSTOMER:
+      return {
+        ...state,
+        customerInfo: {},
+        orders: [],
+      }
+
     case START_LOADING:
       return {
         ...state,
@@ -36,6 +46,7 @@ export const reducer = (state = initialState, {type, payload}) => {
         ...state,
         isLoading: false
       }
+      
     default:
       return state
   }

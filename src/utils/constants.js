@@ -8,7 +8,7 @@ export const headerHeight = '120px';
 export const validName = /^[a-zа-яіїё]+$/i;
 export const validLogin = /^[a-z0-9]+$/i;
 export const validPassword = /^[a-z0-9]+$/i;
-export const validTelephone = /^\+\d+$/;
+export const validTelephone = /^(\+380)(\d+){9}$/;
 
 export const letterSubjectSubscribe = 'Good day! Dear customer';
 export const letterHtmlSubscribe = `<!DOCTYPE html><html lang='en'> <head> <meta charset='UTF-8' />

@@ -9,7 +9,15 @@ import Adapter from 'enzyme-adapter-react-16';
 
 configure({ adapter: new Adapter() });
 
-window.scrollTo = () => {}
+window.scrollTo = jest.fn()
+jest.mock('axios')
+
+window.matchMedia = window.matchMedia || function () {
+  return {
+    addListener: jest.fn(),
+    removeListener: jest.fn(),
+  };
+};
 
 Object.defineProperty(window, 'matchMedia', {
   writable: true,

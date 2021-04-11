@@ -10,5 +10,8 @@ const StyledFrom = styled(Form)`
         padding: 0 !important;
         }
     }
+    .ant-form-item:last-child {
+        text-align: right !important;
+    }
 `
 export default StyledFrom

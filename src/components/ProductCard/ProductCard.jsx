@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 // Compomemts
@@ -120,19 +119,5 @@ export const ProductCard = connect(null, { addToCart, showSubscribeModal })((
     </CardItem>
   )
 })
-
-ProductCard.propTypes = {
-  addToCart: PropTypes.func,
-  productInfo: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    imageUrls: PropTypes.arrayOf(PropTypes.string).isRequired,
-    reviews: PropTypes.arrayOf(PropTypes.number).isRequired,
-    previousPrice: PropTypes.number,
-    currentPrice: PropTypes.number.isRequired,
-    quantity: PropTypes.number.isRequired,
-    itemNo: PropTypes.string.isRequired,
-    _id: PropTypes.string.isRequired
-  }).isRequired,
-}
 
 export default ProductCard;

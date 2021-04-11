@@ -11,25 +11,29 @@ import AuthModal from './components/AuthModal/AuthModal'
 import { getMainCatalogProducts } from './store/productsPreview/middleware'
 import StyledAppWrapper from './components/AppWrapper/StyledAppWrapper'
 import { getCustomer, getOrders } from './store/customer/middleware'
+import { getNewProductsCreator } from './store/products/actionCreator'
+import { getFilteredProducts } from './store/products/middleware'
 
 const App = connect(null, {
-  setWishlist, getCart, getMainCatalogProducts, getCustomer, getOrders
+  setWishlist, getCart, getMainCatalogProducts, getCustomer, getOrders, getFilteredProducts
 })((
   {
     setWishlist,
     getCart,
     getMainCatalogProducts,
+    getFilteredProducts,
     getCustomer,
     getOrders
   }
 ) => {
   useEffect(() => {
+    getFilteredProducts({newProduct: 'yes'}, getNewProductsCreator)
     getMainCatalogProducts()
     getCart()
     setWishlist()
     getCustomer()
     getOrders()
-  }, [getCart, getCustomer, getMainCatalogProducts, getOrders, setWishlist])
+  }, [getCart, getCustomer, getFilteredProducts, getMainCatalogProducts, getOrders, setWishlist])
 
   return (
     <StyledAppWrapper>

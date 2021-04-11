@@ -24,10 +24,13 @@ import upperCaseFirstLetter from '../../utils/upperCaseFirstLetter'
 import { getOneProduct } from '../../store/products/middleware'
 import ProductRate from './ProductRate/ProductRate'
 import FavoriteIcon from '../FavotiteIcon/FavoriteIcon'
-import { forDesktop } from '../../styles/mediaBreakPoints'
+import carouselSettings from './utils/carouselSettings'
 
 const ProductPage = () => {
-  window.scrollTo(0, 0)
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+
   const [isLoading, setIsLoading] = useState(true)
   const [product, setProduct] = useState(null)
   const { itemNo } = useParams()
@@ -45,18 +48,6 @@ const ProductPage = () => {
     }
     getProduct()
   }, [history, itemNo])
-
-  const carouselSettings = {
-    dots: false,
-    responsive: [
-      {
-        breakpoint: forDesktop.minWidth,
-        settings: {
-          dots: true
-        }
-      }
-    ]
-  }
 
   if (isLoading) return <StyledSpinner size="large" tip="...loading" margin="100px auto" />
 
@@ -93,7 +84,7 @@ const ProductPage = () => {
             
           </PriceBox>
           <div style={{ marginBottom: '6px' }}>
-            Product number:
+            Product №:
             {' '}
             {product.itemNo}
           </div>

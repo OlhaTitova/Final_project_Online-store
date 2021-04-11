@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { setShowModal } from '../../../store/dashBoardModal/middleware';
 import { BlockInfo, TextInfo } from '../StyledDashBoard';
 import Modal from '../DashBoardModal/DashBoardModal';
+import FieldName from './StylesPasswordInfoChange'
 
 const PasswordInfoChange = connect(null, {setShowModal})(({ setShowModal, info }) => (
   <BlockInfo>
@@ -11,17 +12,17 @@ const PasswordInfoChange = connect(null, {setShowModal})(({ setShowModal, info }
     <div>
       <TextInfo>
         <p>
-          <span style={{fontSize: '18px', fontWeight: '600'}}>First Name:</span>
+          <FieldName>First Name:</FieldName>
           {' '}
           {info.firstName}
         </p>
         <p>
-          <span style={{fontSize: '18px', fontWeight: '600'}}>Last Name:</span>
+          <FieldName>Last Name:</FieldName>
           {' '}
           {info.lastName}
         </p>
         <p>
-          <span style={{fontSize: '18px', fontWeight: '600'}}>Phone:</span>
+          <FieldName>Phone:</FieldName>
           {' '}
           {info.telephone}
         </p>
@@ -43,7 +44,6 @@ const PasswordInfoChange = connect(null, {setShowModal})(({ setShowModal, info }
           Change Password
         </button>
         <Modal title />
-
       </div>
     </div>
   </BlockInfo>

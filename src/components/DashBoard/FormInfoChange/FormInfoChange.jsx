@@ -19,21 +19,12 @@ const FormInfoChange = connect(mapStateToProps, { setHideModal, updateCustomer }
   const [form] = Form.useForm();
 
   const onFinish = (values) => {
-    let results = values;
-
-    if (Object.values(results).every((elem) => elem === undefined)) {
+    if (Object.values(values).every((elem) => elem === undefined)) {
       setHideModal();
       form.resetFields();
       return
     }
-
-    if (values.telephone) {
-      results = {
-        ...values,
-        telephone: `+${values.telephone}`
-      }
-    }
-    updateCustomer(results, 'Your contact information has been changed');
+    updateCustomer(values, 'Your contact information has been changed');
     setHideModal();
     form.resetFields()
   }
@@ -79,15 +70,14 @@ const FormInfoChange = connect(mapStateToProps, { setHideModal, updateCustomer }
         label="New Phone"
         rules={[
           {
-            type: 'string',
             pattern: validTelephone,
-            message: 'Enter correct Phone'
+            message: 'Phone number must start with "+380", allowed characters is 0-9.'
           },
           {
-            min: 12,
-            max: 12,
-            message: 'Phone must be 12 characters',
-          },
+            min: 13,
+            max: 13,
+            message: 'Phone number must contain 12 numbers.'
+          }
         ]}
       >
         <Input />

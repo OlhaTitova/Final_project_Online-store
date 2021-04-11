@@ -10,24 +10,24 @@ import fireEvent from '@testing-library/user-event';
 import PopUpList from './PopUpList';
 import { store } from '../../../store/index';
 
-describe('PopUpList components test for Header', () => {
-  test('PopUpList', () => {
-    render(
-      <Provider store={store}>
-        <Router>
-          <PopUpList
-            openSlide={{ }}
-            isOpen
-            openCloseMenu={() => { }}
-            setIsOpen={() => { }}
-            hideList
-            checkForLinkOpen={() => { }}
-          />
-        </Router>
-      </Provider>
-    )
-  })
-})
+// describe('PopUpList components test for Header', () => {
+//   test('PopUpList', () => {
+//     render(
+//       <Provider store={store}>
+//         <Router>
+//           <PopUpList
+//             openSlide={{ }}
+//             isOpen
+//             openCloseMenu={() => { }}
+//             setIsOpen={() => { }}
+//             hideList
+//             checkForLinkOpen={() => { }}
+//           />
+//         </Router>
+//       </Provider>
+//     )
+//   })
+// })
 
 describe('Events of Header', () => {
   test('Click burger', () => {

@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Form, message } from 'antd';
@@ -18,44 +18,29 @@ import {
   StyledForm, StyledFormItemTextArea, StyledWrapperContainer
 } from './Styled'
 import { Container } from '../common/Container'
-import { getCustomer } from '../../store/customer/middleware'
-import { selectIsLogin } from '../../store/auth/reducer'
 import { validTelephone, validName } from '../../utils/constants'
+import { selectCustomerInfo } from '../../store/customer/reducer'
 
-const mapStateToProps = (state) => ({ isLogin: selectIsLogin(state) })
+const mapStateToProps = (state) => ({ customerInfo: selectCustomerInfo(state) })
 
-const ContactUsPage = connect(mapStateToProps, null)(({ isLogin }) => {
-  window.scrollTo(0, 0)
-
-  const [userInfo, setUserInfo] = useState({email: '', firstName: ''})
+const ContactUsPage = connect(mapStateToProps, null)(({ customerInfo }) => {
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
   const history = useHistory()
 
-  useEffect(() => {
-    const getInfo = async () => {
-      const { data, status } = await getCustomer()
-      if (status === 200) {
-        setUserInfo(() => ({
-          email: data.email,
-          firstName: data.firstName,
-          telephone: data.telephone
-        }))
-      }
-    }
-    if (isLogin) getInfo()
-  }, [isLogin])
-  
   const fields = [
     {
       name: 'name',
-      value: userInfo.firstName
+      value: customerInfo.firstName
     },
     {
       name: 'email',
-      value: userInfo.email
+      value: customerInfo.email
     },
     {
       name: 'phone',
-      value: userInfo.telephone || '380'
+      value: customerInfo.telephone || '+380'
     }
   ]
 
@@ -127,12 +112,12 @@ const ContactUsPage = connect(mapStateToProps, null)(({ isLogin }) => {
                   },
                   {
                     pattern: validTelephone,
-                    message: 'Allowed characters is 0-9.'
+                    message: 'Phone number must start with "+380", allowed characters is 0-9.'
                   },
                   {
-                    min: 12,
-                    max: 12,
-                    message: 'Phone number must be 12 symbols, and start with "380".'
+                    min: 13,
+                    max: 13,
+                    message: 'Phone number must contain 12 numbers.'
                   }
                 ]}
               >

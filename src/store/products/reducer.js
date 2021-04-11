@@ -4,6 +4,7 @@ import {
   UPDATE_PRODUCT,
   GET_NEW_PRODUCTS,
 } from './actionType';
+import shuffleArray from '../../utils/shuffleArray'
 
 export const MODULE_NAME = 'products'
 
@@ -36,7 +37,7 @@ export const reducer = (state = initialState, {type, payload}) => {
     case GET_NEW_PRODUCTS:
       return {
         ...state,
-        newProducts: payload
+        newProducts: shuffleArray(payload)
       }
     default:
       return state

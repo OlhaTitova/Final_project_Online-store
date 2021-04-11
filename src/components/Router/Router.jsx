@@ -14,6 +14,8 @@ import OrderPage from '../OrderPage/OrderPage'
 import NoMatchPage from '../NoMatchPage/NoMatchPage'
 import DashBoard from '../DashBoard/DashBoard'
 import ReviewSlider from '../ReviewSlider/ReviewSlider'
+import PrivateRoute from '../PrivateRoute/PrivateRoute'
+import OnlyNotAuthRoute from '../OnlyNotAuthRoute/OnlyNotAuthRoute'
 import HomePage from '../HomePage/HomePage'
 
 const Router = () => (
@@ -21,12 +23,12 @@ const Router = () => (
     <Route exact path="/">
       <HomePage />
     </Route>
-    <Route exact path="/signin">
+    <OnlyNotAuthRoute exact path="/signin">
       <LogIn />
-    </Route>
-    <Route exact path="/signup">
+    </OnlyNotAuthRoute>
+    <OnlyNotAuthRoute exact path="/signup">
       <CreateCustomerPage />
-    </Route>
+    </OnlyNotAuthRoute>
     <Route exact path="/aboutus">
       <AboutUsPage />
       <ReviewSlider />
@@ -52,9 +54,9 @@ const Router = () => (
     <Route exact path="/catalog">
       <CatalogPage />
     </Route>
-    <Route exact path="/dashboard">
+    <PrivateRoute exact path="/dashboard">
       <DashBoard />
-    </Route>
+    </PrivateRoute>
     <Route>
       <NoMatchPage />
     </Route>

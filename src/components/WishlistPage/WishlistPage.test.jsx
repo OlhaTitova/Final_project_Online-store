@@ -1,16 +1,17 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import React from 'react'
 import { render } from '@testing-library/react'
-import { Provider } from 'react-redux'
 import { HashRouter as Router } from 'react-router-dom'
-import NewProductsSlider from './NewProductsSlider'
+import { Provider } from 'react-redux'
 import { store } from '../../store/index'
+import WishlistPage from './WishlistPage'
 
-describe('All test for NewProductsSlider', () => {
-  test('NewProductsSlider render test', () => {
+describe('Wishlist page render tests', () => {
+  test('Wishlist page simple render test', () => {
     render(
       <Provider store={store}>
         <Router>
-          <NewProductsSlider />
+          <WishlistPage />
         </Router>
       </Provider>
     )
