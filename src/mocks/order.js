@@ -6,9 +6,10 @@ export const orderMock = {
   letterHtml: '<h1>Your order is placed. Our manager will contact you soon.</h1>',
   letterSubject: 'test, thank you for order!',
   mobile: '+380660788828',
-  orderNo: 8395086,
+  orderNo: '8395086',
   paymentInfo: 'Payment at the time of receipt of the goods',
   shipping: 121,
   totalSum: 117400,
+  date: '3/05/2021',
   _id: '6070d130058f4e00154bbe23'
 }

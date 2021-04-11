@@ -6,64 +6,68 @@ import StyledOrderInfo from './StyledOrderInfo';
 import { selectCities, selectOrder, selectIsLoading } from '../../../store/cart/reducer';
 
 export const OrderInfoComponent = ({order, cities, isLoading}) => {
-  const date = order.date ? new Date(order.date).toLocaleDateString() : null
+  const date = new Date(order.date).toLocaleDateString()
 
   const cityName = (cityRefForShipping) => {
     const cityCustomer = cities.find((item) => item.Ref === cityRefForShipping)
     return cityCustomer.CityName
   }
 
-  const showOrderInfo = (newOrder) => (
-    <div>
-      <h2>
-        <span className="italic">
-          {newOrder.firstName}
-        </span>
-        , your order has been accepted.
-      </h2>
-      <h2>Thank you for your purchase.</h2>
-      <p>
-        Your orderNo is:
-        <span>
-          {newOrder.orderNo}
-        </span>
-      </p>
-      <p>
-        Order total:
-        <span>
-          {newOrder.totalSum}
-          ₴
-        </span>
-      </p>
-      <p>
-        Delivery city:
-        <span>
-          {cityName(newOrder.deliveryAddress.city)}
-        </span>
-      </p>
-      <p>
-        Delivery branch:
-        <span>
-          {newOrder.deliveryAddress.branch}
-        </span>
-      </p>
-      <p>
-        Payment method:
-        <span>
-          {newOrder.paymentInfo}
-        </span>
-      </p>
-      <p>
-        Date:
-        <span>
-          {date}
-        </span>
-      </p>
-      <h2>
-        Our manager will contact you soon.
-      </h2>
-    </div>
-  )
+  const showOrderInfo = (newOrder) => {
+    console.log(newOrder.deliveryAddress)
+  
+    return (
+      <div>
+        <h2>
+          <span className="italic">
+            {newOrder.firstName}
+          </span>
+          , your order has been accepted.
+        </h2>
+        <h2>Thank you for your purchase.</h2>
+        <p>
+          Your orderNo is:
+          <span>
+            {newOrder.orderNo}
+          </span>
+        </p>
+        <p>
+          Order total:
+          <span>
+            {newOrder.totalSum}
+            ₴
+          </span>
+        </p>
+        <p>
+          Delivery city:
+          <span>
+            {cityName(newOrder.deliveryAddress.city)}
+          </span>
+        </p>
+        <p>
+          Delivery branch:
+          <span>
+            {newOrder.deliveryAddress.branch}
+          </span>
+        </p>
+        <p>
+          Payment method:
+          <span>
+            {newOrder.paymentInfo}
+          </span>
+        </p>
+        <p>
+          Date:
+          <span>
+            {date}
+          </span>
+        </p>
+        <h2>
+          Our manager will contact you soon.
+        </h2>
+      </div>
+    )
+  }
 
   return (
     <StyledOrderInfo>
@@ -92,7 +96,7 @@ const OrderInfo = connect(mapStateToProps, null)(OrderInfoComponent)
 
 OrderInfoComponent.propTypes = {
   order: PropTypes.shape({
-    orderNo: PropTypes.number.isRequired,
+    orderNo: PropTypes.string.isRequired,
     totalSum: PropTypes.number.isRequired,
     paymentInfo: PropTypes.string.isRequired,
     date: PropTypes.string.isRequired,

@@ -105,7 +105,7 @@ CartItemComponent.propTypes = {
     name: PropTypes.string.isRequired,
     currentPrice: PropTypes.number.isRequired,
     quantity: PropTypes.number.isRequired,
-    itemNo: PropTypes.number.isRequired,
+    itemNo: PropTypes.string.isRequired,
     _id: PropTypes.string.isRequired,
   }).isRequired,
   increaseQuantity: PropTypes.func.isRequired,

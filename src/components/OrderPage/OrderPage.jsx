@@ -66,7 +66,7 @@ const mapStateToProps = (state) => ({
 const OrderPage = connect(mapStateToProps, null)(OrderPageComponent)
 
 OrderPageComponent.propTypes = {
-  isLogin: PropTypes.bool.isRequired
+  isLogin: PropTypes.bool.isRequired,
 }
 
 export default OrderPage

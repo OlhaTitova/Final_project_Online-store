@@ -1,10 +1,10 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import OrderSummary from './OrderSummary';
+import { OrderSummaryComponent } from './OrderSummary';
 
 describe('OrderSummary', () => {
   test('render', () => {
-    const {asFragment} = render(<OrderSummary
+    const {asFragment} = render(<OrderSummaryComponent
       summary={125478}
       shippingCost={124}
     />)

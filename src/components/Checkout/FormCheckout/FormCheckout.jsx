@@ -19,6 +19,7 @@ import {StyledRadio, StyledShippingTitle} from '../StyledCheckout';
 import StyledButton from '../../common/Buttons/StyledButton';
 import { getBranches, getShippingCost, placeOrder} from '../../../store/cart/middleware';
 import { validName, validTelephone } from '../../../utils/constants';
+import { layoutFormCheckout } from './utils';
     
 export const FormCheckoutComponent = (props) => {
   const {
@@ -35,36 +36,7 @@ export const FormCheckoutComponent = (props) => {
   const { Option } = Select;
   const history = useHistory()
     
-  const formLayout = {
-    labelCol: {
-      xs: {
-        span: 24,
-      },
-      sm: {
-        span: 6,
-      },
-      md: {
-        span: 8,
-      },
-      lg: {
-        span: 7,
-      },
-    },
-    wrapperCol: {
-      xs: {
-        span: 24,
-      },
-      sm: {
-        span: 16,
-      },
-      md: {
-        span: 16,
-      },
-      lg: {
-        span: 12,
-      },
-    },
-  };
+  const formLayout = layoutFormCheckout;
           
   const fields = useMemo(() => ([{
     name: 'email',

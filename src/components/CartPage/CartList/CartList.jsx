@@ -61,12 +61,14 @@ const CartList = connect(
 
 CartListComponent.propTypes = {
   products: PropTypes.arrayOf(PropTypes.shape({
-    imageUrls: PropTypes.arrayOf(PropTypes.string).isRequired,
-    name: PropTypes.string.isRequired,
-    currentPrice: PropTypes.number.isRequired,
-    quantity: PropTypes.number.isRequired,
-    itemNo: PropTypes.number.isRequired,
-    _id: PropTypes.string.isRequired,
+    product: PropTypes.shape({
+      imageUrls: PropTypes.arrayOf(PropTypes.string).isRequired,
+      name: PropTypes.string.isRequired,
+      currentPrice: PropTypes.number.isRequired,
+      quantity: PropTypes.number.isRequired,
+      itemNo: PropTypes.string.isRequired,
+      _id: PropTypes.string.isRequired,
+    }).isRequired,
   })).isRequired,
   clearCart: PropTypes.func.isRequired,
 }

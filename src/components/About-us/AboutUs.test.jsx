@@ -1,9 +1,10 @@
-import render from 'enzyme/build/render'
 import React from 'react'
+import {render} from '@testing-library/react'
 import AboutUsPage from './AboutUs'
 
-describe('AboutUs component', () => {
-  test('should render AboutUsPage component', () => {
-    render(<AboutUsPage />)
+describe('AboutUs', () => {
+  test('render', () => {
+    const {asFragment} = render(<AboutUsPage />)
+    expect(asFragment()).toMatchSnapshot()
   })
 })
