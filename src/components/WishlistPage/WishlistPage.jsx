@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux';
 import { WishlistBox, StyledEmpty } from './StylesWishlistPage';
 import { addProductToWishlist, removeProductFromWishlist } from '../../store/wishlist/middleware'
@@ -20,7 +20,9 @@ const Wishlist = connect(mapStateToProps, {
   wishlist,
   isLoading
 }) => {
-  window.scrollTo(0, 0)
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
   if (isLoading) return <StyledSpinner size="large" tip="Loading..." margin="100px auto" />
 
   const items = wishlist.map((item) => <ProductCard key={item.itemNo} productInfo={item} />)

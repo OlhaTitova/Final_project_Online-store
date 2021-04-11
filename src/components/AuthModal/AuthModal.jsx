@@ -32,6 +32,8 @@ const AuthModal = connect(mapStateToProps, { hideAuthModal })(({
       onCancel={hideAuthModal}
       okText="Sign up"
       onOk={handleOk}
+      okButtonProps={{ shape: 'round'}}
+      cancelButtonProps={{ shape: 'round' }}
       destroyOnClose
     >
       <AuthForm finishCallback={finishCallback} />

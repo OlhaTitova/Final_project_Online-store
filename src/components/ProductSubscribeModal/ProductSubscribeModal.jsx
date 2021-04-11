@@ -7,18 +7,19 @@ import {
   message
 } from 'antd';
 import { hideSubscribeModal } from '../../store/subscriceOnProductModal/middleware'
-import { selectIsOpenModal, selectCustomerEmail } from '../../store/subscriceOnProductModal/reducer'
+import { selectIsOpenModal } from '../../store/subscriceOnProductModal/reducer'
+import { selectCustomerInfo } from '../../store/customer/reducer'
 
 const mapStateToProps = (state) => ({
   isOpen: selectIsOpenModal(state),
-  customerEmail: selectCustomerEmail(state)
+  customerInfo: selectCustomerInfo(state)
 })
 
 const ProductSubscribeModal = connect(mapStateToProps, { hideSubscribeModal })((
   {
     isOpen,
     hideSubscribeModal,
-    customerEmail,
+    customerInfo,
   }
 ) => {
   const [form] = Form.useForm()
@@ -35,7 +36,7 @@ const ProductSubscribeModal = connect(mapStateToProps, { hideSubscribeModal })((
   const fields = [
     {
       name: 'email',
-      value: customerEmail
+      value: customerInfo.email
     }
   ]
 
@@ -47,6 +48,7 @@ const ProductSubscribeModal = connect(mapStateToProps, { hideSubscribeModal })((
       onCancel={onCancel}
       okButtonProps={{htmlType: 'submit', form: 'subscribeOnProductsForm', shape: 'round'}}
       cancelButtonProps={{shape: 'round'}}
+      destroyOnClose
     >
       <Form name="subscribeOnProductsForm" onFinish={onSubmit} form={form} fields={fields}>
         <Form.Item

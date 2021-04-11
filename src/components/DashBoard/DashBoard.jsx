@@ -1,5 +1,4 @@
-/* eslint-disable consistent-return */
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Container } from '../common/Container'
 import Subscribe from './Subscribed/Subscribe';
@@ -20,7 +19,9 @@ const DashBoard = connect(mapStateToProps, null)(({
   customerInfo,
   isLoading
 }) => {
-  window.scrollTo(0, 0);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [])
 
   if (isLoading) return <StyledSpinner size="large" tip="Loading..." />
   return (

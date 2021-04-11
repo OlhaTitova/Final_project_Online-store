@@ -86,7 +86,7 @@ export const getOrders = () => (dispatch, getState) => {
     axios.get(BASE_ENDPOINT_CUSTOMER_ORDERS, {headers})
       .then((data) => {
         if (data.status === 200) {
-          dispatch(setOrders(data.data))
+          dispatch(setOrders(data.data.reverse()))
         }
       })
       .catch((error) => error.response)

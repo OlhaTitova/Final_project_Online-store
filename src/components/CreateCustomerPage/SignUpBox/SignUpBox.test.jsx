@@ -4,13 +4,6 @@ import { HashRouter as Router } from 'react-router-dom'
 import SignUpBox from './SignUpBox'
 
 describe('All tests for SignUpBox', () => {
-  window.matchMedia = window.matchMedia || function () {
-    return {
-      addListener: jest.fn(),
-      removeListener: jest.fn(),
-    }; // обходной путь поскольку window не поддерживает matchMedia.
-  };
-
   test('SignUpBox render test', () => {
     render(
       <Router>
