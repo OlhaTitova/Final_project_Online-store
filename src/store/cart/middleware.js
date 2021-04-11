@@ -78,7 +78,6 @@ export const getCart = () => (dispatch, getStore) => {
     const headers = getHeaders()
     axios.get(BASE_ENDPOINT, { headers })
       .then((cart) => {
-        console.log(cart.data)
         if (cart.data !== null) {
           dispatch(setCart(cart.data))
         }

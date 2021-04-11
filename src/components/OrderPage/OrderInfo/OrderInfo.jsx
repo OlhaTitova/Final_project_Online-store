@@ -14,7 +14,7 @@ export const OrderInfoComponent = ({order, cities, isLoading}) => {
   }
 
   const showOrderInfo = (newOrder) => {
-    console.log(newOrder.deliveryAddress)
+    console.log(newOrder.orderNo)
   
     return (
       <div>
