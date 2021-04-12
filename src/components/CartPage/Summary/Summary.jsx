@@ -8,11 +8,7 @@ import { selectCartSummary } from '../../../store/cart/reducer';
 import StyledSummary from './StyledSummary';
 import { RowBetween } from '../Flex';
 
-const mapStateToProps = (state) => ({
-  summary: selectCartSummary(state),
-})
-
-const Summary = connect(mapStateToProps, null)(({summary}) => {
+export const SummaryComponent = ({summary}) => {
   const history = useHistory()
 
   const onClick = (summary) => {
@@ -50,14 +46,16 @@ const Summary = connect(mapStateToProps, null)(({summary}) => {
       </div>
     </StyledSummary>
   )
-});
+}
+
+const mapStateToProps = (state) => ({
+  summary: selectCartSummary(state),
+})
+
+const Summary = connect(mapStateToProps, null)(SummaryComponent);
+
+SummaryComponent.propTypes = {
+  summary: PropTypes.number.isRequired,
+}
 
 export default Summary;
-
-Summary.defaultProps = {
-  summary: 0,
-}
-
-Summary.propTypes = {
-  summary: PropTypes.number,
-}

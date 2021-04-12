@@ -12,15 +12,7 @@ import StyledCartList from './StyledCartList';
 import { clearCart } from '../../../store/cart/middleware';
 import { selectProducts } from '../../../store/cart/reducer';
 
-const mapStateToProps = (state) => ({
-  products: selectProducts(state),
-})
-
-const CartList = connect(
-  mapStateToProps, {
-    clearCart
-  }
-)(({
+export const CartListComponent = ({
   products,
   clearCart,
 }) => {
@@ -55,16 +47,30 @@ const CartList = connect(
       </ColumnRowBetween>
     </StyledCartList>
   )
+}
+
+const mapStateToProps = (state) => ({
+  products: selectProducts(state),
 })
 
-export default CartList;
+const CartList = connect(
+  mapStateToProps, {
+    clearCart
+  }
+)(CartListComponent)
 
-CartList.propTypes = {
+CartListComponent.propTypes = {
   products: PropTypes.arrayOf(PropTypes.shape({
-    imageUrls: PropTypes.arrayOf(PropTypes.string),
-    name: PropTypes.string,
-    currentPrice: PropTypes.number,
-    _id: PropTypes.string,
-  })),
+    product: PropTypes.shape({
+      imageUrls: PropTypes.arrayOf(PropTypes.string).isRequired,
+      name: PropTypes.string.isRequired,
+      currentPrice: PropTypes.number.isRequired,
+      quantity: PropTypes.number.isRequired,
+      itemNo: PropTypes.string.isRequired,
+      _id: PropTypes.string.isRequired,
+    }).isRequired,
+  })).isRequired,
   clearCart: PropTypes.func.isRequired,
 }
+
+export default CartList;

@@ -14,9 +14,7 @@ import { AlignItemsCenter } from '../Flex';
 import { decreaseQuantity, increaseQuantity, removeFromCart } from '../../../store/cart/middleware';
 import upperCaseFirstLetter from '../../../utils/upperCaseFirstLetter';
 
-const CartItem = connect(null, {
-  increaseQuantity, decreaseQuantity, removeFromCart
-})(({
+export const CartItemComponent = ({
   product,
   cartQuantity,
   increaseQuantity,
@@ -90,19 +88,29 @@ const CartItem = connect(null, {
       </Row>
     </StyledCartItem>
   )
-})
+}
 
-export default CartItem;
+const CartItem = connect(
+  null, {
+    increaseQuantity,
+    decreaseQuantity,
+    removeFromCart
+  }
+)(CartItemComponent)
 
-CartItem.propTypes = {
+CartItemComponent.propTypes = {
   cartQuantity: PropTypes.number.isRequired,
   product: PropTypes.shape({
-    imageUrls: PropTypes.arrayOf(PropTypes.string),
-    name: PropTypes.string,
-    currentPrice: PropTypes.number,
-    _id: PropTypes.string,
+    imageUrls: PropTypes.arrayOf(PropTypes.string).isRequired,
+    name: PropTypes.string.isRequired,
+    currentPrice: PropTypes.number.isRequired,
+    quantity: PropTypes.number.isRequired,
+    itemNo: PropTypes.string.isRequired,
+    _id: PropTypes.string.isRequired,
   }).isRequired,
   increaseQuantity: PropTypes.func.isRequired,
   decreaseQuantity: PropTypes.func.isRequired,
   removeFromCart: PropTypes.func.isRequired,
 }
+
+export default CartItem;

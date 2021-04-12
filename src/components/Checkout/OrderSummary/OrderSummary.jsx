@@ -5,12 +5,7 @@ import { selectCartSummary, selectShippingCost } from '../../../store/cart/reduc
 import StyledOrderSummary from './StyledOrderSummary';
 import { RowBetween } from '../../CartPage/Flex';
 
-const mapStateToProps = (state) => ({
-  summary: selectCartSummary(state),
-  shippingCost: selectShippingCost(state),
-})
-
-const OrderSummary = connect(mapStateToProps, null)(({summary, shippingCost}) => (
+export const OrderSummaryComponent = ({summary, shippingCost}) => (
   <StyledOrderSummary>
     <h4>Order summary</h4>
     <RowBetween>
@@ -55,11 +50,18 @@ const OrderSummary = connect(mapStateToProps, null)(({summary, shippingCost}) =>
       </RowBetween>
     </div>
   </StyledOrderSummary>
-))
+)
+
+const mapStateToProps = (state) => ({
+  summary: selectCartSummary(state),
+  shippingCost: selectShippingCost(state),
+})
+
+const OrderSummary = connect(mapStateToProps, null)(OrderSummaryComponent)
+
+OrderSummaryComponent.propTypes = {
+  summary: PropTypes.number.isRequired,
+  shippingCost: PropTypes.number.isRequired,
+}
 
 export default OrderSummary;
-  
-OrderSummary.propTypes = {
-  summary: PropTypes.number,
-  shippingCost: PropTypes.number,
-}
