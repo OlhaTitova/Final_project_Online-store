@@ -34,7 +34,7 @@ const initialState = {
   shippingCost: 0,
   order: {},
   productCartCount: 0,
-  isLoading: false,
+  isLoading: true,
   cities: [
     {
       CityName: 'Kyiv',

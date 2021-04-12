@@ -5,6 +5,7 @@ import {
   addCartToLS, decreaseQuantityLS, getCartLS, increaseQuantityLS, removeFromCartLS
 } from '../../utils/cartLS'
 import { DOMAIN, getHeaders } from '../../utils/constants'
+import {getOrders} from '../customer/middleware'
 import {
   setCart,
   decreaseQuantityCreator,
@@ -227,11 +228,10 @@ export const placeOrder = (
     .then((newOrder) => {
       dispatch(getOrderCreator(newOrder.data.order))
       dispatch(clearCart())
-    })
-    .catch((err) => err.response)
-    .finally(() => {
+      dispatch(getOrders())
       dispatch(stopLoading())
     })
+    .catch((err) => err.response)
 }
 
 export const getCartServer = async () => {

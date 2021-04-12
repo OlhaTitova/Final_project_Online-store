@@ -27,7 +27,4 @@ describe('CartItemComponent', () => {
 
     expect(asFragment()).toMatchSnapshot()
   })
-  // test('handle remove item', () => {
-    
-  // })
 })

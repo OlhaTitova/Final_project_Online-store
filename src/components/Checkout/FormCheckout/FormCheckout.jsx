@@ -122,7 +122,7 @@ export const FormCheckoutComponent = (props) => {
             type: 'string',
             min: 2,
             max: 25,
-            message: 'FirstName must be between 2 and 25 characters',
+            message: 'FirstName must be between 2 and 25 letters',
           },
           {
             pattern: validName,
@@ -145,7 +145,7 @@ export const FormCheckoutComponent = (props) => {
             type: 'string',
             min: 2,
             max: 25,
-            message: 'LastName must be between 2 and 25 characters',
+            message: 'LastName must be between 2 and 25 letters',
           },
           {
             pattern: validName,
@@ -168,7 +168,7 @@ export const FormCheckoutComponent = (props) => {
           },
           {
             pattern: validTelephone,
-            message: 'Phone number cannot contain letter and symbols'
+            message: 'Phone number must start with "+380", allowed characters is 0-9'
           }
         ]}
       >
