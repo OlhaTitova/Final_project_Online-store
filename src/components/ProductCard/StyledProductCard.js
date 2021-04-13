@@ -71,14 +71,17 @@ export const CardTitle = styled.h3`
   font-size: 11px;
   line-height: 16px;
   font-weight: 500;
-  margin: 10px 0;
   text-align: left;
-  min-height: 35px;
+
+  height: 35px;
+  overflow: hidden;
+
+  margin: 10px 0;
 
   @media(min-width: ${forTablet.minWidth}px){
     font-size: 13px;
     line-height: 19.5px;
-    min-height: 40px;
+    height: 40px;
   }
 `
 

@@ -1,8 +1,15 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 // Redux
 import { connect } from 'react-redux'
-import { selectCatalog, selectIsLoading } from '../../store/productsPreview/reducer'
+import {
+  selectGamingMonitorList,
+  selectDesktopList,
+  selectLaptopList,
+  selectTabletList,
+  selectIsLoading
+} from '../../store/productsPreview/reducer'
 
 // Components
 import { CatalogBillboard } from './CatalogBillboard/CatalogBillboard'
@@ -14,12 +21,19 @@ import { StyledCatalogWrapper, StyledContainer } from './StyledCatalog'
 
 // Redux maps
 const mapStateToProps = (state) => ({
-  catalogProduct: selectCatalog(state),
+  gamingMonitorList: selectGamingMonitorList(state),
+  desktopList: selectDesktopList(state),
+  laptopList: selectLaptopList(state),
+  tabletList: selectTabletList(state),
   isLoading: selectIsLoading(state)
 })
 
-export const Catalog = connect(mapStateToProps, null)(({
-  catalogProduct, isLoading
+export const CatalogComponent = ({
+  gamingMonitorList,
+  desktopList,
+  laptopList,
+  tabletList,
+  isLoading
 }) => {
   if (isLoading) return <StyledSpinner size="large" tip="Loading..." margin="200px auto" />
   
@@ -35,7 +49,7 @@ export const Catalog = connect(mapStateToProps, null)(({
           }}
         />
         <CatalogCardWrapper
-          productsList={catalogProduct.gamingMonitorList}
+          productsList={gamingMonitorList}
         />
       </StyledCatalogWrapper>
 
@@ -49,7 +63,7 @@ export const Catalog = connect(mapStateToProps, null)(({
           }}
         />
         <CatalogCardWrapper
-          productsList={catalogProduct.desktopList}
+          productsList={desktopList}
         />
       </StyledCatalogWrapper>
 
@@ -63,7 +77,7 @@ export const Catalog = connect(mapStateToProps, null)(({
           }}
         />
         <CatalogCardWrapper
-          productsList={catalogProduct.laptopList}
+          productsList={laptopList}
         />
       </StyledCatalogWrapper>
 
@@ -77,11 +91,21 @@ export const Catalog = connect(mapStateToProps, null)(({
           }}
         />
         <CatalogCardWrapper
-          productsList={catalogProduct.tabletList}
+          productsList={tabletList}
         />
       </StyledCatalogWrapper>
     </StyledContainer>
   )
-})
+}
+
+export const Catalog = connect(mapStateToProps, null)(CatalogComponent)
+
+CatalogComponent.propTypes = {
+  gamingMonitorList: PropTypes.arrayOf(PropTypes.object).isRequired,
+  desktopList: PropTypes.arrayOf(PropTypes.object).isRequired,
+  laptopList: PropTypes.arrayOf(PropTypes.object).isRequired,
+  tabletList: PropTypes.arrayOf(PropTypes.object).isRequired,
+  isLoading: PropTypes.bool.isRequired
+}
 
 export default Catalog
