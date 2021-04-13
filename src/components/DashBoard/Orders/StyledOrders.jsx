@@ -6,7 +6,7 @@ const OrderWrapper = styled.div`
   flex-wrap: wrap;
   justify-content: center;
   > * {
-    flex-grow: 1; 
+    flex-grow: 1;
     flex-basis: 505px;
     padding: 0px 10px 0px 10px;
     @media(max-width: 1250px) {

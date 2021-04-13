@@ -37,7 +37,9 @@ export const ShowListStyled = styled.span`
 `;
 export const StyledMenu = styled(Menu)`
     width: 90%;
-  
+    border-top-left-radius: 0px !important;
+    border-bottom-left-radius: 0px !important;
+    padding: 0px;
   .ant-dropdown-menu {
     width: 90% !important;
     &::first-child{
@@ -66,11 +68,13 @@ export const ImgContainer = styled.div`
   height: 100%;
   left: -60px;
   background-color: white;
-
+  border-top-left-radius: 2px;
+  border-bottom-left-radius: 2px;
 `;
 
 export const ImgDash = styled.img`
   width: 100%;
   height: 100%;
   object-fit: cover;
+  padding: 7px;
 `;

@@ -2,19 +2,19 @@ import React from 'react'
 import { render } from '@testing-library/react'
 import { Provider } from 'react-redux'
 import { machMedia } from '../../../mocks/matchMedia.mock';
-import Modal from './DashBoardModal'
+import { FormInfoChangeComponent } from './FormInfoChange'
 import { store } from '../../../store/index'
 
-describe('ModalComponent', () => {
+describe('FormInfoChangeComponent', () => {
   beforeEach(() => {
     machMedia()
   })
   test('render', () => {
     const {asFragment} = render(
       <Provider store={store}>
-        <Modal
-          formId=""
-          show
+        <FormInfoChangeComponent
+          setHideModal={() => {}}
+          updateCustomer={() => {}}
         />
       </Provider>
     )
