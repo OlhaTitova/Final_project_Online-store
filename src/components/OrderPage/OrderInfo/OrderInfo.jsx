@@ -5,9 +5,10 @@ import { Alert, Spin } from 'antd';
 import { Redirect } from 'react-router-dom';
 import StyledOrderInfo from './StyledOrderInfo';
 import { selectCities, selectOrder, selectIsLoading } from '../../../store/cart/reducer';
+import { getDate } from './utils';
 
 export const OrderInfoComponent = ({order, cities, isLoading}) => {
-  const date = new Date(order.date).toLocaleDateString()
+  const date = order.date ? getDate(order.date) : null
 
   const cityName = (cityRefForShipping) => {
     const cityCustomer = cities.find((item) => item.Ref === cityRefForShipping)
@@ -98,7 +99,7 @@ OrderInfoComponent.propTypes = {
     orderNo: PropTypes.string,
     totalSum: PropTypes.number,
     paymentInfo: PropTypes.string,
-    date: PropTypes.string,
+    date: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
   }).isRequired,
   cities: PropTypes.arrayOf(
     PropTypes.shape({

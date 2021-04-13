@@ -26,7 +26,7 @@ export const HomepageFollowUs = () => {
     photoNine
   ];
   
-  const now = new Date().toLocaleDateString();
+  const now = '13.04.2021'
   const content = {
     title: 'Follow us on Instagram for News, Offers & More',
     text: 'If you’ve recently made a desktop PC or laptop, you might want to consider adding peripherals to enhance your home office setup, your gaming rig, or your business workspace...',

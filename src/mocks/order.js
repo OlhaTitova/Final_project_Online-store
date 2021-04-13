@@ -10,6 +10,6 @@ export const orderMock = {
   paymentInfo: 'Payment at the time of receipt of the goods',
   shipping: 121,
   totalSum: 117400,
-  date: '3/05/2021',
+  date: '2021-04-13T14:14:27.478Z',
   _id: '6070d130058f4e00154bbe23'
 }

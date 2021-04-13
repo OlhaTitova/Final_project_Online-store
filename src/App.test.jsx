@@ -25,7 +25,7 @@ describe('App', () => {
         </Router>
       </Provider>
     )
-
+    
     expect(asFragment()).toMatchSnapshot()
   })
 });
