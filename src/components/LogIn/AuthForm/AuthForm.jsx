@@ -1,8 +1,6 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import { React, useState} from 'react';
-import styled from 'styled-components'
 import {
-  Button,
   Form, Input, message
 } from 'antd';
 import { useHistory } from 'react-router-dom';
@@ -13,6 +11,7 @@ import { compareLSItemsAndDBItems } from '../../../store/wishlist/middleware'
 import {addLSToServer, getCart} from '../../../store/cart/middleware'
 import { validPassword } from '../../../utils/constants'
 import { getCustomer, getOrders } from '../../../store/customer/middleware'
+import {ButtonStyled} from './AuthFormStyled';
 
 const AuthForm = connect(null, {
   authLogIn,
@@ -38,7 +37,7 @@ const AuthForm = connect(null, {
 
   const onFinish = async (values) => {
     const {status, data} = await authLogIn(values)
-    
+
     if (status === 200) {
       getCustomer()
       getOrders()
@@ -63,7 +62,7 @@ const AuthForm = connect(null, {
   const onChange = () => {
     setError({})
   }
-  
+
   return (
     <Form
       name="authorization"
@@ -90,7 +89,7 @@ const AuthForm = connect(null, {
       >
         <Input placeholder="Your Login or Email" size="large" />
       </Form.Item>
-  
+
       <Form.Item
         label="Password"
         name="password"
@@ -116,7 +115,7 @@ const AuthForm = connect(null, {
       >
         <Input.Password placeholder="Your password" size="large" />
       </Form.Item>
-        
+
       <Form.Item>
         <ButtonStyled type="primary" htmlType="submit" shape="round">
           Sign In
@@ -125,11 +124,5 @@ const AuthForm = connect(null, {
     </Form>
   );
 });
-
-const ButtonStyled = styled(Button)`
-  width: 151px;
-  height: 50px;
-  background-color: rgba(1,86,255,1);
-`
 
 export default AuthForm
