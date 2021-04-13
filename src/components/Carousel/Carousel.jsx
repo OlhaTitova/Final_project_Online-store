@@ -5,7 +5,6 @@ import { StyledCarousel } from './StyledCarousel'
 import { Wrapper } from '../common/Wrapper'
 import { SliderArrowLeft } from '../common/SliderArrowLeft'
 import { SliderArrowRight } from '../common/SliderArrowRight'
-import StyledSpinner from '../StyledSpinner/StyledSpinner'
 
 const Carousel = ({
   carouselSettings, children, hideArrows, moveBottomDots
@@ -22,7 +21,6 @@ const Carousel = ({
   
   return (
     <Wrapper>
-      {!children.length && <StyledSpinner size="large" tip="Loading..." />}
       <StyledCarousel ref={ref} {...carouselSettings} moveBottomDots={moveBottomDots}>
         {children}
       </StyledCarousel>

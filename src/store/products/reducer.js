@@ -3,15 +3,20 @@ import {
   ADD_PRODUCT,
   UPDATE_PRODUCT,
   GET_NEW_PRODUCTS,
+  START_LOADING,
+  STOP_LOADING,
 } from './actionType';
 import shuffleArray from '../../utils/shuffleArray'
 
 export const MODULE_NAME = 'products'
+export const selectNewProducts = (state) => state[MODULE_NAME].newProducts
+export const selectIsLoading = (state) => state[MODULE_NAME].isLoading
 
 const initialState = {
   products: [],
   newProducts: [],
-  pageProduct: {}
+  pageProduct: {},
+  isLoading: false
 }
 
 export const reducer = (state = initialState, {type, payload}) => {
@@ -39,6 +44,19 @@ export const reducer = (state = initialState, {type, payload}) => {
         ...state,
         newProducts: shuffleArray(payload)
       }
+
+    case START_LOADING:
+      return {
+        ...state,
+        isLoading: true
+      }
+
+    case STOP_LOADING:
+      return {
+        ...state,
+        isLoading: false
+      }
+      
     default:
       return state
   }

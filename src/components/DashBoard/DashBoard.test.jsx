@@ -6,7 +6,7 @@ import shallow from 'enzyme/build/shallow';
 import { store } from '../../store/index';
 import DashBoard from './DashBoard';
 
-describe.skip('Render DashBoard component', () => {
+describe('Render DashBoard component', () => {
   test('DashBoard', () => {
     render(
       <Provider store={store}>

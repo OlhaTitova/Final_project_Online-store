@@ -2,8 +2,7 @@
 import React from 'react'
 import { Provider } from 'react-redux'
 import { HashRouter as Router } from 'react-router-dom'
-import render from 'enzyme/build/render'
-import shallow from 'enzyme/build/shallow'
+import {render, shallow} from 'enzyme'
 import axios from 'axios'
 import { store } from '../../store/index'
 import ProductPage from './ProductPage'
@@ -32,7 +31,7 @@ describe('Product page render tests', () => {
       </Provider>,
       false
     )
-    expect(result.find('div')).toBeDefined()
+    expect(result.find('svg')).toBeDefined()
   })
 
 })

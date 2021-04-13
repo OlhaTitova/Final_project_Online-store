@@ -2,7 +2,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { Route, Redirect } from 'react-router-dom'
-import { selectIsLogin } from '../../store/auth/reducer'
+import { selectIsLogin } from '../../../store/auth/reducer'
 
 const mapStateToProps = (state) => ({isLogin: selectIsLogin(state)})
 

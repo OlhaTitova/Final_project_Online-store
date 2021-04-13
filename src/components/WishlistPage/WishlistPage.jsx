@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux';
 import { WishlistBox, StyledEmpty } from './StylesWishlistPage';
-import { addProductToWishlist, removeProductFromWishlist } from '../../store/wishlist/middleware'
 import { selectWishlistItems, selectIsLoading } from '../../store/wishlist/reducer'
 import { ProductCard } from '../ProductCard/ProductCard'
 import Heading from '../common/Heading/Heading';
@@ -13,10 +12,7 @@ const mapStateToProps = (state) => ({
   isLoading: selectIsLoading(state)
 })
 
-const Wishlist = connect(mapStateToProps, {
-  addProductToWishlist,
-  removeProductFromWishlist
-})(({
+const Wishlist = connect(mapStateToProps, null)(({
   wishlist,
   isLoading
 }) => {
@@ -35,7 +31,6 @@ const Wishlist = connect(mapStateToProps, {
         {items.length ? items : <StyledEmpty description="No items have been added." />}
       </WishlistBox>
     </Container>
-    
   )
 })
 export default Wishlist
