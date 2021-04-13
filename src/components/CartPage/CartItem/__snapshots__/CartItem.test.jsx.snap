@@ -12,11 +12,11 @@ exports[`CartItemComponent render 1`] = `
         class="ant-col ant-col-xs-8 ant-col-md-8 ant-col-lg-5"
       >
         <a
-          href="/products/896750"
+          href="/products/554194"
         >
           <img
-            alt="monitor 31.5\\" aoc cq32g1"
-            src="https://i1.rozetka.ua/goods/13495213/aoc_cq32g1_images_13495213490.jpg"
+            alt="Monitor 27\\" AOC C27G2ZU/BK"
+            src="https://i8.rozetka.ua/goods/18842039/aoc_c27g2zu_bk_images_18842039923.jpg"
           />
         </a>
       </div>
@@ -24,12 +24,12 @@ exports[`CartItemComponent render 1`] = `
         class="ant-col ant-col-xs-16 ant-col-md-16 ant-col-lg-7"
       >
         <a
-          href="/products/896750"
+          href="/products/554194"
         >
           <p
             class="bold"
           >
-            Monitor 31.5" aoc cq32g1
+            Monitor 27" AOC C27G2ZU/BK
           </p>
         </a>
       </div>
@@ -39,7 +39,7 @@ exports[`CartItemComponent render 1`] = `
         <span
           class="price"
         >
-          10500₴
+          10600₴
         </span>
       </div>
       <div
@@ -113,7 +113,7 @@ exports[`CartItemComponent render 1`] = `
         class="ant-col subtotal ant-col-xs-9 ant-col-md-6 ant-col-lg-3"
       >
         <span>
-          10500₴
+          10600₴
         </span>
       </div>
       <div

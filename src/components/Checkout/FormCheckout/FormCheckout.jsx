@@ -246,7 +246,6 @@ export const FormCheckoutComponent = (props) => {
       <StyledButton shape="round" htmlType="submit">
         Place Order
       </StyledButton>
-  
     </Form>
   )
 }
