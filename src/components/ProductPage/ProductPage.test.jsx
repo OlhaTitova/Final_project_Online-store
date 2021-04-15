@@ -2,14 +2,13 @@
 import React from 'react'
 import { Provider } from 'react-redux'
 import { HashRouter as Router } from 'react-router-dom'
-import render from 'enzyme/build/render'
-import shallow from 'enzyme/build/shallow'
+import {render, shallow} from 'enzyme'
 import axios from 'axios'
 import { store } from '../../store/index'
 import ProductPage from './ProductPage'
 import upperCaseFirstLetter from '../../utils/upperCaseFirstLetter'
 import rateCalculator from '../../utils/rateCalculator'
-import { mockProduct } from '../../mocks/mockProduct'
+import { productMock } from '../../mocks/products'
 
 describe('Product page render tests', () => {
   
@@ -32,7 +31,7 @@ describe('Product page render tests', () => {
       </Provider>,
       false
     )
-    expect(result.find('div')).toBeDefined()
+    expect(result.find('svg')).toBeDefined()
   })
 
 })
@@ -53,7 +52,7 @@ describe('check utils for Product page', () => {
 
 describe('Product page ajax/lifecycle tests', () => {
   const response = {
-    data: mockProduct
+    data: productMock
   }
 
   beforeEach(() => {
@@ -69,7 +68,7 @@ describe('Product page ajax/lifecycle tests', () => {
       </Provider>,
       true
     )
-    expect(result.find(`[src="${mockProduct.imageUrls[0]}"]`)).toBeDefined()
+    expect(result.find(`[src="${productMock.imageUrls[0]}"]`)).toBeDefined()
   })
 
   test('Check is product has a description list', () => {

@@ -17,54 +17,27 @@ import {
 } from '../../../store/cart/reducer';
 import {StyledRadio, StyledShippingTitle} from '../StyledCheckout';
 import StyledButton from '../../common/Buttons/StyledButton';
-import { getCity, getShippingCost, PlaceOrder} from '../../../store/cart/middleware';
+import { getBranches, getShippingCost, placeOrder} from '../../../store/cart/middleware';
 import { validName, validTelephone } from '../../../utils/constants';
+import { layoutFormCheckout } from './utils';
     
-const mapStateToProps = (state) => ({
-  cities: selectCities(state),
-  branches: selectBranches(state),
-  customer: selectCustomer(state),
-  shippingCost: selectShippingCost(state),
-  products: selectProducts(state),
-})
+export const FormCheckoutComponent = (props) => {
+  const {
+    cities,
+    branches,
+    customer,
+    getBranches,
+    shippingCost,
+    placeOrder,
+    products,
+    getShippingCost
+  } = props
 
-const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOrder})(({
-  cities, branches, customer, getCity, shippingCost, PlaceOrder, products, getShippingCost
-}) => {
   const { Option } = Select;
   const history = useHistory()
-  
-  const formLayout = {
-    labelCol: {
-      xs: {
-        span: 24,
-      },
-      sm: {
-        span: 6,
-      },
-      md: {
-        span: 8,
-      },
-      lg: {
-        span: 7,
-      },
-    },
-    wrapperCol: {
-      xs: {
-        span: 24,
-      },
-      sm: {
-        span: 16,
-      },
-      md: {
-        span: 16,
-      },
-      lg: {
-        span: 12,
-      },
-    },
-  };
-        
+    
+  const formLayout = layoutFormCheckout;
+          
   const fields = useMemo(() => ([{
     name: 'email',
     value: customer.email || null
@@ -79,37 +52,33 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
   },
   {
     name: 'phoneNumber',
-    value: customer.telephone || '380'
+    value: customer.telephone || '+380'
   },
   {
     name: 'country',
     value: 'Ukraine'
   },
   ]), [customer])
-
+  
   const recipientCityRef = useRef();
   const countryRef = useRef();
   const branchSelect = useRef();
-  const [valuePaymentInfo, setValuePaymentInfo] = useState(
+  const [valuePaymentInfo] = useState(
     'Payment at the time of receipt of the goods'
   );
-
-  const [form] = Form.useForm();
   
-  const handleCityChange = async (props) => {
-    await getCity(props);
+  const [form] = Form.useForm();
+    
+  const handleCityChange = (cityRef) => {
     form.setFieldsValue({recipientBranch: null})
+    getBranches(cityRef);
   }
-
-  const onChangeRadio = (e) => {
-    setValuePaymentInfo(e.target.value);
-  };
-
+  
   const onFinish = (values) => {
-    PlaceOrder(products, values, customer, shippingCost, valuePaymentInfo)
+    placeOrder(products, values, customer, shippingCost, valuePaymentInfo)
     history.push('/order')
   };
-    
+      
   return (
     <Form
       {...formLayout}
@@ -121,7 +90,7 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
       <StyledShippingTitle>
         Customer Details:
       </StyledShippingTitle>
-
+  
       <Form.Item
         label="Email"
         name="email"
@@ -140,7 +109,7 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
           placeholder="test@testmail.com"
         />
       </Form.Item>
-      
+        
       <Form.Item
         label="First name"
         name="firstName"
@@ -153,7 +122,7 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
             type: 'string',
             min: 2,
             max: 25,
-            message: 'FirstName must be between 2 and 25 characters',
+            message: 'FirstName must be between 2 and 25 letters',
           },
           {
             pattern: validName,
@@ -163,7 +132,7 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
       >
         <Input placeholder="First name" />
       </Form.Item>
-
+  
       <Form.Item
         label="Last name"
         name="lastName"
@@ -176,7 +145,7 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
             type: 'string',
             min: 2,
             max: 25,
-            message: 'LastName must be between 2 and 25 characters',
+            message: 'LastName must be between 2 and 25 letters',
           },
           {
             pattern: validName,
@@ -186,33 +155,32 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
       >
         <Input placeholder="Last name" />
       </Form.Item>
-
+  
       <Form.Item
         label="Phone number"
         name="phoneNumber"
         rules={[
           {
             required: true,
-            message: 'Please input your phone number 380 XX XXX XXXX',
-            min: 12,
-            max: 12,
+            message: 'Please input your phone number +380 XX XXX XXXX',
+            min: 13,
+            max: 13,
           },
           {
             pattern: validTelephone,
-            message: 'Phone number cannot contain letter'
+            message: 'Phone number must start with "+380", allowed characters is 0-9'
           }
         ]}
       >
-        <Input placeholder="Mobile Number 380 XX XXX XXXX" />
+        <Input placeholder="Mobile Number +380 XX XXX XXXX" />
       </Form.Item>
-
+  
       <StyledShippingTitle>
         Payment Details:
       </StyledShippingTitle>
-
+  
       <Radio.Group
         name="paymentInfo"
-        onChange={onChangeRadio}
         value={valuePaymentInfo}
         style={{marginBottom: '20px'}}
       >
@@ -220,11 +188,11 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
           Payment at the time of receipt of the goods
         </StyledRadio>
       </Radio.Group>
-      
+        
       <StyledShippingTitle>
         Shipping Details:
       </StyledShippingTitle>
-
+  
       <Form.Item
         label="Country"
         name="country"
@@ -232,14 +200,14 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
       >
         <Input disabled ref={countryRef} />
       </Form.Item>
-
+  
       <Form.Item
         label="City"
         name="recipientCity"
         title="City choice"
         rules={[
           { required: true, message: 'Recipient city is required' },
-          
+            
         ]}
       >
         <Select
@@ -254,7 +222,7 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
           ))}
         </Select>
       </Form.Item>
-
+  
       <Form.Item
         label="№ branch"
         name="recipientBranch"
@@ -274,28 +242,58 @@ const FormCheckout = connect(mapStateToProps, {getCity, getShippingCost, PlaceOr
           ))}
         </Select>
       </Form.Item>
-      
+        
       <StyledButton shape="round" htmlType="submit">
         Place Order
       </StyledButton>
-
     </Form>
   )
+}
+
+const mapStateToProps = (state) => ({
+  cities: selectCities(state),
+  branches: selectBranches(state),
+  customer: selectCustomer(state),
+  shippingCost: selectShippingCost(state),
+  products: selectProducts(state),
 })
 
-export default FormCheckout;
+const FormCheckout = connect(
+  mapStateToProps,
+  {
+    getBranches,
+    getShippingCost,
+    placeOrder
+  }
+)(FormCheckoutComponent)
 
-FormCheckout.propTypes = {
-  cities: PropTypes.string,
-  branches: PropTypes.string,
-  shippingCost: PropTypes.number,
-  getCity: PropTypes.func,
-  getShippingCost: PropTypes.func,
-  PlaceOrder: PropTypes.func,
+FormCheckoutComponent.propTypes = {
+  cities: PropTypes.arrayOf(
+    PropTypes.shape({
+      CityName: PropTypes.string.isRequired,
+      Ref: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+  branches: PropTypes.arrayOf(PropTypes.shape({
+    branchName: PropTypes.string.isRequired,
+    branchRef: PropTypes.string.isRequired,
+  })).isRequired,
+  shippingCost: PropTypes.number.isRequired,
+  getBranches: PropTypes.func.isRequired,
+  getShippingCost: PropTypes.func.isRequired,
+  placeOrder: PropTypes.func.isRequired,
   customer: PropTypes.shape({
     telephone: PropTypes.string,
     lastName: PropTypes.string,
     firstName: PropTypes.string,
     email: PropTypes.string,
-  }),
+  }).isRequired,
+  products: PropTypes.arrayOf(PropTypes.shape({
+    imageUrls: PropTypes.arrayOf(PropTypes.string),
+    name: PropTypes.string,
+    currentPrice: PropTypes.number,
+    _id: PropTypes.string,
+  })).isRequired,
 }
+
+export default FormCheckout;

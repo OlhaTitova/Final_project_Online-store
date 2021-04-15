@@ -41,7 +41,7 @@ export const setCartSummaryCreator = (sum) => ({
   type: SET_CART_SUMMARY,
   payload: sum
 })
-export const getBranches = (branches) => ({
+export const getBranchesCreator = (branches) => ({
   type: GET_BRANCHES,
   payload: branches,
 })

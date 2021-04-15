@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Heading from '../common/Heading/Heading';
 import {ContainerCart} from '../common/Container';
 import CartList from './CartList/CartList';
@@ -6,7 +6,10 @@ import Summary from './Summary/Summary';
 import { RowRevers } from './Flex';
 
 const CartPage = () => {
-  window.scrollTo(0, 0)
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+  
   return (
     <div>
       <ContainerCart>

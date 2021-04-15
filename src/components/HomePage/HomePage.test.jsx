@@ -1,16 +1,23 @@
-import render from 'enzyme/build/render'
+import {render} from '@testing-library/react'
 import React from 'react'
 import { HashRouter as Router } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import { store } from '../../store/index'
 import HomePage from './HomePage'
+import { machMedia } from '../../mocks/matchMedia.mock'
 
-test('should render HomePage component', () => {
-  render(
-    <Provider store={store}>
-      <Router>
-        <HomePage />
-      </Router>
-    </Provider>
-  )
-})
+describe('HomePage', () => {
+  beforeEach(() => machMedia())
+
+  it('render', () => {
+    const {asFragment} = render(
+      <Provider store={store}>
+        <Router>
+          <HomePage />
+        </Router>
+      </Provider>
+    )
+
+    expect(asFragment).toMatchSnapshot()
+  })
+});

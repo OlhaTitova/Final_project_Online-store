@@ -5,6 +5,7 @@ import {
   addCartToLS, decreaseQuantityLS, getCartLS, increaseQuantityLS, removeFromCartLS
 } from '../../utils/cartLS'
 import { DOMAIN, getHeaders } from '../../utils/constants'
+import {getOrders} from '../customer/middleware'
 import {
   setCart,
   decreaseQuantityCreator,
@@ -12,12 +13,12 @@ import {
   removeFromCartCreator,
   clearCartCreator,
   increaseQuantityCreator,
-  getBranches,
   getShippingCostCreator,
   getOrderCreator,
   clearOrderCreator,
   startLoading,
   stopLoading,
+  getBranchesCreator,
 } from './actionCreator'
 
 const BASE_ENDPOINT = `${DOMAIN}/cart`
@@ -39,8 +40,6 @@ export const addToCart = (product, quantity) => (dispatch, getStore) => {
             ...el,
             cartQuantity: el.product.quantity
           }
-          // return el
-          // можно же просто вернуть el ? или тут какой-то особый смысл ?)
         }
         return {
           ...el,
@@ -147,13 +146,13 @@ export const clearCart = () => (dispatch, getStore) => {
   }
 }
 
-export const getCity = (props) => (dispatch) => {
+export const getBranches = (cityRef) => (dispatch) => {
   axios.post('https://api.novaposhta.ua/v2.0/json/', {
     modelName: 'AddressGeneral',
     calledMethod: 'getWarehouses',
     methodProperties: {
       Language: 'ru',
-      CityRef: props,
+      CityRef: cityRef,
     },
     apiKey: '469ae707669208ac6f2d113fc7edbe13'
   })
@@ -162,7 +161,7 @@ export const getCity = (props) => (dispatch) => {
         branchName: item.DescriptionRu,
         branchRef: item.Ref
       }))
-      dispatch(getBranches(dataBranches))
+      dispatch(getBranchesCreator(dataBranches))
     })
     .catch((error) => error.response)
 }
@@ -196,7 +195,7 @@ export const getShippingCost = (recipientCityRef) => (dispatch) => {
     .catch((error) => error.response)
 }
 
-export const PlaceOrder = (
+export const placeOrder = (
   products, values, customer, shippingCost, valuePaymentInfo
 ) => (dispatch, getStore) => {
   const {auth: {isLogin} } = getStore()
@@ -229,6 +228,7 @@ export const PlaceOrder = (
     .then((newOrder) => {
       dispatch(getOrderCreator(newOrder.data.order))
       dispatch(clearCart())
+      dispatch(getOrders())
     })
     .catch((err) => err.response)
     .finally(() => {

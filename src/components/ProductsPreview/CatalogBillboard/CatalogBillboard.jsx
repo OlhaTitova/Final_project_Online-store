@@ -18,9 +18,7 @@ export const CatalogBillboard = ({ billboardInfo }) => {
         to={url}
         onClick={() => window.scrollTo(0, 0)}
       >
-        View all
-        {' '}
-        {category}
+        {`View all ${category}`}
       </CatalogBillboardLink>
     </CatalogBillboardWrapper>
   )

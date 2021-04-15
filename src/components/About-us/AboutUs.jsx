@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import {Container} from '../common/Container';
 import Heading from '../common/Heading/Heading';
 import data from './ContentForAboutUs'
@@ -9,7 +9,10 @@ import {
   from './StyledAboutUs';
 
 const AboutUsPage = () => {
-  window.scrollTo(0, 0)
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+  
   return (
     <div>
       <Container>

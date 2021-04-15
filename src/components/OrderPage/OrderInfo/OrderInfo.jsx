@@ -2,17 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Alert, Spin } from 'antd';
+import { Redirect } from 'react-router-dom';
 import StyledOrderInfo from './StyledOrderInfo';
 import { selectCities, selectOrder, selectIsLoading } from '../../../store/cart/reducer';
+import { getDate } from './utils';
 
-const mapStateToProps = (state) => ({
-  order: selectOrder(state),
-  cities: selectCities(state),
-  isLoading: selectIsLoading(state),
-})
-
-const OrderInfo = connect(mapStateToProps, null)(({order, cities, isLoading}) => {
-  const date = order.date ? new Date(order.date).toLocaleDateString() : null
+export const OrderInfoComponent = ({order, cities, isLoading}) => {
+  const date = order.date ? getDate(order.date) : null
 
   const cityName = (cityRefForShipping) => {
     const cityCustomer = cities.find((item) => item.Ref === cityRefForShipping)
@@ -70,7 +66,8 @@ const OrderInfo = connect(mapStateToProps, null)(({order, cities, isLoading}) =>
       </h2>
     </div>
   )
-
+  const isOrder = Boolean(Object.keys(order).length === 0)
+  if (isOrder && !isLoading) return <Redirect to="/" />
   return (
     <StyledOrderInfo>
       {isLoading
@@ -86,14 +83,30 @@ const OrderInfo = connect(mapStateToProps, null)(({order, cities, isLoading}) =>
         : showOrderInfo(order) }
     </StyledOrderInfo>
   )
-})
-export default OrderInfo
+}
 
-OrderInfo.propTypes = {
+const mapStateToProps = (state) => ({
+  order: selectOrder(state),
+  cities: selectCities(state),
+  isLoading: selectIsLoading(state),
+})
+
+const OrderInfo = connect(mapStateToProps, null)(OrderInfoComponent)
+
+OrderInfoComponent.propTypes = {
+  isLoading: PropTypes.bool.isRequired,
   order: PropTypes.shape({
-    orderNo: PropTypes.number,
+    orderNo: PropTypes.string,
     totalSum: PropTypes.number,
     paymentInfo: PropTypes.string,
-    date: PropTypes.string,
-  }),
+    date: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+  }).isRequired,
+  cities: PropTypes.arrayOf(
+    PropTypes.shape({
+      CityName: PropTypes.string.isRequired,
+      Ref: PropTypes.string.isRequired,
+    })
+  ).isRequired,
 }
+
+export default OrderInfo

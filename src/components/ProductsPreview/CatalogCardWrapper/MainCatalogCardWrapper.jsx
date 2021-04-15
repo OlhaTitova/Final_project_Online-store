@@ -19,7 +19,7 @@ export const CatalogCardWrapper = ({ productsList }) => (
 
 CatalogCardWrapper.propTypes = {
   productsList: PropTypes.arrayOf(PropTypes.shape({
-    name: PropTypes.string.isRequired.isRequired,
+    name: PropTypes.string.isRequired,
     imageUrls: PropTypes.arrayOf(PropTypes.string).isRequired,
     reviews: PropTypes.arrayOf(PropTypes.number).isRequired,
     quantity: PropTypes.number.isRequired,

@@ -33,6 +33,7 @@ export const StyledCatalogCardWrapper = styled.div`
 
   @media (min-width: 821px) and (max-width: ${forTablet.maxWidth}px){
     grid-template-columns: repeat(4, 1fr);
+    
     ${CardItem}.hidden:nth-child(3) {
       display: block;
     }

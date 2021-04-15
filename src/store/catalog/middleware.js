@@ -50,7 +50,7 @@ export const getSearchProducts = (searchPhrases) => (dispatch) => {
 }
 
 export const getMinMaxPrice = () => (dispatch) => {
-  axios.get(BASE_ENDPOINT)
+  axios.get(`${DOMAIN}${BASE_ENDPOINT}`)
     .then(({status, data}) => {
       if (status === 200) {
         const price = [Infinity, -Infinity]

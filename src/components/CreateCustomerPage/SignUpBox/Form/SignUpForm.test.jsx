@@ -2,9 +2,13 @@ import React from 'react'
 import { render } from '@testing-library/react'
 import { HashRouter as Router } from 'react-router-dom'
 import { shallow } from 'enzyme'
+import { machMedia } from '../../../../mocks/matchMedia.mock'
 import SignUpForm from './SignUpForm'
 
 describe('All test for Sign Up Form', () => {
+  beforeEach(() => {
+    machMedia()
+  })
   test('SignUpForm render test', () => {
     render(
       <Router>

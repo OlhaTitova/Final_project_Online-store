@@ -13,9 +13,7 @@ const mapStateToProps = (state) => ({
   info: selectCustomerInfo(state)
 })
 
-const FormInfoChange = connect(mapStateToProps, { setHideModal, updateCustomer })(({
-  setHideModal, updateCustomer
-}) => {
+export const FormInfoChangeComponent = ({setHideModal, updateCustomer}) => {
   const [form] = Form.useForm();
 
   const onFinish = (values) => {
@@ -29,7 +27,7 @@ const FormInfoChange = connect(mapStateToProps, { setHideModal, updateCustomer }
     form.resetFields()
   }
   return (
-    <Form name="nest" form={form} onFinish={onFinish} datatest-id="ModalFormInfo">
+    <Form name="nest" form={form} onFinish={onFinish}>
       <Form.Item
         name="firstName"
         label="First name"
@@ -89,11 +87,21 @@ const FormInfoChange = connect(mapStateToProps, { setHideModal, updateCustomer }
       </Form.Item>
     </Form>
   );
-})
-FormInfoChange.propTypes = {
-  setHideModal: PropTypes.func,
 }
-FormInfoChange.defaultProps = {
+
+const FormInfoChange = connect(
+  mapStateToProps, {
+    setHideModal,
+    updateCustomer
+  }
+)(FormInfoChangeComponent)
+
+FormInfoChangeComponent.propTypes = {
+  setHideModal: PropTypes.func,
+  updateCustomer: PropTypes.func,
+}
+FormInfoChangeComponent.defaultProps = {
   setHideModal: () => null,
+  updateCustomer: () => null,
 }
 export default FormInfoChange;

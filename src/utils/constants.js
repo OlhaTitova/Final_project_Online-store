@@ -1,4 +1,4 @@
-export const DOMAIN = 'https://intense-reaches-12245.herokuapp.com/api'
+export const DOMAIN = 'https://tech-store-shop.herokuapp.com/api'
 
 export const getHeaders = () => ({
   Authorization: localStorage.getItem('token'),

@@ -30,6 +30,7 @@ export const getCredentials = (values) => {
     return acc
   }, {})
   credentials.ratedProducts = []
+  credentials.isAdmin = true
 
   return credentials
 }

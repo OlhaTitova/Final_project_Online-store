@@ -1,15 +1,15 @@
-import {React } from 'react'
-import styled from 'styled-components';
+import {React, useEffect } from 'react'
 import AuthForm from './AuthForm/AuthForm'
 import {Container} from '../common/Container'
 import 'antd/dist/antd.css';
 import ContentWrapper from './ContentWrapper/ContentWrapper';
-import { forDesktop, forTablet } from '../../styles/mediaBreakPoints';
 import Heading from '../common/Heading/Heading';
 import ToSignUp from './ToSignUp/ToSignUp';
+import {LogInWrapper} from './LogInStyled';
 
 const LogIn = () => {
-  window.scrollTo(0, 0)
+  useEffect(() => window.scrollTo(0, 0), [])
+
   return (
     <Container>
       <Heading>Customer Login</Heading>
@@ -30,25 +30,5 @@ const LogIn = () => {
     </Container>
   )
 }
-
-const LogInWrapper = styled.div`
-  @media (min-width: ${forTablet.minWidth}px){
-    &{
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 0 40px;
-    }
-  }
-
-  @media (min-width: ${forDesktop.minWidth}px){
-    &{
-      display: flex;
-      flex-direction: row;
-      justify-content: space-around;
-      align-items: stretch;
-    }
-  }
-`
 
 export default LogIn
