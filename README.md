@@ -5,4 +5,5 @@
 **Registered user:**
 
 login: admin
+
 password: adminPassword
