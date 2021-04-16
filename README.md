@@ -1,3 +1,3 @@
 # The final project online-store.
 
-**DEMO** https://evgeniyshigartsov.github.io/Final_project_Online-store/#/
+**DEMO** https://olhatitova.github.io/Tech-store-shop/
