@@ -7,6 +7,7 @@ import { authLogOut } from '../../../store/auth/middleware';
 import close from '../../../images/header/Close.svg';
 import { NavUserContainer, Close, UlList } from './UserPopUpStyled';
 import { selectIsLogin } from '../../../store/auth/reducer';
+import { openSlideUser } from '../Utils/Animations'
 
 const mapStateToProps = (state) => ({
   isLogin: selectIsLogin(state)
@@ -15,30 +16,6 @@ const mapStateToProps = (state) => ({
 const UserPopUp = connect(mapStateToProps, { authLogOut })(({
   isOpenUser, setIsOpenUser, isLogin, authLogOut
 }) => {
-  const openSlideUser = {
-    hidden: {
-      x: -180,
-      scale: 0,
-      opacity: 0,
-      transition: {
-        type: 'spring',
-        stiffness: 200,
-        damping: 40
-      },
-      originX: 0.9,
-      originY: 0,
-    },
-    show: {
-      opacity: 1,
-      x: -180,
-      scale: 1,
-      transition: {
-        type: 'spring',
-        stiffness: 200,
-        damping: 40
-      }
-    }
-  };
   useEffect(() => {
     window.addEventListener('click', (e) => {
       if (e.target.closest('#userBtn') !== null) {

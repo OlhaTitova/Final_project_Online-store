@@ -1,42 +1,33 @@
 import React from 'react'
 import { Route, Switch } from 'react-router-dom'
 import CreateCustomerPage from '../CreateCustomerPage/CreateCustomerPage'
-import { BannerSlider } from '../BannerSlider/BannerSlider'
-import { AboutUsPage } from '../About-us/AboutUs'
-import NewProductsSlider from '../NewProductsSlider/NewProductsSlider'
+import AboutUsPage from '../About-us/AboutUs'
 import ContactUsPage from '../ContactUs/ContactUsPage'
 import ProductPage from '../ProductPage/ProductPage'
-import { HomepageBrands } from '../BrandsAndFollow/HomePageBrands'
-import { HomepageFollowUs } from '../BrandsAndFollow/FollowUsInstagram'
 import CatalogPage from '../CatalogPage/CatalogPage'
 import LogIn from '../LogIn/LogIn'
 import Checkout from '../Checkout/Checkout'
-import WishlistPage from '../WishlistPage/WishlistPage'
-import {CartPage} from '../CartPage/CartPage'
+import Wishlist from '../WishlistPage/WishlistPage'
+import CartPage from '../CartPage/CartPage'
 import OrderPage from '../OrderPage/OrderPage'
 import NoMatchPage from '../NoMatchPage/NoMatchPage'
 import DashBoard from '../DashBoard/DashBoard'
-import { Catalog } from '../MainCatalog/Catalog'
 import ReviewSlider from '../ReviewSlider/ReviewSlider'
-import Description from '../Description/Description'
+import PrivateRoute from './PrivateRoute/PrivateRoute'
+import OnlyNotAuthRoute from './OnlyNotAuthRoute/OnlyNotAuthRoute'
+import HomePage from '../HomePage/HomePage'
 
 const Router = () => (
   <Switch>
     <Route exact path="/">
-      <BannerSlider />
-      <NewProductsSlider />
-      <Catalog />
-      <Description />
-      <HomepageBrands />
-      <HomepageFollowUs />
-      <ReviewSlider />
+      <HomePage />
     </Route>
-    <Route exact path="/signin">
+    <OnlyNotAuthRoute exact path="/signin">
       <LogIn />
-    </Route>
-    <Route exact path="/signup">
+    </OnlyNotAuthRoute>
+    <OnlyNotAuthRoute exact path="/signup">
       <CreateCustomerPage />
-    </Route>
+    </OnlyNotAuthRoute>
     <Route exact path="/aboutus">
       <AboutUsPage />
       <ReviewSlider />
@@ -57,14 +48,14 @@ const Router = () => (
       <ProductPage />
     </Route>
     <Route exact path="/wishlist">
-      <WishlistPage />
+      <Wishlist />
     </Route>
     <Route exact path="/catalog">
       <CatalogPage />
     </Route>
-    <Route exact path="/dashboard">
+    <PrivateRoute exact path="/dashboard">
       <DashBoard />
-    </Route>
+    </PrivateRoute>
     <Route>
       <NoMatchPage />
     </Route>

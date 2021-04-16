@@ -3,11 +3,8 @@ import {
   SET_PRODUCTS,
   UPDATE_PRODUCT,
   GET_NEW_PRODUCTS,
-  SET_TO_CATALOG,
-  SET_CATALOG_PRODUCTS_QUANTITY,
-  CLEAN_CATALOG_PRODUCTS,
-  SET_SEARCH_PRODUCTS,
-  CLEAR_SEARCH_PRODUCTS
+  START_LOADING,
+  STOP_LOADING,
 } from './actionType';
 
 export const setProducts = (payload) => ({
@@ -28,24 +25,5 @@ export const getNewProductsCreator = (payload) => ({
   type: GET_NEW_PRODUCTS,
   payload
 })
-export const setProductsToCatalog = (payload) => ({
-  type: SET_TO_CATALOG,
-  payload
-})
-export const setCatalogProductsQuantity = (payload) => ({
-  type: SET_CATALOG_PRODUCTS_QUANTITY,
-  payload
-})
-
-export const cleanCatalogProducts = () => ({
-  type: CLEAN_CATALOG_PRODUCTS
-})
-
-export const setSearchProducts = (payload) => ({
-  type: SET_SEARCH_PRODUCTS,
-  payload
-})
-
-export const clearSearchProducts = () => ({
-  type: CLEAR_SEARCH_PRODUCTS
-})
+export const startLoading = () => ({type: START_LOADING})
+export const stopLoading = () => ({type: STOP_LOADING})

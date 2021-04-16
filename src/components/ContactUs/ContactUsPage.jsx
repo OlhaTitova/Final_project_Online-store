@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-props-no-spreading */
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Form, message } from 'antd';
@@ -18,31 +18,29 @@ import {
   StyledForm, StyledFormItemTextArea, StyledWrapperContainer
 } from './Styled'
 import { Container } from '../common/Container'
-import { getCustomer } from '../../store/customer/middleware'
-import { selectIsLogin } from '../../store/auth/reducer'
+import { validTelephone, validName } from '../../utils/constants'
+import { selectCustomerInfo } from '../../store/customer/reducer'
 
-const mapStateToProps = (state) => ({ isLogin: selectIsLogin(state) })
+const mapStateToProps = (state) => ({ customerInfo: selectCustomerInfo(state) })
 
-const ContactUsPage = connect(mapStateToProps, null)(({ isLogin }) => {
-  const [userInfo, setUserInfo] = useState({email: '', firstName: ''})
+const ContactUsPage = connect(mapStateToProps, null)(({ customerInfo }) => {
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
   const history = useHistory()
 
-  useEffect(() => {
-    const getInfo = async () => {
-      const { data, status } = await getCustomer()
-      if (status === 200) { setUserInfo(() => ({ email: data.email, firstName: data.firstName })) }
-    }
-    if (isLogin) getInfo()
-  }, [isLogin])
-  
   const fields = [
     {
       name: 'name',
-      value: userInfo.firstName
+      value: customerInfo.firstName
     },
     {
       name: 'email',
-      value: userInfo.email
+      value: customerInfo.email
+    },
+    {
+      name: 'phone',
+      value: customerInfo.telephone || '+380'
     }
   ]
 
@@ -76,14 +74,14 @@ const ContactUsPage = connect(mapStateToProps, null)(({ isLogin }) => {
                     message: 'Please input your name!',
                   },
                   {
-                    pattern: /^[a-zа-яіїё]+$/i,
+                    pattern: validName,
                     message: 'Allowed characters is a-z, а-я.'
                   },
                   {
                     min: 2,
                     max: 25,
-                    message: 'Last Name must be beetwen 2 and 25 characters.'
-                  }
+                    message: 'Name must be between 2 and 25 characters.'
+                  },
                 ]}
               >
                 <StyledInput placeholder="Your name" />
@@ -94,11 +92,11 @@ const ContactUsPage = connect(mapStateToProps, null)(({ isLogin }) => {
                 rules={[
                   {
                     type: 'email',
-                    message: 'The input is not valid E-mail!',
+                    message: 'The input is not valid email!',
                   },
                   {
                     required: true,
-                    message: 'Please input your E-mail!',
+                    message: 'Please input your email!',
                   },
                 ]}
               >
@@ -113,8 +111,13 @@ const ContactUsPage = connect(mapStateToProps, null)(({ isLogin }) => {
                     message: 'Please write your phone number.',
                   },
                   {
-                    pattern: /^[0-9]+$/i,
-                    message: 'Allowed characters is 0-9.'
+                    pattern: validTelephone,
+                    message: 'Phone number must start with "+380", allowed characters is 0-9.'
+                  },
+                  {
+                    min: 13,
+                    max: 13,
+                    message: 'Phone number must contain 12 numbers.'
                   }
                 ]}
               >
@@ -122,7 +125,7 @@ const ContactUsPage = connect(mapStateToProps, null)(({ isLogin }) => {
               </StyledFormItem>
             </StyledFormWrapper>
             <StyledFormItemTextArea
-              name={['user', 'introduction']}
+              name="feedback"
               label="What’s on your mind?"
               rules={[
                 {

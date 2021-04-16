@@ -1,9 +1,14 @@
-export const DOMAIN = 'https://intense-reaches-12245.herokuapp.com/api'
+export const DOMAIN = 'https://tech-store-shop.herokuapp.com/api'
 
 export const getHeaders = () => ({
   Authorization: localStorage.getItem('token'),
   'Content-Type': 'application/json'
 })
+export const headerHeight = '120px';
+export const validName = /^[a-zа-яіїё]+$/i;
+export const validLogin = /^[a-z0-9]+$/i;
+export const validPassword = /^[a-z0-9]+$/i;
+export const validTelephone = /^(\+380)(\d+){9}$/;
 
 export const letterSubjectSubscribe = 'Good day! Dear customer';
 export const letterHtmlSubscribe = `<!DOCTYPE html><html lang='en'> <head> <meta charset='UTF-8' />

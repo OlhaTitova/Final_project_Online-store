@@ -2,16 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Alert, Spin } from 'antd';
+import { Redirect } from 'react-router-dom';
 import StyledOrderInfo from './StyledOrderInfo';
-import { selectCities, selectOrder } from '../../../store/cart/reducer';
+import { selectCities, selectOrder, selectIsLoading } from '../../../store/cart/reducer';
+import { getDate } from './utils';
 
-const mapStateToProps = (state) => ({
-  order: selectOrder(state),
-  cities: selectCities(state),
-})
-
-const OrderInfo = connect(mapStateToProps, null)(({order, cities}) => {
-  const date = order.date ? new Date(order.date).toLocaleDateString() : null
+export const OrderInfoComponent = ({order, cities, isLoading}) => {
+  const date = order.date ? getDate(order.date) : null
 
   const cityName = (cityRefForShipping) => {
     const cityCustomer = cities.find((item) => item.Ref === cityRefForShipping)
@@ -24,7 +21,7 @@ const OrderInfo = connect(mapStateToProps, null)(({order, cities}) => {
         <span className="italic">
           {newOrder.firstName}
         </span>
-        , your order has been completed.
+        , your order has been accepted.
       </h2>
       <h2>Thank you for your purchase.</h2>
       <p>
@@ -69,12 +66,12 @@ const OrderInfo = connect(mapStateToProps, null)(({order, cities}) => {
       </h2>
     </div>
   )
-
+  const isOrder = Boolean(Object.keys(order).length === 0)
+  if (isOrder && !isLoading) return <Redirect to="/" />
   return (
     <StyledOrderInfo>
-      {Object.keys(order).length > 0
-        ? showOrderInfo(order)
-        : (
+      {isLoading
+        ? (
           <Spin tip="Loading..." size="large">
             <Alert
               message="Please wait..."
@@ -82,17 +79,34 @@ const OrderInfo = connect(mapStateToProps, null)(({order, cities}) => {
               type="info"
             />
           </Spin>
-        )}
+        )
+        : showOrderInfo(order) }
     </StyledOrderInfo>
   )
-})
-export default OrderInfo
+}
 
-OrderInfo.propTypes = {
+const mapStateToProps = (state) => ({
+  order: selectOrder(state),
+  cities: selectCities(state),
+  isLoading: selectIsLoading(state),
+})
+
+const OrderInfo = connect(mapStateToProps, null)(OrderInfoComponent)
+
+OrderInfoComponent.propTypes = {
+  isLoading: PropTypes.bool.isRequired,
   order: PropTypes.shape({
-    orderNo: PropTypes.number,
+    orderNo: PropTypes.string,
     totalSum: PropTypes.number,
     paymentInfo: PropTypes.string,
-    date: PropTypes.string,
-  }),
+    date: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+  }).isRequired,
+  cities: PropTypes.arrayOf(
+    PropTypes.shape({
+      CityName: PropTypes.string.isRequired,
+      Ref: PropTypes.string.isRequired,
+    })
+  ).isRequired,
 }
+
+export default OrderInfo

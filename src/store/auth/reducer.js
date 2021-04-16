@@ -1,5 +1,5 @@
 import {
-  CLEAR_REFRESH_TIMER, LOG_IN, LOG_OUT, SET_REFRESH_TIMER
+  LOG_IN, LOG_OUT
 } from './actionType';
 
 export const MODULE_NAME = 'auth'
@@ -8,10 +8,9 @@ export const selectIsLogin = (state) => state[MODULE_NAME].isLogin
 
 const initialState = {
   isLogin: false,
-  refreshTimerId: null
 }
 
-export const reducer = (state = initialState, {type, payload}) => {
+export const reducer = (state = initialState, {type}) => {
   switch (type) {
     case LOG_IN:
       return {
@@ -22,16 +21,6 @@ export const reducer = (state = initialState, {type, payload}) => {
       return {
         ...state,
         isLogin: false
-      }
-    case SET_REFRESH_TIMER:
-      return {
-        ...state,
-        refreshTimerId: payload
-      }
-    case CLEAR_REFRESH_TIMER:
-      return {
-        ...state,
-        refreshTimerId: clearInterval(state.refreshTimerId)
       }
     default:
       return state

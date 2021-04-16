@@ -1,12 +1,10 @@
 import React from 'react'
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 // Compomemts
 import { connect } from 'react-redux';
-import { addToCart } from '../../store/cart/middleware'
 import { InStock } from './InStock/InStock';
-import { CheckAvailability } from './CheckAvailability/CheckAvailability';
+import { ProductSoldOut } from './ProductSoldOut/ProductSoldOut';
 import { StarRating } from '../StarRating/StarRating'
 import StyledButton from '../common/Buttons/StyledButton'
 import FavoriteIcon from '../FavotiteIcon/FavoriteIcon'
@@ -30,11 +28,14 @@ import {
 import cutString from '../../utils/cutString';
 import rateCalculator from '../../utils/rateCalculator';
 import upperCaseFirstLetter from '../../utils/upperCaseFirstLetter';
+import { addToCart } from '../../store/cart/middleware'
+import { showSubscribeModal } from '../../store/subscriceOnProductModal/middleware'
 
-export const ProductCard = connect(null, { addToCart })((
+export const ProductCard = connect(null, { addToCart, showSubscribeModal })((
   {
     productInfo,
     addToCart,
+    showSubscribeModal,
   }
 ) => {
   const {
@@ -46,13 +47,12 @@ export const ProductCard = connect(null, { addToCart })((
     quantity,
     itemNo,
   } = productInfo
+
   const isAvilable = quantity > 0
-
-  // string length limitation and translation of the first letter into capital
+  const promotionalProduct = previousPrice !== 0
   const verifiedTitle = upperCaseFirstLetter(cutString(name, 38))
-
-  // getting an average rating and the number of reviews left
   const { reviewsQuantity, rating } = rateCalculator(reviews)
+
   return (
     <CardItem className="hidden">
 
@@ -77,7 +77,7 @@ export const ProductCard = connect(null, { addToCart })((
           showTooltip
         />
       </ReviewsBox>
-      {isAvilable ? <InStock /> : <CheckAvailability /> }
+      {isAvilable ? <InStock /> : <ProductSoldOut /> }
 
       <Link to={`products/${itemNo}`}>
         <CardTitle>
@@ -87,39 +87,37 @@ export const ProductCard = connect(null, { addToCart })((
 
       <PurchaseGroup>
         <PriceBox>
+          {promotionalProduct && (
           <CardLastPrice>
             {`${previousPrice} ₴`}
           </CardLastPrice>
-          <CardCurrentPrice>
+          )}
+          <CardCurrentPrice promotionalProduct={promotionalProduct}>
             {`${currentPrice} ₴`}
           </CardCurrentPrice>
         </PriceBox>
-        <StyledButton
-          type="borderBlue"
-          size="xs"
-          shape="round"
-          disabled={!isAvilable}
-          onClick={() => addToCart(productInfo, 1)}
-        >
-          Add to cart
-        </StyledButton>
+        {isAvilable ? (
+          <StyledButton
+            size="xs"
+            shape="round"
+            onClick={() => addToCart(productInfo, 1)}
+          >
+            Add to cart
+          </StyledButton>
+        ) : (
+          <StyledButton
+            color="borderGrey"
+            size="xs"
+            shape="round"
+            onClick={showSubscribeModal}
+          >
+            Check avilabiliy
+          </StyledButton>
+        )}
+        
       </PurchaseGroup>
     </CardItem>
   )
 })
-
-ProductCard.propTypes = {
-  addToCart: PropTypes.func,
-  productInfo: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    imageUrls: PropTypes.arrayOf(PropTypes.string).isRequired,
-    reviews: PropTypes.arrayOf(PropTypes.number).isRequired,
-    previousPrice: PropTypes.number,
-    currentPrice: PropTypes.number.isRequired,
-    quantity: PropTypes.number.isRequired,
-    itemNo: PropTypes.string.isRequired,
-    _id: PropTypes.string.isRequired
-  }).isRequired,
-}
 
 export default ProductCard;

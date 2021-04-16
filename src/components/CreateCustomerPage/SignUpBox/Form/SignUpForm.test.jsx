@@ -1,21 +1,14 @@
 import React from 'react'
-import '@testing-library/jest-dom/extend-expect'
 import { render } from '@testing-library/react'
 import { HashRouter as Router } from 'react-router-dom'
-import { shallow, configure } from 'enzyme'
-import Adapter from 'enzyme-adapter-react-16'
+import { shallow } from 'enzyme'
+import { machMedia } from '../../../../mocks/matchMedia.mock'
 import SignUpForm from './SignUpForm'
 
 describe('All test for Sign Up Form', () => {
-  configure({ adapter: new Adapter() })
-
-  window.matchMedia = window.matchMedia || function () {
-    return {
-      addListener: jest.fn(),
-      removeListener: jest.fn(),
-    }; // обходной путь поскольку window не поддерживает matchMedia.
-  };
-
+  beforeEach(() => {
+    machMedia()
+  })
   test('SignUpForm render test', () => {
     render(
       <Router>
@@ -24,7 +17,7 @@ describe('All test for Sign Up Form', () => {
     )
   })
   
-  test('Check is form found dy id', () => {
+  test('Check is form found by id', () => {
     const result = shallow(
       <Router>
         <SignUpForm />
@@ -45,7 +38,7 @@ describe('All test for Sign Up Form', () => {
     expect(getByLabelText('Email')).toBeDefined()
     expect(getByLabelText('Password')).toBeDefined()
     expect(getByLabelText('Confrim password')).toBeDefined()
-    expect(getByLabelText('Avatar url')).toBeDefined()
+    expect(getByLabelText('Login')).toBeDefined()
   })
 
   test('Check is form has a submit button', () => {

@@ -6,30 +6,39 @@ import {
   Input,
   message
 } from 'antd';
-import { hideModal } from '../../store/subscriceOnProductModal/middleware'
+import { hideSubscribeModal } from '../../store/subscriceOnProductModal/middleware'
 import { selectIsOpenModal } from '../../store/subscriceOnProductModal/reducer'
+import { selectCustomerInfo } from '../../store/customer/reducer'
 
 const mapStateToProps = (state) => ({
   isOpen: selectIsOpenModal(state),
+  customerInfo: selectCustomerInfo(state)
 })
 
-const ProductSubscribeModal = connect(mapStateToProps, { hideModal })((
+const ProductSubscribeModal = connect(mapStateToProps, { hideSubscribeModal })((
   {
     isOpen,
-    hideModal,
+    hideSubscribeModal,
+    customerInfo,
   }
 ) => {
   const [form] = Form.useForm()
 
   const onSubmit = () => {
     form.resetFields()
-    hideModal()
+    hideSubscribeModal()
     message.success('Thank you, you will be notified when this item is in stock!')
   };
   const onCancel = () => {
     form.resetFields()
-    hideModal()
+    hideSubscribeModal()
   }
+  const fields = [
+    {
+      name: 'email',
+      value: customerInfo.email
+    }
+  ]
 
   return (
     <Modal
@@ -37,9 +46,11 @@ const ProductSubscribeModal = connect(mapStateToProps, { hideModal })((
       visible={isOpen}
       okText="Subscribe"
       onCancel={onCancel}
-      okButtonProps={{htmlType: 'submit', form: 'subscribeOnProductsForm'}}
+      okButtonProps={{htmlType: 'submit', form: 'subscribeOnProductsForm', shape: 'round'}}
+      cancelButtonProps={{shape: 'round'}}
+      destroyOnClose
     >
-      <Form name="subscribeOnProductsForm" onFinish={onSubmit} form={form}>
+      <Form name="subscribeOnProductsForm" onFinish={onSubmit} form={form} fields={fields}>
         <Form.Item
           label="Email"
           name="email"

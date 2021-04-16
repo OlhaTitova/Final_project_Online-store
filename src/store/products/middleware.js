@@ -1,18 +1,17 @@
 import axios from 'axios';
+import { DOMAIN, getHeaders } from '../../utils/constants';
 import {
   setProducts,
   addProduct,
   updateProduct,
-  setProductsToCatalog,
-  setCatalogProductsQuantity,
-  cleanCatalogProducts,
-  setSearchProducts
+  startLoading,
+  stopLoading
 } from './actionCreator';
-import { DOMAIN, getHeaders } from '../general'
 
 const BASE_ENDPOINT = `${DOMAIN}/products`
 
 export const getProducts = () => (dispatch) => {
+  dispatch(startLoading())
   axios.get(BASE_ENDPOINT)
     .then((data) => {
       if (data.status === 200) {
@@ -20,6 +19,9 @@ export const getProducts = () => (dispatch) => {
       }
     })
     .catch((error) => error.response)
+    .finally(() => {
+      dispatch(stopLoading())
+    })
 }
 
 export const addOneProduct = (newProduct) => (dispatch) => {
@@ -57,6 +59,7 @@ export const getOneProduct = (itemNo) => {
 }
 
 export const getFilteredProducts = (param, actionCreator) => (dispatch) => {
+  dispatch(startLoading())
   let paramStr = ''
   Object.keys(param).forEach((key, index) => {
     if (index === 0) {
@@ -70,31 +73,8 @@ export const getFilteredProducts = (param, actionCreator) => (dispatch) => {
       return res
     })
     .catch((error) => error.response)
-  return res
-}
-
-export const getProductsToCatalog = (param) => (dispatch) => {
-  dispatch(cleanCatalogProducts())
-  const res = axios.get(`${BASE_ENDPOINT}/filter${param}`)
-    .then((res) => {
-      if (res.status === 200) {
-        dispatch(setProductsToCatalog(res.data.products))
-        dispatch(setCatalogProductsQuantity(res.data.productsQuantity))
-      }
-      return res
-    })
-    .catch((error) => {
-      dispatch(setCatalogProductsQuantity(0))
-      return error
+    .finally(() => {
+      dispatch(stopLoading())
     })
   return res
-}
-
-export const getSearchProducts = (searchPhrases) => (dispatch) => {
-  axios
-    .post(`${BASE_ENDPOINT}/search`, searchPhrases)
-    .then(({data}) => {
-      dispatch(setSearchProducts(data))
-    })
-    .catch((err) => err);
 }

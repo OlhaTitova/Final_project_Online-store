@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { forDesktop, forTablet } from '../../styles/mediaBreakPoints'
 
 export const CardItem = styled.div` 
@@ -71,14 +71,17 @@ export const CardTitle = styled.h3`
   font-size: 11px;
   line-height: 16px;
   font-weight: 500;
-  margin: 10px 0;
   text-align: left;
-  min-height: 35px;
+
+  height: 35px;
+  overflow: hidden;
+
+  margin: 10px 0;
 
   @media(min-width: ${forTablet.minWidth}px){
     font-size: 13px;
     line-height: 19.5px;
-    min-height: 40px;
+    height: 40px;
   }
 `
 
@@ -88,25 +91,20 @@ export const PurchaseGroup = styled.div`
   align-items: flex-start;
   justify-content: space-between;
   width: 100%;
-
-  @media(min-width: ${forDesktop.minWidth}px) {
-    flex-direction: row;
-    align-items: center;
-  }
 `
 export const PriceBox = styled.div`
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  margin-bottom: 5px;
 `
 
 export const CardLastPrice = styled.div`
-  font-size: 12px;
+  font-size: 14px;
   text-decoration-line: line-through;
   color: #666666;
+  margin: auto 5px auto 0;
 
   @media(min-width: ${forTablet.minWidth}px){
-    font-size: 14px;
+    font-size: 16px;
   }
 `
 
@@ -114,6 +112,10 @@ export const CardCurrentPrice = styled.div`
   font-size: 14px;
   font-weight: 600;
   color: black;
+  padding: 2px;
+  ${(props) => props.promotionalProduct && css`
+    color: #f84147;
+  `}
 
   @media(min-width: ${forTablet.minWidth}px){
     font-size: 18px;

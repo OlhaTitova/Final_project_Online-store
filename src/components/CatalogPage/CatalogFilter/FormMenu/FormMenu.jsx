@@ -1,14 +1,27 @@
+/* eslint-disable react/jsx-props-no-spreading */
 import {
-  Checkbox, Form, InputNumber, Menu
+  Checkbox, Form, Menu, Slider
 } from 'antd'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { useLocation } from 'react-router-dom';
+import styled from 'styled-components';
+import { connect } from 'react-redux';
 import { brands as defBrands, categories as defCategories, checkFilterConfig } from '../../filterConfig'
 import { StyledCheckbox } from '../StylesCatalogfilter'
 import makeConfigFromUrl from '../../../../utils/makeConfigFromUrl';
+import { selectMinMaxPrice } from '../../../../store/catalog/reducer';
 
-export const FormMenu = () => {
+const layout = {
+  wrapperCol: { span: 24 }
+}
+
+const mapStateToProps = (state) => ({
+  minMaxPrice: selectMinMaxPrice(state)
+})
+
+export const FormMenu = connect(mapStateToProps)(({minMaxPrice}) => {
   const {search} = useLocation()
+  const config = useMemo(() => (search ? makeConfigFromUrl(search) : {}), [search])
   const [{brand, categories}, setConfig] = useState({brand: defBrands, categories: defCategories})
 
   const checkConfig = async (search = {}) => {
@@ -22,12 +35,11 @@ export const FormMenu = () => {
   }
 
   useEffect(() => {
-    const config = search ? makeConfigFromUrl(search) : {}
     checkConfig(config)
-  }, [search])
+  }, [config])
 
   return (
-    <Menu defaultOpenKeys={['сategories', 'brands']} mode="inline">
+    <Menu defaultOpenKeys={['сategories', 'brands', 'price']} mode="inline">
       <Menu.SubMenu key="сategories" title="Сategories">
         <Form.Item name="categories" noStyle>
           <Checkbox.Group style={{width: '100%'}}>
@@ -58,16 +70,21 @@ export const FormMenu = () => {
       </Menu.SubMenu>
       <Menu.SubMenu key="price" title="Price">
         <div style={{padding: '20px 20px 0'}}>
-          <Form.Item name="minPrice" label="From">
-            <InputNumber style={{width: '100%'}} min={0} />
-          </Form.Item>
-          <Form.Item name="maxPrice" label="To">
-            <InputNumber style={{width: '100%'}} min={0} />
+          <Form.Item name="price" {...layout}>
+            <StyledSlider
+              step={100}
+              range
+              min={minMaxPrice[0]}
+              max={minMaxPrice[1]}
+            />
           </Form.Item>
         </div>
       </Menu.SubMenu>
     </Menu>
   )
-}
+})
+
+const StyledSlider = styled(Slider)`
+`
 
 export default FormMenu

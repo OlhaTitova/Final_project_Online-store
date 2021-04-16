@@ -7,13 +7,14 @@ import { Link } from 'react-router-dom';
 import {
   Input, SearchInputBlock, SearchOutlinedStyled, FormContainer
 } from '../HeaderStyled'
-import { getSearchProducts } from '../../../store/products/middleware';
+import { getSearchProducts } from '../../../store/catalog/middleware';
 import { CloseList, SearchList } from './StyledSearchProducts';
 import { Product} from './Product/Product';
-import { clearSearchProducts} from '../../../store/products/actionCreator';
+import { clearSearchProducts} from '../../../store/catalog/actionCreator';
+import { selectSearchProducts } from '../../../store/catalog/reducer';
 
 const mapStateToProps = (state) => ({
-  searchProducts: state.products.searchProducts
+  searchProducts: selectSearchProducts(state)
 })
 
 const SearchProducts = connect(mapStateToProps, {clearSearchProducts, getSearchProducts})(({

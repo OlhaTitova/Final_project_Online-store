@@ -1,12 +1,13 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { useHistory, useLocation } from 'react-router-dom'
+import { selectProductsQuantity } from '../../../store/catalog/reducer'
 import makeConfigFromUrl from '../../../utils/makeConfigFromUrl'
 import makeUrlFromConfig from '../../../utils/makeUrlFromConfig'
 import {StyledPagination} from './StyledCatalogPagination'
 
 const mapStateToProps = (state) => ({
-  productsQuantity: state.products.catalog.productsQuantity
+  productsQuantity: selectProductsQuantity(state)
 })
 
 const CatalogPagination = connect(mapStateToProps)(({

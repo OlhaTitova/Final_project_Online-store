@@ -5,39 +5,45 @@ import Header from './components/Header/Header';
 import { setWishlist } from './store/wishlist/middleware'
 import ProductSubscribeModal from './components/ProductSubscribeModal/ProductSubscribeModal'
 import Router from './components/Router/Router'
-import {authLogIn} from './store/auth/middleware'
-import { setRefreshTimer } from './store/auth/actionCreator'
 import { getCart } from './store/cart/middleware'
 import ServiceSection from './components/ServiceSection/ServiceSection'
+import AuthModal from './components/AuthModal/AuthModal'
+import { getMainCatalogProducts } from './store/productsPreview/middleware'
+import StyledAppWrapper from './components/AppWrapper/StyledAppWrapper'
+import { getCustomer, getOrders } from './store/customer/middleware'
+import { getNewProductsCreator } from './store/products/actionCreator'
+import { getFilteredProducts } from './store/products/middleware'
 
 const App = connect(null, {
-  authLogIn, setRefreshTimer, setWishlist, getCart
-})(({
-  authLogIn,
-  setWishlist,
-  setRefreshTimer,
-  getCart
-}) => {
+  setWishlist, getCart, getMainCatalogProducts, getCustomer, getOrders, getFilteredProducts
+})((
+  {
+    setWishlist,
+    getCart,
+    getMainCatalogProducts,
+    getFilteredProducts,
+    getCustomer,
+    getOrders
+  }
+) => {
   useEffect(() => {
-    setWishlist()
+    getFilteredProducts({newProduct: 'yes'}, getNewProductsCreator)
+    getMainCatalogProducts()
     getCart()
-
-    if (localStorage.getItem('credentials')) {
-      authLogIn(JSON.parse(localStorage.getItem('credentials')))
-      setRefreshTimer(setInterval(() => {
-        authLogIn(JSON.parse(localStorage.getItem('credentials')))
-      }, 1800000))
-    }
-  }, [authLogIn, getCart, setRefreshTimer, setWishlist])
+    setWishlist()
+    getCustomer()
+    getOrders()
+  }, [getCart, getCustomer, getFilteredProducts, getMainCatalogProducts, getOrders, setWishlist])
 
   return (
-    <div style={{marginTop: '120px'}}>
+    <StyledAppWrapper>
       <Header />
       <ProductSubscribeModal />
+      <AuthModal />
       <Router />
       <ServiceSection />
       <Footer />
-    </div>
+    </StyledAppWrapper>
   );
 })
 

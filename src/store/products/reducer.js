@@ -3,24 +3,20 @@ import {
   ADD_PRODUCT,
   UPDATE_PRODUCT,
   GET_NEW_PRODUCTS,
-  SET_TO_CATALOG,
-  SET_CATALOG_PRODUCTS_QUANTITY,
-  CLEAN_CATALOG_PRODUCTS,
-  SET_SEARCH_PRODUCTS,
-  CLEAR_SEARCH_PRODUCTS
+  START_LOADING,
+  STOP_LOADING,
 } from './actionType';
+import shuffleArray from '../../utils/shuffleArray'
 
 export const MODULE_NAME = 'products'
+export const selectNewProducts = (state) => state[MODULE_NAME].newProducts
+export const selectIsLoading = (state) => state[MODULE_NAME].isLoading
 
 const initialState = {
   products: [],
-  catalog: {
-    catalogProducts: [],
-    productsQuantity: 1
-  },
-  searchProducts: [],
   newProducts: [],
-  pageProduct: {}
+  pageProduct: {},
+  isLoading: false
 }
 
 export const reducer = (state = initialState, {type, payload}) => {
@@ -46,42 +42,21 @@ export const reducer = (state = initialState, {type, payload}) => {
     case GET_NEW_PRODUCTS:
       return {
         ...state,
-        newProducts: payload
+        newProducts: shuffleArray(payload)
       }
-    case SET_TO_CATALOG:
+
+    case START_LOADING:
       return {
         ...state,
-        catalog: {
-          ...state.catalog,
-          catalogProducts: payload
-        }
+        isLoading: true
       }
-    case SET_CATALOG_PRODUCTS_QUANTITY:
+
+    case STOP_LOADING:
       return {
         ...state,
-        catalog: {
-          ...state.catalog,
-          productsQuantity: state.catalog.catalogProducts.length ? payload : 0
-        }
+        isLoading: false
       }
-    case CLEAN_CATALOG_PRODUCTS:
-      return {
-        ...state,
-        catalog: {
-          ...state.catalog,
-          catalogProducts: []
-        }
-      }
-    case SET_SEARCH_PRODUCTS:
-      return {
-        ...state,
-        searchProducts: [...payload]
-      }
-    case CLEAR_SEARCH_PRODUCTS:
-      return {
-        ...state,
-        searchProducts: []
-      }
+      
     default:
       return state
   }

@@ -1,7 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 import axios from 'axios'
-import { DOMAIN, getHeaders } from '../general'
-import updateWishlistCreator from './actionCreator'
+import { DOMAIN, getHeaders } from '../../utils/constants'
+import { updateWishlistCreator, startLoading, stopLoading } from './actionCreator'
 
 const BASE_ENDPOINT = `${DOMAIN}/wishlist`
 
@@ -33,6 +33,7 @@ const getItemsFromDB = () => {
 }
 
 export const setWishlist = () => async (dispatch, getState) => {
+  dispatch(startLoading())
   const {auth: { isLogin }} = getState()
   const itemsToSet = []
   
@@ -47,11 +48,8 @@ export const setWishlist = () => async (dispatch, getState) => {
     itemsToSet.push(...getParsedListFromLS())
   }
 
-  const dataToAdd = {
-    wishlistItems: itemsToSet,
-    wishlistLength: itemsToSet.length
-  }
-  dispatch(updateWishlistCreator(dataToAdd))
+  dispatch(updateWishlistCreator(itemsToSet))
+  dispatch(stopLoading())
 }
 
 export const addProductToWishlist = (product) => async (dispatch, getState) => {
@@ -73,11 +71,8 @@ export const addProductToWishlist = (product) => async (dispatch, getState) => {
     const updatedItems = addProductToLS(product)
     updatedList.push(...updatedItems)
   }
-  const dataToAdd = {
-    wishlistItems: updatedList,
-    wishlistLength: updatedList.length
-  }
-  dispatch(updateWishlistCreator(dataToAdd))
+ 
+  dispatch(updateWishlistCreator(updatedList))
 }
 
 export const removeProductFromWishlist = (product) => async (dispatch, getState) => {
@@ -100,11 +95,7 @@ export const removeProductFromWishlist = (product) => async (dispatch, getState)
     updatedList.push(...updatedItems)
   }
 
-  const dataToAdd = {
-    wishlistItems: updatedList,
-    wishlistLength: updatedList.length
-  }
-  dispatch(updateWishlistCreator(dataToAdd))
+  dispatch(updateWishlistCreator(updatedList))
 }
 
 export const compareLSItemsAndDBItems = () => async (dispatch) => {
@@ -119,11 +110,8 @@ export const compareLSItemsAndDBItems = () => async (dispatch) => {
     const check = Boolean(uniqueList.find((item) => item.itemNo === el.itemNo))
     if (!check) uniqueList.push(el)
   })
-  const dataToAdd = {
-    wishlistItems: uniqueList,
-    wishlistLength: uniqueList.length
-  }
-  dispatch(updateWishlistCreator(dataToAdd))
+  
+  dispatch(updateWishlistCreator(uniqueList))
 
   const updatedItems = {
     products: uniqueList

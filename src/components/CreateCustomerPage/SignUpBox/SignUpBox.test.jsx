@@ -1,17 +1,13 @@
 import React from 'react'
-import '@testing-library/jest-dom/extend-expect'
 import { render } from '@testing-library/react'
 import { HashRouter as Router } from 'react-router-dom'
+import { machMedia } from '../../../mocks/matchMedia.mock'
 import SignUpBox from './SignUpBox'
 
 describe('All tests for SignUpBox', () => {
-  window.matchMedia = window.matchMedia || function () {
-    return {
-      addListener: jest.fn(),
-      removeListener: jest.fn(),
-    }; // обходной путь поскольку window не поддерживает matchMedia.
-  };
-
+  beforeEach(() => {
+    machMedia()
+  })
   test('SignUpBox render test', () => {
     render(
       <Router>

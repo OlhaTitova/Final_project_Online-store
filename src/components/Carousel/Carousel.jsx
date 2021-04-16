@@ -5,7 +5,6 @@ import { StyledCarousel } from './StyledCarousel'
 import { Wrapper } from '../common/Wrapper'
 import { SliderArrowLeft } from '../common/SliderArrowLeft'
 import { SliderArrowRight } from '../common/SliderArrowRight'
-import SpinAnimation from '../SpinAnimation/SpinAnimation'
 
 const Carousel = ({
   carouselSettings, children, hideArrows, moveBottomDots
@@ -22,7 +21,6 @@ const Carousel = ({
   
   return (
     <Wrapper>
-      {!children.length && <SpinAnimation width="100%" height="30vh" />}
       <StyledCarousel ref={ref} {...carouselSettings} moveBottomDots={moveBottomDots}>
         {children}
       </StyledCarousel>

@@ -1,6 +1,6 @@
 import React from 'react'
-import '@testing-library/jest-dom/extend-expect'
 import { render } from '@testing-library/react'
+import { shallow } from 'enzyme'
 import Carousel from './Carousel'
 
 describe('All tests for Carousel', () => {
@@ -24,5 +24,16 @@ describe('All tests for Carousel', () => {
     )
     expect(getAllByText('Some children')).toBeDefined()
     expect(getAllByText('Some children')).toBeTruthy()
+  })
+  
+  test('Check is carousel has a dots', () => {
+    const result = shallow(
+      <Carousel carouselSettings={{ dots: true }}>
+        <div>Some children</div>
+        <div>Some children</div>
+        <div>Some children</div>
+      </Carousel>
+    )
+    expect(result.find('ul .slick-dots')).toBeDefined()
   })
 })

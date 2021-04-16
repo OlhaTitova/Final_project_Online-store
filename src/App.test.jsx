@@ -1,33 +1,31 @@
 import React from 'react'
-import '@testing-library/jest-dom/extend-expect'
-import { render } from '@testing-library/react'
 import { HashRouter as Router } from 'react-router-dom'
 import { Provider } from 'react-redux'
+import {render} from '@testing-library/react'
+import axios from 'axios'
 import { store } from './store/index'
 import App from './App'
+import { machMedia } from './mocks/matchMedia.mock'
 
-test('App render test', () => {
-  // Поскольку JSDOM не поддерживает, window.matchMedia
-  // В документации Jest теперь есть "официальный" обходной путь
-  Object.defineProperty(window, 'matchMedia', {
-    writable: true,
-    value: jest.fn().mockImplementation((query) => ({
-      matches: false,
-      media: query,
-      onchange: null,
-      addListener: jest.fn(), // Deprecated
-      removeListener: jest.fn(), // Deprecated
-      addEventListener: jest.fn(),
-      removeEventListener: jest.fn(),
-      dispatchEvent: jest.fn(),
-    })),
-  });
+describe('App', () => {
+  beforeEach(() => {
+    machMedia()
 
-  render(
-    <Provider store={store}>
-      <Router>
-        <App />
-      </Router>
-    </Provider>
-  )
-})
+    axios.get.mockReturnValue(Promise.resolve({
+      status: 200,
+      data: {}
+    }))
+  })
+
+  it('render', () => {
+    const {asFragment} = render(
+      <Provider store={store}>
+        <Router>
+          <App />
+        </Router>
+      </Provider>
+    )
+    
+    expect(asFragment()).toMatchSnapshot()
+  })
+});

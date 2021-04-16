@@ -11,14 +11,14 @@ const mapStateToProps = (state) => ({
   formId: state.dashBoardModal.formId,
 })
 const Modal = connect(mapStateToProps, { setHideModal })(({
-  show, setHideModal, formId, setInfo
+  show, setHideModal, formId
 }) => {
   const checkForIdtoRender = (id) => {
     switch (id) {
       case 'setInfo':
         return {
           title: 'Change your contact information',
-          form: <FormInfoChange setInfo={setInfo} />
+          form: <FormInfoChange />
         }
         
       case 'setPassword':
@@ -26,7 +26,6 @@ const Modal = connect(mapStateToProps, { setHideModal })(({
           title: 'Change your password',
           form: <PasswordChange />
         }
-
       default:
         return ''
     }
@@ -41,6 +40,7 @@ const Modal = connect(mapStateToProps, { setHideModal })(({
       okButtonProps={{style: {display: 'none'}}}
       visible={show}
       onCancel={setHideModal}
+      destroyOnClose
     >
       {form}
     </StyledAntModal>
@@ -50,7 +50,6 @@ Modal.propTypes = {
   show: PropTypes.bool,
   setHideModal: PropTypes.func,
   formId: PropTypes.string,
-  setInfo: PropTypes.func.isRequired,
 }
 
 export default Modal;

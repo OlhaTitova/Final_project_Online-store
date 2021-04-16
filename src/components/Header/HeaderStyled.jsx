@@ -34,6 +34,7 @@ export const ShaduleArrowContainer = styled.div`
   align-items: center;
   @media(min-width: ${forTablet.minWidth}px) {
     flex: 3;
+    margin-left: 20px;
   }
   @media(min-width: ${forDesktop.minWidth}px) {
     flex: 0.4;
@@ -129,7 +130,6 @@ export const SearchAndItemsBlock = styled.div`
   justify-content: space-around;
   align-items: center;
   @media(min-width: ${forDesktop.minWidth}px) {
-    border-bottom: 1px solid #CCCCCC;
     background-color: white;
     max-width: 1200px;
     width: 90%;
@@ -294,4 +294,14 @@ export const SearchOutlinedStyledMedia = styled(SearchOutlinedStyled)`
     padding-left: 20px;
     font-size: 22px;
   }
+`;
+export const StrechedContainer = styled.div`
+  background: white;
+  width: 100%;
+  border-bottom: 1px solid #CCCCCC;
+`;
+
+export const Wrapper = styled.div`
+display: flex;
+justify-content: space-between;
 `;

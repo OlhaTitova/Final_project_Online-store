@@ -1,25 +1,18 @@
-import React from 'react';
-import '@testing-library/jest-dom/extend-expect';
-import { render } from '@testing-library/react';
+import React from 'react'
+import { render } from '@testing-library/react'
+import { Provider } from 'react-redux'
+import { shallow } from 'enzyme';
 import { HashRouter as Router } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import { shallow, configure } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16'
-import { store } from '../../store/index';
-import DashBoard from './DashBoard';
+import { machMedia } from '../../mocks/matchMedia.mock';
+import DashBoard from './DashBoard'
+import { mockCustomer } from '../../mocks/customer';
+import { store } from '../../store/index'
 
 describe('Render DashBoard component', () => {
-  configure({ adapter: new Adapter() })
-
-  test('DashBoard', () => {
-    render(
-      <Provider store={store}>
-        <Router>
-          <DashBoard />
-        </Router>
-      </Provider>
-    )
+  beforeEach(() => {
+    machMedia()
   })
+
   test('Check if animation renders', () => {
     const results = shallow(
       <Provider store={store}>
@@ -29,26 +22,17 @@ describe('Render DashBoard component', () => {
       </Provider>,
       false
     )
-    expect(results.find('div')).toBeDefined()
+    expect(results.find('svg')).toBeDefined()
   })
-  test('check if component about info mounted after animation', () => {
-    const results = shallow(
+  test('shaphot test', () => {
+    const { asFragment } = render(
       <Provider store={store}>
-        <Router>
-          <DashBoard />
-        </Router>
-      </Provider>, true
+        <DashBoard
+          customerInfo={mockCustomer}
+          isLoading={false}
+        />
+      </Provider>
     )
-    expect(results.text().includes('Account Information')).toBeDefined()
-  })
-  test('check if component dash mounted after animation', () => {
-    const results = shallow(
-      <Provider store={store}>
-        <Router>
-          <DashBoard />
-        </Router>
-      </Provider>, true
-    )
-    expect(results.text().includes('My Dashboard')).toBeDefined()
+    expect(asFragment()).toMatchSnapshot()
   })
 })

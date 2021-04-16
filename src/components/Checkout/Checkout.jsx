@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import { selectIsLogin } from '../../store/auth/reducer';
@@ -10,11 +11,11 @@ import FormCheckout from './FormCheckout/FormCheckout';
 import OrderSummary from './OrderSummary/OrderSummary';
 import { WrapperFormCheckout } from './StyledCheckout';
 
-const mapStateToProps = (state) => ({
-  isLogin: selectIsLogin(state)
-})
+export const CheckoutComponent = ({isLogin}) => {
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
 
-const Checkout = connect(mapStateToProps, null)(({isLogin}) => {
   const history = useHistory()
 
   const onClickSignIn = () => {
@@ -63,6 +64,16 @@ const Checkout = connect(mapStateToProps, null)(({isLogin}) => {
       </RowRevers>
     </ContainerCart>
   )
+}
+
+const mapStateToProps = (state) => ({
+  isLogin: selectIsLogin(state)
 })
+
+const Checkout = connect(mapStateToProps, null)(CheckoutComponent)
+
+CheckoutComponent.propTypes = {
+  isLogin: PropTypes.bool.isRequired
+}
 
 export default Checkout

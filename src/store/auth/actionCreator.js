@@ -1,5 +1,5 @@
 import {
-  CLEAR_REFRESH_TIMER, LOG_IN, LOG_OUT, SET_REFRESH_TIMER
+  LOG_IN, LOG_OUT
 } from './actionType';
 
 export const logIn = () => ({
@@ -8,13 +8,4 @@ export const logIn = () => ({
 
 export const logOut = () => ({
   type: LOG_OUT,
-})
-
-export const setRefreshTimer = (payload) => ({
-  type: SET_REFRESH_TIMER,
-  payload
-})
-
-export const clearRefreshTimer = () => ({
-  type: CLEAR_REFRESH_TIMER
 })

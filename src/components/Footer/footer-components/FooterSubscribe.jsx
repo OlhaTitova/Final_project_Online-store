@@ -3,8 +3,8 @@ import 'antd/dist/antd.css';
 import { Form } from 'antd'
 import StyledButton from '../../common/Buttons/StyledButton'
 import { StyledInput, StyledForm } from './footer-style-components/Styled'
-import createNewSubscribe from '../../../store/createSubscribe/middleware'
-import { letterHtmlSubscribe, letterSubjectSubscribe } from '../../../store/general';
+import createNewSubscribe from '../../../store/subscriptions/middleware'
+import { letterHtmlSubscribe, letterSubjectSubscribe } from '../../../utils/constants';
 
 const FormSubscribe = () => {
   const [form] = StyledForm.useForm()

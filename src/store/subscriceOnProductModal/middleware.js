@@ -1,4 +1,4 @@
 import { setShowModal, setHideModal } from './actionCreator'
 
-export const showModal = () => (dispatch) => dispatch(setShowModal())
-export const hideModal = () => (dispatch) => dispatch(setHideModal())
+export const showSubscribeModal = () => (dispatch) => dispatch(setShowModal())
+export const hideSubscribeModal = () => (dispatch) => dispatch(setHideModal())

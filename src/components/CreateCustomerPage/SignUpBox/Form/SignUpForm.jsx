@@ -1,4 +1,3 @@
-/* eslint-disable prefer-promise-reject-errors */
 /* eslint-disable react/jsx-props-no-spreading */
 import React from 'react'
 import { useHistory } from 'react-router-dom';
@@ -6,47 +5,23 @@ import { Input } from 'antd';
 import StyledFrom from './StylesSignUpForm'
 import { createCustomer } from '../../../../store/customer/middleware'
 import StyledButton from '../../../common/Buttons/StyledButton'
+import {
+  validName,
+  validLogin,
+  validPassword,
+  validTelephone
+} from '../../../../utils/constants'
+import {
+  formLayout,
+  passwordMatchValidator,
+  getCredentials
+} from './utils'
 
 const SignUpForm = () => {
   const history = useHistory()
   const onSubmit = (values) => {
-    const credentials = Object.entries(values).reduce((acc, [key, value]) => {
-      if (key !== 'confrimPassword' && value !== undefined) {
-        acc[key] = value
-        return acc
-      }
-      return acc
-    }, {})
-    credentials.isAdmin = true
-
-    createCustomer(credentials, history)
+    createCustomer(getCredentials(values), history)
   };
-  
-  const formLayout = {
-    labelCol: {
-      span: 10,
-      offset: 0
-    },
-    wrapperCol: {
-      span: 14,
-    },
-    
-  }
-  const tailLayout = {
-    wrapperCol: { offset: 10 },
-  };
-  
-  const passwordMatchValidator = ({ getFieldValue }) => {
-    const isPasswordsMatch = (_, value) => {
-      if (getFieldValue('password') !== value) {
-        return Promise.reject('Passwords is not match.')
-      }
-      return Promise.resolve()
-    }
-    return {
-      validator: isPasswordsMatch
-    }
-  }
 
   return (
     <StyledFrom
@@ -67,17 +42,17 @@ const SignUpForm = () => {
             message: 'Please input your name.',
           },
           {
-            pattern: /^[a-zа-яіїё]+$/i,
+            pattern: validName,
             message: 'Allowed characters is a-z, а-я.'
           },
           {
             min: 2,
             max: 25,
             message: 'First Name must be beetwen 2 and 25 characters.'
-          }
+          },
         ]}
       >
-        <Input />
+        <Input placeholder="Your name" />
       </StyledFrom.Item>
 
       <StyledFrom.Item
@@ -86,20 +61,20 @@ const SignUpForm = () => {
         rules={[
           {
             required: true,
-            message: 'Please input your Surename.',
+            message: 'Please input your last name.',
           },
           {
-            pattern: /^[a-zа-яіїё]+$/i,
+            pattern: validName,
             message: 'Allowed characters is a-z, а-я.'
           },
           {
             min: 2,
             max: 25,
             message: 'Last Name must be beetwen 2 and 25 characters.'
-          }
+          },
         ]}
       >
-        <Input />
+        <Input placeholder="Your last name" />
       </StyledFrom.Item>
 
       <StyledFrom.Item
@@ -112,19 +87,16 @@ const SignUpForm = () => {
           },
           {
             min: 3,
+            max: 10,
             message: 'Login must be between 3 and 10 characters.',
           },
           {
-            max: 10,
-            message: 'Login must be between 3 and 10 characters.'
-          },
-          {
-            pattern: /^[a-z0-9]+$/i,
+            pattern: validLogin,
             message: 'Allowed characters is a-z, 0-9.'
           },
         ]}
       >
-        <Input />
+        <Input placeholder="Your login" />
       </StyledFrom.Item>
       
       <StyledFrom.Item
@@ -141,7 +113,7 @@ const SignUpForm = () => {
           },
         ]}
       >
-        <Input />
+        <Input placeholder="mail@mail.com" />
       </StyledFrom.Item>
 
       <StyledFrom.Item
@@ -154,19 +126,16 @@ const SignUpForm = () => {
           },
           {
             min: 8,
-            message: 'Password must be between 8 and 30 characters'
-          },
-          {
             max: 30,
-            message: 'Password must be between 8 and 30 characters'
+            message: 'Password must be between 8 and 30 characters.'
           },
           {
-            pattern: /^[a-z0-9]+$/i,
+            pattern: validPassword,
             message: 'Allowed characters is a-z, 0-9.'
           },
         ]}
       >
-        <Input.Password />
+        <Input.Password placeholder="Password" />
       </StyledFrom.Item>
 
       <StyledFrom.Item
@@ -180,10 +149,28 @@ const SignUpForm = () => {
           passwordMatchValidator,
         ]}
       >
-        <Input.Password />
+        <Input.Password placeholder="Confrim password" />
       </StyledFrom.Item>
 
-      <StyledFrom.Item {...tailLayout}>
+      <StyledFrom.Item
+        label="Phone number"
+        name="telephone"
+        rules={[
+          {
+            pattern: validTelephone,
+            message: 'Phone number must start with "+380", allowed characters is 0-9.'
+          },
+          {
+            min: 13,
+            max: 13,
+            message: 'Phone number must contain 12 numbers.'
+          }
+        ]}
+      >
+        <Input placeholder="Phone number 380 XX XXX XXXXX" />
+      </StyledFrom.Item>
+
+      <StyledFrom.Item>
         <StyledButton size="lg" shape="round" htmlType="submit">Submit</StyledButton>
       </StyledFrom.Item>
 

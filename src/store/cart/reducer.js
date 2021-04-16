@@ -10,7 +10,9 @@ import {
   GET_SHIPPING_COST,
   GET_CUSTOMER,
   GET_ORDER,
-  CLEAR_ORDER
+  CLEAR_ORDER,
+  START_LOADING,
+  STOP_LOADING
 } from './actionType';
 
 export const MODULE_NAME = 'cart';
@@ -22,6 +24,7 @@ export const selectCities = (state) => state[MODULE_NAME].cities;
 export const selectBranches = (state) => state[MODULE_NAME].branches;
 export const selectShippingCost = (state) => state[MODULE_NAME].shippingCost;
 export const selectOrder = (state) => state[MODULE_NAME].order;
+export const selectIsLoading = (state) => state[MODULE_NAME].isLoading;
 
 const initialState = {
   summary: 0,
@@ -31,6 +34,7 @@ const initialState = {
   shippingCost: 0,
   order: {},
   productCartCount: 0,
+  isLoading: false,
   cities: [
     {
       CityName: 'Kyiv',
@@ -60,8 +64,12 @@ export const cartReducer = (state = initialState, {type, payload}) => {
     (sum, curr) => sum + curr.cartQuantity * curr.product.currentPrice,
     0
   )
+  const totalCountInCartOneProduct = (payload) => payload.products.reduce(
+    (sum, curr) => sum + curr.cartQuantity,
+    0
+  )
+    
   switch (type) {
-    case ADD_TO_CART:
     case DECREASE_QUANTITY:
     case INCREASE_QUANTITY:
     case REMOVE_FROM_CART:
@@ -69,20 +77,15 @@ export const cartReducer = (state = initialState, {type, payload}) => {
         ...state,
         products: payload.products,
         summary: summaryTotalItems(payload),
-        productCartCount: payload.products.reduce(
-          (sum, curr) => sum + curr.cartQuantity,
-          0
-        ),
+        productCartCount: totalCountInCartOneProduct(payload),
       }
+    case ADD_TO_CART:
     case SET_CART:
       return {
         ...state,
         products: payload.products,
         customer: payload.customerId || {},
-        productCartCount: payload.products.reduce(
-          (sum, curr) => sum + curr.cartQuantity,
-          0
-        ),
+        productCartCount: totalCountInCartOneProduct(payload),
         summary: summaryTotalItems(payload)
       }
     case SET_CART_SUMMARY:
@@ -123,6 +126,16 @@ export const cartReducer = (state = initialState, {type, payload}) => {
       return {
         ...state,
         order: {},
+      }
+    case START_LOADING:
+      return {
+        ...state,
+        isLoading: true,
+      }
+    case STOP_LOADING:
+      return {
+        ...state,
+        isLoading: false,
       }
     default:
       return state

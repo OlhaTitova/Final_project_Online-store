@@ -4,6 +4,8 @@ import axios from 'axios'
 import {
   addCartToLS, decreaseQuantityLS, getCartLS, increaseQuantityLS, removeFromCartLS
 } from '../../utils/cartLS'
+import { DOMAIN, getHeaders } from '../../utils/constants'
+import {getOrders} from '../customer/middleware'
 import {
   setCart,
   decreaseQuantityCreator,
@@ -11,23 +13,34 @@ import {
   removeFromCartCreator,
   clearCartCreator,
   increaseQuantityCreator,
-  getBranches,
   getShippingCostCreator,
   getOrderCreator,
-  clearOrderCreator
+  clearOrderCreator,
+  startLoading,
+  stopLoading,
+  getBranchesCreator,
 } from './actionCreator'
-import { DOMAIN, getHeaders } from '../general'
 
 const BASE_ENDPOINT = `${DOMAIN}/cart`
 
 export const addToCart = (product, quantity) => (dispatch, getStore) => {
   const { cart: { products }, auth: {isLogin} } = getStore()
   const productId = product._id
-  let updatedCart = []
-  const itemInCartAndLS = products ? products.find((el) => el.product._id === productId) : null
+  const updatedCart = []
+  let showMessage = true
+
+  const itemInCartAndLS = products.find((el) => el.product._id === productId)
   if (itemInCartAndLS) {
-    updatedCart = products.map((el) => {
+    const checked = products.map((el) => {
       if (el.product._id === itemInCartAndLS.product._id) {
+        if (el.cartQuantity + quantity > el.product.quantity) {
+          message.warning('The quantity has been automatically adjusted to the stock quantity')
+          showMessage = false
+          return {
+            ...el,
+            cartQuantity: el.product.quantity
+          }
+        }
         return {
           ...el,
           cartQuantity: el.cartQuantity + quantity
@@ -35,27 +48,28 @@ export const addToCart = (product, quantity) => (dispatch, getStore) => {
       }
       return el
     })
+    updatedCart.push(...checked)
   } else {
-    updatedCart = [
+    updatedCart.push(
       ...products,
       {
         product: productId,
         cartQuantity: quantity,
       }
-    ]
+    )
   }
   if (isLogin) {
     const headers = getHeaders()
     axios.put(BASE_ENDPOINT, {products: updatedCart}, { headers })
       .then((updatedCart) => {
         dispatch(addToCartCreator(updatedCart.data));
-        message.success('Product has been added to cart')
+        if (showMessage) message.success('Product has been added to cart')
       })
       .catch((error) => error.response)
   } else {
     addCartToLS(product, quantity)
     dispatch(setCart({products: getCartLS()}))
-    message.success('Product has been added to cart')
+    if (showMessage) message.success('Product has been added to cart')
   }
 }
 
@@ -132,13 +146,13 @@ export const clearCart = () => (dispatch, getStore) => {
   }
 }
 
-export const getCity = (props) => (dispatch) => {
+export const getBranches = (cityRef) => (dispatch) => {
   axios.post('https://api.novaposhta.ua/v2.0/json/', {
     modelName: 'AddressGeneral',
     calledMethod: 'getWarehouses',
     methodProperties: {
       Language: 'ru',
-      CityRef: props,
+      CityRef: cityRef,
     },
     apiKey: '469ae707669208ac6f2d113fc7edbe13'
   })
@@ -147,7 +161,7 @@ export const getCity = (props) => (dispatch) => {
         branchName: item.DescriptionRu,
         branchRef: item.Ref
       }))
-      dispatch(getBranches(dataBranches))
+      dispatch(getBranchesCreator(dataBranches))
     })
     .catch((error) => error.response)
 }
@@ -181,12 +195,13 @@ export const getShippingCost = (recipientCityRef) => (dispatch) => {
     .catch((error) => error.response)
 }
 
-export const PlaceOrder = (
-  products, isLogin, values, customer, shippingCost, valuePaymentInfo,
-) => (dispatch) => {
+export const placeOrder = (
+  products, values, customer, shippingCost, valuePaymentInfo
+) => (dispatch, getStore) => {
+  const {auth: {isLogin} } = getStore()
+  dispatch(startLoading())
   dispatch(clearOrderCreator())
-  // eslint-disable-next-line prefer-const
-  let body = {
+  const body = {
     canceled: false,
     deliveryAddress: JSON.stringify({
       country: values.country,
@@ -213,8 +228,12 @@ export const PlaceOrder = (
     .then((newOrder) => {
       dispatch(getOrderCreator(newOrder.data.order))
       dispatch(clearCart())
+      dispatch(getOrders())
     })
     .catch((err) => err.response)
+    .finally(() => {
+      dispatch(stopLoading())
+    })
 }
 
 export const getCartServer = async () => {
